@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="bottom_navigation_style" parent="Widget.Design.BottomNavigationView">
+        <item name="itemIconTint">@drawable/nav_bar_selected_item</item>
+        <item name="itemTextColor">@drawable/nav_bar_selected_item</item>
+    </style>
 
     <style name="custom_button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/rounded_button</item>

@@ -18,7 +18,7 @@ class StartActivity : AppCompatActivity() {
         val handlerThread = HandlerThread("SplashHandlerThread", -10)
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
-        val SPLASH_TIME_OUT = 3000L;
+        val SPLASH_TIME_OUT = 2000L;
         handler.postDelayed({
             val intent = Intent(this@StartActivity, MainActivity::class.java)
             startActivity(intent)
