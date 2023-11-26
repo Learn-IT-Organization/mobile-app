@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black_blue">#040720</color>
+    <color name="night_blue">#151B54</color>
+    <color name="blue">#0C4C85</color>
+    <color name="iceberg">#56A5EC</color>
+    <color name="mint_green">#1BA293</color>
+    <color name="dark_lavender_purple">#9065BE</color>
+    <color name="medium_lavender_purple">#8F77A8</color>
+    <color name="light_lavender_purple">#B8A6CB</color>
+    <color name="pastel_pink">#BB88AA</color>
+    <color name="warm_pink">#DCADAD</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="metallic_silver">#BCC6CC</color>
+    <color name="gray">#676767</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="yellow">#FFEA00</color>
 </resources>
