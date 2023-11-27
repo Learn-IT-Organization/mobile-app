@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Login -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="login_text_size">54sp</dimen>
+    <dimen name="margin_top_login">120dp</dimen>
+    <dimen name="minimum_height">48dp</dimen>
+    <dimen name="margin_top_button">30dp</dimen>
+    <dimen name="login_button_size">19sp</dimen>
+    <dimen name="login_button_height">60dp</dimen>
+
+</resources>

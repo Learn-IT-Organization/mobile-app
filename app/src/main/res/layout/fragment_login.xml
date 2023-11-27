@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/fab_margin"
+    android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/source_code_pro_italic"
+        android:text="@string/login"
+        android:textAlignment="center"
+        android:textSize="@dimen/login_text_size"
+        />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginText"
+        android:hint="@string/username"
+        android:inputType="text"
+        android:autofillHints=""
+        android:minHeight="@dimen/minimum_height"
+        android:layout_marginTop="@dimen/margin_top_login" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsername"
+        android:layout_marginTop="@dimen/margin_top_button"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="@dimen/minimum_height"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:layout_below="@id/editTextPassword"
+        android:layout_marginTop="@dimen/margin_top_button"
+        android:textSize="@dimen/login_button_size"
+        android:text="@string/login" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonLogin"
+        android:layout_marginTop="@dimen/margin_top_button"
+        android:fontFamily="@font/source_code_pro_light"
+        android:textAlignment="center"
+        android:textColor="@color/pastel_pink"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
