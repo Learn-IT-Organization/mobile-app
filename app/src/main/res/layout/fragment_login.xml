@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        style="@style/subtitle_style"
         android:fontFamily="@font/source_code_pro_italic"
         android:text="@string/login"
         android:textAlignment="center"
@@ -41,20 +42,40 @@
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
+        android:textColor="@color/white"
         android:layout_height="@dimen/login_button_height"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="@dimen/margin_top_button"
         android:textSize="@dimen/login_button_size"
         android:text="@string/login" />
 
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLogin"
-        android:layout_marginTop="@dimen/margin_top_button"
-        android:fontFamily="@font/source_code_pro_light"
-        android:textAlignment="center"
-        android:textColor="@color/pastel_pink"
-        android:layout_centerHorizontal="true" />
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/buttonLogin"
+        android:gravity="center_horizontal"
+        >
+
+        <TextView
+            android:id="@+id/textViewRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?"
+            style="@style/paragraph_style"
+            />
+
+        <TextView
+            android:id="@+id/singUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            style="@style/paragraph_style"
+            android:textSize="15dp"
+            android:textColor="@color/dark_lavender_purple"
+            android:clickable="true"
+            />
+    </LinearLayout>
 </RelativeLayout>
