@@ -7,4 +7,12 @@
         <item name="colorSurface">@color/pastel_purple</item>
         <item name="colorOnSurface">@color/gray</item>
     </style>
+
+    <style name="Theme.LearnIT.NoActionBar">
+        <!-- No action bar theme for splash screen and login -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

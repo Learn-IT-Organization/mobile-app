@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Base.Theme.LearnIT" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.LearnIT" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/light_lavender_purple</item>
         <item name="colorPrimaryDark">@color/metallic_silver</item>
         <item name="colorAccent">@color/warm_pink</item>
