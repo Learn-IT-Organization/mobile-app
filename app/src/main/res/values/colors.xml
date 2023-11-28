@@ -4,12 +4,15 @@
     <color name="night_blue">#151B54</color>
     <color name="blue">#0C4C85</color>
     <color name="iceberg">#56A5EC</color>
+    <color name="light_blue">#68A5C7</color>
     <color name="mint_green">#1BA293</color>
     <color name="dark_lavender_purple">#9065BE</color>
     <color name="medium_lavender_purple">#8F77A8</color>
     <color name="light_lavender_purple">#B8A6CB</color>
+    <color name="pastel_purple">#D4C1E8</color>
     <color name="pastel_pink">#BB88AA</color>
     <color name="warm_pink">#DCADAD</color>
+    <color name="pink">#FFC8DD</color>
     <color name="white">#FFFFFFFF</color>
     <color name="selected_color">#FFFFFF</color>
     <color name="unselected_color">#666666</color>

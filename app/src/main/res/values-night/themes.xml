@@ -7,5 +7,4 @@
         <item name="colorSurface">@color/dark_lavender_purple</item>
         <item name="colorOnSurface">@color/white</item>
     </style>
-
 </resources>
