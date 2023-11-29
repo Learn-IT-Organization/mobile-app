@@ -1,4 +1,4 @@
-package com.example.learnit.data.user.login
+package com.example.learnit.data.user.model
 
 import kotlinx.serialization.SerialName
 
