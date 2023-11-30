@@ -10,12 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
-import com.example.learnit.ui.feature.home.viewmodel.HomeFragmentViewModel
+import com.example.learnit.databinding.FragmentHomeBinding
+import com.example.learnit.databinding.FragmentLoginBinding
+import com.example.learnit.ui.feature.home.viewModel.HomeFragmentViewModel
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private val viewModel: HomeFragmentViewModel by viewModels()
+
+
+    private var _binding: FragmentHomeBinding? = null
+
+    private val binding get() = _binding!!
 
     companion object {
         val TAG: String = HomeFragment::class.java.simpleName
@@ -26,11 +34,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.register.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
+        }
         observeState()
     }
 
