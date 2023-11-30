@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="user_level_array">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
+</resources>

@@ -4,5 +4,12 @@
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-
+    <string name="sign_up">Sign up</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="choose_gender">Choose gender</string>
+    <string name="choose_user_level">Choose user level</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
