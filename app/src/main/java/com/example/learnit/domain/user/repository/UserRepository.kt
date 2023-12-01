@@ -1,4 +1,4 @@
-package com.example.learnit.domain.user
+package com.example.learnit.domain.user.repository
 
 import com.example.learnit.ui.feature.home.model.UserModel
 

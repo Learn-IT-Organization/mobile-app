@@ -20,7 +20,12 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.learnit.ui.feature.settings.fragment.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+
+        <action
+            android:id="@+id/action_SettingsFragment_to_LoginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
@@ -31,6 +36,10 @@
         android:id="@+id/notificationsFragment"
         android:name="com.example.learnit.ui.feature.notifications.fragment.NotificationsFragment"
         android:label="NotificationsFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.threess.summership.ui.feature.login.fragment.LoginFragment"
+        android:label="LoginFragment" />
 
 
 </navigation>

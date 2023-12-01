@@ -1,38 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.StartActivity"
-    android:background="@drawable/splash_bg">
+    android:id="@+id/fragment_container"
+    tools:context=".ui.activities.StartActivity">
 
-    <ImageView
-        android:id="@+id/splash_image"
-        android:layout_width="250dp"
-        android:layout_height="360dp"
-        android:src="@drawable/robot_splash"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
-
-    <TextView
-        android:id="@+id/splash_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="155dp"
-        android:fontFamily="@font/black_ops_one"
-        android:text="LEARN IT"
-        android:textColor="@color/dark_lavender_purple"
-        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splash_image" />
-        />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/start_nav_graph" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

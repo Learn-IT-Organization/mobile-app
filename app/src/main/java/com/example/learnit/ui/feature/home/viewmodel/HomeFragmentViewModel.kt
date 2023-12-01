@@ -3,7 +3,7 @@ package com.example.learnit.ui.feature.home.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.domain.user.UserRepository
+import com.example.learnit.domain.user.repository.UserRepository
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.home.model.UserModel
 import kotlinx.coroutines.CoroutineExceptionHandler
