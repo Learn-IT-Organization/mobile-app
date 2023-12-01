@@ -1,9 +1,9 @@
 package com.example.learnit.data.user.login.mapper
 
-import com.example.learnit.data.user.login.model.UserData
+import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.ui.feature.home.model.UserModel
 
-fun UserData.mapToUser() = UserModel(
+fun LoggedUserData.mapToUser() = UserModel(
     userId = this.user_id,
     userRole = this.user_role,
     firstName = this.first_name,
@@ -14,4 +14,4 @@ fun UserData.mapToUser() = UserModel(
     userLevel = this.user_level
 )
 
-fun List<UserData>.mapToUserList() = map { it.mapToUser() }
+fun List<LoggedUserData>.mapToUserList() = map { it.mapToUser() }

@@ -22,4 +22,5 @@
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>
     <color name="yellow">#FFEA00</color>
+    <color name="colorError">#FF0000</color>
 </resources>

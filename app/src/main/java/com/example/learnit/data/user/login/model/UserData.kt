@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 //for testing only
 @Serializable
-data class UserData(
+data class LoggedUserData(
     @SerialName("user_id")
     val user_id: Int,
     @SerialName("user_role")
