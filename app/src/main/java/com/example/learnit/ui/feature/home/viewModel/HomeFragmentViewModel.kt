@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.home.viewmodel
+package com.example.learnit.ui.feature.home.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragmentViewModel : ViewModel() {
     private val repository: UserRepository = App.instance.getUserRepository()
-    var userList: List<UserModel> = mutableListOf()
+    private var userList: List<UserModel> = mutableListOf()
 
     companion object {
         val TAG = HomeFragmentViewModel::class.java.simpleName
@@ -22,7 +22,7 @@ class HomeFragmentViewModel : ViewModel() {
 
     sealed class UserPageState {
         object Loading : UserPageState()
-        data class Success(val brandData: List<UserModel>) : UserPageState()
+        data class Success(val userData: List<UserModel>) : UserPageState()
         data class Failure(val throwable: Throwable) : UserPageState()
     }
 
@@ -44,6 +44,7 @@ class HomeFragmentViewModel : ViewModel() {
                 mutableState.value = UserPageState.Success(userList)
                 for (user in userList) {
                     Log.d("HomeFragmentViewModel", "User: $user")
+
                 }
             } catch (e: Exception) {
                 Log.e("HomeFragmentViewModel", "Error fetching users: ${e.message}")

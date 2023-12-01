@@ -99,7 +99,7 @@
             android:textSize="15dp"
             android:textColor="@color/dark_lavender_purple"
             android:clickable="true"
-            />
+            android:focusable="true" />
     </LinearLayout>
 
     <TextView

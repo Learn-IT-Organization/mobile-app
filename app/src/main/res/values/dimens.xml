@@ -8,5 +8,8 @@
     <dimen name="margin_top_button">30dp</dimen>
     <dimen name="login_button_size">20sp</dimen>
     <dimen name="login_button_height">60dp</dimen>
-
+    <!-- Sign up -->
+    <dimen name="margin_top_sign_up">30dp</dimen>
+    <dimen name="margin_end_radio_buttons">50dp</dimen>
+    <dimen name="margin_top_radio_button">10dp</dimen>
 </resources>
