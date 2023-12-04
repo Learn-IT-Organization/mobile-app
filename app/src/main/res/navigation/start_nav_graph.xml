@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.threess.summership.ui.feature.login.fragment.LoginFragment"
+        android:name="com.example.learnit.ui.feature.login.fragment.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
 </navigation>
