@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
 import com.example.learnit.databinding.FragmentHomeBinding
-import com.example.learnit.databinding.FragmentLoginBinding
 import com.example.learnit.ui.feature.home.viewModel.HomeFragmentViewModel
 import kotlinx.coroutines.launch
 
@@ -41,9 +40,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.register.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
-        }
         observeState()
     }
 

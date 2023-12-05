@@ -1,4 +1,4 @@
-package com.threess.summership.ui.feature.login.fragment
+package com.example.learnit.ui.feature.login.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.example.learnit.R
 import com.example.learnit.databinding.FragmentLoginBinding
 import com.example.learnit.ui.activities.MainActivity
 import com.example.learnit.ui.feature.login.model.LoginModel
@@ -44,6 +46,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val loginButton = binding.buttonLogin.setOnClickListener {
             HandleLoginClick()
+        }
+        binding.singUpButton.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 

@@ -30,11 +30,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.learnit.ui.feature.home.fragment.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-    </fragment>
+        android:label="HomeFragment" />
 
     <fragment
         android:id="@+id/notificationsFragment"
@@ -42,12 +38,20 @@
         android:label="NotificationsFragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.threess.summership.ui.feature.login.fragment.LoginFragment"
-        android:label="LoginFragment" />
+        android:name="com.example.learnit.ui.feature.login.fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment2"
+            app:destination="@id/registerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.learnit.ui.feature.register.fragment.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
 </navigation>
