@@ -12,4 +12,6 @@
     <string name="already_account">Already have an account?</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="success_registration">Registration completed successfully!</string>
+    <string name="error_empty_fields">Please fill in all required fields.</string>
 </resources>

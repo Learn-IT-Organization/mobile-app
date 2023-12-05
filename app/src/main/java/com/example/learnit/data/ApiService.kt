@@ -4,7 +4,7 @@ import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.data.user.login.model.ResponseUserData
-import com.example.learnit.data.user.model.LoginData
+import com.example.learnit.data.user.login.model.LoginData
 import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.data.user.register.model.RegistrationResponseData
 

@@ -1,11 +1,8 @@
 package com.example.learnit.ui.feature.splash.fragment
 
-import android.animation.Animator
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.HandlerThread
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
-import com.example.learnit.databinding.ActivityStartBinding
 import com.example.learnit.databinding.FragmentSplashBinding
 import com.example.learnit.ui.activities.MainActivity
 import com.example.learnit.ui.feature.splash.viewModel.SplashViewModel
@@ -47,7 +43,7 @@ class SplashFragment : Fragment() {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+                findNavController().navigate(R.id.action_splashFragment_to_registerFragment)
             }
         }, 3000)
 

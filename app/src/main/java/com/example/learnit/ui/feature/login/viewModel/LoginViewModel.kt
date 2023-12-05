@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.ResponseData
-import com.example.learnit.data.user.model.LoginData
+import com.example.learnit.data.user.login.model.LoginData
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.login.model.LoginModel
 import kotlinx.coroutines.CoroutineExceptionHandler
