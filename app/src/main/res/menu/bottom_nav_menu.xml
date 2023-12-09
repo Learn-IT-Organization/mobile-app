@@ -5,7 +5,8 @@
         android:title="Home" />
     <item
         android:id="@+id/coursesFragment"
-        android:icon="dra"
+        android:icon="@drawable/nav_courses"
+        android:title="Courses" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/nav_settings"
