@@ -47,6 +47,7 @@ class LoginFragment : Fragment() {
         val loginButton = binding.buttonLogin.setOnClickListener {
             HandleLoginClick()
         }
+
         binding.singUpButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
