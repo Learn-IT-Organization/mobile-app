@@ -1,6 +1,7 @@
 package com.example.learnit.data
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import com.example.learnit.ui.App
 
@@ -52,5 +53,27 @@ object SharedPreferences {
             remove(Constants.ADMIN)
         }.apply()
     }
+    private const val PREFS_NAME = "LearnITPrefs"
+    private const val DARK_MODE_STATUS = "darkModeStatus"
 
+    private fun getSharedPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
+    fun getDarkModeStatus(context: Context): Boolean {
+        return getSharedPreferences(context).getBoolean(DARK_MODE_STATUS, false)
+    }
+
+    fun setDarkModeStatus(context: Context, isEnabled: Boolean) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putBoolean(DARK_MODE_STATUS, isEnabled)
+        editor.apply()
+    }
+
+    fun saveFontSize(context: Context, selectedFontSize: Int) {
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("fontSize", selectedFontSize)
+        editor.apply()
+    }
 }

@@ -17,6 +17,7 @@ class StartActivity : AppCompatActivity() {
     {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
+
         return setContentView(binding.root)
     }
 }
