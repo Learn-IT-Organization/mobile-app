@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HomeFragmentViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
     private val repository: UserRepository = App.instance.getUserRepository()
     private var userList: List<UserModel> = mutableListOf()
 
     companion object {
-        val TAG = HomeFragmentViewModel::class.java.simpleName
+        val TAG = HomeViewModel::class.java.simpleName
     }
 
     sealed class UserPageState {
@@ -43,11 +43,12 @@ class HomeFragmentViewModel : ViewModel() {
                 userList = repository.getUsers()
                 mutableState.value = UserPageState.Success(userList)
                 for (user in userList) {
-                    Log.d("HomeFragmentViewModel", "User: $user")
+                    Log.d(TAG, "User: $user")
 
                 }
             } catch (e: Exception) {
-                Log.e("HomeFragmentViewModel", "Error fetching users: ${e.message}")
+                Log.e(TAG, "Error fetching users: ${e.message}")
+
                 mutableState.value = UserPageState.Failure(e)
             }
         }

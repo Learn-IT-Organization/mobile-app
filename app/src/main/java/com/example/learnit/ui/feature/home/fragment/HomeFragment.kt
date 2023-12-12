@@ -10,14 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.example.learnit.R
 import com.example.learnit.databinding.FragmentHomeBinding
-import com.example.learnit.ui.feature.home.viewModel.HomeFragmentViewModel
+import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-    private val viewModel: HomeFragmentViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -48,15 +46,15 @@ class HomeFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
-                        is HomeFragmentViewModel.UserPageState.Loading -> {
+                        is HomeViewModel.UserPageState.Loading -> {
                             Log.d(TAG, "Loading users...")
                         }
 
-                        is HomeFragmentViewModel.UserPageState.Success -> {
+                        is HomeViewModel.UserPageState.Success -> {
                             Log.d(TAG, "Users loaded")
                         }
 
-                        is HomeFragmentViewModel.UserPageState.Failure -> {
+                        is HomeViewModel.UserPageState.Failure -> {
                             Log.e(TAG, "Error loading users: ${state.throwable}")
                         }
 
