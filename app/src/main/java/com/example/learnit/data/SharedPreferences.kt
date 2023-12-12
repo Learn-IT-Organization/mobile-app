@@ -44,6 +44,10 @@ object SharedPreferences {
         return sharedPreferences.getBoolean(Constants.ADMIN, false)
     }
 
+    fun getStudent(): Boolean {
+        return sharedPreferences.getBoolean(Constants.STUDENT, false)
+    }
+
     fun clearUserData() {
         sharedPreferences.edit().apply {
             remove(Constants.TOKEN)

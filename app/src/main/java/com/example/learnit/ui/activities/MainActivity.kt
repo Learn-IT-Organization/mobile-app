@@ -29,14 +29,22 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeFragment)
                     true
                 }
+
+                R.id.coursesFragment -> {
+                    navController.navigate(R.id.coursesFragment)
+                    true
+                }
+
                 R.id.settingsFragment -> {
                     navController.navigate(R.id.settingsFragment)
                     true
                 }
+
                 R.id.notificationsFragment -> {
                     navController.navigate(R.id.notificationsFragment)
                     true
                 }
+
                 else -> false
             }
         }
