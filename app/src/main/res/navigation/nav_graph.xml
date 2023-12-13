@@ -30,7 +30,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.learnit.ui.feature.home.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_lessonsFragment"
+            app:destination="@id/lessonsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/notificationsFragment"
@@ -56,6 +60,11 @@
 
     <fragment
         android:id="@+id/coursesFragment"
-        android:name="com.example.learnit.ui.feature.courses.fragment.CoursesFragment"
+        android:name="com.example.learnit.ui.feature.courses.courses.fragment.CoursesFragment"
         android:label="CoursesFragment" />
+
+    <fragment
+        android:id="@+id/lessonsFragment"
+        android:name="com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment"
+        android:label="LessonsFragment" />
 </navigation>

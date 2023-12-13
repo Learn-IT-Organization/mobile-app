@@ -1,11 +1,11 @@
-package com.example.learnit.ui.feature.courses.viewModel
+package com.example.learnit.ui.feature.courses.courses.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.domain.course.repository.CourseRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.model.CourseModel
+import com.example.learnit.ui.feature.courses.courses.model.CourseModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

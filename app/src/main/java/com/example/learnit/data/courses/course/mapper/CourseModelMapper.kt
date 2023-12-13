@@ -1,7 +1,7 @@
-package com.example.learnit.data.courses.mapper
+package com.example.learnit.data.courses.course.mapper
 
-import com.example.learnit.data.courses.model.CourseData
-import com.example.learnit.ui.feature.courses.model.CourseModel
+import com.example.learnit.data.courses.course.model.CourseData
+import com.example.learnit.ui.feature.courses.courses.model.CourseModel
 
 fun CourseData.mapToCourse() = CourseModel(
     courseId = this.course_id,
