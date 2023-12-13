@@ -48,6 +48,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        binding.button.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_lessonsFragment)
+        }
     }
 
     private fun observeState() {

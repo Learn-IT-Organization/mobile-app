@@ -14,4 +14,6 @@
     <string name="female">Female</string>
     <string name="success_registration">Registration completed successfully!</string>
     <string name="error_empty_fields">Please fill in all required fields.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
