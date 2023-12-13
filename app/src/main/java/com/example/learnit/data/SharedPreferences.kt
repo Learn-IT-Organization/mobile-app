@@ -28,6 +28,9 @@ object SharedPreferences {
     fun storeAdmin(admin: Boolean) {
         sharedPreferences.edit().putBoolean(Constants.ADMIN, admin).apply()
     }
+    fun storeTeacher(teacher: Boolean) {
+        sharedPreferences.edit().putBoolean(Constants.TEACHER, teacher).apply()
+    }
 
     fun getToken(): String? {
         return sharedPreferences.getString(Constants.TOKEN, null)
@@ -43,6 +46,13 @@ object SharedPreferences {
 
     fun getAdmin(): Boolean {
         return sharedPreferences.getBoolean(Constants.ADMIN, false)
+    }
+
+    fun getTeacher(): Boolean {
+        return sharedPreferences.getBoolean(Constants.TEACHER, false)
+    }
+    fun getStudent(): Boolean {
+        return sharedPreferences.getBoolean(Constants.STUDENT, false)
     }
 
     fun clearUserData() {

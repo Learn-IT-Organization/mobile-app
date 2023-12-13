@@ -72,8 +72,8 @@ dependencies {
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-
     //MaterialDesign
     implementation("com.google.android.material:material:1.10.0")
-
+    //RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

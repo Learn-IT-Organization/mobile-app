@@ -35,6 +35,13 @@ class HomeFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.goToChapters.setOnClickListener {
+            Log.d("HomeFragment", "Button clicked")
+            findNavController().navigate(
+                R.id.action_HomeFragment_to_ChaptersFragment
+            )
+        }
         return binding.root
     }
 

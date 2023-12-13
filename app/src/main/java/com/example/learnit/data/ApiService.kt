@@ -1,5 +1,6 @@
 package com.example.learnit.data
 
+import com.example.learnit.data.chapters.model.ChaptersData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
@@ -11,6 +12,7 @@ import com.example.learnit.data.user.register.model.RegistrationResponseData
 import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -25,4 +27,7 @@ interface ApiService {
 
     @POST("register")
     suspend fun registerUser(@Body registerForm: RegistrationData): Response<RegistrationResponseData>
+
+    @GET("/chapters")
+    suspend fun getChapters(): Response<List<ChaptersData>>
 }
