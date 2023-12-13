@@ -1,5 +1,7 @@
 package com.example.learnit.data
 
+import com.example.learnit.data.chapters.model.ChaptersData
+import com.example.learnit.data.courses.model.CourseData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
