@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.chapters.repository.ChaptersRepositoryImpl
-import com.example.learnit.data.courses.repository.CourseRepositoryImpl
 import com.example.learnit.data.courses.course.repository.CourseRepositoryImpl
 import com.example.learnit.data.courses.lessons.repository.LessonRepositoryImpl
 import com.example.learnit.data.user.login.repository.LoginRepositoryImpl
@@ -41,7 +40,6 @@ class App : Application() {
     fun getRegisterRepository(): RegisterRepository = RegisterRepositoryImpl
     fun getCourseRepository(): CourseRepository = CourseRepositoryImpl
     fun getChaptersRepository(): ChaptersRepository = ChaptersRepositoryImpl
-
     fun getLessonRepository(): LessonRepository = LessonRepositoryImpl
 
 }

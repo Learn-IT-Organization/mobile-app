@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         binding.goToChapters.setOnClickListener {
             Log.d("HomeFragment", "Button clicked")
             findNavController().navigate(
-                R.id.action_HomeFragment_to_ChaptersFragment
+                R.id.action_homeFragment_to_chaptersFragment
             )
         }
         return binding.root

@@ -30,7 +30,14 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.learnit.ui.feature.home.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_chaptersFragment"
+            app:destination="@id/chaptersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lessonsFragment"
+            app:destination="@id/lessonsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/notificationsFragment"

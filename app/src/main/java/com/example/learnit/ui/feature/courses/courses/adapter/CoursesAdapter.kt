@@ -12,13 +12,7 @@ class CoursesAdapter(private val courses: List<CourseModel>) :
 
     inner class CourseViewHolder(private val binding: CourseListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            Log.d("CoursesAdapter", "ViewHolder created")
-        }
-
         fun bind(course: CourseModel) {
-            Log.d("CoursesAdapter", "Binding data: $course")
             binding.nameTextView.text = course.courseName
             binding.languageTextView.text = course.programmingLanguage
         }
@@ -37,9 +31,7 @@ class CoursesAdapter(private val courses: List<CourseModel>) :
     }
 
     override fun getItemCount(): Int {
-        val itemCount = courses.size
-        Log.d("CoursesAdapter", "Item count: $itemCount")
-        return itemCount
+        return courses.size
     }
 
 }
