@@ -1,6 +1,5 @@
 package com.example.learnit.data
 
-import com.example.learnit.data.chapters.model.ChaptersData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
@@ -27,6 +26,9 @@ interface ApiService {
 
     @POST("register")
     suspend fun registerUser(@Body registerForm: RegistrationData): Response<RegistrationResponseData>
+
+    @GET("/courses")
+    suspend fun getCourses(): Response<List<CourseData>>
 
     @GET("/chapters")
     suspend fun getChapters(): Response<List<ChaptersData>>
