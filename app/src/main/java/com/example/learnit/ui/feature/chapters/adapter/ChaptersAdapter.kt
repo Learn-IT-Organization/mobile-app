@@ -1,29 +1,31 @@
 package com.example.learnit.ui.feature.chapters.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.databinding.ChapterListItemBinding
 import com.example.learnit.ui.feature.chapters.model.ChapterModel
 
-class ChaptersAdapter(private val chapters: List<ChapterModel>) :
+class ChaptersAdapter(
+    private val chapters: List<ChapterModel>,
+    private val clickListener: OnChapterItemClickListener
+) :
     RecyclerView.Adapter<ChaptersAdapter.ChaptersViewHolder>() {
 
     inner class ChaptersViewHolder(private val binding: ChapterListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            Log.d("ChaptersAdapter", "ViewHolder created")
-        }
-
         fun bind(chapter: ChapterModel) {
-            Log.d("ChapterAdapter", "Binding data: $chapter")
             binding.nameTextView.text = chapter.chapterName
             binding.descriptionTextView.text = chapter.chapterDescription
+            binding.root.setOnClickListener {
+                clickListener.onChapterItemClick(chapter)
+            }
         }
     }
 
+    interface OnChapterItemClickListener {
+        fun onChapterItemClick(chapter: ChapterModel)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChaptersViewHolder {
         val binding =
@@ -37,9 +39,7 @@ class ChaptersAdapter(private val chapters: List<ChapterModel>) :
     }
 
     override fun getItemCount(): Int {
-        val itemCount = chapters.size
-        Log.d("ChaptersAdapter", "Item count: $itemCount")
-        return itemCount
+        return chapters.size
     }
 
 }

@@ -42,7 +42,7 @@ class LessonsViewModel : ViewModel() {
     private fun loadLessons() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedLessons = repository.getLessons()
+                val loadedLessons = repository.getLessonsByChapterId(2)
                 mutableLessons.value = loadedLessons
                 mutableState.value = LessonsPageState.Success(loadedLessons)
             } catch (e: Exception) {
