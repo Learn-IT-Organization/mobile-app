@@ -3,7 +3,7 @@ package com.example.learnit.ui
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.chapters.repository.ChaptersRepositoryImpl
+import com.example.learnit.data.courses.chapters.repository.ChaptersRepositoryImpl
 import com.example.learnit.data.courses.course.repository.CourseRepositoryImpl
 import com.example.learnit.data.courses.lessons.repository.LessonRepositoryImpl
 import com.example.learnit.data.user.login.repository.LoginRepositoryImpl

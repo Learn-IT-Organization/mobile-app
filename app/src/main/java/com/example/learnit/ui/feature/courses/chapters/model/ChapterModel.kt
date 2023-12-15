@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.chapters.model
+package com.example.learnit.ui.feature.courses.chapters.model
 
 data class ChapterModel(
     val chapterId: Int?,

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.databinding.FragmentCoursesBinding
 import com.example.learnit.ui.feature.courses.courses.adapter.CoursesAdapter
 import com.example.learnit.ui.feature.courses.courses.viewModel.CoursesViewModel
@@ -17,9 +18,7 @@ import kotlinx.coroutines.launch
 
 class CoursesFragment : Fragment() {
     private val viewModel: CoursesViewModel by viewModels()
-    private var _binding: FragmentCoursesBinding? = null
-    private val binding get() = _binding!!
-
+    private lateinit var binding: FragmentCoursesBinding
     companion object {
         val TAG: String = CoursesFragment::class.java.simpleName
     }
@@ -29,7 +28,7 @@ class CoursesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCoursesBinding.inflate(inflater, container, false)
+        binding = FragmentCoursesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -64,6 +63,5 @@ class CoursesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

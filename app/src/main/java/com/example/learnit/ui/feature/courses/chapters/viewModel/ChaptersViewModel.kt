@@ -1,11 +1,11 @@
-package com.example.learnit.ui.feature.chapters.viewModel
+package com.example.learnit.ui.feature.courses.chapters.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.domain.chapters.repository.ChaptersRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.chapters.model.ChapterModel
+import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +31,6 @@ class ChaptersViewModel : ViewModel() {
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         mutableState.value = ChaptersScreenState.Failure(exception)
     }
-
 
 //    init {
 //        courseId?.let { loadChapters(it.toInt()) }

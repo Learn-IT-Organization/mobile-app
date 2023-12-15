@@ -1,12 +1,10 @@
-package com.example.learnit.data.chapters.repository
+package com.example.learnit.data.courses.chapters.repository
 
 import android.util.Log
 import com.example.learnit.domain.chapters.repository.ChaptersRepository
-import com.example.learnit.ui.feature.chapters.model.ChapterModel
+import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 import com.example.learnit.data.RetrofitAdapter
-import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.chapters.mapper.mapToChapterList
-import com.example.learnit.data.courses.repository.CourseRepositoryImpl
+import com.example.learnit.data.courses.chapters.mapper.mapToChapterList
 
 object ChaptersRepositoryImpl : ChaptersRepository {
     private val apiService = RetrofitAdapter.provideApiService()

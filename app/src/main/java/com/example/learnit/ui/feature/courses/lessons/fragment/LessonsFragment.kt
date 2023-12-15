@@ -17,9 +17,7 @@ import kotlinx.coroutines.launch
 
 class LessonsFragment : Fragment() {
     private val viewModel: LessonsViewModel by viewModels()
-
-    private var _binding: FragmentLessonsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentLessonsBinding
 
     companion object {
         val TAG: String = LessonsFragment::class.java.simpleName
@@ -40,7 +38,7 @@ class LessonsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLessonsBinding.inflate(inflater, container, false)
+        binding = FragmentLessonsBinding.inflate(inflater, container, false)
         val chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
         viewModel.loadLessons(chapterId)
         return binding.root
@@ -83,8 +81,5 @@ class LessonsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
-
-
 }

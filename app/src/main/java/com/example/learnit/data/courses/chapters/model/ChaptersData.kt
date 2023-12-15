@@ -1,4 +1,4 @@
-package com.example.learnit.data.chapters.model
+package com.example.learnit.data.courses.chapters.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

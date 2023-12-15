@@ -1,7 +1,7 @@
-package com.example.learnit.data.chapters.mapper
+package com.example.learnit.data.courses.chapters.mapper
 
-import com.example.learnit.data.chapters.model.ChaptersData
-import com.example.learnit.ui.feature.chapters.model.ChapterModel
+import com.example.learnit.data.courses.chapters.model.ChaptersData
+import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 
 fun ChaptersData.mapToChapter() = ChapterModel(
     chapterId = this.chapter_id,
