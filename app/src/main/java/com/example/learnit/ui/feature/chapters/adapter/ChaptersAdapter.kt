@@ -8,7 +8,8 @@ import com.example.learnit.ui.feature.chapters.model.ChapterModel
 
 class ChaptersAdapter(
     private val chapters: List<ChapterModel>,
-    private val clickListener: OnChapterItemClickListener
+    private val onChapterItemClickListener: OnChapterItemClickListener
+
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ChaptersViewHolder>() {
 
@@ -17,9 +18,6 @@ class ChaptersAdapter(
         fun bind(chapter: ChapterModel) {
             binding.nameTextView.text = chapter.chapterName
             binding.descriptionTextView.text = chapter.chapterDescription
-            binding.root.setOnClickListener {
-                clickListener.onChapterItemClick(chapter)
-            }
         }
     }
 
@@ -36,6 +34,9 @@ class ChaptersAdapter(
     override fun onBindViewHolder(holder: ChaptersViewHolder, position: Int) {
         val chapter = chapters[position]
         holder.bind(chapter)
+        holder.itemView.setOnClickListener {
+            onChapterItemClickListener.onChapterItemClick(chapter)
+        }
     }
 
     override fun getItemCount(): Int {

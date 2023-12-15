@@ -10,12 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.example.learnit.R
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.chapters.adapter.ChaptersAdapter
+import com.example.learnit.ui.feature.chapters.model.ChapterModel
 import com.example.learnit.ui.feature.chapters.viewModel.ChaptersViewModel
+import com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment
 import kotlinx.coroutines.launch
 
-class ChaptersFragment : Fragment() {
+class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener {
     private val viewModel: ChaptersViewModel by viewModels()
     private var _binding: FragmentChaptersBinding? = null
     private val binding get() = _binding!!
@@ -54,7 +58,7 @@ class ChaptersFragment : Fragment() {
 
                         is ChaptersViewModel.ChaptersScreenState.Success -> {
                             Log.d(TAG, "Chapters loaded")
-                            val adapter = ChaptersAdapter(state.chaptersData)
+                            val adapter = ChaptersAdapter(state.chaptersData, this@ChaptersFragment)
                             binding.coursesRecycleView.adapter = adapter
                         }
 
@@ -66,8 +70,16 @@ class ChaptersFragment : Fragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onChapterItemClick(chapter: ChapterModel) {
+        val action = ChaptersFragmentDirections.actionChaptersFragmentToLessonsFragment(chapter.chapterId!!)
+        findNavController().navigate(action)
+    }
+
+
 }

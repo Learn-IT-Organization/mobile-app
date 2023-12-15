@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val loginButton = binding.buttonLogin.setOnClickListener {
+        binding.buttonLogin.setOnClickListener {
             HandleLoginClick()
         }
 
