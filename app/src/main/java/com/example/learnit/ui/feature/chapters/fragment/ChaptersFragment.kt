@@ -10,15 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+
+import com.example.learnit.data.ApiConstants
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.chapters.adapter.ChaptersAdapter
 import com.example.learnit.ui.feature.chapters.viewModel.ChaptersViewModel
 import kotlinx.coroutines.launch
 
 class ChaptersFragment : Fragment() {
+
+    private lateinit var binding: FragmentChaptersBinding
     private val viewModel: ChaptersViewModel by viewModels()
-    private var _binding: FragmentChaptersBinding? = null
-    private val binding get() = _binding!!
 
     companion object {
         val TAG: String = ChaptersFragment::class.java.simpleName
@@ -29,7 +31,7 @@ class ChaptersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentChaptersBinding.inflate(inflater, container, false)
+        binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener(
             View.OnClickListener {
                 activity?.onBackPressed()
@@ -41,6 +43,11 @@ class ChaptersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        val courseId: Int? = arguments?.getInt(ApiConstants.COURSE_ID)
+        Log.d("ChaptersFragment", "courseId: $courseId")
+        if (courseId != null) {
+            viewModel.loadChapters(courseId.toInt())
+        }
     }
 
     private fun observeState() {
@@ -69,6 +76,5 @@ class ChaptersFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }
