@@ -35,22 +35,19 @@ class HomeFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        binding.goToChapters.setOnClickListener {
-            Log.d("HomeFragment", "Button clicked")
-            findNavController().navigate(
-                R.id.action_homeFragment_to_chaptersFragment
-            )
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
-        binding.button.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_lessonsFragment)
+        binding.goToChapters.setOnClickListener {
+            Log.d("HomeFragment", "Button clicked")
+            findNavController().navigate(
+                R.id.action_homeFragment_to_chaptersFragment
+            )
         }
+
     }
 
     private fun observeState() {

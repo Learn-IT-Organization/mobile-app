@@ -35,14 +35,11 @@ class LessonsViewModel : ViewModel() {
         mutableState.value = LessonsPageState.Failure(exception)
     }
 
-    init {
-        loadLessons()
-    }
 
-    private fun loadLessons() {
+    fun loadLessons(chapterId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedLessons = repository.getLessons()
+                val loadedLessons = repository.getLessonsByChapterId(chapterId)
                 mutableLessons.value = loadedLessons
                 mutableState.value = LessonsPageState.Success(loadedLessons)
             } catch (e: Exception) {

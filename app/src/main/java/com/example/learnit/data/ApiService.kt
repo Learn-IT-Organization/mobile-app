@@ -15,6 +15,7 @@ import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("users")
@@ -37,4 +38,8 @@ interface ApiService {
 
     @GET("/chapters")
     suspend fun getChapters(): Response<List<ChaptersData>>
+
+    @GET("/chapters/{id}/lessons")
+    suspend fun getLessonsByChapterId(@Path("id") id: Int): Response<List<LessonData>>
+
 }

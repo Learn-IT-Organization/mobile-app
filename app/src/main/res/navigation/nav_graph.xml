@@ -68,12 +68,19 @@
     <fragment
         android:id="@+id/chaptersFragment"
         android:name="com.example.learnit.ui.feature.chapters.fragment.ChaptersFragment"
-        android:label="ChaptersFragment"
-        tools:layout="@layout/fragment_chapters"/>
-
+        android:label="ChaptersFragment">
+        <action
+            android:id="@+id/actionChaptersFragmentToLessonsFragment"
+            app:destination="@id/lessonsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/lessonsFragment"
         android:name="com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment"
-        android:label="LessonsFragment" />
+        android:label="LessonsFragment">
+        <argument
+            android:name="chapterId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

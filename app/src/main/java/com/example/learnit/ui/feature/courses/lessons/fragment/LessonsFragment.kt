@@ -23,6 +23,16 @@ class LessonsFragment : Fragment() {
 
     companion object {
         val TAG: String = LessonsFragment::class.java.simpleName
+        private const val ARG_CHAPTER_ID = "chapterId"
+        fun newInstance(chapterId: Int?): LessonsFragment {
+            val fragment = LessonsFragment()
+            val args = Bundle()
+            if (chapterId != null) {
+                args.putInt(ARG_CHAPTER_ID, chapterId)
+            }
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     override fun onCreateView(
@@ -31,6 +41,8 @@ class LessonsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLessonsBinding.inflate(inflater, container, false)
+        val chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
+        viewModel.loadLessons(chapterId)
         return binding.root
     }
 
@@ -38,6 +50,11 @@ class LessonsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "Lessons fragment")
         observeState()
+        binding.toolbar.setNavigationOnClickListener(
+            View.OnClickListener {
+                activity?.onBackPressed()
+            }
+        )
     }
 
     private fun observeState() {
