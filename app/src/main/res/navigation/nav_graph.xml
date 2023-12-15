@@ -63,20 +63,18 @@
 
     <fragment
         android:id="@+id/coursesFragment"
-        android:name="com.example.learnit.ui.feature.courses.fragment.CoursesFragment"
+        android:name="com.example.learnit.ui.feature.courses.courses.fragment.CoursesFragment"
         android:label="CoursesFragment">
         <action
             android:id="@+id/action_CoursesFragment_to_ChaptersFragemnt"
             app:destination="@id/chaptersFragment" />
     </fragment>
-        android:name="com.example.learnit.ui.feature.courses.courses.fragment.CoursesFragment"
-        android:label="CoursesFragment" />
+
     <fragment
         android:id="@+id/chaptersFragment"
-        android:name="com.example.learnit.ui.feature.chapters.fragment.ChaptersFragment"
+        android:name="com.example.learnit.ui.feature.courses.chapters.fragment.ChaptersFragment"
         android:label="ChaptersFragment"
-        tools:layout="@layout/fragment_chapters" />
-        android:label="ChaptersFragment">
+        tools:layout="@layout/fragment_chapters">
         <action
             android:id="@+id/actionChaptersFragmentToLessonsFragment"
             app:destination="@id/lessonsFragment" />
@@ -85,7 +83,8 @@
     <fragment
         android:id="@+id/lessonsFragment"
         android:name="com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment"
-        android:label="LessonsFragment">
+        android:label="LessonsFragment"
+        tools:layout="@layout/fragment_lessons">
         <argument
             android:name="chapterId"
             app:argType="integer" />

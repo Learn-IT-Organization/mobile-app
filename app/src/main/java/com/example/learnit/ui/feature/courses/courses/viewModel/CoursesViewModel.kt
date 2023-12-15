@@ -18,9 +18,6 @@ class CoursesViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<CoursesPageState>(CoursesPageState.Loading)
     val state: StateFlow<CoursesPageState> = mutableState
 
-    private val mutableCourses = MutableStateFlow<List<CourseModel>>(emptyList())
-    val courses: StateFlow<List<CourseModel>> = mutableCourses
-
     companion object {
         val TAG = CoursesViewModel::class.java.simpleName
     }
@@ -43,7 +40,6 @@ class CoursesViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedCourses = repository.getCourses()
-                mutableCourses.value = loadedCourses
                 mutableState.value = CoursesPageState.Success(loadedCourses)
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching courses: ${e.message}")

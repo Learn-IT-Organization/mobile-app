@@ -1,6 +1,6 @@
 package com.example.learnit.data
 
-import com.example.learnit.data.chapters.model.ChaptersData
+import com.example.learnit.data.courses.chapters.model.ChaptersData
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.user.login.model.Data
@@ -15,6 +15,7 @@ import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("users")

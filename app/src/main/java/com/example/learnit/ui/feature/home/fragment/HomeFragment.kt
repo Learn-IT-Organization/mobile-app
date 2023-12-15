@@ -41,13 +41,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
-        binding.goToChapters.setOnClickListener {
-            Log.d("HomeFragment", "Button clicked")
-            findNavController().navigate(
-                R.id.action_homeFragment_to_chaptersFragment
-            )
-        }
-
     }
 
     private fun observeState() {
