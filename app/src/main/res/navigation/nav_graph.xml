@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.learnit.ui.feature.settings.fragment.SettingsFragment"
-        android:label="SettingsFragment" >
+        android:label="SettingsFragment">
 
         <action
             android:id="@+id/action_SettingsFragment_to_LoginFragment"
@@ -63,11 +63,19 @@
 
     <fragment
         android:id="@+id/coursesFragment"
+        android:name="com.example.learnit.ui.feature.courses.fragment.CoursesFragment"
+        android:label="CoursesFragment">
+        <action
+            android:id="@+id/action_CoursesFragment_to_ChaptersFragemnt"
+            app:destination="@id/chaptersFragment" />
+    </fragment>
         android:name="com.example.learnit.ui.feature.courses.courses.fragment.CoursesFragment"
         android:label="CoursesFragment" />
     <fragment
         android:id="@+id/chaptersFragment"
         android:name="com.example.learnit.ui.feature.chapters.fragment.ChaptersFragment"
+        android:label="ChaptersFragment"
+        tools:layout="@layout/fragment_chapters" />
         android:label="ChaptersFragment">
         <action
             android:id="@+id/actionChaptersFragmentToLessonsFragment"

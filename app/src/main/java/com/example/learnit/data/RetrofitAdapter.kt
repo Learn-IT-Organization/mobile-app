@@ -1,6 +1,6 @@
 package com.example.learnit.data
 
-import com.example.learnit.data.Constants.API_BASE_URL
+import com.example.learnit.data.ApiConstants.API_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -18,9 +18,6 @@ class ChaptersViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<ChaptersScreenState>(ChaptersScreenState.Loading)
     val state: StateFlow<ChaptersScreenState> = mutableState
 
-    private val mutableChapters = MutableStateFlow<List<ChapterModel>>(emptyList())
-    val chapters: StateFlow<List<ChapterModel>> = mutableChapters
-
     companion object {
         val TAG = ChaptersViewModel::class.java.simpleName
     }
@@ -35,15 +32,15 @@ class ChaptersViewModel : ViewModel() {
         mutableState.value = ChaptersScreenState.Failure(exception)
     }
 
-    init {
-        loadChapters()
-    }
 
-    private fun loadChapters() {
+//    init {
+//        courseId?.let { loadChapters(it.toInt()) }
+//    }
+
+    fun loadChapters(courseId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedChapters = repository.getChapters()
-                mutableChapters.value = loadedChapters
+                val loadedChapters = repository.getChaptersByCourseId(courseId)
                 mutableState.value = ChaptersScreenState.Success(loadedChapters)
                 Log.d(TAG, loadedChapters.toString())
             } catch (e: Exception) {

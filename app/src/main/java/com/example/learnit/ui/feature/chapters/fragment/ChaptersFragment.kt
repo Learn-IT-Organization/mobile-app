@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
+import com.example.learnit.data.ApiConstants
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.chapters.adapter.ChaptersAdapter
 import com.example.learnit.ui.feature.chapters.model.ChapterModel
@@ -19,6 +20,9 @@ import com.example.learnit.ui.feature.chapters.viewModel.ChaptersViewModel
 import com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment
 import kotlinx.coroutines.launch
 
+class ChaptersFragment : Fragment() {
+
+    private lateinit var binding: FragmentChaptersBinding
 class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener {
     private val viewModel: ChaptersViewModel by viewModels()
     private var _binding: FragmentChaptersBinding? = null
@@ -33,7 +37,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentChaptersBinding.inflate(inflater, container, false)
+        binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener(
             View.OnClickListener {
                 activity?.onBackPressed()
@@ -45,6 +49,11 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        val courseId: Int? = arguments?.getInt(ApiConstants.COURSE_ID)
+        Log.d("ChaptersFragment", "courseId: $courseId")
+        if (courseId != null) {
+            viewModel.loadChapters(courseId.toInt())
+        }
     }
 
     private fun observeState() {
@@ -58,7 +67,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
 
                         is ChaptersViewModel.ChaptersScreenState.Success -> {
                             Log.d(TAG, "Chapters loaded")
-                            val adapter = ChaptersAdapter(state.chaptersData, this@ChaptersFragment)
+                            val adapter = ChaptersAdapter(state.chaptersData)
                             binding.coursesRecycleView.adapter = adapter
                         }
 
