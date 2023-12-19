@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.domain.user.repository.UserRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.home.model.UserModel
+import com.example.learnit.ui.feature.home.model.LoggedUserModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val repository: UserRepository = App.instance.getUserRepository()
-    private var userList: List<UserModel> = mutableListOf()
+    private var userList: List<LoggedUserModel> = mutableListOf()
 
     companion object {
         val TAG = HomeViewModel::class.java.simpleName
@@ -22,7 +22,7 @@ class HomeViewModel : ViewModel() {
 
     sealed class UserPageState {
         object Loading : UserPageState()
-        data class Success(val userData: List<UserModel>) : UserPageState()
+        data class Success(val userData: List<LoggedUserModel>) : UserPageState()
         data class Failure(val throwable: Throwable) : UserPageState()
     }
 

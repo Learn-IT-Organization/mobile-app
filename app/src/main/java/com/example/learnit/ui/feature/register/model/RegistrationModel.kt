@@ -6,5 +6,7 @@ data class RegistrationModel(
     val userName: String?,
     val userPassword: String?,
     val gender: String?,
-    val userLevel: String?
+    val userLevel: String?,
+    val userPhoto: String?,
+    val streak: Int
 )

@@ -9,5 +9,7 @@ fun RegistrationModel.mapToRegistration() = RegistrationData(
     user_name = this.userName!!,
     user_password = this.userPassword!!,
     gender = this.gender!!,
-    user_level = this.userLevel!!
+    user_level = this.userLevel!!,
+    user_photo = this.userPhoto!!,
+    streak = this.streak!!
 )

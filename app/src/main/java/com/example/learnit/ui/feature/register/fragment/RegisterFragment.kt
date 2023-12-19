@@ -1,9 +1,10 @@
 package com.example.learnit.ui.feature.register.fragment
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +25,9 @@ import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModels()
-
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        val TAG: String = RegisterFragment::class.java.simpleName
-    }
+    private val PICK_IMAGE_REQUEST = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +40,11 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonSelectPhoto.setOnClickListener { openGallery() }
 
         binding.buttonSignUp.setOnClickListener {
             if (validateRegistrationFields()) {
@@ -55,7 +57,6 @@ class RegisterFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
-
     }
 
     private fun createRegistrationModelFromUI(): RegistrationModel {
@@ -65,7 +66,9 @@ class RegisterFragment : Fragment() {
             userName = binding.editTextUsername.text.toString(),
             userPassword = binding.editTextPassword.text.toString(),
             gender = getSelectedGender(),
-            userLevel = binding.spinnerUserLevel.selectedItem.toString()
+            userLevel = binding.spinnerUserLevel.selectedItem.toString(),
+            userPhoto = "Base64EncodedStringHere",
+            streak = 0
         )
     }
 
@@ -77,37 +80,41 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
                         is RegisterViewModel.RegisterPageState.Loading -> {
-                            Log.d(TAG, "Loading registration...")
+                            // Handle loading state
                         }
 
                         is RegisterViewModel.RegisterPageState.Success -> {
-                            Log.d(TAG, "User registered successfully")
-                            Toast.makeText(
-                                context,
-                                getString(R.string.success_registration),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            clearTextFields()
-                            val intent = Intent(context, MainActivity::class.java)
-                            startActivity(intent)
+                            handleSuccessState()
                         }
 
                         is RegisterViewModel.RegisterPageState.Failure -> {
-                            Log.e(TAG, "Error during registration: ${state.throwable}")
-                            binding.textViewError.text =
-                                "This username already exists, please change it."
+                            handleFailureState(state.throwable)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun handleSuccessState() {
+        Toast.makeText(
+            context,
+            getString(R.string.success_registration),
+            Toast.LENGTH_SHORT
+        ).show()
+        clearTextFields()
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun handleFailureState(throwable: Throwable) {
+        binding.textViewError.text = getString(R.string.user_exists)
     }
 
     private fun clearTextFields() {
@@ -134,8 +141,25 @@ class RegisterFragment : Fragment() {
             return false
         }
 
-
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImageUri: Uri? = data.data
+            if (selectedImageUri != null) {
+                binding.imageViewProfilePhoto.setImageURI(selectedImageUri)
+                viewModel.setPhotoUri(selectedImageUri)
+            }
+        }
+    }
+
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 
     override fun onDestroyView() {

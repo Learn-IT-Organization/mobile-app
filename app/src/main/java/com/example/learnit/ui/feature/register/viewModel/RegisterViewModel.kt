@@ -1,5 +1,6 @@
 package com.example.learnit.ui.feature.register.viewModel
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.user.register.mapper.mapToRegistration
@@ -23,6 +24,9 @@ class RegisterViewModel : ViewModel() {
         MutableStateFlow<RegisterPageState>(RegisterPageState.Loading)
     val state: StateFlow<RegisterPageState> = mutableState
 
+    private val selectedPhotoUri = MutableStateFlow<Uri?>(null)
+    val photoUri: StateFlow<Uri?> = selectedPhotoUri
+
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         mutableState.value = RegisterPageState.Failure(exception)
     }
@@ -31,12 +35,17 @@ class RegisterViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val registrationData = uiRegisterForm.mapToRegistration()
-                val registrationResponse = App.instance.getRegisterRepository().registerUser(registrationData)
+                val registrationResponse =
+                    App.instance.getRegisterRepository().registerUser(registrationData)
                 mutableState.value = RegisterPageState.Success(registrationResponse)
             } catch (e: Exception) {
                 mutableState.value = RegisterPageState.Failure(e)
             }
         }
+    }
+
+    fun setPhotoUri(uri: Uri) {
+        selectedPhotoUri.value = uri
     }
 
 }
