@@ -23,9 +23,9 @@ object LoginRepositoryImpl : LoginRepository {
                 Log.d("LoginRepositoryImpl", "getLoginInformation: $loggedUserData")
                 if (loggedUserData.isSuccessful) {
                     loggedUserData.body()?.let { userData ->
-                        val userId = userData.data.user_id
+                        val userId = userData.data?.user_id
                         SharedPreferences.storeUserId(userId)
-                        val userRole = userData.data.user_role
+                        val userRole = userData.data?.user_role
                         SharedPreferences.storeTeacher( userRole == "admin")
                         SharedPreferences.storeTeacher( userRole == "teacher")
                         SharedPreferences.storeTeacher( userRole == "student")

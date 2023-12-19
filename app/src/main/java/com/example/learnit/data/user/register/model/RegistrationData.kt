@@ -14,5 +14,9 @@ data class RegistrationData(
     @SerialName("gender")
     val gender: String,
     @SerialName("user_level")
-    val user_level: String
+    val user_level: String,
+    @SerialName("user_photo")
+    val user_photo: String,
+    @SerialName("streak")
+    val streak: Int
 )

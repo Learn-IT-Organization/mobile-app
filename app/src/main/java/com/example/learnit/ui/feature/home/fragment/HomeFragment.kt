@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
+import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentHomeBinding
 import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        val loggedUserId = SharedPreferences.getUserId()
+        Log.e(HomeViewModel.TAG, "Logged user id: $loggedUserId")
     }
 
     private fun observeState() {

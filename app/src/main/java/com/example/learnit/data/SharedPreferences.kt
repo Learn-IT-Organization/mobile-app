@@ -21,8 +21,8 @@ object SharedPreferences {
         sharedPreferences.edit().putLong(ApiConstants.EXPIRATION_TIME, expires).apply()
     }
 
-    fun storeUserId(userId: Int) {
-        sharedPreferences.edit().putLong(ApiConstants.ID, userId.toLong()).apply()
+    fun storeUserId(userId: Long?) {
+        sharedPreferences.edit().putLong(ApiConstants.USER_ID, userId!!).apply()
     }
 
     fun storeAdmin(admin: Boolean) {
@@ -41,7 +41,7 @@ object SharedPreferences {
     }
 
     fun getUserId(): Long {
-        return sharedPreferences.getLong(ApiConstants.ID, 0)
+        return sharedPreferences.getLong(ApiConstants.USER_ID, 0)
     }
 
     fun getAdmin(): Boolean {

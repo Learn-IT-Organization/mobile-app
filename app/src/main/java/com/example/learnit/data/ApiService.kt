@@ -6,7 +6,6 @@ import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
-import com.example.learnit.data.user.login.model.ResponseUserData
 import com.example.learnit.data.user.login.model.LoginData
 import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.data.user.register.model.RegistrationResponseData
@@ -25,7 +24,7 @@ interface ApiService {
     suspend fun authorizeLogin(@Body loginForm: LoginData): Response<ResponseData<Data>>
 
     @GET("profile/user")
-    suspend fun getLoggedInUser(): Response<ResponseUserData>
+    suspend fun getLoggedInUser(): Response<ResponseData<LoggedUserData>>
 
     @POST("register")
     suspend fun registerUser(@Body registerForm: RegistrationData): Response<RegistrationResponseData>

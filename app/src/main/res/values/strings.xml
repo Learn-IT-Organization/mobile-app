@@ -14,6 +14,10 @@
     <string name="female">Female</string>
     <string name="success_registration">Registration completed successfully!</string>
     <string name="error_empty_fields">Please fill in all required fields.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_photo">Add photo</string>
+    <string name="user_exists">This username already exists, please change it.</string>
+    <string name="full_name">Full Name</string>
+    <string name="streaks">Streaks:</string>
+    <string name="gender">Gender</string>
+    <string name="user_level">User Level</string>
 </resources>

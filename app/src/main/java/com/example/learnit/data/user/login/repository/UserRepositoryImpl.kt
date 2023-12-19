@@ -4,13 +4,13 @@ import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.user.login.mapper.mapToUserList
 import com.example.learnit.domain.user.repository.UserRepository
-import com.example.learnit.ui.feature.home.model.UserModel
+import com.example.learnit.ui.feature.home.model.LoggedUserModel
 
 //for testing only
 object UserRepositoryImpl : UserRepository {
     private val apiService = RetrofitAdapter.provideApiService()
 
-    override suspend fun getUsers(): List<UserModel> {
+    override suspend fun getUsers(): List<LoggedUserModel> {
         try {
             val response = apiService.getUsers()
             if (response.isSuccessful) {
