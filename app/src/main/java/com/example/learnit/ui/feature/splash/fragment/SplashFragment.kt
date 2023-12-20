@@ -17,8 +17,8 @@ import com.example.learnit.ui.feature.splash.viewModel.SplashViewModel
 
 class SplashFragment : Fragment() {
 
-    private var binding: FragmentSplashBinding? = null
     private val viewModel: SplashViewModel by viewModels()
+    private lateinit var binding: FragmentSplashBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +53,5 @@ class SplashFragment : Fragment() {
     override fun onDestroyView()
     {
         super.onDestroyView()
-        binding = null
     }
 }

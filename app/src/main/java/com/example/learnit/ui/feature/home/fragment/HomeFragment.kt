@@ -18,24 +18,19 @@ import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
+
     private val viewModel: HomeViewModel by viewModels()
-
-
-    private var _binding: FragmentHomeBinding? = null
-
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHomeBinding
 
     companion object {
         val TAG: String = HomeFragment::class.java.simpleName
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

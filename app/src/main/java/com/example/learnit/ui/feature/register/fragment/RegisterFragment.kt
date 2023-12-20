@@ -24,9 +24,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
+
     private val viewModel: RegisterViewModel by viewModels()
-    private var _binding: FragmentRegisterBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentRegisterBinding
+
     private val PICK_IMAGE_REQUEST = 1
 
     override fun onCreateView(
@@ -34,7 +35,7 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -164,6 +165,5 @@ class RegisterFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

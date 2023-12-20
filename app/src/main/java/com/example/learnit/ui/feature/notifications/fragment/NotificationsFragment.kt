@@ -9,14 +9,9 @@ import com.example.learnit.R
 import com.example.learnit.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
-    private var _binding: FragmentNotificationsBinding? = null
-
-    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_notifications, container, false)
     }

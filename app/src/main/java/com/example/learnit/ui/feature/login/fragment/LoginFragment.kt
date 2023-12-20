@@ -21,39 +21,36 @@ import kotlinx.coroutines.launch
 
 
 class LoginFragment : Fragment() {
+
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var binding: FragmentLoginBinding
+
     companion object {
         val TAG = LoginFragment::class.java.simpleName
     }
-
-    private var parentBinding: FragmentLoginBinding? = null
-    private val binding get() = parentBinding!!
-
-    private val viewModel: LoginViewModel by viewModels()
 
     private lateinit var userName: String
     private lateinit var userPassword: String
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        parentBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonLogin.setOnClickListener {
-            HandleLoginClick()
+            handleLoginClick()
         }
 
-        binding.singUpButton.setOnClickListener{
+        binding.singUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
-    private fun HandleLoginClick() {
+    private fun handleLoginClick() {
         Log.d(TAG, "observeState started00")
         userName = binding.editTextUsername.text.toString()
         userPassword = binding.editTextPassword.text.toString()
@@ -96,7 +93,5 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        parentBinding = null
     }
-
 }
