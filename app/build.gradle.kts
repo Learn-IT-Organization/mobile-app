@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.learnit"
     compileSdk = 34
 
@@ -81,5 +82,7 @@ dependencies {
     //Photo requesting
     implementation("androidx.camera:camera-camera2:1.4.0-alpha03")
     implementation("androidx.camera:camera-lifecycle:1.4.0-alpha03")
+    //Cookie Jar
+    implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
 
 }
