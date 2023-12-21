@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title=""
+        app:titleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+    <TextView
+        android:id="@+id/questionTextView"
+        style="@style/subtitle_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Question Text Goes Here" />
+
+    <RadioGroup
+        android:id="@+id/optionsRadioGroup"
+        style="@style/paragraph_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questionTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:divider="@color/material_dynamic_primary100"
+        android:padding="15dp">
+
+        <RadioButton
+            android:id="@+id/option1RadioButton"
+            style="@style/paragraph_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option 1" />
+
+        <RadioButton
+            android:id="@+id/option2RadioButton"
+            style="@style/paragraph_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option 2" />
+
+        <RadioButton
+            android:id="@+id/option3RadioButton"
+            style="@style/paragraph_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option 3" />
+
+        <RadioButton
+            android:id="@+id/option4RadioButton"
+            style="@style/paragraph_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option 4" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submitButton"
+        style="@style/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/optionsRadioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/submit" />
+
+</RelativeLayout>
