@@ -9,6 +9,7 @@ object SharedPreferences {
     private val sharedPreferences: SharedPreferences
 
     init {
+        //Ne legyen hardcoded
         sharedPreferences =
             App.instance.getSharedPreferences("MyPreferences", Activity.MODE_PRIVATE)
     }
@@ -63,6 +64,7 @@ object SharedPreferences {
             remove(ApiConstants.ADMIN)
         }.apply()
     }
+    // a valtozoknak az osztaly elejen van a helye!
     private const val PREFS_NAME = "LearnITPrefs"
     private const val DARK_MODE_STATUS = "darkModeStatus"
 
@@ -81,6 +83,7 @@ object SharedPreferences {
     }
 
     fun saveFontSize(context: Context, selectedFontSize: Int) {
+        //vegyuk ki a hardecodolasokat
         val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("fontSize", selectedFontSize)

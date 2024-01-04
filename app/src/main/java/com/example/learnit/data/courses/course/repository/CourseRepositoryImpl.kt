@@ -13,11 +13,13 @@ object CourseRepositoryImpl : CourseRepository {
         try {
             val response = apiService.getCourses()
             if (response.isSuccessful) {
+                //1 line. Tul sok a foloslegesen letrehozott valtozo
                 val responseData = response.body()
                 val data = responseData ?: emptyList()
                 return data.mapToCourseList()
             }
         } catch (e: Exception) {
+            //Szinten egy constans TAG, ne hasznaljunk hardcoded TAG-eket
             Log.e("CourseRepository", "Error fetching courses: ${e.message}")
         }
         return emptyList()

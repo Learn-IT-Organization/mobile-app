@@ -25,6 +25,7 @@ class CoursesAdapter(private val courses: List<CourseModel>) :
                     R.id.action_CoursesFragment_to_ChaptersFragemnt,
                     bundleOf(ApiConstants.COURSE_ID to course.courseId)
                 )
+                //folosleges
                 true
             }
         }

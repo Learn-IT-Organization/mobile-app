@@ -27,6 +27,7 @@ class CoursesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+        //?
     ): View? {
         binding = FragmentCoursesBinding.inflate(inflater, container, false)
         return binding.root
@@ -61,6 +62,7 @@ class CoursesFragment : Fragment() {
         }
     }
 
+    //semmi ertelme ennek, ki lehet torolni
     override fun onDestroyView() {
         super.onDestroyView()
     }
