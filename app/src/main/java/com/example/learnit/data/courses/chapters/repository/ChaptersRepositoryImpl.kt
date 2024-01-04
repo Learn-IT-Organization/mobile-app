@@ -1,11 +1,16 @@
 package com.example.learnit.data.courses.chapters.repository
 
 import android.util.Log
-import com.example.learnit.domain.chapters.repository.ChaptersRepository
-import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.chapters.mapper.mapToChapterList
+import com.example.learnit.domain.chapters.repository.ChaptersRepository
+import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 
+//Csinaljatok egy TAG constanst ami tartalmazza az osztaly nevet ami szerint kiloggoltok dolgokat
+//A Loggolas TAG-ja minden osztalyban egyszeges kell legyen hogy konnyebb legyen a kereses utana
+//Szoval ilyet hogy harom Log-bann 3 fele Tag van nem akarok latni :)
+
+//!!Kod formazas itt is es minden osztalyban!! CTR+ALT+L es importok formazasa/torlese stb: CTrl+ALT+O
 object ChaptersRepositoryImpl : ChaptersRepository {
     private val apiService = RetrofitAdapter.provideApiService()
     override suspend fun getChapters(): List<ChapterModel> {
@@ -13,11 +18,11 @@ object ChaptersRepositoryImpl : ChaptersRepository {
         Log.d("ChapterResponse1", response.raw().toString())
 
         if (response.isSuccessful) {
-                val responseData = response.body()
-                Log.d("ChapterResponse2", response.raw().toString())
-                val data = responseData ?: emptyList()
-                return data.mapToChapterList()
-            }
+            val responseData = response.body()
+            Log.d("ChapterResponse2", response.raw().toString())
+            val data = responseData ?: emptyList()
+            return data.mapToChapterList()
+        }
         Log.d("ChapterResponse3", "EmptyList")
         return emptyList()
     }
@@ -29,6 +34,7 @@ object ChaptersRepositoryImpl : ChaptersRepository {
         if (response.isSuccessful) {
             val responseData = response.body()
             Log.d("ChapterResponse2", response.raw().toString())
+            //A kovetkezo ket sort 1 sorban meglehet irni. A felso fuggvenyben is
             val data = responseData ?: emptyList()
             return data.mapToChapterList()
         }

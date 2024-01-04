@@ -23,6 +23,7 @@ class ChaptersViewModel : ViewModel() {
     }
 
     sealed class ChaptersScreenState {
+        //data object
         object Loading : ChaptersScreenState()
         data class Success(val chaptersData: List<ChapterModel>) : ChaptersScreenState()
         data class Failure(val throwable: Throwable) : ChaptersScreenState()

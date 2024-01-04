@@ -16,10 +16,12 @@ object UserRepositoryImpl : UserRepository {
             if (response.isSuccessful) {
                 val responseData = response.body()
                 val data = responseData ?: emptyList()
+                //TAG
                 Log.d("Response", response.raw().toString())
                 return data.mapToUserList()
             }
         } catch (e: Exception) {
+            //TAG
             Log.e("UserRepository", "Error fetching users: ${e.message}")
         }
         return emptyList()

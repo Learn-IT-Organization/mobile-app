@@ -22,4 +22,6 @@
     <color name="green">#00FF00</color>
     <color name="yellow">#FFEA00</color>
     <color name="colorError">#FF0000</color>
+    <color name="forest_green">#0B6623</color>
+    <color name="red">#8B0000</color>
 </resources>

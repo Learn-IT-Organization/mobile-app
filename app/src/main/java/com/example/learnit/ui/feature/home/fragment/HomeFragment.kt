@@ -22,7 +22,7 @@ class HomeFragment : Fragment() {
 
 
     private var _binding: FragmentHomeBinding? = null
-
+        //? Mellozzuk a "!!"
     private val binding get() = _binding!!
 
     companion object {
@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+        //olvassatok el mindig mit ir a sargaval alahuzott dolgoknal
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)

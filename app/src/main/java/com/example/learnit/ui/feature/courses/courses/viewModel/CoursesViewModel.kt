@@ -19,7 +19,7 @@ class CoursesViewModel : ViewModel() {
     val state: StateFlow<CoursesPageState> = mutableState
 
     companion object {
-        val TAG = CoursesViewModel::class.java.simpleName
+        val TAG: String = CoursesViewModel::class.java.simpleName
     }
 
     sealed class CoursesPageState {
