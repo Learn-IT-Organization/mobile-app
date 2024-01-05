@@ -1,7 +1,6 @@
 package com.example.learnit.ui.feature.register.model
 
 data class RegistrationModel(
-    //Miert kellenek ezek Nullable-k legyenek?
     val firstName: String,
     val lastName: String?,
     val userName: String?,

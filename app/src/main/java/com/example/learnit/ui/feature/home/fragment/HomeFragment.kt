@@ -19,11 +19,7 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
-
-
-    private var _binding: FragmentHomeBinding? = null
-        //? Mellozzuk a "!!"
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHomeBinding
 
     companion object {
         val TAG: String = HomeFragment::class.java.simpleName
@@ -33,10 +29,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-        //olvassatok el mindig mit ir a sargaval alahuzott dolgoknal
     ): View? {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
