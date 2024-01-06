@@ -1,6 +1,5 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -19,18 +18,14 @@ class CoursesAdapter(private val courses: List<CourseModel>) :
         fun bind(course: CourseModel) {
             binding.nameTextView.text = course.courseName
             binding.languageTextView.text = course.programmingLanguage
-            binding.root.setOnClickListener{
-                Log.d("CoursesAdapter", "Click on: ${course.courseId}")
+            binding.root.setOnClickListener {
                 itemView.findNavController().navigate(
                     R.id.action_CoursesFragment_to_ChaptersFragemnt,
                     bundleOf(ApiConstants.COURSE_ID to course.courseId)
                 )
-                //folosleges
-                true
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         val binding =

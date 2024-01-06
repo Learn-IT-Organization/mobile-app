@@ -20,7 +20,6 @@ import com.example.learnit.databinding.FragmentRegisterBinding
 import com.example.learnit.ui.activities.MainActivity
 import com.example.learnit.ui.feature.register.model.RegistrationModel
 import com.example.learnit.ui.feature.register.viewModel.RegisterViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
@@ -87,7 +86,6 @@ class RegisterFragment : Fragment() {
                 viewModel.state.collect { state ->
                     when (state) {
                         is RegisterViewModel.RegisterPageState.Loading -> {
-                            // Handle loading state
                         }
 
                         is RegisterViewModel.RegisterPageState.Success -> {
@@ -157,13 +155,9 @@ class RegisterFragment : Fragment() {
         }
     }
 
-
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 }

@@ -2,16 +2,20 @@ package com.example.learnit.ui.feature.courses.lessons.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.example.learnit.R
 import com.example.learnit.databinding.FragmentLessonsBinding
+import com.example.learnit.ui.feature.courses.chapters.fragment.ChaptersFragment.Companion.ARG_COURSE_ID
 import com.example.learnit.ui.feature.courses.lessons.adapter.LessonsAdapter
+import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
 import com.example.learnit.ui.feature.courses.lessons.viewModel.LessonsViewModel
 import kotlinx.coroutines.launch
 
@@ -22,15 +26,6 @@ class LessonsFragment : Fragment() {
     companion object {
         val TAG: String = LessonsFragment::class.java.simpleName
         private const val ARG_CHAPTER_ID = "chapterId"
-        fun newInstance(chapterId: Int?): LessonsFragment {
-            val fragment = LessonsFragment()
-            val args = Bundle()
-            if (chapterId != null) {
-                args.putInt(ARG_CHAPTER_ID, chapterId)
-            }
-            fragment.arguments = args
-            return fragment
-        }
     }
 
     override fun onCreateView(
@@ -39,20 +34,20 @@ class LessonsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLessonsBinding.inflate(inflater, container, false)
-        val chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
-        viewModel.loadLessons(chapterId)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "Lessons fragment")
         observeState()
-        binding.toolbar.setNavigationOnClickListener(
-            View.OnClickListener {
-                activity?.onBackPressed()
-            }
-        )
+        val chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
+        val courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
+        viewModel.loadLessons(chapterId, courseId)
+
+        binding.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
+
     }
 
     private fun observeState() {
@@ -66,7 +61,13 @@ class LessonsFragment : Fragment() {
 
                         is LessonsViewModel.LessonsPageState.Success -> {
                             Log.d(TAG, "Lessons loaded")
-                            val adapter = LessonsAdapter(state.lessonData)
+                            val adapter = LessonsAdapter(
+                                state.lessonData,
+                                object : LessonsAdapter.OnLessonItemClickListener {
+                                    override fun onLessonItemClick(lesson: LessonModel) {
+                                        this@LessonsFragment.onLessonItemClick(lesson)
+                                    }
+                                })
                             binding.lessonsRecycleView.adapter = adapter
                         }
 
@@ -79,7 +80,18 @@ class LessonsFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+
+    fun onLessonItemClick(lesson: LessonModel) {
+        val bundle = Bundle().apply {
+            putInt("courseId", arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
+            putInt("chapterId", lesson.lessonChapterId)
+            putInt("lessonId", lesson.lessonId)
+        }
+
+        findNavController().navigate(
+            R.id.action_lessonsFragment_to_multipleChoiceFragment,
+            bundle
+        )
     }
+
 }

@@ -19,11 +19,11 @@ class LessonsViewModel : ViewModel() {
     val state: StateFlow<LessonsPageState> = mutableState
 
     companion object {
-        val TAG = LessonsViewModel::class.java.simpleName
+        val TAG: String = LessonsViewModel::class.java.simpleName
     }
 
     sealed class LessonsPageState {
-        object Loading : LessonsPageState()
+        data object Loading : LessonsPageState()
         data class Success(val lessonData: List<LessonModel>) : LessonsPageState()
         data class Failure(val throwable: Throwable) : LessonsPageState()
     }
@@ -33,7 +33,7 @@ class LessonsViewModel : ViewModel() {
     }
 
 
-    fun loadLessons(chapterId: Int) {
+    fun loadLessons(chapterId: Int, courseId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedLessons = repository.getLessonsByChapterId(chapterId)
