@@ -1,8 +1,13 @@
 package com.example.learnit.ui.feature.courses.lessons.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.learnit.R
+import com.example.learnit.data.ApiConstants
 import com.example.learnit.databinding.LessonListItemBinding
 import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
 
@@ -21,6 +26,13 @@ class LessonsAdapter(
         fun bind(lesson: LessonModel) {
             binding.nameTextView.text = lesson.lessonName
             binding.descriptionTextView.text = lesson.lessonDescription
+            binding.root.setOnClickListener{
+                Log.d("LessonAdapter", "Click on: ${lesson.lessonId}")
+                itemView.findNavController().navigate(
+                    R.id.action_lessonsFragment_to_quizFragment,
+                    bundleOf()
+                )
+            }
         }
     }
 

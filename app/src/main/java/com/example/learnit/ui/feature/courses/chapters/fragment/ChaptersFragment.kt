@@ -31,7 +31,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()

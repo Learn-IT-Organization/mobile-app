@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
+import androidx.navigation.findNavController
 import com.example.learnit.databinding.FragmentLessonsBinding
 import com.example.learnit.ui.feature.courses.chapters.fragment.ChaptersFragment.Companion.ARG_COURSE_ID
 import com.example.learnit.ui.feature.courses.lessons.adapter.LessonsAdapter
@@ -70,7 +71,6 @@ class LessonsFragment : Fragment() {
                                 })
                             binding.lessonsRecycleView.adapter = adapter
                         }
-
                         is LessonsViewModel.LessonsPageState.Failure -> {
                             Log.e(TAG, "Error loading lessons: ${state.throwable}")
                         }

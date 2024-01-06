@@ -20,8 +20,7 @@ object ChaptersRepositoryImpl : ChaptersRepository {
         if (response.isSuccessful) {
             val responseData = response.body()
             Log.d("ChapterResponse2", response.raw().toString())
-            val data = responseData ?: emptyList()
-            return data.mapToChapterList()
+            return (responseData ?: emptyList()).mapToChapterList()
         }
         Log.d("ChapterResponse3", "EmptyList")
         return emptyList()
@@ -34,9 +33,7 @@ object ChaptersRepositoryImpl : ChaptersRepository {
         if (response.isSuccessful) {
             val responseData = response.body()
             Log.d("ChapterResponse2", response.raw().toString())
-            //A kovetkezo ket sort 1 sorban meglehet irni. A felso fuggvenyben is
-            val data = responseData ?: emptyList()
-            return data.mapToChapterList()
+            return (responseData ?: emptyList()).mapToChapterList()
         }
         Log.d("ChapterResponse3", "EmptyList")
         return emptyList()

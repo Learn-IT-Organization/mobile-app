@@ -37,6 +37,7 @@ class LessonsViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedLessons = repository.getLessonsByChapterId(chapterId)
+                Log.d(TAG, "loadedLessons: $loadedLessons")
                 mutableState.value = LessonsPageState.Success(loadedLessons)
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching lessons: ${e.message}")
