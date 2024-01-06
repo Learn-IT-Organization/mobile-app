@@ -3,12 +3,16 @@ package com.example.learnit.data
 import com.example.learnit.data.courses.chapters.model.ChaptersData
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.LessonData
+import com.example.learnit.data.courses.quiz.model.QuestionsAnswersData
+import com.example.learnit.data.courses.quiz.model.QuizResultData
+import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.data.user.login.model.LoginData
 import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.data.user.register.model.RegistrationResponseData
+import com.example.learnit.ui.feature.courses.quiz.model.QuizResultModel
 
 import retrofit2.http.GET
 import retrofit2.Response
@@ -44,4 +48,9 @@ interface ApiService {
     @GET("/chapters/{id}/lessons")
     suspend fun getLessonsByChapterId(@Path("id") id: Int): Response<List<LessonData>>
 
+    @GET("/questionsAnswers")
+    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData>>
+
+    @POST("responses")
+    suspend fun sendResult(@Body quizResultData: QuizResultData): Response<UserResponseData>
 }

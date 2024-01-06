@@ -30,7 +30,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener(
             View.OnClickListener {
@@ -77,9 +77,5 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
     override fun onChapterItemClick(chapter: ChapterModel) {
         val action = ChaptersFragmentDirections.actionChaptersFragmentToLessonsFragment(chapter.chapterId!!)
         findNavController().navigate(action)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }

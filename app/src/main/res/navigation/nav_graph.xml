@@ -85,9 +85,18 @@
         android:name="com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment"
         android:label="LessonsFragment"
         tools:layout="@layout/fragment_lessons">
+        <action
+            android:id="@+id/action_lessonsFragment_to_quizFragment"
+            app:destination="@id/trueFalseQuizFragment" />
         <argument
             android:name="chapterId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/trueFalseQuizFragment"
+        android:name="com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment"
+        android:label="TrueFalseQuizFragment"
+        tools:layout="@layout/fragment_quiz_true_false">
     </fragment>
 
 </navigation>
