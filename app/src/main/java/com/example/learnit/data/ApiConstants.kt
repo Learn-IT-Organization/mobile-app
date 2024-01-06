@@ -14,17 +14,4 @@ object ApiConstants {
     const val ADMIN = "admin"
     const val USER_ID = "user_id"
 
-    //Itt egy annyi hozzafuzni valo hogy ameddig nem hasznaltok valamit addig ne rakjatok be
-    //Tehat ilyen hogy USER_ROLE jelenleg nincs hasznalva.
-    // Tudom hogy lesz de maskor raer akkor berakni amikor hasznaljuk is
-
-    const val USER_ROLE = "user_role"
-    const val USER_NAME = "user_name"
-    const val USER_FIRST_NAME = "user_first_name"
-    const val USER_LAST_NAME = "user_last_name"
-    const val USER_GENDER = "user_gender"
-    const val USER_LEVEL = "user_level"
-    const val USER_PHOTO = "user_photo"
-    const val USER_STREAK = "user_streak"
-
 }

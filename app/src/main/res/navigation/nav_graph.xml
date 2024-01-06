@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.learnit.ui.feature.home.fragment.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_chaptersFragment"
             app:destination="@id/chaptersFragment" />
@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.learnit.ui.feature.register.fragment.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment">
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -91,6 +91,15 @@
         <argument
             android:name="chapterId"
             app:argType="integer" />
+        <argument
+            android:name="courseId"
+            app:argType="integer" />
+        <argument
+            android:name="lessonId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_lessonsFragment_to_multipleChoiceFragment"
+            app:destination="@id/multipleChoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/trueFalseQuizFragment"
@@ -98,5 +107,11 @@
         android:label="TrueFalseQuizFragment"
         tools:layout="@layout/fragment_quiz_true_false">
     </fragment>
+
+    <fragment
+        android:id="@+id/multipleChoiceFragment"
+        android:name="com.example.learnit.ui.feature.courses.lessons.fragment.MultipleChoiceQuizFragment"
+        android:label="MultipleChoiceFragment"
+        tools:layout="@layout/fragment_multiple_choice" />
 
 </navigation>
