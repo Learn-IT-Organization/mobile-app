@@ -1,7 +1,7 @@
-package com.example.learnit.data.courses.lessons.mapper
+package com.example.learnit.data.courses.quiz.mapper
 
-import com.example.learnit.data.courses.lessons.model.MultipleChoiceQuestionAnswerData
-import com.example.learnit.ui.feature.courses.lessons.model.MultipleChoiceQuestionAnswerModel
+import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionAnswerData
+import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
 
 fun MultipleChoiceQuestionAnswerData.mapToMultipleChoiceQA() = MultipleChoiceQuestionAnswerModel(
     questionId = this.question_id,

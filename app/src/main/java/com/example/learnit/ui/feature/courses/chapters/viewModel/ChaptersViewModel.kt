@@ -3,7 +3,7 @@ package com.example.learnit.ui.feature.courses.chapters.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.domain.chapters.repository.ChaptersRepository
+import com.example.learnit.domain.course.repository.ChaptersRepository
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 import kotlinx.coroutines.CoroutineExceptionHandler

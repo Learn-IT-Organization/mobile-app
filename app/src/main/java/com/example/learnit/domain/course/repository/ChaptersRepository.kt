@@ -1,4 +1,4 @@
-package com.example.learnit.domain.chapters.repository
+package com.example.learnit.domain.course.repository
 
 import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 

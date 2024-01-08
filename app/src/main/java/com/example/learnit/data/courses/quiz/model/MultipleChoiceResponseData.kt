@@ -1,6 +1,6 @@
-package com.example.learnit.data.courses.lessons.model
+package com.example.learnit.data.courses.quiz.model
 
-import com.example.learnit.ui.feature.courses.lessons.model.Response
+import com.example.learnit.ui.feature.courses.quiz.model.Response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.util.Date

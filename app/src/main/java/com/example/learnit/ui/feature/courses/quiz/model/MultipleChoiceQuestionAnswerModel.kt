@@ -1,6 +1,6 @@
-package com.example.learnit.ui.feature.courses.lessons.model
+package com.example.learnit.ui.feature.courses.quiz.model
 
-import com.example.learnit.data.courses.lessons.model.Answer
+import com.example.learnit.data.courses.quiz.model.Answer
 
 data class Answer(
     val ansText: String,

@@ -11,7 +11,7 @@ import com.example.learnit.data.courses.quiz.repository.QuizResultRepositoryImpl
 import com.example.learnit.data.user.login.repository.LoginRepositoryImpl
 import com.example.learnit.data.user.login.repository.UserRepositoryImpl
 import com.example.learnit.data.user.register.repository.RegisterRepositoryImpl
-import com.example.learnit.domain.chapters.repository.ChaptersRepository
+import com.example.learnit.domain.course.repository.ChaptersRepository
 import com.example.learnit.domain.course.repository.CourseRepository
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.domain.login.repository.LoginRepository

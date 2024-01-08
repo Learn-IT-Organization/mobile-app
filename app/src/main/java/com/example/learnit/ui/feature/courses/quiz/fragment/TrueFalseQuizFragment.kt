@@ -18,7 +18,6 @@ import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
-import com.example.learnit.ui.feature.courses.courses.fragment.CoursesFragment
 import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -45,8 +44,6 @@ class TrueFalseQuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeState()
 
-        observeState()
-
         binding.trueButton.setOnClickListener {
             viewModel.setUserResponse(true)
             Log.d(TAG, "responsee: ${viewModel.getUserResponse()}")
@@ -70,7 +67,7 @@ class TrueFalseQuizFragment : Fragment() {
                         response = listOf(
                             QuizResponseData(
                                 option_text = if (viewModel.getUserResponse() == true) "true" else "false",
-                                is_correct = if( viewModel.getUserResponse() == true) true else false
+                                is_correct = if (viewModel.getUserResponse() == true) true else false
                             )
                         ),
                         is_correct = 1,
@@ -91,7 +88,8 @@ class TrueFalseQuizFragment : Fragment() {
         button.isEnabled = !selected
         val colorResId = if (selected) R.color.gray else R.color.forest_green
         button.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
-        val textSizeResId = if (selected) R.dimen.selected_button_text_size else R.dimen.unselected_button_text_size
+        val textSizeResId =
+            if (selected) R.dimen.selected_button_text_size else R.dimen.unselected_button_text_size
         val textSize = resources.getDimension(textSizeResId)
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
@@ -108,7 +106,8 @@ class TrueFalseQuizFragment : Fragment() {
                         is TrueFalseQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-                            binding.lessonNumber.text = viewModel.currentQuestion?.questionId.toString()
+                            binding.lessonNumber.text =
+                                viewModel.currentQuestion?.questionId.toString()
                             binding.question.text = viewModel.currentQuestion?.questionText
                         }
 

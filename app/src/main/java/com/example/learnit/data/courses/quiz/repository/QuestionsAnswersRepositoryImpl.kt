@@ -2,6 +2,7 @@ package com.example.learnit.data.courses.quiz.repository
 
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
+import com.example.learnit.data.courses.lessons.repository.LessonRepositoryImpl
 import com.example.learnit.data.courses.quiz.mapper.mapToQuestionAnswersList
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
@@ -22,4 +23,29 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         return emptyList()
     }
 
+    override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+        courseId: Int,
+        chapterId: Int,
+        lessonId: Int
+    ): List<QuestionsAnswersModel> {
+        try {
+            val response =
+                QuestionsAnswersRepositoryImpl.apiService.getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+                    courseId,
+                    chapterId,
+                    lessonId
+                )
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                val data = responseData ?: emptyList()
+                return data.mapToQuestionAnswersList()
+            }
+        } catch (e: Exception) {
+            Log.e(
+                LessonRepositoryImpl.TAG,
+                "Error fetching questions and answers by course id, chapter id and lesson id: ${e.message}"
+            )
+        }
+        return emptyList()
+    }
 }

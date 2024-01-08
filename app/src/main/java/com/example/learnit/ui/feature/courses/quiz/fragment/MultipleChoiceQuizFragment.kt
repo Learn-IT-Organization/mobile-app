@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.lessons.fragment
+package com.example.learnit.ui.feature.courses.quiz.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +12,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.databinding.FragmentMultipleChoiceBinding
-import com.example.learnit.ui.feature.courses.lessons.model.MultipleChoiceQuestionAnswerModel
-import com.example.learnit.ui.feature.courses.lessons.model.MultipleChoiceResponseModel
-import com.example.learnit.ui.feature.courses.lessons.model.Response
-import com.example.learnit.ui.feature.courses.lessons.model.ResponseAnswer
-import com.example.learnit.ui.feature.courses.lessons.viewModel.MultipleChoiceQuestionAnswerViewModel
+import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
+import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceResponseModel
+import com.example.learnit.ui.feature.courses.quiz.model.Response
+import com.example.learnit.ui.feature.courses.quiz.model.ResponseAnswer
+import com.example.learnit.ui.feature.courses.quiz.viewModel.MultipleChoiceQuestionAnswerViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
 
