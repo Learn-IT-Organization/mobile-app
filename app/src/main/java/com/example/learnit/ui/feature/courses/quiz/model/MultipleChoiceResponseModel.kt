@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.lessons.model
+package com.example.learnit.ui.feature.courses.quiz.model
 
 import java.util.Date
 

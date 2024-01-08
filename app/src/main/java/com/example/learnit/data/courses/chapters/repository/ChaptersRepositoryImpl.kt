@@ -3,7 +3,7 @@ package com.example.learnit.data.courses.chapters.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.chapters.mapper.mapToChapterList
-import com.example.learnit.domain.chapters.repository.ChaptersRepository
+import com.example.learnit.domain.course.repository.ChaptersRepository
 import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 
 //Csinaljatok egy TAG constanst ami tartalmazza az osztaly nevet ami szerint kiloggoltok dolgokat

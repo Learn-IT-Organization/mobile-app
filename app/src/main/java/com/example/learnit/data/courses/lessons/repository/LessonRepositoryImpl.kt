@@ -3,12 +3,11 @@ package com.example.learnit.data.courses.lessons.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.mapper.mapToLessonList
-import com.example.learnit.data.courses.lessons.mapper.mapToMultipleChoiceQAList
-import com.example.learnit.data.courses.lessons.model.MultipleChoiceQuestionAnswerData
-import com.example.learnit.data.courses.lessons.model.MultipleChoiceResponseData
+import com.example.learnit.data.courses.quiz.mapper.mapToMultipleChoiceQAList
+import com.example.learnit.data.courses.quiz.model.MultipleChoiceResponseData
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
-import com.example.learnit.ui.feature.courses.lessons.model.MultipleChoiceQuestionAnswerModel
+import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
 
 object LessonRepositoryImpl : LessonRepository {
 
@@ -83,6 +82,4 @@ object LessonRepositoryImpl : LessonRepository {
         }
         return multipleChoiceResponseData
     }
-
-
 }

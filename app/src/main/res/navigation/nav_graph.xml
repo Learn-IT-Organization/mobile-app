@@ -110,7 +110,7 @@
 
     <fragment
         android:id="@+id/multipleChoiceFragment"
-        android:name="com.example.learnit.ui.feature.courses.lessons.fragment.MultipleChoiceQuizFragment"
+        android:name="com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment"
         android:label="MultipleChoiceFragment"
         tools:layout="@layout/fragment_multiple_choice" />
 
