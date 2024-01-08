@@ -4,11 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.quiz.mapper.mapToResponse
-<<<<<<<< HEAD:app/src/main/java/com/example/learnit/ui/feature/courses/quiz/viewModel/MultipleChoiceQuizViewModel.kt
-import com.example.learnit.domain.LessonRepository
-========
 import com.example.learnit.domain.course.repository.LessonRepository
->>>>>>>> origin/master:app/src/main/java/com/example/learnit/ui/feature/courses/quiz/viewModel/MultipleChoiceQuestionAnswerViewModel.kt
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceResponseModel

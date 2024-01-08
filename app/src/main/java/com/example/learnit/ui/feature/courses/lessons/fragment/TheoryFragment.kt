@@ -49,7 +49,7 @@ class TheoryFragment : Fragment() {
                             Log.d(TAG, "Lesson contents loaded")
 
                             binding.textViewIntroduction.text =
-                                state.lessonContentData[0].contentLessonId.toString()
+                                state.lessonContentData[0].toString()
 
                             binding.textViewLessonTitle.invalidate()
                             binding.textViewIntroduction.invalidate()

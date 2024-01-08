@@ -3,9 +3,10 @@ package com.example.learnit.ui.feature.courses.lessons.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.domain.LessonRepository
+import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.courses.lessons.model.LessonContentModel
+import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +25,7 @@ class TheoryViewModel : ViewModel() {
 
     sealed class TheoryPageState {
         data object Loading : TheoryPageState()
-        data class Success(val lessonContentData: List<LessonContentModel>) : TheoryPageState()
+        data class Success(val lessonContentData: List<LessonModel>) : TheoryPageState()
         data class Failure(val throwable: Throwable) : TheoryPageState()
     }
 
@@ -35,7 +36,7 @@ class TheoryViewModel : ViewModel() {
     fun loadLessonContents(lessonId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedLessons = repository.getLessonContentByLessonId(lessonId)
+                val loadedLessons = repository.getLessons()
                 Log.d(TAG, "loadedLessonContents: $loadedLessons")
                 mutableState.value = TheoryPageState.Success(loadedLessons)
             } catch (e: Exception) {
