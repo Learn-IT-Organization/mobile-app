@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewLessonTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lesson Title"
+                style="@style/title_style"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewIntroduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to the lesson. This is an introduction to the topic."
+                style="@style/paragraph_style"
+                android:paddingBottom="16dp"/>
+
+            <ImageView
+                android:id="@+id/imageViewLesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/robot_smaller"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:paddingBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewSubheading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                style="@style/subtitle_style"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="As shown in the image above, the app interface consists of three main sections: Lessons, Quizzes, and Progress."
+                style="@style/paragraph_style"
+                android:paddingBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewResources"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Additional Resources"
+                style="@style/subtitle_style"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewResourceLinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="https://techpassmaster.com/kotlin-android-quiz-app/"
+                android:autoLink="web"
+                style="@style/paragraph_style"
+                android:paddingBottom="16dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
