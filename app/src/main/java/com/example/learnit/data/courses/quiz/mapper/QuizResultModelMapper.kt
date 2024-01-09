@@ -1,20 +1,34 @@
 package com.example.learnit.data.courses.quiz.mapper
 
-import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
-import com.example.learnit.ui.feature.courses.quiz.model.QuizResponseModel
+import com.example.learnit.data.courses.quiz.model.UserAnswerData
+import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.ui.feature.courses.quiz.model.QuizResultModel
+import com.example.learnit.ui.feature.courses.quiz.model.UserAnswerModel
+import com.example.learnit.ui.feature.courses.quiz.model.UserResponseModel
 
-fun QuizResultData.mapToQuizResult()  = QuizResultModel(
-    uqrQuestionId = uqr_question_id,
-    uqrUserId = uqr_user_id,
-    response = response.map { it.mapToQuizResponse() },
-    isCorrect = is_correct,
-    score = score,
-    responseTime = response_time
-)
+fun QuizResultData.mapToQuizResultData(): QuizResultModel {
+    return QuizResultModel(
+        success = success,
+        message = message,
+        score = score
+    )
+}
 
-fun QuizResponseData.mapToQuizResponse() = QuizResponseModel(
-    optionText = option_text,
-    isCorrect = is_correct
-)
+fun UserResponseModel.mapToUserResponseData(): UserResponseData {
+    return UserResponseData(
+        uqr_question_id = uqrQuestionId,
+        uqr_user_id = uqrUserId,
+        response = response.map { it.mapToUserAnswerData() },
+        is_correct = isCorrect,
+        score = score,
+        response_time = responseTime
+    )
+}
+
+fun UserAnswerModel.mapToUserAnswerData(): UserAnswerData {
+    return UserAnswerData(
+        optionText = optionText,
+        isCorrect = isCorrect
+    )
+}

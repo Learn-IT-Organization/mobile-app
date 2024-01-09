@@ -3,11 +3,11 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.quiz.model.QuizResponseData
-import com.example.learnit.data.courses.quiz.model.QuizResultData
+import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.domain.quiz.repository.QuizResultRepository
 import com.example.learnit.ui.App
+import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ class TrueFalseQuizViewModel : ViewModel() {
 
     val state: StateFlow<QuestionAnswersPageState> = mutableState
 
-    var currentQuestion: QuestionsAnswersModel? = null
+    var currentQuestion: QuestionsAnswersModel<AnswerModel>? = null
 
     private var userResponse: Boolean? = null
 
@@ -39,7 +39,7 @@ class TrueFalseQuizViewModel : ViewModel() {
 
     sealed class QuestionAnswersPageState {
         object Loading : QuestionAnswersPageState()
-        data class Success(val questionsAnswersData: List<QuestionsAnswersModel>) :
+        data class Success(val questionsAnswersData: List<QuestionsAnswersModel<AnswerModel>>) :
             QuestionAnswersPageState()
 
         data class Failure(val throwable: Throwable) : QuestionAnswersPageState()
@@ -65,11 +65,11 @@ class TrueFalseQuizViewModel : ViewModel() {
         }
     }
 
-    fun sendUserResponse(quizResultModel: QuizResultData) {
+    fun sendUserResponse(quizResultModel: UserResponseData) {
         Log.d(TAG, "sendUserResponse: $quizResultModel")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            val response = quizResultRepository.sendResult(quizResultModel)
-            Log.d(TAG, "sendUserResponse: $response")
+            val response = quizResultRepository.sendResponse(quizResultModel)
+            Log.d(TAG, "send UserResponse: $response")
         }
     }
 

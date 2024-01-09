@@ -3,11 +3,11 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.quiz.mapper.mapToResponse
 import com.example.learnit.domain.course.repository.LessonRepository
+import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
-import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceResponseModel
+import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
+import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MultipleChoiceQuizViewModel : ViewModel() {
-    private val repository: LessonRepository = App.instance.getLessonRepository()
+    private val repository: QuestionsAnswersRepository = App.instance.getQuestionsAnswersRepository()
 
     private val mutableState =
         MutableStateFlow<MultipleQuestionPageState>(MultipleQuestionPageState.Loading)
@@ -27,7 +27,7 @@ class MultipleChoiceQuizViewModel : ViewModel() {
 
     sealed class MultipleQuestionPageState {
         data object Loading : MultipleQuestionPageState()
-        data class Success(val multipleChoiceData: List<MultipleChoiceQuestionAnswerModel>) :
+        data class Success(val multipleChoiceData: List<QuestionsAnswersModel<AnswerModel>>) :
             MultipleQuestionPageState()
 
         data class Failure(val throwable: Throwable) : MultipleQuestionPageState()
@@ -41,7 +41,7 @@ class MultipleChoiceQuizViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedMultipleChoiceQuestionAnswers =
-                    repository.getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
+                    repository.getQuestionsAnswersByCourseIdChapterIdLessonId(
                         courseId,
                         chapterId,
                         lessonId
@@ -59,14 +59,14 @@ class MultipleChoiceQuizViewModel : ViewModel() {
         }
     }
 
-    fun submitMultipleChoiceResponse(response: MultipleChoiceResponseModel) {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            try {
-                repository.postMultipleChoiceResponse(response.mapToResponse())
-            } catch (e: Exception) {
-                Log.e(TAG, "Error submitting multiple choice response: ${e.message}")
-            }
-        }
-    }
+//    fun submitMultipleChoiceResponse(response: QuestionsAnswersModel<AnswerModel>) {
+//        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+//            try {
+//                repository.postMultipleChoiceResponse(response.mapToResponse())
+//            } catch (e: Exception) {
+//                Log.e(TAG, "Error submitting multiple choice response: ${e.message}")
+//            }
+//        }
+//    }
 
 }
