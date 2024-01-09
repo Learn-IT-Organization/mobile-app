@@ -49,10 +49,15 @@ class TrueFalseQuizViewModel : ViewModel() {
         mutableState.value = QuestionAnswersPageState.Failure(exception)
     }
 
-    fun loadQuestionsAnswers() {
+    fun loadQuestionsAnswers(courseId: Int, chapterId: Int, lessonId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedQuestionsAnswers = repository.getQuestionsAnswers()
+                val loadedQuestionsAnswers =
+                    repository.getQuestionsAnswersByCourseIdChapterIdLessonId(
+                        courseId,
+                        chapterId,
+                        lessonId
+                    )
                 currentQuestion = loadedQuestionsAnswers
                     .shuffled().firstOrNull { it.questionType == "true_false" }
                 Log.d(TAG, "randomQuestionAnswer: $currentQuestion")

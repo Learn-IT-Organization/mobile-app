@@ -23,6 +23,10 @@ class TrueFalseQuizFragment : Fragment() {
     private val viewModel: TrueFalseQuizViewModel by viewModels()
     private lateinit var binding: FragmentQuizTrueFalseBinding
 
+    private var courseId: Int = -1
+    private var chapterId: Int = -1
+    private var lessonId: Int = -1
+
     companion object {
         val TAG: String = TrueFalseQuizFragment::class.java.simpleName
     }
@@ -33,7 +37,8 @@ class TrueFalseQuizFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizTrueFalseBinding.inflate(inflater, container, false)
-        viewModel.loadQuestionsAnswers()
+        Log.d(TAG, "TFAdatok: $courseId $chapterId $lessonId")
+        viewModel.loadQuestionsAnswers(courseId, chapterId, lessonId)
         return binding.root
     }
 
@@ -78,6 +83,12 @@ class TrueFalseQuizFragment : Fragment() {
 //            }
 //        }
 
+    }
+
+    fun setQuizData(courseId: Int, chapterId: Int, lessonId: Int) {
+        this.courseId = courseId
+        this.chapterId = chapterId
+        this.lessonId = lessonId
     }
 
     private fun setButtonState(button: Button, selected: Boolean) {
