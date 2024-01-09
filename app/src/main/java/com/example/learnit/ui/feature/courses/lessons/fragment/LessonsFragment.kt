@@ -82,15 +82,20 @@ class LessonsFragment : Fragment() {
 
 
     fun onLessonItemClick(lesson: LessonModel) {
-        val bundle = Bundle().apply {
-            putInt("courseId", arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
-            putInt("chapterId", lesson.lessonChapterId)
-            putInt("lessonId", lesson.lessonId)
-        }
+//        val bundle = Bundle().apply {
+//            putInt("courseId", arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
+//            putInt("chapterId", lesson.lessonChapterId)
+//            putInt("lessonId", lesson.lessonId)
+//        }
+
+//        findNavController().navigate(
+//            R.id.action_lessonsFragment_to_multipleChoiceFragment,
+//            bundle
+//        )
 
         findNavController().navigate(
             R.id.action_lessonsFragment_to_quizFragment,
-            bundle
+            Bundle()
         )
     }
 

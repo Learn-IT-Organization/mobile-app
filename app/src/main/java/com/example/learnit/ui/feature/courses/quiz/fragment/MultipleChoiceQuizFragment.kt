@@ -57,7 +57,7 @@ class MultipleChoiceQuizFragment : Fragment() {
         observeState()
 
         viewModel.loadMultipleChoice(courseId, chapterId, lessonId)
-        setUpSubmitButton()
+        //setUpSubmitButton()
     }
 
     private fun observeState() {
@@ -174,11 +174,11 @@ class MultipleChoiceQuizFragment : Fragment() {
         )
     }
 
-    private fun setUpSubmitButton() {
-        binding.submitButton.setOnClickListener {
-            handleUserAnswers()
-        }
-    }
+//    private fun setUpSubmitButton() {
+//        binding.submitButton.setOnClickListener {
+//            handleUserAnswers()
+//        }
+//    }
 
     private fun getSelectedAnswers(): List<AnswerData> {
         val selectedAnswers = mutableListOf<AnswerData>()

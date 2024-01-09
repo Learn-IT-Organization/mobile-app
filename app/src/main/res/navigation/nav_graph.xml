@@ -85,9 +85,6 @@
         android:name="com.example.learnit.ui.feature.courses.lessons.fragment.LessonsFragment"
         android:label="LessonsFragment"
         tools:layout="@layout/fragment_lessons">
-        <action
-            android:id="@+id/action_lessonsFragment_to_quizFragment"
-            app:destination="@id/trueFalseQuizFragment" />
         <argument
             android:name="chapterId"
             app:argType="integer" />
@@ -100,18 +97,38 @@
         <action
             android:id="@+id/action_lessonsFragment_to_multipleChoiceFragment"
             app:destination="@id/multipleChoiceFragment" />
+        <action
+            android:id="@+id/action_lessonsFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/trueFalseQuizFragment"
         android:name="com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment"
         android:label="TrueFalseQuizFragment"
-        tools:layout="@layout/fragment_quiz_true_false">
-    </fragment>
+        tools:layout="@layout/fragment_quiz_true_false" />
 
     <fragment
         android:id="@+id/multipleChoiceFragment"
         android:name="com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment"
         android:label="MultipleChoiceFragment"
         tools:layout="@layout/fragment_multiple_choice" />
+
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.learnit.ui.feature.courses.quiz.fragment.QuizFragment"
+        android:label="QuizFragment"
+        tools:layout="@layout/fragment_quiz">
+
+        <action
+            android:id="@+id/action_quizFragment_to_TheoryFragment"
+            app:destination="@id/theoryFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/theoryFragment"
+        android:name="com.example.learnit.ui.feature.courses.lessons.fragment.TheoryFragment"
+        android:label="TheoryFragment"
+        tools:layout="@layout/fragment_theory"/>
 
 </navigation>
