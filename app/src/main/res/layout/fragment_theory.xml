@@ -1,11 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="Theory"
+        app:titleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,69 +32,68 @@
 
             <TextView
                 android:id="@+id/textViewLessonTitle"
+                style="@style/title_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:text="Lesson Title"
-                style="@style/title_style"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewIntroduction"
+                style="@style/paragraph_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome to the lesson. This is an introduction to the topic."
-                style="@style/paragraph_style"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp"
+                android:text="Welcome to the lesson. This is an introduction to the topic." />
 
             <ImageView
                 android:id="@+id/imageViewLesson"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/robot_smaller"
-                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/robot_smaller" />
 
             <TextView
                 android:id="@+id/textViewSubheading"
+                style="@style/subtitle_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:text="Description"
-                style="@style/subtitle_style"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewDescription"
+                style="@style/paragraph_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="As shown in the image above, the app interface consists of three main sections: Lessons, Quizzes, and Progress."
-                style="@style/paragraph_style"
-                android:paddingBottom="16dp"/>
+                android:paddingBottom="16dp"
+                android:text="As shown in the image above, the app interface consists of three main sections: Lessons, Quizzes, and Progress." />
 
             <TextView
                 android:id="@+id/textViewResources"
+                style="@style/subtitle_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:text="Additional Resources"
-                style="@style/subtitle_style"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewResourceLinks"
+                style="@style/paragraph_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="https://techpassmaster.com/kotlin-android-quiz-app/"
                 android:autoLink="web"
-                style="@style/paragraph_style"
-                android:paddingBottom="16dp"/>
-
+                android:paddingBottom="16dp"
+                android:text="https://techpassmaster.com/kotlin-android-quiz-app/" />
 
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

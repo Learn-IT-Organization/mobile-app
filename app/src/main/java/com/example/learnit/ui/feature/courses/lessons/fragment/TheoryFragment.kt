@@ -34,6 +34,9 @@ class TheoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        binding.toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun observeState() {
