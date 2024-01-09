@@ -3,10 +3,9 @@ package com.example.learnit.data
 import com.example.learnit.data.courses.chapters.model.ChaptersData
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.LessonData
-import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionAnswerData
-import com.example.learnit.data.courses.quiz.model.MultipleChoiceResponseData
 import com.example.learnit.data.courses.quiz.model.QuestionsAnswersData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
+import com.example.learnit.data.courses.quiz.model.AnswerData
 import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
@@ -21,16 +20,16 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("users")
+    @GET("/users")
     suspend fun getUsers(): Response<List<LoggedUserData>>
 
-    @POST("login")
+    @POST("/login")
     suspend fun authorizeLogin(@Body loginForm: LoginData): Response<ResponseData<Data>>
 
-    @GET("profile/user")
+    @GET("/profile/user")
     suspend fun getLoggedInUser(): Response<ResponseData<LoggedUserData>>
 
-    @POST("register")
+    @POST("/register")
     suspend fun registerUser(@Body registerForm: RegistrationData): Response<RegistrationResponseData>
 
     @GET("/courses")
@@ -49,25 +48,16 @@ interface ApiService {
     suspend fun getLessonsByChapterId(@Path("id") id: Int): Response<List<LessonData>>
 
     @GET("/questionsAnswers")
-    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData>>
-
-    @POST("responses")
-    suspend fun sendResult(@Body quizResultData: QuizResultData): Response<UserResponseData>
-
-    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers/multiple_choice")
-    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
-        @Path("courseId") courseId: Int,
-        @Path("chapterId") chapterId: Int,
-        @Path("lessonId") lessonId: Int
-    ): Response<List<MultipleChoiceQuestionAnswerData>>
-
-    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers/true_false")
-    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
-        @Path("courseId") courseId: Int,
-        @Path("chapterId") chapterId: Int,
-        @Path("lessonId") lessonId: Int
-    ): Response<List<QuestionsAnswersData>>
+    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData<AnswerData>>>
 
     @POST("/respond")
-    suspend fun postMultipleChoiceResponse(@Body multipleChoiceResponseData: MultipleChoiceResponseData): Response<MultipleChoiceResponseData>
+    suspend fun sendResponse(@Body userResponseData: UserResponseData): Response<QuizResultData>
+
+    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers")
+    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
+        @Path("courseId") courseId: Int,
+        @Path("chapterId") chapterId: Int,
+        @Path("lessonId") lessonId: Int
+    ): Response<List<QuestionsAnswersData<AnswerData>>>
+
 }

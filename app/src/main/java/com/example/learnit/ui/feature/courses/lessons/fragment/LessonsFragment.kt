@@ -89,7 +89,7 @@ class LessonsFragment : Fragment() {
         }
 
         findNavController().navigate(
-            R.id.action_lessonsFragment_to_multipleChoiceFragment,
+            R.id.action_lessonsFragment_to_quizFragment,
             bundle
         )
     }

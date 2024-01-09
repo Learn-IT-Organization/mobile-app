@@ -1,16 +1,16 @@
 package com.example.learnit.ui.feature.courses.quiz.model
 
-data class QuestionsAnswersModel(
-    val questionId: Int?,
-    val lessonId: Int?,
-    val questionText: String?,
-    val questionType: String?,
-    val answers: List<AnswersModel>,
-    val chapterId: Int?,
-    val courseId: Int?
+data class QuestionsAnswersModel<T>(
+    val questionId: Int,
+    val lessonId: Int,
+    val questionText: String,
+    val questionType: String,
+    val answers: List<T>,
+    val chapterId: Int,
+    val courseId: Int
 )
 
-data class AnswersModel(
-    val optionText: String?,
-    val isCorrect: Boolean?
+data class AnswerModel(
+    val optionText: String,
+    val isCorrect: Boolean
 )

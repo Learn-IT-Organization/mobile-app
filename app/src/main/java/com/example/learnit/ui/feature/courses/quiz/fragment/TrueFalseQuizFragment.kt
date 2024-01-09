@@ -15,8 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.courses.quiz.model.QuizResponseData
-import com.example.learnit.data.courses.quiz.model.QuizResultData
+import com.example.learnit.data.courses.quiz.model.UserAnswerData
+import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
 import kotlinx.coroutines.launch
@@ -61,13 +61,13 @@ class TrueFalseQuizFragment : Fragment() {
         binding.submit.setOnClickListener {
             if (viewModel.isResponseSet()) {
                 viewModel.sendUserResponse(
-                    QuizResultData(
+                    UserResponseData(
                         uqr_question_id = viewModel.currentQuestion?.questionId!!,
                         uqr_user_id = SharedPreferences.getUserId().toInt(),
                         response = listOf(
-                            QuizResponseData(
-                                option_text = if (viewModel.getUserResponse() == true) "true" else "false",
-                                is_correct = if (viewModel.getUserResponse() == true) true else false
+                            UserAnswerData(
+                                optionText = if (viewModel.getUserResponse() == true) "true" else "false",
+                                isCorrect = viewModel.getUserResponse() == true
                             )
                         ),
                         is_correct = 1,

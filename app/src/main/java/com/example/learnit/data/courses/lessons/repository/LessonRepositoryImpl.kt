@@ -3,11 +3,8 @@ package com.example.learnit.data.courses.lessons.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.mapper.mapToLessonList
-import com.example.learnit.data.courses.quiz.mapper.mapToMultipleChoiceQAList
-import com.example.learnit.data.courses.quiz.model.MultipleChoiceResponseData
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
-import com.example.learnit.ui.feature.courses.quiz.model.MultipleChoiceQuestionAnswerModel
 
 object LessonRepositoryImpl : LessonRepository {
 
@@ -43,43 +40,5 @@ object LessonRepositoryImpl : LessonRepository {
         return emptyList()
     }
 
-    override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
-        courseId: Int,
-        chapterId: Int,
-        lessonId: Int
-    ): List<MultipleChoiceQuestionAnswerModel> {
-        try {
-            val response = apiService.getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
-                courseId,
-                chapterId,
-                lessonId
-            )
-            if (response.isSuccessful) {
-                val responseData = response.body()
-                val data = responseData ?: emptyList()
-                return data.mapToMultipleChoiceQAList()
-            }
-        } catch (e: Exception) {
-            Log.e(
-                TAG,
-                "Error fetching questions and answers by course id, chapter id and lesson id: ${e.message}"
-            )
-        }
-        return emptyList()
-    }
 
-    override suspend fun postMultipleChoiceResponse(multipleChoiceResponseData: MultipleChoiceResponseData): MultipleChoiceResponseData {
-        try {
-            val response = apiService.postMultipleChoiceResponse(multipleChoiceResponseData)
-            if (response.isSuccessful && response.body() != null) {
-                return response.body()!!
-            }
-        } catch (e: Exception) {
-            Log.e(
-                TAG,
-                "Error posting multiple choice response: ${e.message}"
-            )
-        }
-        return multipleChoiceResponseData
-    }
 }

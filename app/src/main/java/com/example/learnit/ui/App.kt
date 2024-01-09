@@ -46,7 +46,6 @@ class App : Application() {
     fun getChaptersRepository(): ChaptersRepository = ChaptersRepositoryImpl
     fun getLessonRepository(): LessonRepository = LessonRepositoryImpl
     fun getQuestionsAnswersRepository(): QuestionsAnswersRepository = QuestionsAnswersRepositoryImpl
-
     fun getQuizResultRepository(): QuizResultRepository = QuizResultRepositoryImpl
 
 }
