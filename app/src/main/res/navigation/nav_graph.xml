@@ -118,6 +118,17 @@
         android:id="@+id/quizFragment"
         android:name="com.example.learnit.ui.feature.courses.quiz.fragment.QuizFragment"
         android:label="QuizFragment"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz">
+
+        <action
+            android:id="@+id/action_quizFragment_to_TheoryFragment"
+            app:destination="@id/theoryFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/theoryFragment"
+        android:name="com.example.learnit.ui.feature.courses.lessons.fragment.TheoryFragment"
+        android:label="TheoryFragment"
+        tools:layout="@layout/fragment_theory"/>
 
 </navigation>
