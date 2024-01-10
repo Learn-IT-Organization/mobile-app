@@ -14,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.R
-import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
 import kotlinx.coroutines.launch
@@ -48,14 +47,14 @@ class TrueFalseQuizFragment : Fragment() {
 
         binding.trueButton.setOnClickListener {
             viewModel.setUserResponse(true)
-            Log.d(TAG, "responsee: ${viewModel.getUserResponse()}")
+            Log.d(TAG, "response: ${viewModel.getUserResponse()}")
             setButtonState(binding.trueButton, true)
             setButtonState(binding.falseButton, false)
         }
 
         binding.falseButton.setOnClickListener {
             viewModel.setUserResponse(false)
-            Log.d(TAG, "responsee: ${viewModel.getUserResponse()}")
+            Log.d(TAG, "response: ${viewModel.getUserResponse()}")
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
         }
@@ -114,8 +113,7 @@ class TrueFalseQuizFragment : Fragment() {
                         is TrueFalseQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-                            binding.lessonNumber.text =
-                                viewModel.currentQuestion?.questionId.toString()
+                            
                             binding.question.text = viewModel.currentQuestion?.questionText
                         }
 

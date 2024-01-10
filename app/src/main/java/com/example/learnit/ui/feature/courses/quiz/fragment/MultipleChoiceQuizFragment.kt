@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.cou
+package com.example.learnit.ui.feature.courses.quiz.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -94,7 +94,6 @@ class MultipleChoiceQuizFragment : Fragment() {
                                         binding.option2CheckBox,
                                         binding.option3CheckBox,
                                         binding.option4CheckBox,
-                                        binding.option5CheckBox
                                     )
                                     for ((index, answer) in answers.withIndex()) {
                                         answerTextViews[index].text = answer.optionText
