@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.example.learnit.R
+import com.bumptech.glide.Glide
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentHomeBinding
 import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
@@ -40,6 +39,9 @@ class HomeFragment : Fragment() {
         observeState()
         val loggedUserId = SharedPreferences.getUserId()
         Log.e(HomeViewModel.TAG, "Logged user id: $loggedUserId")
+//        Glide.with(this)
+//            .load(viewModel.getUserById(loggedUserId).userPhoto)
+//            .into(binding.imageViewProfilePhoto)
     }
 
     private fun observeState() {
@@ -52,6 +54,7 @@ class HomeFragment : Fragment() {
                         }
 
                         is HomeViewModel.UserPageState.Success -> {
+
                             Log.d(TAG, "Users loaded")
                         }
 

@@ -53,4 +53,8 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+
+    fun getUserById(loggedUserId: Long): LoggedUserModel {
+        return userList.find { it.userId == loggedUserId }!!
+    }
 }
