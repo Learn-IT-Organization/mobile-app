@@ -23,7 +23,7 @@
 
     <Button
         android:id="@+id/trueButton"
-        style="@style/true_button"
+        style="@style/true_false_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/falseButton"
-        style="@style/false_button"
+        style="@style/true_false_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

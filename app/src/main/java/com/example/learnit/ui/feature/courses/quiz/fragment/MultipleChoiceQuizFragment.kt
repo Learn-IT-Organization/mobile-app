@@ -32,6 +32,9 @@ class MultipleChoiceQuizFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMultipleChoiceBinding.inflate(inflater, container, false)
+        courseId = arguments?.getInt("courseId", -1) ?: -1
+        chapterId = arguments?.getInt("chapterId", -1) ?: -1
+        lessonId = arguments?.getInt("lessonId", -1) ?: -
         Log.d(TAG, "TFAdatok: $courseId $chapterId $lessonId")
         viewModel.loadMultipleChoice(courseId, chapterId, lessonId)
         return binding.root
@@ -64,12 +67,6 @@ class MultipleChoiceQuizFragment : Fragment() {
 //            }
 //        }
 
-    }
-
-    fun setQuizData(courseId: Int, chapterId: Int, lessonId: Int) {
-        this.courseId = courseId
-        this.chapterId = chapterId
-        this.lessonId = lessonId
     }
 
     private fun observeState() {

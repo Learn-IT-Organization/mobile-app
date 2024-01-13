@@ -11,16 +11,10 @@
         <item name="android:fontFamily">@font/source_code_pro_medium</item>
     </style>
 
-    <style name="true_button" parent="ShapeAppearanceOverlay.Material3.Button">
+    <style name="true_false_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:backgroundTint">@color/forest_green</item>
-    </style>
-
-    <style name="false_button" parent="ShapeAppearanceOverlay.Material3.Button">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:backgroundTint">@color/red</item>
+        <item name="android:backgroundTint">@color/pastel_pink</item>
     </style>
 
     <style name="submit_button" parent="ShapeAppearanceOverlay.Material3.Button">

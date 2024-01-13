@@ -84,5 +84,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.4.0-alpha03")
     //Cookie Jar
     implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
+    //ViewPager2
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
 }
