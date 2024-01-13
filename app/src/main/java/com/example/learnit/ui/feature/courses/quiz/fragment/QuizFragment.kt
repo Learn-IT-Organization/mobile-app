@@ -1,6 +1,5 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,8 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
 import com.example.learnit.databinding.FragmentQuizBinding
+import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 
 class QuizFragment : Fragment() {
 
@@ -43,7 +44,11 @@ class QuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showQuizFragment()
+        val viewPager: ViewPager2 = binding.viewPager
+        val pagerAdapter = QuizPagerAdapter(requireActivity(), 10, courseId, chapterId, lessonId)
+        viewPager.adapter = pagerAdapter
+        currentFragmentIndex++
+
         binding.escapeButton.setOnClickListener {
             showExitConfirmationDialog()
         }
@@ -55,41 +60,17 @@ class QuizFragment : Fragment() {
         }
     }
 
-    private fun showQuizFragment() {
-        val fragment = when (val randomQuizType = quizTypes[random.nextInt(quizTypes.size)]) {
-            "multiple_choice" -> {
-                val multipleChoiceFragment = MultipleChoiceQuizFragment()
-                multipleChoiceFragment.setQuizData(courseId, chapterId, lessonId)
-                multipleChoiceFragment
-            }
-
-            "true_false" -> {
-                val trueFalseFragment = TrueFalseQuizFragment()
-                trueFalseFragment.setQuizData(courseId, chapterId, lessonId)
-                trueFalseFragment
-            }
-
-            else -> throw IllegalArgumentException("Invalid quiz type: $randomQuizType")
-        }
-
-        childFragmentManager.beginTransaction()
-            .replace(R.id.frameQuizContainer, fragment)
-            .commit()
-    }
-
-    @SuppressLint("SetTextI18n")
     private fun onNextButtonClicked() {
         val randomScore = (0..2).random()
         binding.textScore.text = "Score: ${score + randomScore}"
         score += randomScore
         currentFragmentIndex++
-        if (currentFragmentIndex < 10) {
-            showQuizFragment()
+        if (currentFragmentIndex <= 10) {
+            binding.viewPager.setCurrentItem(currentFragmentIndex, true)
         } else {
             Log.d(TAG, "Quiz finished")
         }
     }
-
 
     private fun showExitConfirmationDialog() {
         AlertDialog.Builder(requireContext())
