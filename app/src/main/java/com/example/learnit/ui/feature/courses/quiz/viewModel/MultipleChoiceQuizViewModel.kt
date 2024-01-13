@@ -3,14 +3,10 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
-import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
-import com.example.learnit.ui.feature.courses.quiz.model.UserAnswerModel
-import com.example.learnit.ui.feature.courses.quiz.model.UserResponseModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

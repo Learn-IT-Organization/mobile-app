@@ -61,6 +61,7 @@ class QuizFragment : Fragment() {
     }
 
     private fun onNextButtonClicked() {
+        //interface listener
         val randomScore = (0..2).random()
         binding.textScore.text = "Score: ${score + randomScore}"
         score += randomScore
