@@ -17,7 +17,6 @@ fun QuestionsAnswersData<AnswerData>.mapToQuestionAnswer() = QuestionsAnswersMod
 
 fun AnswerData.mapToAnswer() = AnswerModel(
     optionText = option_text,
-    isCorrect = is_correct
 )
 
 fun List<QuestionsAnswersData<AnswerData>>.mapToQuestionAnswersList(): List<QuestionsAnswersModel<AnswerModel>> {
@@ -36,5 +35,4 @@ fun QuestionsAnswersModel<AnswerModel>.mapToQuestionAnswerData() = QuestionsAnsw
 
 fun AnswerModel.mapToAnswerData() = AnswerData(
     option_text = optionText,
-    is_correct = isCorrect
 )

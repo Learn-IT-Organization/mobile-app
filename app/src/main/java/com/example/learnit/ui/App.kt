@@ -1,5 +1,6 @@
 package com.example.learnit.ui
 
+import com.example.learnit.data.courses.quiz.repository.QuizResultRepositoryImpl
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.learnit.data.SharedPreferences
@@ -7,7 +8,6 @@ import com.example.learnit.data.courses.chapters.repository.ChaptersRepositoryIm
 import com.example.learnit.data.courses.course.repository.CourseRepositoryImpl
 import com.example.learnit.data.courses.lessons.repository.LessonRepositoryImpl
 import com.example.learnit.data.courses.quiz.repository.QuestionsAnswersRepositoryImpl
-import com.example.learnit.data.courses.quiz.repository.QuizResultRepositoryImpl
 import com.example.learnit.data.user.login.repository.LoginRepositoryImpl
 import com.example.learnit.data.user.login.repository.UserRepositoryImpl
 import com.example.learnit.data.user.register.repository.RegisterRepositoryImpl

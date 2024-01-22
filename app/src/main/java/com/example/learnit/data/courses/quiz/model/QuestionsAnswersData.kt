@@ -17,5 +17,4 @@ data class QuestionsAnswersData<T>(
 @Serializable
 data class AnswerData(
     @SerialName("option_text") val option_text: String,
-    @SerialName("is_correct") val is_correct: Boolean
 )

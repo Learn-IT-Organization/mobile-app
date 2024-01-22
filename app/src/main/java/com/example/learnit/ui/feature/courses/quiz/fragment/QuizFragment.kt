@@ -1,5 +1,6 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,22 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
+import com.example.learnit.data.courses.quiz.repository.QuizResultRepositoryImpl
 import com.example.learnit.databinding.FragmentQuizBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 
-class QuizFragment : Fragment() {
+class QuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListener {
 
     private lateinit var binding: FragmentQuizBinding
     private var currentFragmentIndex = 0
-    private val quizTypes = listOf("multiple_choice", "true_false")
-    private val random = java.util.Random()
+
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-    private var score: Int = 0
+    private var initialScore: Int = 0
 
     companion object {
         val TAG: String = QuizFragment::class.java.simpleName
@@ -45,7 +47,7 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager: ViewPager2 = binding.viewPager
-        val pagerAdapter = QuizPagerAdapter(requireActivity(), 10, courseId, chapterId, lessonId)
+        val pagerAdapter = QuizPagerAdapter(requireActivity(), 7, courseId, chapterId, lessonId)
         viewPager.adapter = pagerAdapter
         currentFragmentIndex++
 
@@ -58,20 +60,47 @@ class QuizFragment : Fragment() {
         binding.checkAndSubmitButton.setOnClickListener {
             onNextButtonClicked()
         }
+
+        observeScore()
     }
 
-    private fun onNextButtonClicked() {
-        //interface listener
-        val randomScore = (0..2).random()
-        binding.textScore.text = "Score: ${score + randomScore}"
-        score += randomScore
-        currentFragmentIndex++
-        if (currentFragmentIndex <= 10) {
-            binding.viewPager.setCurrentItem(currentFragmentIndex, true)
-        } else {
-            Log.d(TAG, "Quiz finished")
+    @SuppressLint("SetTextI18n")
+    private fun observeScore() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            QuizResultRepositoryImpl.latestScore.collect { score ->
+                Log.d(TAG, "Observed Score: $score")
+                binding.textScore.text = "Score: ${initialScore + score}"
+            }
         }
     }
+
+    override fun onNextButtonClicked() {
+        val currentFragment =
+            requireActivity().supportFragmentManager.fragments[currentFragmentIndex]
+
+        if (currentFragment is QuizPagerAdapter.QuizButtonClickListener) {
+            Log.d(TAG, "onNextButtonClicked: $currentFragment")
+
+            if (currentFragmentIndex % 2 == 0) {
+                if (currentFragment is MultipleChoiceQuizFragment) {
+                    currentFragment.onNextButtonClicked()
+                }
+            } else {
+                if (currentFragment is TrueFalseQuizFragment) {
+                    currentFragment.onNextButtonClicked()
+                }
+            }
+
+            currentFragmentIndex++
+            Log.d(TAG, "currentFragmentIndex: $currentFragmentIndex")
+            if (currentFragmentIndex <= 7) {
+                binding.viewPager.setCurrentItem(currentFragmentIndex, true)
+            } else {
+                Log.d(TAG, "Quiz finished")
+            }
+        }
+    }
+
 
     private fun showExitConfirmationDialog() {
         AlertDialog.Builder(requireContext())

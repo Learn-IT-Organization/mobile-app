@@ -1,9 +1,12 @@
 package com.example.learnit.ui.feature.courses.quiz.viewModel
 
+import UserResponseModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
+import com.example.learnit.domain.quiz.repository.QuizResultRepository
 import com.example.learnit.ui.App
 import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
@@ -14,7 +17,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MultipleChoiceQuizViewModel : ViewModel() {
-    private val repository: QuestionsAnswersRepository = App.instance.getQuestionsAnswersRepository()
+    private val repository: QuestionsAnswersRepository =
+        App.instance.getQuestionsAnswersRepository()
+    private val resultRepository: QuizResultRepository = App.instance.getQuizResultRepository()
 
     private val mutableState =
         MutableStateFlow<MultipleQuestionPageState>(MultipleQuestionPageState.Loading)
@@ -49,38 +54,30 @@ class MultipleChoiceQuizViewModel : ViewModel() {
                     )
                 currentQuestion = loadedQuestionsAnswers
                     .shuffled().firstOrNull { it.questionType == "multiple_choice" }
-                Log.d(TrueFalseQuizViewModel.TAG, "randomQuestionAnswer: $currentQuestion")
-                mutableState.value = MultipleChoiceQuizViewModel.MultipleQuestionPageState.Success(loadedQuestionsAnswers)
+
+                mutableState.value = MultipleQuestionPageState.Success(
+                    loadedQuestionsAnswers
+                )
                 Log.d(TrueFalseQuizViewModel.TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
             } catch (e: Exception) {
                 Log.e(TrueFalseQuizViewModel.TAG, "Error fetching lessons: ${e.message}")
-                mutableState.value = MultipleChoiceQuizViewModel.MultipleQuestionPageState.Failure(e)
+                mutableState.value = MultipleQuestionPageState.Failure(e)
             }
         }
     }
 
-//    fun submitMultipleChoiceResponse(response: QuestionsAnswersModel<AnswerModel>) {
-//        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-//            try {
-//                repository.postMultipleChoiceResponse(response.mapToResponse())
-//            } catch (e: Exception) {
-//                Log.e(TAG, "Error submitting multiple choice response: ${e.message}")
-//            }
-//        }
-//    }
 
-//    fun submitMultipleChoiceResponse(response: UserResponseModel) {
-//        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-//            try {
-//                resultRepository.sendResponse(response.mapToUserResponseData())
-//            } catch (e: Exception) {
-//                Log.e(MultipleChoiceQuestionAnswerViewModel.TAG, "Error submitting multiple choice response: ${e.message}")
-//            }
-//        }
-//    }
-//
-//    fun getUserResponse(): UserAnswerModel {
-//        return userResponse
-//    }
+    fun submitMultipleChoiceResponse(response: UserResponseModel) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            try {
+                resultRepository.sendResponse(response.mapToUserResponseData())
+                Log.d(TAG, "Response submitted")
+                Log.d(TAG, "Response: $response")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error submitting multiple choice response: ${e.message}")
+            }
+        }
+    }
+
 
 }

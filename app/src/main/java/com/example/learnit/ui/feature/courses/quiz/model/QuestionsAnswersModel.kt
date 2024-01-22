@@ -12,5 +12,4 @@ data class QuestionsAnswersModel<T>(
 
 data class AnswerModel(
     val optionText: String,
-    val isCorrect: Boolean
 )

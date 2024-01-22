@@ -29,7 +29,7 @@ class TrueFalseQuizViewModel : ViewModel() {
 
     var currentQuestion: QuestionsAnswersModel<AnswerModel>? = null
 
-    private var userResponse: Boolean? = null
+    private var userResponse: Boolean = false
 
     private var isResponseSet = false
 
@@ -70,11 +70,16 @@ class TrueFalseQuizViewModel : ViewModel() {
         }
     }
 
-    fun sendUserResponse(quizResultModel: UserResponseData) {
-        Log.d(TAG, "sendUserResponse: $quizResultModel")
+    fun sendUserResponse(response: UserResponseData) {
+        Log.d(TAG, "sendUserResponse: $response")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            val response = quizResultRepository.sendResponse(quizResultModel)
-            Log.d(TAG, "send UserResponse: $response")
+            try {
+                quizResultRepository.sendResponse(response)
+                Log.d(MultipleChoiceQuizViewModel.TAG, "Response submitted")
+                Log.d(MultipleChoiceQuizViewModel.TAG, "Response: $response")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error submitting true/false response: ${e.message}")
+            }
         }
     }
 
@@ -83,16 +88,8 @@ class TrueFalseQuizViewModel : ViewModel() {
         isResponseSet = true
     }
 
-    fun getUserResponse(): Boolean? {
+    fun getUserResponse(): Boolean {
         return userResponse
     }
 
-    fun isResponseSet(): Boolean {
-        return isResponseSet
-    }
-
-    fun resetUserResponse() {
-        userResponse = null
-        isResponseSet = false
-    }
 }

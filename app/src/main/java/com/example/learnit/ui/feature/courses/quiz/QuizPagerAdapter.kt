@@ -37,4 +37,7 @@ class QuizPagerAdapter (
             else -> throw IllegalStateException("Invalid position: $position")
         }
     }
+    interface QuizButtonClickListener {
+        fun onNextButtonClicked()
+    }
 }
