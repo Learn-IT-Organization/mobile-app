@@ -7,7 +7,6 @@ import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.domain.quiz.repository.QuizResultRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +26,7 @@ class TrueFalseQuizViewModel : ViewModel() {
 
     val state: StateFlow<QuestionAnswersPageState> = mutableState
 
-    var currentQuestion: QuestionsAnswersModel<AnswerModel>? = null
+    var currentQuestion: QuestionsAnswersModel? = null
 
     private var userResponse: Boolean = false
 
@@ -39,7 +38,7 @@ class TrueFalseQuizViewModel : ViewModel() {
 
     sealed class QuestionAnswersPageState {
         object Loading : QuestionAnswersPageState()
-        data class Success(val questionsAnswersData: List<QuestionsAnswersModel<AnswerModel>>) :
+        data class Success(val questionsAnswersData: List<QuestionsAnswersModel>) :
             QuestionAnswersPageState()
 
         data class Failure(val throwable: Throwable) : QuestionAnswersPageState()

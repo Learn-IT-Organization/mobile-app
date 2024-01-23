@@ -1,7 +1,5 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
-import QuizResponseModel
-import UserResponseModel
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -10,31 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.R
-import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
-import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
 import kotlinx.coroutines.launch
-import java.util.Date
 
-class TrueFalseQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListener {
-    private val viewModel: TrueFalseQuizViewModel by viewModels()
-    private lateinit var binding: FragmentQuizTrueFalseBinding
+class TrueFalseQuizFragment : BaseQuizFragment() {
+    override val viewModel: TrueFalseQuizViewModel by viewModels()
+    override lateinit var binding: FragmentQuizTrueFalseBinding
+    override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-
-    companion object {
-        val TAG: String = TrueFalseQuizFragment::class.java.simpleName
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,20 +56,41 @@ class TrueFalseQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListen
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
         }
+
+//        binding.submit.setOnClickListener {
+//            if (viewModel.isResponseSet()) {
+//                viewModel.sendUserResponse(
+//                    QuizResultData(
+//                        uqr_question_id = viewModel.currentQuestion?.questionId!!,
+//                        uqr_user_id = SharedPreferences.getUserId().toInt(),
+//                        response = listOf(
+//                            QuizResponseData(
+//                                option_text = if (viewModel.getUserResponse() == true) "true" else "false",
+//                                is_correct = if (viewModel.getUserResponse() == true) true else false
+//                            )
+//                        ),
+//                        is_correct = 1,
+//                        score = 1,
+//                        response_time = Date()
+//                    )
+//                )
+//                viewModel.resetUserResponse()
+//                setButtonState(binding.trueButton, false)
+//                setButtonState(binding.falseButton, false)
+//            }
+//        }
     }
 
     private fun setButtonState(button: Button, selected: Boolean) {
         button.isSelected = selected
         button.isEnabled = !selected
-        val colorResId = if (selected) R.color.gray else R.color.pastel_pink
-        button.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
         val textSizeResId =
             if (selected) R.dimen.selected_button_text_size else R.dimen.unselected_button_text_size
         val textSize = resources.getDimension(textSizeResId)
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
 
-    private fun observeState() {
+    override fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
@@ -91,7 +102,6 @@ class TrueFalseQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListen
                         is TrueFalseQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-
                             binding.question.text = viewModel.currentQuestion?.questionText
                         }
 
@@ -103,18 +113,4 @@ class TrueFalseQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListen
             }
         }
     }
-
-    override fun onNextButtonClicked() {
-        viewModel.sendUserResponse(
-            UserResponseModel(
-                uqrQuestionId = viewModel.currentQuestion?.questionId ?: -1,
-                uqrUserId = SharedPreferences.getUserId().toInt(),
-                response = QuizResponseModel(listOf(viewModel.getUserResponse())),
-                responseTime = Date()
-            ).mapToUserResponseData()
-        )
-        Log.d(TAG, "${listOf(viewModel.getUserResponse())}")
-    }
-
-
 }

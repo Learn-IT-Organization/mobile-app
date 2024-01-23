@@ -1,10 +1,12 @@
 package com.example.learnit.ui.feature.courses.quiz
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
+import com.example.learnit.ui.feature.courses.quiz.fragment.SortingQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment
 
 class QuizPagerAdapter (
@@ -19,8 +21,9 @@ class QuizPagerAdapter (
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position % 2) {
+        return when (position % 3) {
             0 -> MultipleChoiceQuizFragment().apply {
+                Log.d("QuizPagerAdapter0", "$courseId $chapterId $lessonId")
                 arguments = Bundle().apply {
                     putInt("courseId", courseId)
                     putInt("chapterId", chapterId)
@@ -28,6 +31,15 @@ class QuizPagerAdapter (
                 }
             }
             1 -> TrueFalseQuizFragment().apply {
+                Log.d("QuizPagerAdapter1", "$courseId $chapterId $lessonId")
+                arguments = Bundle().apply {
+                    putInt("courseId", courseId)
+                    putInt("chapterId", chapterId)
+                    putInt("lessonId", lessonId)
+                }
+            }
+            2 -> SortingQuizFragment().apply {
+                Log.d("QuizPagerAdapter2", "$courseId $chapterId $lessonId")
                 arguments = Bundle().apply {
                     putInt("courseId", courseId)
                     putInt("chapterId", chapterId)
