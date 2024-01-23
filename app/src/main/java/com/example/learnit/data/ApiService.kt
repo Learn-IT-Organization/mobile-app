@@ -5,7 +5,6 @@ import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.quiz.model.QuestionsAnswersData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
-import com.example.learnit.data.courses.quiz.model.AnswerData
 import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
@@ -48,7 +47,7 @@ interface ApiService {
     suspend fun getLessonsByChapterId(@Path("id") id: Int): Response<List<LessonData>>
 
     @GET("/questionsAnswers")
-    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData<AnswerData>>>
+    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData>>
 
     @POST("/respond")
     suspend fun sendResponse(@Body userResponseData: UserResponseData): Response<QuizResultData>
@@ -58,6 +57,6 @@ interface ApiService {
         @Path("courseId") courseId: Int,
         @Path("chapterId") chapterId: Int,
         @Path("lessonId") lessonId: Int
-    ): Response<List<QuestionsAnswersData<AnswerData>>>
+    ): Response<List<QuestionsAnswersData>>
 
 }

@@ -17,8 +17,6 @@ class QuizFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizBinding
     private var currentFragmentIndex = 0
-    private val quizTypes = listOf("multiple_choice", "true_false")
-    private val random = java.util.Random()
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
@@ -38,13 +36,14 @@ class QuizFragment : Fragment() {
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -1
-
+        Log.d(TAG, "QuizFragment: $courseId $chapterId $lessonId")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager: ViewPager2 = binding.viewPager
+        viewPager.isUserInputEnabled = false
         val pagerAdapter = QuizPagerAdapter(requireActivity(), 10, courseId, chapterId, lessonId)
         viewPager.adapter = pagerAdapter
         currentFragmentIndex++
