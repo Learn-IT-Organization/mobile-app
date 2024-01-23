@@ -84,8 +84,6 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
     private fun setButtonState(button: Button, selected: Boolean) {
         button.isSelected = selected
         button.isEnabled = !selected
-        val colorResId = if (selected) R.color.pink else R.color.pastel_pink
-        button.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
         val textSizeResId =
             if (selected) R.dimen.selected_button_text_size else R.dimen.unselected_button_text_size
         val textSize = resources.getDimension(textSizeResId)
