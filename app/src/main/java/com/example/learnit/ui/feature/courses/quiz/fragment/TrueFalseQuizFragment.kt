@@ -38,8 +38,7 @@ class TrueFalseQuizFragment : Fragment() {
         binding = FragmentQuizTrueFalseBinding.inflate(inflater, container, false)
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
-        lessonId = arguments?.getInt("lessonId", -1) ?: -
-        Log.d(MultipleChoiceQuizFragment.TAG, "TFAdatok: $courseId $chapterId $lessonId")
+        lessonId = arguments?.getInt("lessonId", -1) ?: - 1
         viewModel.loadQuestionsAnswers(courseId, chapterId, lessonId)
         return binding.root
     }
@@ -89,7 +88,7 @@ class TrueFalseQuizFragment : Fragment() {
     private fun setButtonState(button: Button, selected: Boolean) {
         button.isSelected = selected
         button.isEnabled = !selected
-        val colorResId = if (selected) R.color.gray else R.color.pastel_pink
+        val colorResId = if (selected) R.color.pink else R.color.pastel_pink
         button.setBackgroundColor(ContextCompat.getColor(requireContext(), colorResId))
         val textSizeResId =
             if (selected) R.dimen.selected_button_text_size else R.dimen.unselected_button_text_size
@@ -109,7 +108,6 @@ class TrueFalseQuizFragment : Fragment() {
                         is TrueFalseQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-                            
                             binding.question.text = viewModel.currentQuestion?.questionText
                         }
 

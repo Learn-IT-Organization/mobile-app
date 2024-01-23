@@ -35,7 +35,7 @@ class MultipleChoiceQuizFragment : Fragment() {
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -
-        Log.d(TAG, "TFAdatok: $courseId $chapterId $lessonId")
+        Log.d(TAG, "MCAdatok: $courseId $chapterId $lessonId")
         viewModel.loadMultipleChoice(courseId, chapterId, lessonId)
         return binding.root
     }
@@ -93,7 +93,7 @@ class MultipleChoiceQuizFragment : Fragment() {
                                         binding.option4CheckBox,
                                     )
                                     for ((index, answer) in answers.withIndex()) {
-                                        answerTextViews[index].text = answer.optionText
+                                        answerTextViews[index].text = answer
                                     }
                                 }
                             }
