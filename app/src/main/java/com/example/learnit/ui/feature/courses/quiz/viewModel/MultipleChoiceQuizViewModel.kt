@@ -3,14 +3,9 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
-import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
-import com.example.learnit.ui.feature.courses.quiz.model.UserAnswerModel
-import com.example.learnit.ui.feature.courses.quiz.model.UserResponseModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,13 +13,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MultipleChoiceQuizViewModel : ViewModel() {
-    private val repository: QuestionsAnswersRepository = App.instance.getQuestionsAnswersRepository()
+    private val repository: QuestionsAnswersRepository =
+        App.instance.getQuestionsAnswersRepository()
 
     private val mutableState =
         MutableStateFlow<MultipleQuestionPageState>(MultipleQuestionPageState.Loading)
     val state: StateFlow<MultipleQuestionPageState> = mutableState
 
-    var currentQuestion: QuestionsAnswersModel<AnswerModel>? = null
+    var currentQuestion: QuestionsAnswersModel? = null
 
     companion object {
         val TAG: String = MultipleChoiceQuizViewModel::class.java.simpleName
@@ -32,7 +28,7 @@ class MultipleChoiceQuizViewModel : ViewModel() {
 
     sealed class MultipleQuestionPageState {
         data object Loading : MultipleQuestionPageState()
-        data class Success(val multipleChoiceData: List<QuestionsAnswersModel<AnswerModel>>) :
+        data class Success(val multipleChoiceData: List<QuestionsAnswersModel>) :
             MultipleQuestionPageState()
 
         data class Failure(val throwable: Throwable) : MultipleQuestionPageState()
@@ -54,11 +50,14 @@ class MultipleChoiceQuizViewModel : ViewModel() {
                 currentQuestion = loadedQuestionsAnswers
                     .shuffled().firstOrNull { it.questionType == "multiple_choice" }
                 Log.d(TrueFalseQuizViewModel.TAG, "randomQuestionAnswer: $currentQuestion")
-                mutableState.value = MultipleChoiceQuizViewModel.MultipleQuestionPageState.Success(loadedQuestionsAnswers)
+                mutableState.value = MultipleChoiceQuizViewModel.MultipleQuestionPageState.Success(
+                    loadedQuestionsAnswers
+                )
                 Log.d(TrueFalseQuizViewModel.TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
             } catch (e: Exception) {
                 Log.e(TrueFalseQuizViewModel.TAG, "Error fetching lessons: ${e.message}")
-                mutableState.value = MultipleChoiceQuizViewModel.MultipleQuestionPageState.Failure(e)
+                mutableState.value =
+                    MultipleChoiceQuizViewModel.MultipleQuestionPageState.Failure(e)
             }
         }
     }

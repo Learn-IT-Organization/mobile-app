@@ -5,12 +5,11 @@ import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.quiz.mapper.mapToQuestionAnswersList
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
-import com.example.learnit.ui.feature.courses.quiz.model.AnswerModel
 
 object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
     private val TAG = QuestionsAnswersRepositoryImpl::class.java.simpleName
     private val apiService = RetrofitAdapter.provideApiService()
-    override suspend fun getQuestionsAnswers(): List<QuestionsAnswersModel<AnswerModel>> {
+    override suspend fun getQuestionsAnswers(): List<QuestionsAnswersModel> {
         try {
             val response = apiService.getQuestionsAnswers()
             if (response.isSuccessful) {
@@ -28,7 +27,7 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         courseId: Int,
         chapterId: Int,
         lessonId: Int
-    ): List<QuestionsAnswersModel<AnswerModel>> {
+    ): List<QuestionsAnswersModel> {
         try {
             val response =
                 apiService.getQuestionsAnswersByCourseIdChapterIdLessonId(

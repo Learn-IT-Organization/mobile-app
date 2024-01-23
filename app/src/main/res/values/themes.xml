@@ -3,7 +3,7 @@
     <style name="Theme.LearnIT" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/pastel_pink</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/pink</item>
+        <item name="colorAccent">@color/pastel_pink</item>
         <item name="colorSurface">@color/pastel_purple</item>
         <item name="colorOnSurface">@color/gray</item>
     </style>

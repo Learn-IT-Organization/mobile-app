@@ -5,37 +5,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.learnit.databinding.FragmentMultipleChoiceBinding
+import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
 import com.example.learnit.ui.feature.courses.quiz.viewModel.MultipleChoiceQuizViewModel
 import kotlinx.coroutines.launch
 
-class MultipleChoiceQuizFragment : Fragment() {
-    private val viewModel: MultipleChoiceQuizViewModel by viewModels()
-    private lateinit var binding: FragmentMultipleChoiceBinding
+class MultipleChoiceQuizFragment : BaseQuizFragment() {
+    override val viewModel: MultipleChoiceQuizViewModel by viewModels()
+    override lateinit var binding: FragmentQuizMultipleChoiceBinding
+    override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-
-    companion object {
-        val TAG: String = FragmentMultipleChoiceBinding::class.java.simpleName
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMultipleChoiceBinding.inflate(inflater, container, false)
+        binding = FragmentQuizMultipleChoiceBinding.inflate(inflater, container, false)
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -
-        Log.d(TAG, "TFAdatok: $courseId $chapterId $lessonId")
+        Log.d(TAG, "MCAdatok: $courseId $chapterId $lessonId")
         viewModel.loadMultipleChoice(courseId, chapterId, lessonId)
         return binding.root
     }
@@ -69,7 +65,7 @@ class MultipleChoiceQuizFragment : Fragment() {
 
     }
 
-    private fun observeState() {
+    override fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
@@ -93,7 +89,7 @@ class MultipleChoiceQuizFragment : Fragment() {
                                         binding.option4CheckBox,
                                     )
                                     for ((index, answer) in answers.withIndex()) {
-                                        answerTextViews[index].text = answer.optionText
+                                        answerTextViews[index].text = answer
                                     }
                                 }
                             }
