@@ -9,20 +9,18 @@ import com.example.learnit.ui.feature.home.model.LoggedUserModel
 //for testing only
 object UserRepositoryImpl : UserRepository {
     private val apiService = RetrofitAdapter.provideApiService()
-
+    private val TAG = UserRepositoryImpl::class.java.simpleName
     override suspend fun getUsers(): List<LoggedUserModel> {
         try {
             val response = apiService.getUsers()
             if (response.isSuccessful) {
                 val responseData = response.body()
                 val data = responseData ?: emptyList()
-                //TAG
-                Log.d("Response", response.raw().toString())
+                Log.d(TAG, response.raw().toString())
                 return data.mapToUserList()
             }
         } catch (e: Exception) {
-            //TAG
-            Log.e("UserRepository", "Error fetching users: ${e.message}")
+            Log.e(TAG, "Error fetching users: ${e.message}")
         }
         return emptyList()
     }

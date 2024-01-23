@@ -2,9 +2,10 @@ package com.example.learnit.data.user.login.mapper
 
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.LoggedUserResponseData
-import com.example.learnit.data.user.login.model.ResponseData
+import com.example.learnit.data.user.login.model.UserPhotoData
 import com.example.learnit.ui.feature.home.model.LoggedUserModel
 import com.example.learnit.ui.feature.home.model.LoggedUserResponseModel
+import com.example.learnit.ui.feature.home.model.UserPhotoModel
 
 fun LoggedUserData.mapToUser() = LoggedUserModel(
     userId = this.user_id,
@@ -15,8 +16,13 @@ fun LoggedUserData.mapToUser() = LoggedUserModel(
     userPassword = this.user_password,
     gender = this.gender,
     userLevel = this.user_level,
-    userPhoto = this.user_photo,
+    userPhoto = this.user_photo?.mapToPhoto(),
     streak = this.streak
+)
+
+fun UserPhotoData.mapToPhoto() = UserPhotoModel(
+    type = this.type,
+    data = this.data
 )
 
 fun List<LoggedUserData>.mapToUserList() = map { it.mapToUser() }

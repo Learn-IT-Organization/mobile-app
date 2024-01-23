@@ -44,7 +44,6 @@ class HomeViewModel : ViewModel() {
                 mutableState.value = UserPageState.Success(userList)
                 for (user in userList) {
                     Log.d(TAG, "User: $user")
-
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching users: ${e.message}")
@@ -54,7 +53,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getUserById(loggedUserId: Long): LoggedUserModel {
-        return userList.find { it.userId == loggedUserId }!!
+    fun getUserById(loggedUserId: Long): LoggedUserModel? {
+        return userList.find { it.userId == loggedUserId }
     }
 }

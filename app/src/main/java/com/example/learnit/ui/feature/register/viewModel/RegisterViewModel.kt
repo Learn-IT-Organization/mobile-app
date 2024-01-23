@@ -25,7 +25,6 @@ class RegisterViewModel : ViewModel() {
     val state: StateFlow<RegisterPageState> = mutableState
 
     private val selectedPhotoUri = MutableStateFlow<Uri?>(null)
-    val photoUri: StateFlow<Uri?> = selectedPhotoUri
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         mutableState.value = RegisterPageState.Failure(exception)
@@ -48,4 +47,7 @@ class RegisterViewModel : ViewModel() {
         selectedPhotoUri.value = uri
     }
 
+    fun getPhotoUri(): Uri? {
+        return selectedPhotoUri.value
+    }
 }

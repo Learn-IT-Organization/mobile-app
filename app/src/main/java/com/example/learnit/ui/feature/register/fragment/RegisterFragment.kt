@@ -3,12 +3,15 @@ package com.example.learnit.ui.feature.register.fragment
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,9 +21,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
 import com.example.learnit.databinding.FragmentRegisterBinding
 import com.example.learnit.ui.activities.MainActivity
+import com.example.learnit.ui.feature.home.fragment.HomeFragment
 import com.example.learnit.ui.feature.register.model.RegistrationModel
 import com.example.learnit.ui.feature.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
+import java.util.Base64
 
 class RegisterFragment : Fragment() {
 
@@ -28,6 +33,10 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
 
     private val PICK_IMAGE_REQUEST = 1
+
+    companion object {
+        val TAG: String = RegisterFragment::class.java.simpleName
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,11 +47,13 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupListeners() {
         binding.buttonSelectPhoto.setOnClickListener { openGallery() }
 
@@ -52,6 +63,7 @@ class RegisterFragment : Fragment() {
                 viewModel.registerUser(registrationModel)
                 observeState()
             }
+            
         }
 
         binding.loginButton.setOnClickListener {
@@ -59,18 +71,45 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createRegistrationModelFromUI(): RegistrationModel {
+        val firstName = binding.editTextFirstName.text.toString()
+        val lastName = binding.editTextLastName.text.toString()
+        val userName = binding.editTextUsername.text.toString()
+        val password = binding.editTextPassword.text.toString()
+        val gender = getSelectedGender()
+        val userLevel = binding.spinnerUserLevel.selectedItem.toString()
+        val streak = 0
+
+        val userPhotoUri = viewModel.getPhotoUri()
+
+        val userPhotoBase64 = if (userPhotoUri != null) {
+            encodeImageToBase64(userPhotoUri)
+        } else {
+            null
+        }
+        Log.d(TAG, "createRegistrationModelFromUI: $userPhotoBase64")
         return RegistrationModel(
-            firstName = binding.editTextFirstName.text.toString(),
-            lastName = binding.editTextLastName.text.toString(),
-            userName = binding.editTextUsername.text.toString(),
-            userPassword = binding.editTextPassword.text.toString(),
-            gender = getSelectedGender(),
-            userLevel = binding.spinnerUserLevel.selectedItem.toString(),
-            userPhoto = "Base64EncodedStringHere",
-            streak = 0
+            firstName = firstName,
+            lastName = lastName,
+            userName = userName,
+            userPassword = password,
+            gender = gender,
+            userLevel = userLevel,
+            userPhoto = userPhotoBase64!!,
+            streak = streak
         )
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun encodeImageToBase64(imageUri: Uri): String? {
+        val inputStream = context?.contentResolver?.openInputStream(imageUri)
+        val bytes = inputStream?.readBytes()
+        inputStream?.close()
+
+        return Base64.getEncoder().encodeToString(bytes)
+    }
+
 
     private fun getSelectedGender(): String {
         return when (binding.genderRadioGroup.checkedRadioButtonId) {
@@ -108,8 +147,7 @@ class RegisterFragment : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
         clearTextFields()
-        val intent = Intent(context, MainActivity::class.java)
-        startActivity(intent)
+        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 
     private fun handleFailureState(throwable: Throwable) {
@@ -159,5 +197,6 @@ class RegisterFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
+
 
 }

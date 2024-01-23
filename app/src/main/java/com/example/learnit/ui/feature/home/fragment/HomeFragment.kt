@@ -1,5 +1,6 @@
 package com.example.learnit.ui.feature.home.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,14 +35,15 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         val loggedUserId = SharedPreferences.getUserId()
-        Log.e(HomeViewModel.TAG, "Logged user id: $loggedUserId")
-//        Glide.with(this)
-//            .load(viewModel.getUserById(loggedUserId).userPhoto)
-//            .into(binding.imageViewProfilePhoto)
+        Log.d(TAG, "Logged user id: $loggedUserId")
+        viewModel.getUserById(loggedUserId)
+        Log.d(TAG, "Logged user: ${viewModel.getUserById(loggedUserId)}")
+
     }
 
     private fun observeState() {
@@ -54,7 +56,7 @@ class HomeFragment : Fragment() {
                         }
 
                         is HomeViewModel.UserPageState.Success -> {
-
+                            updateProfileUi()
                             Log.d(TAG, "Users loaded")
                         }
 
@@ -66,5 +68,19 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateProfileUi() {
+        val loggedUserId = SharedPreferences.getUserId()
+        val loggedUser = viewModel.getUserById(loggedUserId)
+        Glide.with(this)
+            .load(loggedUser?.userPhoto)
+            .into(binding.imageViewProfilePhoto)
+        binding.textViewUsername.text = loggedUser?.userName
+        binding.textViewName.text = loggedUser?.firstName + " " + loggedUser?.lastName
+        binding.textViewStreaks.text = loggedUser?.streak.toString()
+        binding.textViewGender.text = loggedUser?.gender
+        binding.textViewUserLevel.text = loggedUser?.userLevel
     }
 }
