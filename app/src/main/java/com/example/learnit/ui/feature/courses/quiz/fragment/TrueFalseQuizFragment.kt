@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,17 +17,14 @@ import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
 import kotlinx.coroutines.launch
 
-class TrueFalseQuizFragment : Fragment() {
-    private val viewModel: TrueFalseQuizViewModel by viewModels()
-    private lateinit var binding: FragmentQuizTrueFalseBinding
+class TrueFalseQuizFragment : BaseQuizFragment() {
+    override val viewModel: TrueFalseQuizViewModel by viewModels()
+    override lateinit var binding: FragmentQuizTrueFalseBinding
+    override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-
-    companion object {
-        val TAG: String = TrueFalseQuizFragment::class.java.simpleName
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +34,7 @@ class TrueFalseQuizFragment : Fragment() {
         binding = FragmentQuizTrueFalseBinding.inflate(inflater, container, false)
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
-        lessonId = arguments?.getInt("lessonId", -1) ?: - 1
+        lessonId = arguments?.getInt("lessonId", -1) ?: -1
         viewModel.loadQuestionsAnswers(courseId, chapterId, lessonId)
         return binding.root
     }
@@ -96,7 +92,7 @@ class TrueFalseQuizFragment : Fragment() {
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
 
-    private fun observeState() {
+    override fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->

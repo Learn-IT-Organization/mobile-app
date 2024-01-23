@@ -11,18 +11,13 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseQuizFragment : Fragment() {
     abstract val viewModel: ViewModel
     abstract val binding: ViewBinding
+    abstract val TAG: String
 
-    var courseId: Int = -1
-    var chapterId: Int = -1
-    var lessonId: Int = -1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        courseId = arguments?.getInt("courseId", -1) ?: -1
-        chapterId = arguments?.getInt("chapterId", -1) ?: -1
-        lessonId = arguments?.getInt("lessonId", -1) ?: -1
         return binding.root
     }
 
