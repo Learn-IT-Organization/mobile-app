@@ -23,6 +23,24 @@
         <item name="android:backgroundTint">@color/pastel_pink</item>
     </style>
 
+    <style name="sorting_groups" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:background">@color/pastel_pink</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:elevation">15dp</item>
+    </style>
+
+    <style name="sorting_concepts" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/rounded_background</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
     <style name="title_style">
         <item name="fontFamily">@font/source_code_pro_bold</item>
         <item name="android:textSize">25sp</item>
@@ -31,7 +49,7 @@
 
     <style name="subtitle_style">
         <item name="fontFamily">@font/source_code_pro_bold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:padding">5dp</item>
     </style>
 

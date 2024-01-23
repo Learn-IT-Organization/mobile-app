@@ -9,13 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.learnit.databinding.FragmentMultipleChoiceBinding
+import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
 import com.example.learnit.ui.feature.courses.quiz.viewModel.MultipleChoiceQuizViewModel
 import kotlinx.coroutines.launch
 
 class MultipleChoiceQuizFragment : BaseQuizFragment() {
     override val viewModel: MultipleChoiceQuizViewModel by viewModels()
-    override lateinit var binding: FragmentMultipleChoiceBinding
+    override lateinit var binding: FragmentQuizMultipleChoiceBinding
     override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
 
     private var courseId: Int = -1
@@ -27,7 +27,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMultipleChoiceBinding.inflate(inflater, container, false)
+        binding = FragmentQuizMultipleChoiceBinding.inflate(inflater, container, false)
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -
