@@ -38,7 +38,6 @@ class MultipleChoiceQuizFragment : BaseQuizFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeState()
 
 //        binding.submit.setOnClickListener {
 //            if (viewModel.isResponseSet()) {

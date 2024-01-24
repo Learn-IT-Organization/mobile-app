@@ -27,5 +27,4 @@ abstract class BaseQuizFragment : Fragment() {
     }
 
     abstract fun observeState()
-
 }
