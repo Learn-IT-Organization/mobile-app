@@ -10,11 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
-import com.example.learnit.ui.feature.courses.quiz.viewModel.MultipleChoiceQuizViewModel
+import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
 
 class MultipleChoiceQuizFragment : BaseQuizFragment() {
-    override val viewModel: MultipleChoiceQuizViewModel by viewModels()
+    override val viewModel: SharedQuizViewModel by viewModels()
     override lateinit var binding: FragmentQuizMultipleChoiceBinding
     override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
 
@@ -32,13 +32,12 @@ class MultipleChoiceQuizFragment : BaseQuizFragment() {
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -
         Log.d(TAG, "MCAdatok: $courseId $chapterId $lessonId")
-        viewModel.loadMultipleChoice(courseId, chapterId, lessonId)
+        viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeState()
 
 //        binding.submit.setOnClickListener {
 //            if (viewModel.isResponseSet()) {
@@ -70,16 +69,15 @@ class MultipleChoiceQuizFragment : BaseQuizFragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
-                        is MultipleChoiceQuizViewModel.MultipleQuestionPageState.Loading -> {
-                            Log.d(TAG, "Loading questionsAnswers...")
+                        is SharedQuizViewModel.QuestionAnswersPageState.Loading -> {
+                            Log.d(TAG, "Loading MultipleChoice questionsAnswers...")
                         }
 
-                        is MultipleChoiceQuizViewModel.MultipleQuestionPageState.Success -> {
-                            Log.d(TAG, "QuestionsAnswers loaded")
-                            Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-                            binding.questionTextView.text =
-                                viewModel.currentQuestion?.questionText ?: ""
-                            val answers = viewModel.currentQuestion?.answers
+                        is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
+                            Log.d(TAG, "MultipleChoice QuestionsAnswers loaded")
+                            val currentQuestion = viewModel.shuffleAndSelectQuestion("multiple_choice")
+                            binding.questionTextView.text = currentQuestion?.questionText
+                            val answers = currentQuestion?.answers
                             if (answers != null) {
                                 if (answers.isNotEmpty()) {
                                     val answerTextViews = listOf(
@@ -95,8 +93,8 @@ class MultipleChoiceQuizFragment : BaseQuizFragment() {
                             }
                         }
 
-                        is MultipleChoiceQuizViewModel.MultipleQuestionPageState.Failure -> {
-                            Log.e(TAG, "Error loading QuestionsAnswers: ${state.throwable}")
+                        is SharedQuizViewModel.QuestionAnswersPageState.Failure -> {
+                            Log.e(TAG, "Error loading MultipleChoice QuestionsAnswers: ${state.throwable}")
                         }
                     }
                 }
