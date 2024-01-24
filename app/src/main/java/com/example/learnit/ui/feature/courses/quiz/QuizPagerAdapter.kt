@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
-import com.example.learnit.ui.feature.courses.quiz.fragment.SortingQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment
 
 class QuizPagerAdapter (

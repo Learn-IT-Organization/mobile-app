@@ -20,7 +20,8 @@ fun UserResponseModel.mapToUserResponseData(): UserResponseData {
         uqr_question_id = uqrQuestionId,
         uqr_user_id = uqrUserId,
         response = response.mapToQuizResponseData(),
-        response_time = responseTime
+        response_time = responseTime,
+        score = score
     )
 }
 

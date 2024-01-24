@@ -30,7 +30,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 
         courseId = arguments?.getInt("courseId", -1) ?: -1
@@ -44,7 +44,6 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.isUserInputEnabled = false
-        val verifyButton = binding.checkAndSubmitButton
         viewPager.adapter = QuizPagerAdapter(
             requireActivity(),
             numberOfQuestions = 10,
@@ -61,10 +60,40 @@ class QuizFragment : Fragment() {
             findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment)
         }
 
-        verifyButton.setOnClickListener {
-            val currentFragmentPosition = viewPager.currentItem
-            val nextFragmentPosition = currentFragmentPosition + 1
-            viewPager.setCurrentItem(nextFragmentPosition, true)
+        binding.checkAndSubmitButton.setOnClickListener {
+            onNextButtonClicked()
+        }
+    }
+
+    private fun onNextButtonClicked() {
+        val currentFragment =
+            requireActivity().supportFragmentManager.fragments.getOrNull(currentFragmentIndex)
+
+        Log.d(TAG, "currentFragmentIndex before click: $currentFragmentIndex")
+
+        if (currentFragment is MultipleChoiceQuizFragment) {
+            Log.d(TAG, "$currentFragment")
+            currentFragment.onNextButtonClicked()
+
+        } else {
+            if (currentFragment is TrueFalseQuizFragment) {
+                Log.d(TAG, "$currentFragment")
+                currentFragment.onNextButtonClicked()
+            }
+        }
+
+        currentFragmentIndex++
+        Log.d(TAG, "currentFragmentIndex after click: $currentFragmentIndex")
+        if (currentFragmentIndex < 10) {
+            binding.viewPager.setCurrentItem(currentFragmentIndex, true)
+        } else {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Quiz Completed")
+                .setMessage("Your score is $score")
+                .setPositiveButton("OK") { _, _ ->
+                    activity?.onBackPressed()
+                }
+                .show()
         }
     }
 

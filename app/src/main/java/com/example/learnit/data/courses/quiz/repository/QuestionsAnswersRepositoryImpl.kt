@@ -23,6 +23,58 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         return emptyList()
     }
 
+    override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
+        courseId: Int,
+        chapterId: Int,
+        lessonId: Int
+    ): List<QuestionsAnswersModel> {
+        try {
+            val response =
+                apiService.getQuestionsAnswersByCourseIdChapterIdLessonId(
+                    courseId,
+                    chapterId,
+                    lessonId
+                )
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                val data = responseData ?: emptyList()
+                return data.mapToQuestionAnswersList()
+            }
+        } catch (e: Exception) {
+            Log.e(
+                TAG,
+                "Error fetching questions and answers by course id, chapter id and lesson id: ${e.message}"
+            )
+        }
+        return emptyList()
+    }
+
+    override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+        courseId: Int,
+        chapterId: Int,
+        lessonId: Int
+    ): List<QuestionsAnswersModel> {
+        try {
+            val response =
+                apiService.getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+                    courseId,
+                    chapterId,
+                    lessonId
+                )
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                val data = responseData ?: emptyList()
+                return data.mapToQuestionAnswersList()
+            }
+        } catch (e: Exception) {
+            Log.e(
+                TAG,
+                "Error fetching questions and answers by course id, chapter id and lesson id: ${e.message}"
+            )
+        }
+        return emptyList()
+    }
+
     override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
         courseId: Int,
         chapterId: Int,

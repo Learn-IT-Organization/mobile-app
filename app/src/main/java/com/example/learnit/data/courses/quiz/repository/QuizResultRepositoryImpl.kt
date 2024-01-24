@@ -12,14 +12,11 @@ object QuizResultRepositoryImpl : QuizResultRepository {
     private val apiService = RetrofitAdapter.provideApiService()
     private val TAG: String = QuizResultRepositoryImpl::class.java.simpleName
 
-    private val _latestScore = MutableStateFlow<Float>(0f)
-    val latestScore = _latestScore.asStateFlow()
 
     override suspend fun sendResponse(userResponseData: UserResponseData): QuizResultData {
         val response = apiService.sendResponse(userResponseData)
         if (response.isSuccessful && response.body() != null) {
             val score = response.body()!!.score
-            _latestScore.value = score
             Log.d(TAG, "Score: $score")
             return response.body()!!
         }

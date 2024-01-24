@@ -16,18 +16,3 @@ fun QuestionsAnswersData.mapToQuestionAnswer() = QuestionsAnswersModel(
 fun List<QuestionsAnswersData>.mapToQuestionAnswersList(): List<QuestionsAnswersModel> {
     return map { it.mapToQuestionAnswer() }
 }
-
-//fun QuestionsAnswersModel<AnswerModel>.mapToQuestionAnswerData() = QuestionsAnswersData(
-//    question_id = questionId,
-//    qa_lesson_id = lessonId,
-//    question_text = questionText,
-//    question_type = questionType,
-//    answers = answers.map { it.mapToAnswerData() },
-//    qa_chapter_id = chapterId,
-//    qa_course_id = courseId
-//)
-//
-//fun AnswerModel.mapToAnswerData() = AnswerData(
-//    option_text = optionText,
-//    is_correct = isCorrect
-//)
