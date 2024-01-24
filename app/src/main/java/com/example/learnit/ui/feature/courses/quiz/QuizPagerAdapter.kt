@@ -21,7 +21,7 @@ class QuizPagerAdapter (
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position % 3) {
+        return when (position % 2) {
             0 -> MultipleChoiceQuizFragment().apply {
                 Log.d("QuizPagerAdapter0", "$courseId $chapterId $lessonId")
                 arguments = Bundle().apply {
@@ -38,14 +38,14 @@ class QuizPagerAdapter (
                     putInt("lessonId", lessonId)
                 }
             }
-            2 -> SortingQuizFragment().apply {
-                Log.d("QuizPagerAdapter2", "$courseId $chapterId $lessonId")
-                arguments = Bundle().apply {
-                    putInt("courseId", courseId)
-                    putInt("chapterId", chapterId)
-                    putInt("lessonId", lessonId)
-                }
-            }
+//            2 -> SortingQuizFragment().apply {
+//                Log.d("QuizPagerAdapter2", "$courseId $chapterId $lessonId")
+//                arguments = Bundle().apply {
+//                    putInt("courseId", courseId)
+//                    putInt("chapterId", chapterId)
+//                    putInt("lessonId", lessonId)
+//                }
+//            }
             else -> throw IllegalStateException("Invalid position: $position")
         }
     }

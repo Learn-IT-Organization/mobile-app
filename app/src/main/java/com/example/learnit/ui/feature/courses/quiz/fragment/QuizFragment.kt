@@ -44,9 +44,14 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.isUserInputEnabled = false
-        val pagerAdapter = QuizPagerAdapter(requireActivity(), 10, courseId, chapterId, lessonId)
-        viewPager.adapter = pagerAdapter
-        currentFragmentIndex++
+        val verifyButton = binding.checkAndSubmitButton
+        viewPager.adapter = QuizPagerAdapter(
+            requireActivity(),
+            numberOfQuestions = 10,
+            courseId = courseId,
+            chapterId = chapterId,
+            lessonId = lessonId
+        )
 
         binding.escapeButton.setOnClickListener {
             showExitConfirmationDialog()
@@ -54,20 +59,11 @@ class QuizFragment : Fragment() {
         binding.bookButton.setOnClickListener {
             findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment)
         }
-        binding.checkAndSubmitButton.setOnClickListener {
-            onNextButtonClicked()
-        }
-    }
 
-    private fun onNextButtonClicked() {
-        val randomScore = (0..2).random()
-        binding.textScore.text = "Score: ${score + randomScore}"
-        score += randomScore
-        currentFragmentIndex++
-        if (currentFragmentIndex <= 10) {
-            binding.viewPager.setCurrentItem(currentFragmentIndex, true)
-        } else {
-            Log.d(TAG, "Quiz finished")
+        verifyButton.setOnClickListener {
+            val currentFragmentPosition = viewPager.currentItem
+            val nextFragmentPosition = currentFragmentPosition + 1
+            viewPager.setCurrentItem(nextFragmentPosition, true)
         }
     }
 

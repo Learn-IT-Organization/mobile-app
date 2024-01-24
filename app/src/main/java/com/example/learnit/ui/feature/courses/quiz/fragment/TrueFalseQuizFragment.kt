@@ -7,18 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.R
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
-import com.example.learnit.ui.feature.courses.quiz.viewModel.TrueFalseQuizViewModel
+import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
 
 class TrueFalseQuizFragment : BaseQuizFragment() {
-    override val viewModel: TrueFalseQuizViewModel by viewModels()
+    override val viewModel: SharedQuizViewModel by viewModels()
     override lateinit var binding: FragmentQuizTrueFalseBinding
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
 
@@ -35,7 +34,8 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -1
-        viewModel.loadQuestionsAnswers(courseId, chapterId, lessonId)
+        viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
+
         return binding.root
     }
 
@@ -95,18 +95,18 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
-                        is TrueFalseQuizViewModel.QuestionAnswersPageState.Loading -> {
-                            Log.d(TAG, "Loading questionsAnswers...")
+                        is SharedQuizViewModel.QuestionAnswersPageState.Loading -> {
+                            Log.d(TAG, "Loading TrueFalse questionsAnswers...")
                         }
 
-                        is TrueFalseQuizViewModel.QuestionAnswersPageState.Success -> {
-                            Log.d(TAG, "QuestionsAnswers loaded")
-                            Log.d(TAG, "randomQuestion: ${viewModel.currentQuestion}")
-                            binding.question.text = viewModel.currentQuestion?.questionText
+                        is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
+                            Log.d(TAG, "TrueFalse QuestionsAnswers loaded")
+                            val currentQuestion = viewModel.shuffleAndSelectQuestion("true_false")
+                            binding.question.text = currentQuestion?.questionText
                         }
 
-                        is TrueFalseQuizViewModel.QuestionAnswersPageState.Failure -> {
-                            Log.e(TAG, "Error loading QuestionsAnswers: ${state.throwable}")
+                        is SharedQuizViewModel.QuestionAnswersPageState.Failure -> {
+                            Log.e(TAG, "Error loading TrueFalse QuestionsAnswers: ${state.throwable}")
                         }
                     }
                 }
