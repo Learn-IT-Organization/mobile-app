@@ -56,6 +56,7 @@ class QuizFragment : Fragment() {
         binding.escapeButton.setOnClickListener {
             showExitConfirmationDialog()
         }
+
         binding.bookButton.setOnClickListener {
             findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment)
         }

@@ -41,7 +41,6 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeState()
 
         binding.trueButton.setOnClickListener {
             viewModel.setUserResponse(true)
