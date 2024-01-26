@@ -1,5 +1,7 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
+import QuizResponseModel
+import UserResponseModel
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -12,14 +14,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.R
+import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
+import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
+import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
+import java.util.Date
 
-class TrueFalseQuizFragment : BaseQuizFragment() {
-    override val viewModel: SharedQuizViewModel by viewModels()
+class TrueFalseQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButtonClickListener {
     override lateinit var binding: FragmentQuizTrueFalseBinding
+
+    override val viewModel: SharedQuizViewModel by viewModels()
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
+    private var currentQuestion: QuestionsAnswersModel? = null
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
@@ -55,29 +64,6 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
         }
-
-//        binding.submit.setOnClickListener {
-//            if (viewModel.isResponseSet()) {
-//                viewModel.sendUserResponse(
-//                    QuizResultData(
-//                        uqr_question_id = viewModel.currentQuestion?.questionId!!,
-//                        uqr_user_id = SharedPreferences.getUserId().toInt(),
-//                        response = listOf(
-//                            QuizResponseData(
-//                                option_text = if (viewModel.getUserResponse() == true) "true" else "false",
-//                                is_correct = if (viewModel.getUserResponse() == true) true else false
-//                            )
-//                        ),
-//                        is_correct = 1,
-//                        score = 1,
-//                        response_time = Date()
-//                    )
-//                )
-//                viewModel.resetUserResponse()
-//                setButtonState(binding.trueButton, false)
-//                setButtonState(binding.falseButton, false)
-//            }
-//        }
     }
 
     private fun setButtonState(button: Button, selected: Boolean) {
@@ -100,16 +86,34 @@ class TrueFalseQuizFragment : BaseQuizFragment() {
 
                         is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "TrueFalse QuestionsAnswers loaded")
-                            val currentQuestion = viewModel.shuffleAndSelectQuestion("true_false")
+                            currentQuestion = viewModel.shuffleAndSelectQuestion("true_false")
                             binding.question.text = currentQuestion?.questionText
                         }
 
                         is SharedQuizViewModel.QuestionAnswersPageState.Failure -> {
-                            Log.e(TAG, "Error loading TrueFalse QuestionsAnswers: ${state.throwable}")
+                            Log.e(
+                                TAG,
+                                "Error loading TrueFalse QuestionsAnswers: ${state.throwable}"
+                            )
                         }
                     }
                 }
             }
         }
+    }
+
+    override  fun onNextButtonClicked() {
+        viewModel.sendUserResponse(
+            UserResponseModel(
+                uqrQuestionId = currentQuestion?.questionId ?: -1,
+                uqrUserId = SharedPreferences.getUserId().toInt(),
+                response = QuizResponseModel(listOf(viewModel.getUserResponse())),
+                responseTime = Date(),
+                score = 0.0f
+            ).mapToUserResponseData()
+        )
+        Log.d(TAG, "question id:${currentQuestion?.questionId}")
+        Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
+        Log.d(TAG, "true_false onNextButtonClicked")
     }
 }

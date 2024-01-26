@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
-import androidx.navigation.findNavController
 import com.example.learnit.databinding.FragmentLessonsBinding
 import com.example.learnit.ui.feature.courses.chapters.fragment.ChaptersFragment.Companion.ARG_COURSE_ID
 import com.example.learnit.ui.feature.courses.lessons.adapter.LessonsAdapter
@@ -33,7 +32,7 @@ class LessonsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLessonsBinding.inflate(inflater, container, false)
         return binding.root
     }
