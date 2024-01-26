@@ -52,7 +52,7 @@ class SortingQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListener
         }
     }
 
-    override fun onNextButtonClicked() {
+    override  fun onNextButtonClicked() {
         TODO("Not yet implemented")
     }
 }

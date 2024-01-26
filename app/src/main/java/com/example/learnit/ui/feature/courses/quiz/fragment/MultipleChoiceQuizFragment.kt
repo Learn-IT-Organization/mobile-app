@@ -14,15 +14,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
+import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
 
 class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButtonClickListener {
+    override lateinit var binding: FragmentQuizMultipleChoiceBinding
 
     override val viewModel: SharedQuizViewModel by viewModels()
-    override lateinit var binding: FragmentQuizMultipleChoiceBinding
     override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
+    private var currentQuestion: QuestionsAnswersModel? = null
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
@@ -54,7 +56,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButt
 
                         is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "MultipleChoice QuestionsAnswers loaded")
-                            val currentQuestion =
+                            currentQuestion =
                                 viewModel.shuffleAndSelectQuestion("multiple_choice")
                             binding.questionTextView.text = currentQuestion?.questionText
                             val answers = currentQuestion?.answers
@@ -101,14 +103,14 @@ class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButt
     override fun onNextButtonClicked() {
         viewModel.submitMultipleChoiceResponse(
             UserResponseModel(
-                uqrQuestionId = viewModel.currentQuestion?.questionId ?: -1,
+                uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),
                 response = QuizResponseModel(getSelectedAnswers()),
                 responseTime = Date(),
                 score = 0.0f
             )
         )
-        Log.d(TAG, "question id:${viewModel.currentQuestion?.questionId}")
+        Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "multiple_choice onNextButtonClicked")
         clearCheckBoxes()
     }

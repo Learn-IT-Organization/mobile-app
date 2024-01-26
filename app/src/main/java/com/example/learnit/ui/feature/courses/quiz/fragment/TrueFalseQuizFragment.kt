@@ -18,14 +18,17 @@ import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
+import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
 
 class TrueFalseQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButtonClickListener {
-    override val viewModel: SharedQuizViewModel by viewModels()
     override lateinit var binding: FragmentQuizTrueFalseBinding
+
+    override val viewModel: SharedQuizViewModel by viewModels()
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
+    private var currentQuestion: QuestionsAnswersModel? = null
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
@@ -83,7 +86,7 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButtonCli
 
                         is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "TrueFalse QuestionsAnswers loaded")
-                            val currentQuestion = viewModel.shuffleAndSelectQuestion("true_false")
+                            currentQuestion = viewModel.shuffleAndSelectQuestion("true_false")
                             binding.question.text = currentQuestion?.questionText
                         }
 
@@ -99,18 +102,18 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizPagerAdapter.QuizButtonCli
         }
     }
 
-    override fun onNextButtonClicked() {
+    override  fun onNextButtonClicked() {
         viewModel.sendUserResponse(
             UserResponseModel(
-                uqrQuestionId = viewModel.currentQuestion?.questionId ?: -1,
+                uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),
                 response = QuizResponseModel(listOf(viewModel.getUserResponse())),
                 responseTime = Date(),
                 score = 0.0f
             ).mapToUserResponseData()
         )
-        Log.d(TAG, "question id:${viewModel.currentQuestion?.questionId}")
+        Log.d(TAG, "question id:${currentQuestion?.questionId}")
+        Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
         Log.d(TAG, "true_false onNextButtonClicked")
     }
-
 }
