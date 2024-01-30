@@ -2,8 +2,6 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 
 import UserResponseModel
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
@@ -26,7 +24,7 @@ class SharedQuizViewModel : ViewModel() {
         App.instance.getQuizResultRepository()
 
 
-    private var loadedQuestionsAnswers: List<QuestionsAnswersModel>? = null
+    private var loadedQuestionsAnswers: List<QuestionsAnswersModel> = emptyList()
     private var userResponse: Boolean = false
     private var isResponseSet = false
     var numberOfQuestions: Int = 0
@@ -42,7 +40,7 @@ class SharedQuizViewModel : ViewModel() {
     }
 
     sealed class QuestionAnswersPageState {
-        object Loading : QuestionAnswersPageState()
+        data object Loading : QuestionAnswersPageState()
         data class Success(val questionsAnswersData: List<QuestionsAnswersModel>) :
             QuestionAnswersPageState()
 
@@ -51,6 +49,10 @@ class SharedQuizViewModel : ViewModel() {
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         mutableState.value = QuestionAnswersPageState.Failure(exception)
+    }
+
+    init {
+        loadedQuestionsAnswers
     }
 
     fun loadAllQuestionsAnswers(
@@ -67,9 +69,10 @@ class SharedQuizViewModel : ViewModel() {
                         lessonId
                     )
                 mutableState.value =
-                    QuestionAnswersPageState.Success(loadedQuestionsAnswers!!)
+                    QuestionAnswersPageState.Success(loadedQuestionsAnswers)
+
                 Log.d(TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
-                numberOfQuestions = loadedQuestionsAnswers!!.size
+                numberOfQuestions = loadedQuestionsAnswers.size
                 Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching questions: ${e.message}")
@@ -79,12 +82,11 @@ class SharedQuizViewModel : ViewModel() {
     }
 
     fun shuffleAndSelectQuestion(type: String): QuestionsAnswersModel? {
-        loadedQuestionsAnswers?.let { questions ->
+        loadedQuestionsAnswers.let { questions ->
             val filteredQuestions = questions.filter { it.questionType == type }
             Log.d(TAG, "filteredQuestions: $filteredQuestions")
             return filteredQuestions.shuffled().firstOrNull()
         }
-        return null
     }
 
     fun setUserResponse(isTrue: Boolean) {
@@ -94,15 +96,6 @@ class SharedQuizViewModel : ViewModel() {
 
     fun getUserResponse(): Boolean {
         return userResponse
-    }
-
-    fun isResponseSet(): Boolean {
-        return isResponseSet
-    }
-
-    fun resetUserResponse() {
-        userResponse = false
-        isResponseSet = false
     }
 
     fun sendUserResponse(userResponse: UserResponseData) {
