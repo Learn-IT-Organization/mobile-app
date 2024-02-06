@@ -8,29 +8,41 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
 import com.example.learnit.databinding.FragmentQuizBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
+import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
+import kotlinx.coroutines.launch
 
 class QuizFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizBinding
-    private val viewModel: SharedQuizViewModel by viewModels()
+
+    private val viewModel: SharedQuizViewModel by activityViewModels()
 
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
+
     private var numberOfQuestions: Int = 0
     private var totalScore: Float = 0.0f
 
+    private var questionsAnswers: List<QuestionsAnswersModel> = emptyList()
+
     companion object {
+        lateinit var viewPager: ViewPager2
         val TAG: String = QuizFragment::class.java.simpleName
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -39,27 +51,22 @@ class QuizFragment : Fragment() {
         courseId = arguments?.getInt("courseId", -1) ?: -1
         chapterId = arguments?.getInt("chapterId", -1) ?: -1
         lessonId = arguments?.getInt("lessonId", -1) ?: -1
-        numberOfQuestions = viewModel.numberOfQuestions
-        Log.d(TAG, "QuizFragment: $courseId $chapterId $lessonId")
+
+        viewPager = binding.viewPager
+        viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
+
+        if (viewPager.currentItem == numberOfQuestions - 1) {
+            showQuizResultDialog()
+        }
 
         return binding.root
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
-        val viewPager: ViewPager2 = binding.viewPager
-        viewPager.isUserInputEnabled = false
-        viewPager.setCurrentItem(0, false)
-        val verifyButton = binding.checkAndSubmitButton
-        viewPager.adapter = QuizPagerAdapter(
-            requireActivity(),
-            numberOfQuestions = 10,
-            courseId = courseId,
-            chapterId = chapterId,
-            lessonId = lessonId
-        )
+
+        observeState()
 
         binding.escapeButton.setOnClickListener {
             showExitConfirmationDialog()
@@ -69,31 +76,35 @@ class QuizFragment : Fragment() {
             findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment)
         }
 
-        verifyButton.setOnClickListener {
+        observeScore()
+    }
 
-            val currentFragmentPosition = viewPager.currentItem
-            Log.d(TAG, "currentFragmentPosition: $currentFragmentPosition")
-            val nextFragmentPosition = currentFragmentPosition + 1
-            val currentFragment =
-                requireActivity().supportFragmentManager.fragments.getOrNull(nextFragmentPosition)
-            //val currentFragment = requireActivity().supportFragmentManager.findFragmentByTag("MultipleChoiceQuizFragment")
-            viewPager.setCurrentItem(
-                nextFragmentPosition, true
-            )
-            Log.d(TAG, "currentFragment: $currentFragment")
-            Log.d(TAG, "nextFragmentPosition: $nextFragmentPosition")
-            if (currentFragment is MultipleChoiceQuizFragment) {
-                Log.d(TAG, "1 currentFragment: $currentFragment")
-                currentFragment.onNextButtonClicked()
-            } else if (currentFragment is TrueFalseQuizFragment) {
-                Log.d(TAG, "2 currentFragment: $currentFragment")
-                currentFragment.onNextButtonClicked()
+    private fun observeState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect { state ->
+                    when (state) {
+                        is SharedQuizViewModel.QuestionAnswersPageState.Loading -> {
+                            Log.d(TAG, "Loading questionsAnswers...")
+                        }
+
+                        is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
+                            Log.d(TAG, "QuestionsAnswers loaded")
+                            questionsAnswers = state.questionsAnswersData
+                            numberOfQuestions = viewModel.numberOfQuestions
+                            Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
+                            setUpAdapter()
+                        }
+
+                        is SharedQuizViewModel.QuestionAnswersPageState.Failure -> {
+                            Log.e(
+                                TAG,
+                                "Error loading MultipleChoice QuestionsAnswers: ${state.throwable}"
+                            )
+                        }
+                    }
+                }
             }
-
-            if (currentFragmentPosition >= 9) {
-                showQuizResultDialog()
-            }
-
         }
     }
 
@@ -105,18 +116,48 @@ class QuizFragment : Fragment() {
             }.setNegativeButton("No", null).show()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updateScoreUI(score: Float) {
-        binding.textScore.text = "Score: ${totalScore + score}"
-        totalScore += score
-        Log.d(TAG, "totalScore: $totalScore")
-    }
-
     private fun showQuizResultDialog() {
         AlertDialog.Builder(requireContext()).setTitle("Quiz Result")
             .setMessage("Your score is: $totalScore").setPositiveButton("OK") { _, _ ->
                 activity?.onBackPressed()
             }.show()
+    }
+
+    private fun setUpAdapter() {
+        viewPager.isUserInputEnabled = false
+        viewPager.setCurrentItem(0, false)
+
+        val adapter = QuizPagerAdapter(
+            requireActivity(),
+            questionList = questionsAnswers,
+            courseId = courseId,
+            chapterId = chapterId,
+            lessonId = lessonId
+        )
+        viewPager.adapter = adapter
+
+        viewPager.setCurrentItem(
+            0, true
+        )
+    }
+
+    private fun observeScore() {
+        Log.d(TAG, "Observing score... + ${viewModel.scoreLiveData.hashCode()}")
+        val observer = Observer<Float> { totalScore ->
+            Log.d(TAG, "Score updated: $totalScore")
+            updateScoreUI(totalScore)
+            if (viewPager.currentItem == numberOfQuestions - 1) {
+                showQuizResultDialog()
+            }
+        }
+        viewModel.scoreLiveData.observe(requireActivity(), observer)
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateScoreUI(newScore: Float) {
+        totalScore += newScore * 10
+        binding.textScore.text = "Score: ${totalScore.toInt()}"
+        Log.d(TAG, "totalScore: $totalScore")
     }
 
 }

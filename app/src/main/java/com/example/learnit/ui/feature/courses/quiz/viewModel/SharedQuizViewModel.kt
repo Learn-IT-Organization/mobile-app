@@ -2,7 +2,6 @@ package com.example.learnit.ui.feature.courses.quiz.viewModel
 
 import UserResponseModel
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,30 +18,33 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SharedQuizViewModel : ViewModel() {
+    companion object {
+        val TAG: String = SharedQuizViewModel::class.java.simpleName
+    }
+
     private val repository: QuestionsAnswersRepository =
         App.instance.getQuestionsAnswersRepository()
 
     private val quizResultRepository: QuizResultRepository =
         App.instance.getQuizResultRepository()
 
-
-    private var loadedQuestionsAnswers: List<QuestionsAnswersModel>? = null
+    private var loadedQuestionsAnswers: List<QuestionsAnswersModel> = emptyList()
     private var userResponse: Boolean = false
     private var isResponseSet = false
+
     var numberOfQuestions: Int = 0
 
+    val scoreLiveData: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
 
     private val mutableState =
         MutableStateFlow<QuestionAnswersPageState>(QuestionAnswersPageState.Loading)
 
     val state: StateFlow<QuestionAnswersPageState> = mutableState
 
-    companion object {
-        val TAG: String = SharedQuizViewModel::class.java.simpleName
-    }
-
     sealed class QuestionAnswersPageState {
-        object Loading : QuestionAnswersPageState()
+        data object Loading : QuestionAnswersPageState()
         data class Success(val questionsAnswersData: List<QuestionsAnswersModel>) :
             QuestionAnswersPageState()
 
@@ -67,24 +69,16 @@ class SharedQuizViewModel : ViewModel() {
                         lessonId
                     )
                 mutableState.value =
-                    QuestionAnswersPageState.Success(loadedQuestionsAnswers!!)
+                    QuestionAnswersPageState.Success(loadedQuestionsAnswers)
+
                 Log.d(TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
-                numberOfQuestions = loadedQuestionsAnswers!!.size
+                numberOfQuestions = loadedQuestionsAnswers.size
                 Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching questions: ${e.message}")
                 mutableState.value = QuestionAnswersPageState.Failure(e)
             }
         }
-    }
-
-    fun shuffleAndSelectQuestion(type: String): QuestionsAnswersModel? {
-        loadedQuestionsAnswers?.let { questions ->
-            val filteredQuestions = questions.filter { it.questionType == type }
-            Log.d(TAG, "filteredQuestions: $filteredQuestions")
-            return filteredQuestions.shuffled().firstOrNull()
-        }
-        return null
     }
 
     fun setUserResponse(isTrue: Boolean) {
@@ -96,20 +90,13 @@ class SharedQuizViewModel : ViewModel() {
         return userResponse
     }
 
-    fun isResponseSet(): Boolean {
-        return isResponseSet
-    }
-
-    fun resetUserResponse() {
-        userResponse = false
-        isResponseSet = false
-    }
-
     fun sendUserResponse(userResponse: UserResponseData) {
         Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)
             Log.d(TAG, "Score: ${response.score}")
+            scoreLiveData.postValue(response.score)
+            Log.d(TAG, "Live score: ${scoreLiveData.value}")
         }
     }
 
@@ -118,6 +105,8 @@ class SharedQuizViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse.mapToUserResponseData())
             Log.d(TAG, "Score: ${response.score}")
+            scoreLiveData.postValue(response.score)
+            Log.d(TAG, "Live score: ${scoreLiveData.value}")
         }
     }
 
