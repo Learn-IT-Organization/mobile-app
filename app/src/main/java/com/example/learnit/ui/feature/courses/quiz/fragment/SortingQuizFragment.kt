@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.learnit.databinding.FragmentQuizSortingBinding
+import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SortingQuizViewModel
 
-class SortingQuizFragment : Fragment(), QuizPagerAdapter.QuizButtonClickListener {
+class SortingQuizFragment : Fragment(), QuizButtonClickListener {
     private lateinit var binding: FragmentQuizSortingBinding
     private var initialX: Float = 0F
     private var initialY: Float = 0F
