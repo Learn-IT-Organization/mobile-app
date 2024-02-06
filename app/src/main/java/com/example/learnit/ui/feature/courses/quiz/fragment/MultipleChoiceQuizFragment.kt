@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
@@ -17,10 +17,9 @@ import java.util.Date
 
 class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
     override lateinit var binding: FragmentQuizMultipleChoiceBinding
-
-    override val viewModel: SharedQuizViewModel by viewModels()
-
+    override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
+
     private var currentQuestion: QuestionsAnswersModel? = null
 
     private var courseId: Int = -1
@@ -45,6 +44,15 @@ class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.checkAndSubmitButton.setOnClickListener {
+            onNextButtonClicked()
+        }
+
     }
 
     private fun clearCheckBoxes() {
@@ -73,6 +81,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
         Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "multiple_choice onNextButtonClicked")
         clearCheckBoxes()
+        QuizFragment.viewPager.currentItem += 1
     }
 
     private fun getSelectedAnswers(): List<Boolean> {

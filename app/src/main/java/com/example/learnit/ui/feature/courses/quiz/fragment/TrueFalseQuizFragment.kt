@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
@@ -21,10 +21,9 @@ import java.util.Date
 
 class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
     override lateinit var binding: FragmentQuizTrueFalseBinding
-
-    override val viewModel: SharedQuizViewModel by viewModels()
-
+    override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
+
     private var currentQuestion: QuestionsAnswersModel? = null
 
     private var courseId: Int = -1
@@ -67,6 +66,11 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
         }
+
+        binding.checkAndSubmitButton.setOnClickListener {
+            onNextButtonClicked()
+        }
+
     }
 
     private fun setButtonState(button: Button, selected: Boolean) {
@@ -91,9 +95,12 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
         Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
         Log.d(TAG, "true_false onNextButtonClicked")
+        QuizFragment.viewPager.currentItem += 1
+
     }
 
     private fun updateUI() {
         binding.question.text = currentQuestion?.questionText
     }
+
 }
