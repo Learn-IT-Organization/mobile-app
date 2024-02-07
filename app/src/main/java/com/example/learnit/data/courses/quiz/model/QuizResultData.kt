@@ -10,5 +10,5 @@ data class QuizResultData(
     @SerialName("message")
     val message: String,
     @SerialName("score")
-    val score: Int,
+    val score: Float,
 )

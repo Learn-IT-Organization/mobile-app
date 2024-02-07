@@ -55,10 +55,23 @@ interface ApiService {
     suspend fun sendResponse(@Body userResponseData: UserResponseData): Response<QuizResultData>
 
     @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers")
+    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
+        @Path("courseId") courseId: Int,
+        @Path("chapterId") chapterId: Int,
+        @Path("lessonId") lessonId: Int
+    ): Response<List<QuestionsAnswersData>>
+
+    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers")
     suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
         @Path("courseId") courseId: Int,
         @Path("chapterId") chapterId: Int,
         @Path("lessonId") lessonId: Int
     ): Response<List<QuestionsAnswersData>>
 
+    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers/true_false")
+    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+        @Path("courseId") courseId: Int,
+        @Path("chapterId") chapterId: Int,
+        @Path("lessonId") lessonId: Int
+    ): Response<List<QuestionsAnswersData>>
 }

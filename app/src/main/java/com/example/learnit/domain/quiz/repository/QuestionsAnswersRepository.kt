@@ -9,4 +9,16 @@ interface QuestionsAnswersRepository {
         chapterId: Int,
         lessonId: Int
     ): List<QuestionsAnswersModel>
+
+    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
+        courseId: Int,
+        chapterId: Int,
+        lessonId: Int
+    ): List<QuestionsAnswersModel>
+
+    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
+        courseId: Int,
+        chapterId: Int,
+        lessonId: Int
+    ): List<QuestionsAnswersModel>
 }

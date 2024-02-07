@@ -21,4 +21,6 @@
     <string name="gender">Gender</string>
     <string name="user_level">User Level</string>
     <string name="submit">Submit</string>
+    <string name="user_level_beginner">User Level: begginer</string>
+    <string name="next">next</string>
 </resources>
