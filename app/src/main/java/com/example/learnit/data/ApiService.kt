@@ -3,7 +3,7 @@ package com.example.learnit.data
 import com.example.learnit.data.courses.chapters.model.ChaptersData
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.LessonData
-import com.example.learnit.data.courses.quiz.model.QuestionsAnswersData
+import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.data.user.login.model.Data
@@ -46,30 +46,14 @@ interface ApiService {
     @GET("/chapters/{id}/lessons")
     suspend fun getLessonsByChapterId(@Path("id") id: Int): Response<List<LessonData>>
 
-    @GET("/questionsAnswers")
-    suspend fun getQuestionsAnswers(): Response<List<QuestionsAnswersData>>
-
     @POST("/respond")
     suspend fun sendResponse(@Body userResponseData: UserResponseData): Response<QuizResultData>
-
-    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers")
-    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdMultipleChoice(
-        @Path("courseId") courseId: Int,
-        @Path("chapterId") chapterId: Int,
-        @Path("lessonId") lessonId: Int
-    ): Response<List<QuestionsAnswersData>>
 
     @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers")
     suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
         @Path("courseId") courseId: Int,
         @Path("chapterId") chapterId: Int,
         @Path("lessonId") lessonId: Int
-    ): Response<List<QuestionsAnswersData>>
+    ): Response<List<BaseQuestionData>>
 
-    @GET("/course/{courseId}/chapters/{chapterId}/lesson/{lessonId}/questionsAnswers/true_false")
-    suspend fun getQuestionsAnswersByCourseIdChapterIdLessonIdTrueFalse(
-        @Path("courseId") courseId: Int,
-        @Path("chapterId") chapterId: Int,
-        @Path("lessonId") lessonId: Int
-    ): Response<List<QuestionsAnswersData>>
 }

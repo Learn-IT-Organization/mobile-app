@@ -1,7 +1,5 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
-import QuizResponseModel
-import UserResponseModel
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -12,23 +10,18 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
+import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
+import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
-import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import java.util.Date
 
-class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
+class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizButtonClickListener {
     override lateinit var binding: FragmentQuizTrueFalseBinding
     override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
 
-    private var currentQuestion: QuestionsAnswersModel? = null
-
-    private var courseId: Int = -1
-    private var chapterId: Int = -1
-    private var lessonId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,17 +29,6 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizTrueFalseBinding.inflate(inflater, container, false)
-        courseId = arguments?.getInt("courseId", -1) ?: -1
-        chapterId = arguments?.getInt("chapterId", -1) ?: -1
-        lessonId = arguments?.getInt("lessonId", -1) ?: -1
-
-        if (arguments != null) {
-            currentQuestion =
-                requireArguments().getSerializable("question") as QuestionsAnswersModel?
-            Log.d(TAG, "question: ${currentQuestion?.questionText}")
-            updateUI()
-        }
-
         return binding.root
     }
 
@@ -84,13 +66,13 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
 
     override fun onNextButtonClicked() {
         viewModel.sendUserResponse(
-            UserResponseModel(
+            UserResponseData(
                 uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),
-                response = QuizResponseModel(listOf(viewModel.getUserResponse())),
+                response = listOf(viewModel.getUserResponse()),
                 responseTime = Date(),
                 score = 0.0f
-            ).mapToUserResponseData()
+            )
         )
         Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
@@ -99,7 +81,7 @@ class TrueFalseQuizFragment : BaseQuizFragment(), QuizButtonClickListener {
 
     }
 
-    private fun updateUI() {
+    override fun updateUI() {
         binding.question.text = currentQuestion?.questionText
     }
 

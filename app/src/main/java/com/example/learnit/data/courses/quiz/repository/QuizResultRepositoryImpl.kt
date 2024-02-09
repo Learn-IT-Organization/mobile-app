@@ -12,7 +12,6 @@ object QuizResultRepositoryImpl : QuizResultRepository {
     private val apiService = RetrofitAdapter.provideApiService()
     private val TAG: String = QuizResultRepositoryImpl::class.java.simpleName
 
-
     override suspend fun sendResponse(userResponseData: UserResponseData): QuizResultData {
         val response = apiService.sendResponse(userResponseData)
         if (response.isSuccessful && response.body() != null) {

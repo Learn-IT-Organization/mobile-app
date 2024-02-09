@@ -16,9 +16,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
+import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.databinding.FragmentQuizBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
-import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ class QuizFragment : Fragment() {
     private var numberOfQuestions: Int = 0
     private var totalScore: Float = 0.0f
 
-    private var questionsAnswers: List<QuestionsAnswersModel> = emptyList()
+    private var questionsAnswers: List<BaseQuestionData> = emptyList()
 
     companion object {
         lateinit var viewPager: ViewPager2
