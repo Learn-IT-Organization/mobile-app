@@ -1,19 +1,15 @@
 package com.example.learnit.data.courses.quiz.model
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.util.Date
 
 @Serializable
 data class UserResponseData(
-    @SerialName("uqr_question_id") val uqr_question_id: Int,
-    @SerialName("uqr_user_id") val uqr_user_id: Int,
-    @SerialName("response") var response: QuizResponseData,
-    @SerialName("response_time") val response_time: Date,
-    @SerialName("score") val score: Float
-)
-
-@Serializable
-data class QuizResponseData(
-    @SerialName("answer") val answer: List<Boolean>
+    @SerializedName("uqr_question_id") val uqrQuestionId: Int,
+    @SerializedName("uqr_user_id") val uqrUserId: Int,
+    @SerializedName("response") var response: Any,
+    @SerializedName("response_time") val responseTime: Date,
+    @SerializedName("score") val score: Float
 )
