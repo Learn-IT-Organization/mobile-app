@@ -29,7 +29,6 @@ interface ApiService {
     @GET("/profile/user")
     suspend fun getLoggedInUser(): Response<ResponseData<LoggedUserData>>
 
-    @Multipart
     @POST("/register")
     suspend fun registerUser(@Body registerForm: RegistrationData): Response<RegistrationResponseData>
 

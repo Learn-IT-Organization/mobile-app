@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
+import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.databinding.FragmentRegisterBinding
-import com.example.learnit.ui.activities.MainActivity
-import com.example.learnit.ui.feature.home.fragment.HomeFragment
-import com.example.learnit.ui.feature.register.model.RegistrationModel
 import com.example.learnit.ui.feature.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
-import java.util.Base64
 
 class RegisterFragment : Fragment() {
 
@@ -63,7 +59,7 @@ class RegisterFragment : Fragment() {
                 viewModel.registerUser(registrationModel)
                 observeState()
             }
-            
+
         }
 
         binding.loginButton.setOnClickListener {
@@ -72,7 +68,7 @@ class RegisterFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createRegistrationModelFromUI(): RegistrationModel {
+    private fun createRegistrationModelFromUI(): RegistrationData {
         val firstName = binding.editTextFirstName.text.toString()
         val lastName = binding.editTextLastName.text.toString()
         val userName = binding.editTextUsername.text.toString()
@@ -81,35 +77,16 @@ class RegisterFragment : Fragment() {
         val userLevel = binding.spinnerUserLevel.selectedItem.toString()
         val streak = 0
 
-        val userPhotoUri = viewModel.getPhotoUri()
-
-        val userPhotoBase64 = if (userPhotoUri != null) {
-            encodeImageToBase64(userPhotoUri)
-        } else {
-            null
-        }
-        Log.d(TAG, "createRegistrationModelFromUI: $userPhotoBase64")
-        return RegistrationModel(
-            firstName = firstName,
-            lastName = lastName,
-            userName = userName,
-            userPassword = password,
+        return RegistrationData(
+            first_name = firstName,
+            last_name = lastName,
+            user_name = userName,
+            user_password = password,
             gender = gender,
-            userLevel = userLevel,
-            userPhoto = userPhotoBase64!!,
+            user_level = userLevel,
             streak = streak
         )
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun encodeImageToBase64(imageUri: Uri): String? {
-        val inputStream = context?.contentResolver?.openInputStream(imageUri)
-        val bytes = inputStream?.readBytes()
-        inputStream?.close()
-
-        return Base64.getEncoder().encodeToString(bytes)
-    }
-
 
     private fun getSelectedGender(): String {
         return when (binding.genderRadioGroup.checkedRadioButtonId) {
@@ -132,7 +109,7 @@ class RegisterFragment : Fragment() {
                         }
 
                         is RegisterViewModel.RegisterPageState.Failure -> {
-                            handleFailureState(state.throwable)
+                            handleFailureState()
                         }
                     }
                 }
@@ -150,7 +127,7 @@ class RegisterFragment : Fragment() {
         findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 
-    private fun handleFailureState(throwable: Throwable) {
+    private fun handleFailureState() {
         binding.textViewError.text = getString(R.string.user_exists)
     }
 
@@ -181,9 +158,9 @@ class RegisterFragment : Fragment() {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri: Uri? = data.data
             if (selectedImageUri != null) {
@@ -197,6 +174,5 @@ class RegisterFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
-
 
 }

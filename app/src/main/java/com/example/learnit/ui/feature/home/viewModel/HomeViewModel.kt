@@ -3,9 +3,9 @@ package com.example.learnit.ui.feature.home.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.domain.user.repository.UserRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.home.model.LoggedUserModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private val repository: UserRepository = App.instance.getUserRepository()
-    private var userList: List<LoggedUserModel> = mutableListOf()
-
     companion object {
-        val TAG = HomeViewModel::class.java.simpleName
+        val TAG: String = HomeViewModel::class.java.simpleName
     }
 
+    private val repository: UserRepository = App.instance.getUserRepository()
+    private var userList: List<LoggedUserData> = mutableListOf()
+
     sealed class UserPageState {
-        object Loading : UserPageState()
-        data class Success(val userData: List<LoggedUserModel>) : UserPageState()
+        data object Loading : UserPageState()
+        data class Success(val userData: List<LoggedUserData>) : UserPageState()
         data class Failure(val throwable: Throwable) : UserPageState()
     }
 
@@ -47,13 +47,12 @@ class HomeViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching users: ${e.message}")
-
                 mutableState.value = UserPageState.Failure(e)
             }
         }
     }
 
-    fun getUserById(loggedUserId: Long): LoggedUserModel? {
-        return userList.find { it.userId == loggedUserId }
+    fun getUserById(loggedUserId: Long): LoggedUserData? {
+        return userList.find { it.user_id == loggedUserId }
     }
 }

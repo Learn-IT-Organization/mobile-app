@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentHomeBinding
 import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
@@ -41,9 +40,6 @@ class HomeFragment : Fragment() {
         observeState()
         val loggedUserId = SharedPreferences.getUserId()
         Log.d(TAG, "Logged user id: $loggedUserId")
-        viewModel.getUserById(loggedUserId)
-        Log.d(TAG, "Logged user: ${viewModel.getUserById(loggedUserId)}")
-
     }
 
     private fun observeState() {
@@ -63,7 +59,6 @@ class HomeFragment : Fragment() {
                         is HomeViewModel.UserPageState.Failure -> {
                             Log.e(TAG, "Error loading users: ${state.throwable}")
                         }
-
                     }
                 }
             }
@@ -74,13 +69,12 @@ class HomeFragment : Fragment() {
     private fun updateProfileUi() {
         val loggedUserId = SharedPreferences.getUserId()
         val loggedUser = viewModel.getUserById(loggedUserId)
-        Glide.with(this)
-            .load(loggedUser?.userPhoto)
-            .into(binding.imageViewProfilePhoto)
-        binding.textViewUsername.text = loggedUser?.userName
-        binding.textViewName.text = loggedUser?.firstName + " " + loggedUser?.lastName
-        binding.textViewStreaks.text = loggedUser?.streak.toString()
-        binding.textViewGender.text = loggedUser?.gender
-        binding.textViewUserLevel.text = loggedUser?.userLevel
+
+        binding.textViewUsername.text = loggedUser?.user_name
+        binding.textViewName.text = "${loggedUser?.first_name} ${loggedUser?.last_name}"
+        binding.textViewStreaks.text = "Streaks:" + loggedUser?.streak.toString()
+        binding.textViewUserLevel.text = loggedUser?.user_level
+
     }
+
 }
