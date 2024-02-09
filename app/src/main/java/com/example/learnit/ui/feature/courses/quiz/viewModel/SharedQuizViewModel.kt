@@ -1,16 +1,14 @@
 package com.example.learnit.ui.feature.courses.quiz.viewModel
 
-import UserResponseModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.quiz.mapper.mapToUserResponseData
+import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.domain.quiz.repository.QuizResultRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,9 +26,16 @@ class SharedQuizViewModel : ViewModel() {
     private val quizResultRepository: QuizResultRepository =
         App.instance.getQuizResultRepository()
 
-    private var loadedQuestionsAnswers: List<QuestionsAnswersModel> = emptyList()
+    private var loadedQuestionsAnswers: List<BaseQuestionData> = emptyList()
     private var userResponse: Boolean = false
     private var isResponseSet = false
+
+    private val mutableState: MutableStateFlow<QuestionAnswersPageState> =
+        MutableStateFlow(QuestionAnswersPageState.Loading)
+
+    private val errorHandler = CoroutineExceptionHandler { _, exception ->
+        mutableState.value = QuestionAnswersPageState.Failure(exception)
+    }
 
     var numberOfQuestions: Int = 0
 
@@ -38,21 +43,14 @@ class SharedQuizViewModel : ViewModel() {
         MutableLiveData<Float>()
     }
 
-    private val mutableState =
-        MutableStateFlow<QuestionAnswersPageState>(QuestionAnswersPageState.Loading)
-
     val state: StateFlow<QuestionAnswersPageState> = mutableState
 
     sealed class QuestionAnswersPageState {
         data object Loading : QuestionAnswersPageState()
-        data class Success(val questionsAnswersData: List<QuestionsAnswersModel>) :
+        data class Success(val questionsAnswersData: List<BaseQuestionData>) :
             QuestionAnswersPageState()
 
         data class Failure(val throwable: Throwable) : QuestionAnswersPageState()
-    }
-
-    private val errorHandler = CoroutineExceptionHandler { _, exception ->
-        mutableState.value = QuestionAnswersPageState.Failure(exception)
     }
 
     fun loadAllQuestionsAnswers(
@@ -70,7 +68,6 @@ class SharedQuizViewModel : ViewModel() {
                     )
                 mutableState.value =
                     QuestionAnswersPageState.Success(loadedQuestionsAnswers)
-
                 Log.d(TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
                 numberOfQuestions = loadedQuestionsAnswers.size
                 Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
@@ -100,14 +97,13 @@ class SharedQuizViewModel : ViewModel() {
         }
     }
 
-    fun submitMultipleChoiceResponse(userResponse: UserResponseModel) {
+    fun submitMultipleChoiceResponse(userResponse: UserResponseData) {
         Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            val response = quizResultRepository.sendResponse(userResponse.mapToUserResponseData())
+            val response = quizResultRepository.sendResponse(userResponse)
             Log.d(TAG, "Score: ${response.score}")
             scoreLiveData.postValue(response.score)
             Log.d(TAG, "Live score: ${scoreLiveData.value}")
         }
     }
-
 }

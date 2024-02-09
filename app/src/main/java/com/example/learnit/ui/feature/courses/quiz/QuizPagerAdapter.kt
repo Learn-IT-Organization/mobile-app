@@ -5,13 +5,14 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
+import com.example.learnit.ui.feature.courses.quiz.fragment.SortingQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment
-import com.example.learnit.ui.feature.courses.quiz.model.QuestionsAnswersModel
 
 class QuizPagerAdapter(
     fragmentActivity: FragmentActivity,
-    private var questionList: List<QuestionsAnswersModel>,
+    private var questionList: List<BaseQuestionData>,
     private val courseId: Int,
     private val chapterId: Int,
     private val lessonId: Int
@@ -32,7 +33,7 @@ class QuizPagerAdapter(
         Log.d(TAG, "shuffledQuestionList: $questionList")
     }
 
-    private fun shuffleQuestionsByType(questions: List<QuestionsAnswersModel>): List<QuestionsAnswersModel> {
+    private fun shuffleQuestionsByType(questions: List<BaseQuestionData>): List<BaseQuestionData> {
         val shuffledList = questions.shuffled()
         val multipleChoiceList = shuffledList.filter { it.questionType == "multiple_choice" }
         val trueFalseList = shuffledList.filter { it.questionType == "true_false" }
@@ -68,13 +69,20 @@ class QuizPagerAdapter(
                 tfFragment
             }
 
+            "sorting" -> {
+                val sortingFragment = SortingQuizFragment().apply {
+                    arguments = createBundle(shuffledQuestion)
+                }
+                sortingFragment
+            }
+
             else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion.questionType}")
         }
 
         return fragment
     }
 
-    private fun createBundle(question: QuestionsAnswersModel): Bundle {
+    private fun createBundle(question: BaseQuestionData): Bundle {
         return Bundle().apply {
             putInt("courseId", courseId)
             putInt("chapterId", chapterId)
