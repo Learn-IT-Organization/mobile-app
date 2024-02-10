@@ -5,6 +5,7 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.data.user.register.model.RegistrationResponseData
 import com.example.learnit.ui.App
@@ -39,7 +40,7 @@ class RegisterViewModel : ViewModel() {
         selectedPhotoUri.value = uri
     }
 
-    fun getPhotoUri(): Uri? {
+    private fun getPhotoUri(): Uri? {
         return selectedPhotoUri.value
     }
 
@@ -77,6 +78,17 @@ class RegisterViewModel : ViewModel() {
         }
 
         return ""
+    }
+
+    private fun saveImageLocally() {
+        val selectedPhotoUri = getPhotoUri()
+        selectedPhotoUri?.let { uri ->
+            val imagePath = getRealPathFromURI(uri)
+
+            if (imagePath.isNotEmpty()) {
+                SharedPreferences.setUserImagePath(App.instance, imagePath)
+            }
+        }
     }
 
 }

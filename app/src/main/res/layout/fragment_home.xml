@@ -27,18 +27,32 @@
                 app:title="Home"
                 app:titleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
-                <ImageView
-                    android:id="@+id/imageViewProfilePhoto"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/girl"
-                    app:cornerFamily="rounded"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
-                    
-                    android:contentDescription="@null"
-                    />
+            <ImageView
+                android:id="@+id/imageViewProfilePhoto"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/girl"
+                app:cornerFamily="rounded"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/textViewUsername"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/imageViewEditIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewProfilePhoto"
+                app:layout_constraintStart_toEndOf="@id/imageViewProfilePhoto"
+                app:layout_constraintTop_toTopOf="@id/imageViewProfilePhoto"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/textViewUsername"

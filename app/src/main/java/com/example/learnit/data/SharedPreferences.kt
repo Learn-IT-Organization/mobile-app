@@ -6,13 +6,13 @@ import android.content.SharedPreferences
 import com.example.learnit.ui.App
 
 object SharedPreferences {
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences =
+        App.instance.getSharedPreferences("MyPreferences", Activity.MODE_PRIVATE)
 
-    init {
-        //Ne legyen hardcoded
-        sharedPreferences =
-            App.instance.getSharedPreferences("MyPreferences", Activity.MODE_PRIVATE)
-    }
+    private const val PREFS_NAME = "LearnITPrefs"
+    private const val MY_PREFS = "MyPrefs"
+    private const val DARK_MODE_STATUS = "darkModeStatus"
+    private const val IMAGE_PATH = "userImagePath"
 
     fun storeToken(token: String) {
         sharedPreferences.edit().putString(ApiConstants.TOKEN, token).apply()
@@ -29,6 +29,7 @@ object SharedPreferences {
     fun storeAdmin(admin: Boolean) {
         sharedPreferences.edit().putBoolean(ApiConstants.ADMIN, admin).apply()
     }
+
     fun storeTeacher(teacher: Boolean) {
         sharedPreferences.edit().putBoolean(ApiConstants.TEACHER, teacher).apply()
     }
@@ -52,6 +53,7 @@ object SharedPreferences {
     fun getTeacher(): Boolean {
         return sharedPreferences.getBoolean(ApiConstants.TEACHER, false)
     }
+
     fun getStudent(): Boolean {
         return sharedPreferences.getBoolean(ApiConstants.STUDENT, false)
     }
@@ -64,9 +66,6 @@ object SharedPreferences {
             remove(ApiConstants.ADMIN)
         }.apply()
     }
-    // a valtozoknak az osztaly elejen van a helye!
-    private const val PREFS_NAME = "LearnITPrefs"
-    private const val DARK_MODE_STATUS = "darkModeStatus"
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -83,10 +82,19 @@ object SharedPreferences {
     }
 
     fun saveFontSize(context: Context, selectedFontSize: Int) {
-        //vegyuk ki a hardecodolasokat
-        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("fontSize", selectedFontSize)
+        editor.apply()
+    }
+
+    fun getUserImagePath(context: Context): String? {
+        return getSharedPreferences(context).getString(IMAGE_PATH, null)
+    }
+
+    fun setUserImagePath(context: Context, imagePath: String?) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putString(IMAGE_PATH, imagePath)
         editor.apply()
     }
 }

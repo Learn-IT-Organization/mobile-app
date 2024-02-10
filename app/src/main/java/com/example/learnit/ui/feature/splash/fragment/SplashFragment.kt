@@ -31,27 +31,24 @@ class SplashFragment : Fragment() {
         val bottomAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.bottom_animation)
         val scaleUpAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.scale_up_animation)
 
-        val splashImage = binding?.splashImage
-        val splashTitle = binding?.splashTitle
+        val splashImage = binding.splashImage
+        val splashTitle = binding.splashTitle
 
-        splashImage?.startAnimation(topAnim)
-        splashImage?.startAnimation(scaleUpAnimation)
-        splashTitle?.startAnimation(bottomAnim)
+        splashImage.startAnimation(topAnim)
+        splashImage.startAnimation(scaleUpAnimation)
+        splashTitle.startAnimation(bottomAnim)
 
         Handler().postDelayed({
             if (viewModel.verifyTokenValid()) {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+               // findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
             }
         }, 3000)
 
-        return binding!!.root
+        return binding.root
     }
 
-    override fun onDestroyView()
-    {
-        super.onDestroyView()
-    }
 }

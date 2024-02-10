@@ -22,18 +22,13 @@ import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     companion object {
-        val TAG = LoginFragment::class.java.simpleName
+        val TAG: String = LoginFragment::class.java.simpleName
     }
-
-    //A binding-ot csinaljuk meg szepen ahogy beszeltuk
-    private var parentBinding: FragmentLoginBinding? = null
-    private val binding get() = parentBinding!!
 
     private val viewModel: LoginViewModel by viewModels()
 
-    //Foloslegesek ezek a valtozok mivel csak egy fuggvenyben hasznaljuk
-    private lateinit var userName: String
-    private lateinit var userPassword: String
+    private var parentBinding: FragmentLoginBinding? = null
+    private val binding get() = parentBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,24 +42,22 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonLogin.setOnClickListener {
-            HandleLoginClick()
+            handleLoginClick()
         }
 
-        binding.singUpButton.setOnClickListener{
+        binding.singUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
-    //a fuggveny nevek mindig kisbetuvel kezdodnek!
-    private fun HandleLoginClick() {
+    private fun handleLoginClick() {
         Log.d(TAG, "observeState started00")
-        userName = binding.editTextUsername.text.toString()
-        userPassword = binding.editTextPassword.text.toString()
+        val userName = binding.editTextUsername.text.toString()
+        val userPassword = binding.editTextPassword.text.toString()
         if (userName.isBlank()) {
-            //Hardcode-olt String-eket ne hasznaljunk
-            binding.require1.text = "Required"
+            binding.require1.text = getString(R.string.required)
         } else if (userPassword.isBlank()) {
-            binding.require2.text = "Required"
+            binding.require2.text = getString(R.string.required)
         } else {
             binding.textViewError.text = ""
             val loginForm = LoginModel(userName, userPassword)
@@ -79,13 +72,13 @@ class LoginFragment : Fragment() {
                             }
 
                             is LoginViewModel.LoginPageState.Failure -> {
-                                //Hasznaljunk TAG-et
-                                Log.e("LoginFragment", "Error loading users: ${state.throwable}")
-                                binding.textViewError.text = "Invalid username or password."
+                                Log.e(TAG, "Error loading users: ${state.throwable}")
+                                binding.textViewError.text =
+                                    getString(R.string.invalid_username_or_password)
                             }
 
                             is LoginViewModel.LoginPageState.Loading -> {
-                                Log.d("LoginFragment", "Loading transfer...")
+                                Log.d(TAG, "Loading transfer...")
                             }
                         }
                     }

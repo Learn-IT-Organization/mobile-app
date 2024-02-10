@@ -10,12 +10,16 @@
         android:name="com.example.learnit.ui.feature.splash.fragment.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
-    <action
-        android:id="@+id/action_SplashFragment_to_LoginFragment"
-        app:destination="@+id/loginFragment"/>
+        <action
+            android:id="@+id/action_SplashFragment_to_LoginFragment"
+            app:destination="@+id/loginFragment" />
         <action
             android:id="@+id/action_splashFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
     </fragment>
 
     <fragment
@@ -36,4 +40,11 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.learnit.ui.feature.home.fragment.HomeFragment"
+        android:label="MainActivity"
+        tools:layout="@layout/fragment_home" />
+
 </navigation>
