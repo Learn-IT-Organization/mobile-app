@@ -3,12 +3,14 @@ package com.example.learnit.ui.feature.register.fragment
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,9 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.learnit.R
+import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.databinding.FragmentRegisterBinding
-import com.example.learnit.ui.activities.MainActivity
-import com.example.learnit.ui.feature.register.model.RegistrationModel
 import com.example.learnit.ui.feature.register.viewModel.RegisterViewModel
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,10 @@ class RegisterFragment : Fragment() {
 
     private val PICK_IMAGE_REQUEST = 1
 
+    companion object {
+        val TAG: String = RegisterFragment::class.java.simpleName
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,11 +43,13 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupListeners() {
         binding.buttonSelectPhoto.setOnClickListener { openGallery() }
 
@@ -52,6 +59,7 @@ class RegisterFragment : Fragment() {
                 viewModel.registerUser(registrationModel)
                 observeState()
             }
+
         }
 
         binding.loginButton.setOnClickListener {
@@ -59,16 +67,24 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun createRegistrationModelFromUI(): RegistrationModel {
-        return RegistrationModel(
-            firstName = binding.editTextFirstName.text.toString(),
-            lastName = binding.editTextLastName.text.toString(),
-            userName = binding.editTextUsername.text.toString(),
-            userPassword = binding.editTextPassword.text.toString(),
-            gender = getSelectedGender(),
-            userLevel = binding.spinnerUserLevel.selectedItem.toString(),
-            userPhoto = "Base64EncodedStringHere",
-            streak = 0
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createRegistrationModelFromUI(): RegistrationData {
+        val firstName = binding.editTextFirstName.text.toString()
+        val lastName = binding.editTextLastName.text.toString()
+        val userName = binding.editTextUsername.text.toString()
+        val password = binding.editTextPassword.text.toString()
+        val gender = getSelectedGender()
+        val userLevel = binding.spinnerUserLevel.selectedItem.toString()
+        val streak = 0
+
+        return RegistrationData(
+            first_name = firstName,
+            last_name = lastName,
+            user_name = userName,
+            user_password = password,
+            gender = gender,
+            user_level = userLevel,
+            streak = streak
         )
     }
 
@@ -93,7 +109,7 @@ class RegisterFragment : Fragment() {
                         }
 
                         is RegisterViewModel.RegisterPageState.Failure -> {
-                            handleFailureState(state.throwable)
+                            handleFailureState()
                         }
                     }
                 }
@@ -108,11 +124,10 @@ class RegisterFragment : Fragment() {
             Toast.LENGTH_SHORT
         ).show()
         clearTextFields()
-        val intent = Intent(context, MainActivity::class.java)
-        startActivity(intent)
+        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 
-    private fun handleFailureState(throwable: Throwable) {
+    private fun handleFailureState() {
         binding.textViewError.text = getString(R.string.user_exists)
     }
 
@@ -143,9 +158,9 @@ class RegisterFragment : Fragment() {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri: Uri? = data.data
             if (selectedImageUri != null) {

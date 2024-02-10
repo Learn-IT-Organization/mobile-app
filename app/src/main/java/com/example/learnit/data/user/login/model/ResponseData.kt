@@ -8,7 +8,7 @@ data class ResponseData<T> (
     @SerialName("data")
     val data: T?,
     @SerialName("err")
-    val error: ErrorLogin?,
+    val error: ErrorLogin,
     @SerialName("servertime")
     val serverTime: Long
 )
