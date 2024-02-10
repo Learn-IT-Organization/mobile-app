@@ -4,12 +4,14 @@ import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.user.login.model.Data
-import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.data.user.login.model.LoginData
+import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.domain.login.repository.LoginRepository
 
 object LoginRepositoryImpl : LoginRepository {
-    override suspend fun getLoginInformation(loginForm: LoginData): ResponseData<Data>? {
+    private val TAG = LoginRepositoryImpl::class.java.simpleName
+
+    override suspend fun getLoginInformation(loginForm: LoginData): ResponseData<Data> {
         val apiService = RetrofitAdapter.provideApiService()
         val response = apiService.authorizeLogin(loginForm)
 
@@ -20,7 +22,7 @@ object LoginRepositoryImpl : LoginRepository {
                 val expirationTimeMillis = System.currentTimeMillis() + (loginData?.expires ?: 0)
                 SharedPreferences.storeExpires(expirationTimeMillis)
                 val loggedUserData = apiService.getLoggedInUser()
-                Log.d("LoginRepositoryImpl", "getLoginInformation: $loggedUserData")
+                Log.d(TAG, "getLoginInformation: $loggedUserData")
                 if (loggedUserData.isSuccessful) {
                     loggedUserData.body()?.let { userData ->
                         val userId = userData.data?.user_id
@@ -34,6 +36,6 @@ object LoginRepositoryImpl : LoginRepository {
             }
 
         }
-        return response.body()
+        return response.body()!!
     }
 }

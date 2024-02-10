@@ -6,9 +6,9 @@ data class LoggedUserResponseData (
     @SerialName("success")
     val success: Boolean,
     @SerialName("data")
-    val data: LoggedUserData?,
+    val data: LoggedUserData,
     @SerialName("err")
-    val error: ErrorLogin?,
+    val error: ErrorLogin,
     @SerialName("message")
     val message: String,
     @SerialName("servertime")
