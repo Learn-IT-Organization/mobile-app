@@ -24,7 +24,7 @@
                 android:elevation="4dp"
                 android:theme="?attr/actionBarTheme"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title="Home"
+                app:title="LearnIT"
                 app:titleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
             <ImageView
