@@ -43,8 +43,7 @@ class SplashFragment : Fragment() {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
-               // findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+                findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
             }
         }, 3000)
 
