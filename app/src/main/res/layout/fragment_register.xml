@@ -130,7 +130,7 @@
             android:layout_below="@id/linearLayoutPhoto"
             android:layout_marginTop="@dimen/margin_top_button"
             android:text="@string/sign_up"
-            android:textColor="@color/white"
+            android:textColor="@color/md_theme_onPrimary"
             android:textSize="@dimen/login_button_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -163,7 +163,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/login"
-                android:textColor="@color/dark_lavender_purple"
+                android:textColor="@color/md_theme_primary"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -175,6 +175,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:text=""
-            android:textColor="@color/colorError" />
+            android:textColor="@color/md_theme_error" />
     </RelativeLayout>
 </ScrollView>

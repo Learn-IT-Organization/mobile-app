@@ -27,7 +27,7 @@
         android:layout_marginBottom="155dp"
         android:fontFamily="@font/black_ops_one"
         android:text="LEARN IT"
-        android:textColor="@color/dark_lavender_purple"
+        android:textColor="@color/md_theme_primary"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
