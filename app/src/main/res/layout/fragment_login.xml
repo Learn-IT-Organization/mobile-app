@@ -37,7 +37,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginStart="2dp"
         android:text=""
-        android:textColor="@color/colorError" />
+        android:textColor="@color/md_theme_error" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -59,12 +59,12 @@
         android:layout_marginTop="3dp"
         android:layout_marginStart="2dp"
         android:text=""
-        android:textColor="@color/colorError" />
+        android:textColor="@color/md_theme_error" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
-        android:textColor="@color/white"
+        android:textColor="@color/md_theme_onPrimary"
         android:layout_height="@dimen/login_button_height"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="@dimen/margin_top_button"
@@ -97,7 +97,7 @@
             android:text="Sign Up"
             style="@style/paragraph_style"
             android:textSize="15dp"
-            android:textColor="@color/dark_lavender_purple"
+            android:textColor="@color/md_theme_primary"
             android:clickable="true"
             android:focusable="true" />
     </LinearLayout>
@@ -110,6 +110,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text=""
-        android:textColor="@color/colorError" />
+        android:textColor="@color/md_theme_error" />
 
 </RelativeLayout>
