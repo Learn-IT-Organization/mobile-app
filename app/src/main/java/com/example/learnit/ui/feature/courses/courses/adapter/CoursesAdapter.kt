@@ -17,7 +17,11 @@ class CoursesAdapter(private val courses: List<CourseModel>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(course: CourseModel) {
             binding.nameTextView.text = course.courseName
-            binding.languageTextView.text = course.programmingLanguage
+            if (adapterPosition % 2 == 0) {
+                binding.courseImageView.setImageResource(R.drawable.girl_with_code_snippet)
+            } else {
+                binding.courseImageView.setImageResource(R.drawable.boy_developer)
+            }
             binding.root.setOnClickListener {
                 itemView.findNavController().navigate(
                     R.id.action_CoursesFragment_to_ChaptersFragemnt,
