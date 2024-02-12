@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/upText"
+    <Button
+        android:id="@+id/upButton"
+        style="@style/true_false_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GROUP 1"
-        style="@style/sorting_groups"
+        android:text="UP"
         app:layout_constraintBottom_toTopOf="@id/concept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,19 +19,21 @@
         android:id="@+id/concept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/sorting_concepts"
+        android:textSize="20dp"
+        style="@style/title_style"
         android:text="CONCEPT 1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/downText"
+
+    <Button
+        android:id="@+id/downButton"
+        style="@style/true_false_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GROUP 2"
-        style="@style/sorting_groups"
+        android:text="DOWN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +45,10 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:icon="@drawable/arrow_next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
