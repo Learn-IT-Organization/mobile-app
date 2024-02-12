@@ -3,9 +3,9 @@ package com.example.learnit.ui.feature.courses.courses.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.domain.course.repository.CourseRepository
 import com.example.learnit.ui.App
-import com.example.learnit.ui.feature.courses.courses.model.CourseModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +24,7 @@ class CoursesViewModel : ViewModel() {
 
     sealed class CoursesPageState {
         object Loading : CoursesPageState()
-        data class Success(val courseData: List<CourseModel>) : CoursesPageState()
+        data class Success(val courseData: List<CourseData>) : CoursesPageState()
         data class Failure(val throwable: Throwable) : CoursesPageState()
     }
 

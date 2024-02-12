@@ -85,9 +85,9 @@ dependencies {
     //Cookie Jar
     implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
     //ViewPager2
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
     //Gson
-    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.danilopianini:gson-extras:0.2.1")
 
 }

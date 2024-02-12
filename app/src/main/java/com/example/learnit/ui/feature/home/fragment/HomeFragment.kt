@@ -18,6 +18,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.FragmentHomeBinding
+import com.example.learnit.ui.feature.home.adapter.MyCoursesAdapter
 import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
 
@@ -35,7 +36,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,22 +45,23 @@ class HomeFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observeState()
-        val loggedUserId = SharedPreferences.getUserId()
-        Log.d(TAG, "Logged user id: $loggedUserId")
-        binding.imageViewEditIcon.setOnClickListener {
+
+        binding.imageViewProfilePhoto.setOnClickListener {
             openGalleryForImage()
         }
+
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri: Uri? = data.data
             if (selectedImageUri != null) {
-                // Update the profile picture with the selected image
-                binding.imageViewProfilePhoto.setImageURI(selectedImageUri)
                 viewModel.setUserImagePath(selectedImageUri.toString())
+                displayProfilePicture(selectedImageUri.toString())
             }
         }
     }
@@ -75,6 +77,9 @@ class HomeFragment : Fragment() {
 
                         is HomeViewModel.UserPageState.Success -> {
                             updateProfileUi()
+                            binding.myCoursesRecycleView.adapter =
+                                MyCoursesAdapter(state.courseData)
+                            Log.d(TAG, state.courseData.toString())
                             Log.d(TAG, "Users loaded")
                         }
 
@@ -90,7 +95,7 @@ class HomeFragment : Fragment() {
                 }
 
             }
-            
+
         }
 
         viewModel.getUserImagePath()
@@ -105,17 +110,18 @@ class HomeFragment : Fragment() {
         val loggedUserId = SharedPreferences.getUserId()
         val loggedUser = viewModel.getUserById(loggedUserId)
         binding.textViewUsername.text = loggedUser?.user_name
-        binding.textViewName.text = "${loggedUser?.first_name} ${loggedUser?.last_name}"
-        binding.textViewStreaks.text = "Streaks:" + loggedUser?.streak.toString()
+        binding.textViewName.text = loggedUser?.first_name + " ! "
+        binding.textViewStreaks.text = loggedUser?.streak.toString()
         binding.textViewUserLevel.text = loggedUser?.user_level
-
     }
 
     private fun displayProfilePicture(imagePath: String?) {
         if (!imagePath.isNullOrEmpty()) {
             Glide.with(this)
                 .load(imagePath)
+                .override(100, 100)
                 .into(binding.imageViewProfilePhoto)
+
         }
     }
 
@@ -123,4 +129,5 @@ class HomeFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
+
 }
