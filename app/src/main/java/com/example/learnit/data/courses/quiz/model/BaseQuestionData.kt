@@ -10,11 +10,7 @@ abstract class BaseQuestionData(
 //    @SerializedName("question_type") val questionType: String = "",
     @SerializedName("qa_chapter_id") val qaChapterId: Int = 0,
     @SerializedName("qa_course_id") val qaCourseId: Int = 0
-): Serializable {
-    override fun toString(): String {
-        return "${this.javaClass.simpleName}(questionId=$questionId, qaLessonId=$qaLessonId, questionText='$questionText', qaChapterId=$qaChapterId, qaCourseId=$qaCourseId)"
-    }
-}
+) : Serializable
 
 class TrueFalseQuestionData(
     @SerializedName("answers") val answers: List<String>
@@ -24,13 +20,12 @@ class MultipleChoiceQuestionData(
     @SerializedName("answers") val answers: List<String>
 ) : BaseQuestionData()
 
-class SortingQuestionData (
+class SortingQuestionData(
     @SerializedName("answers") val answers: List<SortingAnswer>
 ) : BaseQuestionData()
 
 data class SortingAnswer(
     @SerializedName("ansUpText") val ansUpText: String,
     @SerializedName("ansDownText") val ansDownText: String,
-    @SerializedName("concepts") val concepts: List <String>
+    @SerializedName("concepts") val concepts: List<String>
 )
-

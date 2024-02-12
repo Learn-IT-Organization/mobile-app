@@ -38,11 +38,11 @@ class QuizPagerAdapter(
 
     private fun shuffleQuestionsByType(questions: List<BaseQuestionData>): List<BaseQuestionData> {
         val shuffledList = questions.shuffled()
+        val sortingList = shuffledList.filter { it is SortingQuestionData }
         val multipleChoiceList = shuffledList.filter { it is MultipleChoiceQuestionData }
         val trueFalseList = shuffledList.filter { it is TrueFalseQuestionData }
-        val sortingList = shuffledList.filter { it is SortingQuestionData }
         Log.d(TAG, "multipleChoiceList: $multipleChoiceList")
-        return multipleChoiceList + trueFalseList + sortingList
+        return sortingList + multipleChoiceList + trueFalseList
     }
 
     override fun getItemCount(): Int {
@@ -59,6 +59,13 @@ class QuizPagerAdapter(
         usedQuestions.add(shuffledQuestion.questionId)
 
         val fragment: Fragment = when (shuffledQuestion) {
+            is SortingQuestionData -> {
+                val sortingFragment = SortingQuizFragment().apply {
+                    arguments = createBundle(shuffledQuestion)
+                }
+                sortingFragment
+            }
+
             is MultipleChoiceQuestionData -> {
                 val mcFragment = MultipleChoiceQuizFragment().apply {
                     arguments = createBundle(shuffledQuestion)
@@ -72,14 +79,6 @@ class QuizPagerAdapter(
                 }
                 tfFragment
             }
-
-            is SortingQuestionData -> {
-                val sortingFragment = SortingQuizFragment().apply {
-                    arguments = createBundle(shuffledQuestion)
-                }
-                sortingFragment
-            }
-
             else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion::class.java.simpleName}")
         }
 
@@ -94,5 +93,4 @@ class QuizPagerAdapter(
             putSerializable("question", question)
         }
     }
-
 }

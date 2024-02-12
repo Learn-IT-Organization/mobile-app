@@ -28,14 +28,6 @@
         <item name="android:elevation">15dp</item>
     </style>
 
-    <style name="sorting_concepts" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:background">@drawable/rounded_background</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
     <style name="title_style">
         <item name ="android:fontFamily">@font/baloo</item>
         <item name="android:textSize">22sp</item>

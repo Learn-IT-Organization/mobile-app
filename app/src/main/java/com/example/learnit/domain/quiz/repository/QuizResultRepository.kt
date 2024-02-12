@@ -1,8 +1,8 @@
 package com.example.learnit.domain.quiz.repository
 
 import com.example.learnit.data.courses.quiz.model.QuizResultData
-import com.example.learnit.data.courses.quiz.model.UserResponseData
+import com.example.learnit.data.courses.quiz.model.QuizResponseData
 
 interface QuizResultRepository {
-    suspend fun sendResponse(userResponseData: UserResponseData): QuizResultData
+    suspend fun sendResponse(quizResponseData: QuizResponseData): QuizResultData
 }
