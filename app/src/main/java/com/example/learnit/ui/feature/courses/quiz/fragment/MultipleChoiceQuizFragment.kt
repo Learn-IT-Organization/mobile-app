@@ -14,7 +14,8 @@ import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import java.util.Date
 
-class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(), QuizButtonClickListener {
+class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(),
+    QuizButtonClickListener {
     override lateinit var binding: FragmentQuizMultipleChoiceBinding
     override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = MultipleChoiceQuizFragment::class.java.simpleName
@@ -51,7 +52,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
     }
 
     override fun onNextButtonClicked() {
-        viewModel.submitMultipleChoiceResponse(
+        viewModel.sendUserResponse(
             QuizResponseData(
                 uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),

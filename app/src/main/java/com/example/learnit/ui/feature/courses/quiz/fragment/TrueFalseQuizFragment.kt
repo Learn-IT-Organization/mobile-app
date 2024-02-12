@@ -10,8 +10,8 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
-import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
+import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel

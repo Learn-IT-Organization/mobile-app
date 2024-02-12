@@ -37,12 +37,7 @@ class QuizPagerAdapter(
     }
 
     private fun shuffleQuestionsByType(questions: List<BaseQuestionData>): List<BaseQuestionData> {
-        val shuffledList = questions.shuffled()
-        val sortingList = shuffledList.filter { it is SortingQuestionData }
-        val multipleChoiceList = shuffledList.filter { it is MultipleChoiceQuestionData }
-        val trueFalseList = shuffledList.filter { it is TrueFalseQuestionData }
-        Log.d(TAG, "multipleChoiceList: $multipleChoiceList")
-        return sortingList + multipleChoiceList + trueFalseList
+        return questions.shuffled()
     }
 
     override fun getItemCount(): Int {
