@@ -29,7 +29,7 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizTrueFalseBinding.inflate(inflater, container, false)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

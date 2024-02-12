@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
+import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
+import com.example.learnit.data.courses.quiz.model.SortingQuestionData
+import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
 import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.SortingQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment
@@ -35,10 +38,11 @@ class QuizPagerAdapter(
 
     private fun shuffleQuestionsByType(questions: List<BaseQuestionData>): List<BaseQuestionData> {
         val shuffledList = questions.shuffled()
-        val multipleChoiceList = shuffledList.filter { it.questionType == "multiple_choice" }
-        val trueFalseList = shuffledList.filter { it.questionType == "true_false" }
+        val multipleChoiceList = shuffledList.filter { it is MultipleChoiceQuestionData }
+        val trueFalseList = shuffledList.filter { it is TrueFalseQuestionData }
+        val sortingList = shuffledList.filter { it is SortingQuestionData }
         Log.d(TAG, "multipleChoiceList: $multipleChoiceList")
-        return multipleChoiceList + trueFalseList
+        return multipleChoiceList + trueFalseList + sortingList
     }
 
     override fun getItemCount(): Int {
@@ -54,29 +58,29 @@ class QuizPagerAdapter(
         Log.d(TAG, "shuffledQuestion: $shuffledQuestion")
         usedQuestions.add(shuffledQuestion.questionId)
 
-        val fragment: Fragment = when (shuffledQuestion.questionType) {
-            "multiple_choice" -> {
+        val fragment: Fragment = when (shuffledQuestion) {
+            is MultipleChoiceQuestionData -> {
                 val mcFragment = MultipleChoiceQuizFragment().apply {
                     arguments = createBundle(shuffledQuestion)
                 }
                 mcFragment
             }
 
-            "true_false" -> {
+            is TrueFalseQuestionData -> {
                 val tfFragment = TrueFalseQuizFragment().apply {
                     arguments = createBundle(shuffledQuestion)
                 }
                 tfFragment
             }
 
-            "sorting" -> {
+            is SortingQuestionData -> {
                 val sortingFragment = SortingQuizFragment().apply {
                     arguments = createBundle(shuffledQuestion)
                 }
                 sortingFragment
             }
 
-            else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion.questionType}")
+            else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion::class.java.simpleName}")
         }
 
         return fragment

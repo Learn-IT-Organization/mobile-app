@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.user.login.model.LoggedUserData
+import com.example.learnit.domain.course.repository.CourseRepository
 import com.example.learnit.domain.user.repository.UserRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -19,14 +21,17 @@ class HomeViewModel : ViewModel() {
     }
 
     private val repository: UserRepository = App.instance.getUserRepository()
+    private val coursesRepository: CourseRepository = App.instance.getCourseRepository()
     private var userList: List<LoggedUserData> = mutableListOf()
+    private var courseList: List<CourseData> = mutableListOf()
 
     private val mutableUserImagePath = MutableStateFlow<String?>(null)
-    val userImagePath: StateFlow<String?> = mutableUserImagePath
 
     sealed class UserPageState {
         data object Loading : UserPageState()
-        data class Success(val userData: List<LoggedUserData>) : UserPageState()
+        data class Success(val userData: List<LoggedUserData>, val courseData: List<CourseData>) :
+            UserPageState()
+
         data class ImagePathSuccess(val imagePath: String?) : UserPageState()
         data class Failure(val throwable: Throwable) : UserPageState()
     }
@@ -46,10 +51,9 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 userList = repository.getUsers()
-                mutableState.value = UserPageState.Success(userList)
-                for (user in userList) {
-                    Log.d(TAG, "User: $user")
-                }
+                courseList = coursesRepository.getMyCourses()
+                mutableState.value = UserPageState.Success(userList, courseList)
+                Log.d(TAG, courseList.toString())
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching users: ${e.message}")
                 mutableState.value = UserPageState.Failure(e)
@@ -62,7 +66,8 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getUserImagePath() {
-        mutableState.value = UserPageState.ImagePathSuccess(SharedPreferences.getUserImagePath(context = App.instance))
+        mutableState.value =
+            UserPageState.ImagePathSuccess(SharedPreferences.getUserImagePath(context = App.instance))
     }
 
     fun setUserImagePath(imagePath: String) {

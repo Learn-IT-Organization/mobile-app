@@ -1,11 +1,7 @@
 package com.example.learnit.ui.feature.register.fragment
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +24,6 @@ class RegisterFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModels()
     private lateinit var binding: FragmentRegisterBinding
 
-    private val PICK_IMAGE_REQUEST = 1
-
     companion object {
         val TAG: String = RegisterFragment::class.java.simpleName
     }
@@ -38,7 +32,7 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,7 +45,6 @@ class RegisterFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupListeners() {
-        binding.buttonSelectPhoto.setOnClickListener { openGallery() }
 
         binding.buttonSignUp.setOnClickListener {
             if (validateRegistrationFields()) {
@@ -156,23 +149,6 @@ class RegisterFragment : Fragment() {
         }
 
         return true
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val selectedImageUri: Uri? = data.data
-            if (selectedImageUri != null) {
-                binding.imageViewProfilePhoto.setImageURI(selectedImageUri)
-                viewModel.setPhotoUri(selectedImageUri)
-            }
-        }
-    }
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 
 }
