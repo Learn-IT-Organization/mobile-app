@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.SortingQuestionData
-import com.example.learnit.data.courses.quiz.model.UserResponseData
 import com.example.learnit.databinding.FragmentQuizSortingBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
@@ -74,15 +74,15 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
     }
 
     override fun onNextButtonClicked() {
-//        viewModel.sendUserResponse(
-//            UserResponseData(
-//                uqrQuestionId = currentQuestion?.questionId ?: -1,
-//                uqrUserId = SharedPreferences.getUserId().toInt(),
-//                response = listOf(viewModel.getUserResponse()),
-//                responseTime = Date(),
-//                score = 0.0f
-//            )
-//        )
+        viewModel.sendUserResponse(
+            QuizResponseData(
+                uqrQuestionId = currentQuestion?.questionId ?: -1,
+                uqrUserId = SharedPreferences.getUserId().toInt(),
+                response = listOf(viewModel.getUserResponse()),
+                responseTime = Date(),
+                score = 0.0f
+            )
+        )
         Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
         Log.d(TAG, "sorting onNextButtonClicked")
