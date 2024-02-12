@@ -37,8 +37,6 @@ class SharedQuizViewModel : ViewModel() {
         mutableState.value = QuestionAnswersPageState.Failure(exception)
     }
 
-    var numberOfQuestions: Int = 0
-
     val scoreLiveData: MutableLiveData<Float> by lazy {
         MutableLiveData<Float>()
     }
@@ -69,8 +67,6 @@ class SharedQuizViewModel : ViewModel() {
                 mutableState.value =
                     QuestionAnswersPageState.Success(loadedQuestionsAnswers)
                 Log.d(TAG, "loadedQuestionsAnswers: $loadedQuestionsAnswers")
-                numberOfQuestions = loadedQuestionsAnswers.size
-                Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching questions: ${e.message}")
                 mutableState.value = QuestionAnswersPageState.Failure(e)
@@ -88,16 +84,6 @@ class SharedQuizViewModel : ViewModel() {
     }
 
     fun sendUserResponse(userResponse: QuizResponseData) {
-        Log.d(TAG, "User response: $userResponse")
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            val response = quizResultRepository.sendResponse(userResponse)
-            Log.d(TAG, "Score: ${response.score}")
-            scoreLiveData.postValue(response.score)
-            Log.d(TAG, "Live score: ${scoreLiveData.value}")
-        }
-    }
-
-    fun submitMultipleChoiceResponse(userResponse: QuizResponseData) {
         Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)

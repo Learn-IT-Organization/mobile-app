@@ -27,12 +27,11 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
 
     private val viewModel: SharedQuizViewModel by activityViewModels()
-
+    private val maxNumberOfQuestion = 10
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
 
-    private var numberOfQuestions: Int = 0
     private var totalScore: Float = 0.0f
 
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
@@ -54,10 +53,6 @@ class QuizFragment : Fragment() {
 
         viewPager = binding.viewPager
         viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
-
-        if (viewPager.currentItem == numberOfQuestions - 1) {
-            showQuizResultDialog()
-        }
 
         return binding.root
     }
@@ -91,8 +86,6 @@ class QuizFragment : Fragment() {
                         is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             questionsAnswers = state.questionsAnswersData
-                            numberOfQuestions = viewModel.numberOfQuestions
-                            Log.d(TAG, "numberOfQuestions: $numberOfQuestions")
                             setUpAdapter()
                         }
 
@@ -136,19 +129,28 @@ class QuizFragment : Fragment() {
         )
         viewPager.adapter = adapter
 
+        binding.progressBar.max = maxNumberOfQuestion
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.progressBar.progress = position + 1
+                updateLessonProgressText(position + 1, maxNumberOfQuestion)
+            }
+        })
+
         viewPager.setCurrentItem(
             0, true
         )
+    }
+    @SuppressLint("SetTextI18n")
+    private fun updateLessonProgressText(currentQuestion: Int, totalQuestions: Int) {
+        binding.textLessonProgress.text = "$currentQuestion/$totalQuestions"
     }
 
     private fun observeScore() {
         Log.d(TAG, "Observing score... + ${viewModel.scoreLiveData.hashCode()}")
         val observer = Observer<Float> { totalScore ->
-            Log.d(TAG, "Score updated: $totalScore")
             updateScoreUI(totalScore)
-            if (viewPager.currentItem == numberOfQuestions - 1) {
-                showQuizResultDialog()
-            }
         }
         viewModel.scoreLiveData.observe(requireActivity(), observer)
     }
@@ -159,5 +161,4 @@ class QuizFragment : Fragment() {
         binding.textScore.text = "Score: ${totalScore.toInt()}"
         Log.d(TAG, "totalScore: $totalScore")
     }
-
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.SortingQuestionData
@@ -23,6 +24,8 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
     override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = SortingQuizFragment::class.java.simpleName
     private var executedClicks = 0
+    private val upResponses = mutableListOf<String>()
+    private val downResponses = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,36 +39,40 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.checkAndSubmitButton.setOnClickListener {
-            onNextButtonClicked()
-        }
         binding.upButton.setOnClickListener {
-            buttonClicked()
+            buttonClicked(it)
         }
         binding.downButton.setOnClickListener {
-            buttonClicked()
+            buttonClicked(it)
         }
     }
 
-    private fun buttonClicked() {
+    private fun buttonClicked(view: View) {
         val concepts = currentQuestion?.answers?.firstOrNull()?.concepts
 
         if (!concepts.isNullOrEmpty()) {
+            val currentIndex = concepts.indexOf(binding.concept.text.toString())
             val fadeOut = ObjectAnimator.ofFloat(binding.concept, "alpha", 1f, 0f)
             fadeOut.duration = 500
 
             fadeOut.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    val nextIndex =
-                        (concepts.indexOf(binding.concept.text.toString()) + 1) % concepts.size
+                    val nextIndex = (currentIndex + 1) % concepts.size
                     binding.concept.text = concepts[nextIndex]
                     val fadeIn = ObjectAnimator.ofFloat(binding.concept, "alpha", 0f, 1f)
                     fadeIn.duration = 500
                     fadeIn.start()
                     executedClicks++
 
+                    when (view.id) {
+                        R.id.upButton -> upResponses.add(concepts[currentIndex])
+                        R.id.downButton -> downResponses.add(concepts[currentIndex])
+                    }
+                    Log.d(TAG, "responses: $upResponses $downResponses")
+
                     if (executedClicks == concepts.size) {
-                        QuizFragment.viewPager.currentItem += 1
+                        executedClicks = 0
+                        onNextButtonClicked()
                     }
                 }
             })
@@ -78,7 +85,10 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
             QuizResponseData(
                 uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),
-                response = listOf(viewModel.getUserResponse()),
+                response = mapOf(
+                    "up" to upResponses,
+                    "down" to downResponses
+                ),
                 responseTime = Date(),
                 score = 0.0f
             )
