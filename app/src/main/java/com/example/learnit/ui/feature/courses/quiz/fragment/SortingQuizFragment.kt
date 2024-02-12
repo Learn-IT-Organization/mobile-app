@@ -34,7 +34,7 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizSortingBinding.inflate(inflater, container, false)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,8 +49,10 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
     override fun onNextButtonClicked() {
 
     }
+
     override fun updateUI() {
-        binding.upText.text = currentQuestion?.answers?.ansUpText
-        binding.downText.text = currentQuestion?.answers?.ansDownText
+        val  currentQuestion = currentQuestion?.answers?.firstOrNull()
+        binding.upText.text = currentQuestion?.ansUpText
+        binding.downText.text = currentQuestion?.ansDownText
     }
 }

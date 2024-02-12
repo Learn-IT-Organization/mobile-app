@@ -25,8 +25,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizMultipleChoiceBinding.inflate(inflater, container, false)
-
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
