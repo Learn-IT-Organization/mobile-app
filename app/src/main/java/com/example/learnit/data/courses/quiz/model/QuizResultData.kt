@@ -1,14 +1,13 @@
 package com.example.learnit.data.courses.quiz.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@Serializable
 data class QuizResultData(
-    @SerialName("success")
+    @SerializedName("success")
     val success: Boolean,
-    @SerialName("message")
+    @SerializedName("message")
     val message: String,
-    @SerialName("score")
+    @SerializedName("score")
     val score: Float,
-)
+) : Serializable

@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
-import com.example.learnit.data.courses.quiz.model.UserResponseData
+import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.databinding.FragmentQuizTrueFalseBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
@@ -66,7 +66,7 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
 
     override fun onNextButtonClicked() {
         viewModel.sendUserResponse(
-            UserResponseData(
+            QuizResponseData(
                 uqrQuestionId = currentQuestion?.questionId ?: -1,
                 uqrUserId = SharedPreferences.getUserId().toInt(),
                 response = listOf(viewModel.getUserResponse()),

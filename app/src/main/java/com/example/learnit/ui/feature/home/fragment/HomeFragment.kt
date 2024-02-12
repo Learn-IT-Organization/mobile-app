@@ -79,7 +79,11 @@ class HomeFragment : Fragment() {
                             updateProfileUi()
                             binding.myCoursesRecycleView.adapter =
                                 MyCoursesAdapter(state.courseData)
-                            Log.d(TAG, state.courseData.toString())
+                            if (state.courseData.isEmpty()) {
+                                binding.textViewContinueLearning.visibility = View.GONE
+                            } else {
+                                binding.textViewContinueLearning.visibility = View.VISIBLE
+                            }
                             Log.d(TAG, "Users loaded")
                         }
 
