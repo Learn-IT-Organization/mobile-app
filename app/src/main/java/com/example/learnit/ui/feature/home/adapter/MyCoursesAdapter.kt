@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.courses.adapter
+package com.example.learnit.ui.feature.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
 import com.example.learnit.data.ApiConstants
 import com.example.learnit.data.courses.course.model.CourseData
-import com.example.learnit.databinding.CourseListItemBinding
+import com.example.learnit.databinding.MyCourseListItemBinding
 
-class CoursesAdapter(private val courses: List<CourseData>) :
-    RecyclerView.Adapter<CoursesAdapter.CourseViewHolder>() {
+class MyCoursesAdapter(private val courses: List<CourseData>) :
+    RecyclerView.Adapter<MyCoursesAdapter.MyCourseViewHolder>() {
 
-    inner class CourseViewHolder(private val binding: CourseListItemBinding) :
+    inner class MyCourseViewHolder(private val binding: MyCourseListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(course: CourseData) {
             binding.nameTextView.text = course.course_name
@@ -24,20 +24,20 @@ class CoursesAdapter(private val courses: List<CourseData>) :
             }
             binding.root.setOnClickListener {
                 itemView.findNavController().navigate(
-                    R.id.action_CoursesFragment_to_ChaptersFragemnt,
+                    R.id.action_homeFragment_to_chaptersFragment,
                     bundleOf(ApiConstants.COURSE_ID to course.course_id)
                 )
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCourseViewHolder {
         val binding =
-            CourseListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CourseViewHolder(binding)
+            MyCourseListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyCourseViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyCourseViewHolder, position: Int) {
         val course = courses[position]
         holder.bind(course)
     }

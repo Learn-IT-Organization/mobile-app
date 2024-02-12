@@ -1,7 +1,6 @@
 package com.example.learnit.data.user.login.model
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.SerialName
 import java.io.Serializable
 
 data class LoggedUserData(
@@ -23,4 +22,4 @@ data class LoggedUserData(
     val user_level: String,
     @SerializedName("streak")
     val streak: Int
-): Serializable
+) : Serializable
