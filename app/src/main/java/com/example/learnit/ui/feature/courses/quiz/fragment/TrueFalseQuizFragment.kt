@@ -22,7 +22,6 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
     override val viewModel: SharedQuizViewModel by activityViewModels()
     override val TAG: String = TrueFalseQuizFragment::class.java.simpleName
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +77,6 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
         Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
         Log.d(TAG, "true_false onNextButtonClicked")
         QuizFragment.viewPager.currentItem += 1
-
     }
 
     override fun updateUI() {
