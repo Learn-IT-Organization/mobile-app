@@ -51,7 +51,7 @@
         android:id="@+id/escapeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/md_theme_onPrimary"
+        android:backgroundTint="@android:color/transparent"
         android:src="@drawable/close"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:id="@+id/bookButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/md_theme_onPrimary"
+        android:backgroundTint="@android:color/transparent"
         android:src="@drawable/book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
