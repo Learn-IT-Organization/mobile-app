@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
-import com.example.learnit.data.courses.quiz.model.UserResponseData
+import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
 import com.example.learnit.domain.quiz.repository.QuizResultRepository
 import com.example.learnit.ui.App
@@ -87,7 +87,7 @@ class SharedQuizViewModel : ViewModel() {
         return userResponse
     }
 
-    fun sendUserResponse(userResponse: UserResponseData) {
+    fun sendUserResponse(userResponse: QuizResponseData) {
         Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)
@@ -97,7 +97,7 @@ class SharedQuizViewModel : ViewModel() {
         }
     }
 
-    fun submitMultipleChoiceResponse(userResponse: UserResponseData) {
+    fun submitMultipleChoiceResponse(userResponse: QuizResponseData) {
         Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)
