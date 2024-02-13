@@ -1,8 +1,9 @@
 package com.example.learnit.domain.course.repository
 
-import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
+import com.example.learnit.data.courses.chapters.model.ChapterData
+import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 
 interface ChaptersRepository {
-    suspend fun getChapters(): List<ChapterModel>
-    suspend fun getChaptersByCourseId(courseId: Int): List<ChapterModel>
+    suspend fun getChapters(): List<ChapterData>
+    suspend fun getChaptersByCourseId(courseId: Int): List<ChapterWithLessonsData>
 }

@@ -4,7 +4,7 @@
     <style name="custom_button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/rounded_button</item>
         <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:fontFamily">@font/source_code_pro_medium</item>
+        <item name="android:fontFamily">@font/baloo</item>
     </style>
 
     <style name="sorting_button" parent="ShapeAppearanceOverlay.Material3.Button">
@@ -45,12 +45,6 @@
     <style name="paragraph_style">
         <item name="android:fontFamily">@font/baloo</item>
         <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="description_style">
-        <item name="fontFamily">@font/source_code_pro_italic</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:padding">5dp</item>
     </style>
 
     <style name="password_text_field">

@@ -2,23 +2,20 @@ package com.example.learnit.data.courses.lessons.repository
 
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
-import com.example.learnit.data.courses.lessons.mapper.mapToLessonList
+import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.domain.course.repository.LessonRepository
-import com.example.learnit.ui.feature.courses.lessons.model.LessonModel
 
 object LessonRepositoryImpl : LessonRepository {
 
     val TAG: String = LessonRepositoryImpl::class.java.simpleName
-
     private val apiService = RetrofitAdapter.provideApiService()
 
-    override suspend fun getLessons(): List<LessonModel> {
+    override suspend fun getLessons(): List<LessonData> {
         try {
             val response = apiService.getLessons()
             if (response.isSuccessful) {
                 val responseData = response.body()
-                val data = responseData ?: emptyList()
-                return data.mapToLessonList()
+                return responseData ?: emptyList()
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lessons: ${e.message}")
@@ -26,13 +23,12 @@ object LessonRepositoryImpl : LessonRepository {
         return emptyList()
     }
 
-    override suspend fun getLessonsByChapterId(chapterId: Int): List<LessonModel> {
+    override suspend fun getLessonsByChapterId(chapterId: Int): List<LessonData> {
         try {
             val response = apiService.getLessonsByChapterId(chapterId)
             if (response.isSuccessful) {
                 val responseData = response.body()
-                val data = responseData ?: emptyList()
-                return data.mapToLessonList()
+                return responseData ?: emptyList()
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lessons by chapter id: ${e.message}")

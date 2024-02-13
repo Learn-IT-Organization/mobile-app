@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         style="@style/subtitle_style"
-        android:fontFamily="@font/source_code_pro_italic"
+        android:fontFamily="@font/baloo"
         android:text="@string/login"
         android:textAlignment="center"
         android:textSize="@dimen/login_text_size"
