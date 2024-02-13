@@ -7,41 +7,43 @@
         <item name="android:fontFamily">@font/source_code_pro_medium</item>
     </style>
 
-    <style name="true_false_button" parent="ShapeAppearanceOverlay.Material3.Button">
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:backgroundTint">@color/md_theme_primary</item>
+    <style name="sorting_button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textSize">25sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:backgroundTint">@color/md_theme_secondaryContainer</item>
+        <item name="android:textColor">@color/md_theme_secondary_mediumContrast</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:elevation">50dp</item>
+    </style>
+
+    <style name="sorting_textView" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/baloo</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/rounded_background_sorting</item>
+        <item name="android:textColor">@color/md_theme_secondaryContainer</item>
     </style>
 
     <style name="submit_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_onPrimary</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:backgroundTint">@color/md_theme_primary</item>
-    </style>
-
-    <style name="sorting_groups" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">25sp</item>
-        <item name="android:background">@color/md_theme_tertiary</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:elevation">15dp</item>
+        <item name="android:backgroundTint">@color/md_theme_secondary_mediumContrast</item>
     </style>
 
     <style name="title_style">
-        <item name ="android:fontFamily">@font/baloo</item>
+        <item name="android:fontFamily">@font/baloo</item>
         <item name="android:textSize">22sp</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="subtitle_style">
-        <item name ="android:fontFamily">@font/baloo</item>
+        <item name="android:fontFamily">@font/baloo</item>
         <item name="android:textSize">18sp</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="paragraph_style">
-        <item name ="android:fontFamily">@font/baloo</item>
+        <item name="android:fontFamily">@font/baloo</item>
         <item name="android:textSize">12sp</item>
     </style>
 

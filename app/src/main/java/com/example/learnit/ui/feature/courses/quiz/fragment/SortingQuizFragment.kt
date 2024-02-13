@@ -52,16 +52,20 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
 
         if (!concepts.isNullOrEmpty()) {
             val currentIndex = concepts.indexOf(binding.concept.text.toString())
-            val fadeOut = ObjectAnimator.ofFloat(binding.concept, "alpha", 1f, 0f)
-            fadeOut.duration = 500
+            val nextIndex = (currentIndex + 1) % concepts.size
 
-            fadeOut.addListener(object : AnimatorListenerAdapter() {
+            val translationX = if (view.id == R.id.upButton) {
+                ObjectAnimator.ofFloat(binding.concept, "translationY", -1000f)
+            } else {
+                ObjectAnimator.ofFloat(binding.concept, "translationY", 1000f)
+            }
+
+            translationX.duration = 800
+            translationX.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    val nextIndex = (currentIndex + 1) % concepts.size
                     binding.concept.text = concepts[nextIndex]
-                    val fadeIn = ObjectAnimator.ofFloat(binding.concept, "alpha", 0f, 1f)
-                    fadeIn.duration = 500
-                    fadeIn.start()
+                    binding.concept.translationY = 0f
+
                     executedClicks++
 
                     when (view.id) {
@@ -76,9 +80,11 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
                     }
                 }
             })
-            fadeOut.start()
+
+            translationX.start()
         }
     }
+
 
     override fun onNextButtonClicked() {
         viewModel.sendUserResponse(
