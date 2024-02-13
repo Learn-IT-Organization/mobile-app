@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
@@ -32,10 +33,30 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.checkAndSubmitButton.setOnClickListener {
-            onNextButtonClicked()
+        binding.verifyButton.setOnClickListener {
+            if (hasAtLeastOneAnswerSelected()) {
+                onNextButtonClicked()
+            } else {
+                Toast.makeText(requireContext(), "Please select an answer!", Toast.LENGTH_SHORT).show()
+            }
         }
 
+    }
+
+    private fun hasAtLeastOneAnswerSelected(): Boolean {
+        val answerCheckBoxes = listOf(
+            binding.option1CheckBox,
+            binding.option2CheckBox,
+            binding.option3CheckBox,
+            binding.option4CheckBox,
+        )
+
+        for (checkBox in answerCheckBoxes) {
+            if (checkBox.isChecked) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun clearCheckBoxes() {
