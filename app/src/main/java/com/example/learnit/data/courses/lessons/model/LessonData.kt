@@ -1,22 +1,21 @@
 package com.example.learnit.data.courses.lessons.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@Serializable
 data class LessonData(
-    @SerialName("lesson_id")
-    val lesson_id: Int,
-    @SerialName("lesson_name")
-    val lesson_name: String,
-    @SerialName("lesson_chapter_id")
-    val lesson_chapter_id: Int,
-    @SerialName("lesson_sequence_number")
-    val lesson_sequence_number: Int,
-    @SerialName("lesson_description")
-    val lesson_description: String,
-    @SerialName("lesson_type")
-    val lesson_type: String,
-    @SerialName("lesson_tags")
-    val lesson_tags: String,
-)
+    @SerializedName("lesson_id")
+    val lessonId: Int,
+    @SerializedName("lesson_name")
+    val lessonName: String,
+    @SerializedName("lesson_chapter_id")
+    val lessonChapterId: Int,
+    @SerializedName("lesson_sequence_number")
+    val lessonSequenceNumber: Int,
+    @SerializedName("lesson_description")
+    val lessonDescription: String,
+    @SerializedName("lesson_type")
+    val lessonType: String,
+    @SerializedName("lesson_tags")
+    val lessonTags: String,
+) : Serializable

@@ -1,38 +1,37 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/chapter_card_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/course_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="5dp">
+    app:cardElevation="0dp"
+    app:strokeColor="@android:color/transparent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/nameTextView"
+            style="@style/title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lessonsRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_below="@id/nameTextView"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/lesson_list_item" />
 
-            <TextView
-                android:id="@+id/nameTextView"
-                style="@style/subtitle_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/descriptionTextView"
-                style="@style/paragraph_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceBody2" />
-
-        </LinearLayout>
-    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

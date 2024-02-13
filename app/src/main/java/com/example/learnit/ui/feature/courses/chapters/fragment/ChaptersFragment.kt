@@ -11,13 +11,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.learnit.R
+import com.example.learnit.data.courses.chapters.model.ChapterData
+import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.courses.chapters.adapter.ChaptersAdapter
-import com.example.learnit.ui.feature.courses.chapters.model.ChapterModel
 import com.example.learnit.ui.feature.courses.chapters.viewModel.ChaptersViewModel
 import kotlinx.coroutines.launch
 
-class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener {
+class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     private val viewModel: ChaptersViewModel by viewModels()
     private lateinit var binding: FragmentChaptersBinding
@@ -31,9 +33,9 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
-        binding.toolbar.setNavigationOnClickListener {
+        binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
         }
         return binding.root
@@ -58,7 +60,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
                         is ChaptersViewModel.ChaptersScreenState.Success -> {
                             Log.d(TAG, "Chapters loaded")
                             val adapter = ChaptersAdapter(state.chaptersData, this@ChaptersFragment)
-                            binding.coursesRecycleView.adapter = adapter
+                            binding.chaptersRecyclerView.adapter = adapter
                         }
 
                         is ChaptersViewModel.ChaptersScreenState.Failure -> {
@@ -70,14 +72,26 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnChapterItemClickListener 
         }
     }
 
-    override fun onChapterItemClick(chapter: ChapterModel) {
-        val action =
-            ChaptersFragmentDirections.actionChaptersFragmentToLessonsFragment(
-                chapter.chapterId!!,
-                chapter.chapterCourseId!!,
-                0
-            )
-        findNavController().navigate(action)
+    override fun onChapterItemClick(chapter: ChapterData) {
+        TODO()
     }
 
+    override fun onPlayStateClick(lesson: LessonData) {
+        val bundle = Bundle().apply {
+            putInt("courseId", arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
+            putInt("chapterId", lesson.lessonChapterId)
+            putInt("lessonId", lesson.lessonId)
+        }
+
+        findNavController().navigate(
+            R.id.action_chaptersFragment_to_quizFragment,
+            bundle
+        )
+    }
+
+    override fun onTheoryClick(lesson: LessonData) {
+        findNavController().navigate(
+            R.id.action_chaptersFragment_to_theoryFragment
+        )
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.lessons.fragment
+package com.example.learnit.ui.feature.courses.chapters.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.databinding.FragmentTheoryBinding
-import com.example.learnit.ui.feature.courses.lessons.viewModel.TheoryViewModel
+import com.example.learnit.ui.feature.courses.chapters.viewModel.TheoryViewModel
 import kotlinx.coroutines.launch
 
 class TheoryFragment : Fragment() {
