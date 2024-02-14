@@ -62,7 +62,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getUserById(loggedUserId: Long): LoggedUserData? {
-        return userList.find { it.user_id == loggedUserId }
+        return userList.find { it.userId == loggedUserId }
     }
 
     fun getUserImagePath() {

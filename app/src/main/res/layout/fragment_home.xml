@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="125dp"
-                android:src="@drawable/graduation_creatures"
+                android:src="@drawable/graduation_girl"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                 app:layout_constraintStart_toEndOf="@+id/iconUsername"
                 app:layout_constraintTop_toTopOf="parent" />

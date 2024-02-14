@@ -1,14 +1,15 @@
 package com.example.learnit.data.user.login.model
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class ResponseData<T> (
-    @SerialName("success")
+data class ResponseData<T>(
+    @SerializedName("success")
     val success: Boolean,
-    @SerialName("data")
+    @SerializedName("data")
     val data: T?,
-    @SerialName("err")
+    @SerializedName("err")
     val error: ErrorLogin,
-    @SerialName("servertime")
+    @SerializedName("servertime")
     val serverTime: Long
-)
+) : Serializable

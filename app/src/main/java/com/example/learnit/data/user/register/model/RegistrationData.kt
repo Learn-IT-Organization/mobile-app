@@ -1,22 +1,20 @@
 package com.example.learnit.data.user.register.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class RegistrationData(
-    @SerialName("first_name")
-    val first_name: String,
-    @SerialName("last_name")
-    val last_name: String,
-    @SerialName("user_name")
-    val user_name: String,
-    @SerialName("user_password")
-    val user_password: String,
-    @SerialName("gender")
+    @SerializedName("first_name")
+    val firstName: String,
+    @SerializedName("last_name")
+    val lastName: String,
+    @SerializedName("user_name")
+    val userName: String,
+    @SerializedName("user_password")
+    val userPassword: String,
+    @SerializedName("gender")
     val gender: String,
-    @SerialName("user_level")
-    val user_level: String,
-    @SerialName("streak")
+    @SerializedName("user_level")
+    val userLevel: String,
+    @SerializedName("streak")
     val streak: Int
-)
+) : java.io.Serializable

@@ -6,10 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -18,8 +21,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.databinding.FragmentQuizBinding
+import com.example.learnit.databinding.QuizResultDialogBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class QuizFragment : Fragment() {
@@ -27,7 +34,7 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
 
     private val viewModel: SharedQuizViewModel by activityViewModels()
-    private val maxNumberOfQuestion = 10
+    private var maxNumberOfQuestion: Int = -1
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
@@ -39,6 +46,9 @@ class QuizFragment : Fragment() {
     companion object {
         lateinit var viewPager: ViewPager2
         val TAG: String = QuizFragment::class.java.simpleName
+        val currentQuestionNumber: MutableLiveData<Int> by lazy {
+            MutableLiveData<Int>(0)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -72,6 +82,7 @@ class QuizFragment : Fragment() {
         }
 
         observeScore()
+        observeCurrentQuestionNumber()
     }
 
     private fun observeState() {
@@ -86,6 +97,7 @@ class QuizFragment : Fragment() {
                         is SharedQuizViewModel.QuestionAnswersPageState.Success -> {
                             Log.d(TAG, "QuestionsAnswers loaded")
                             questionsAnswers = state.questionsAnswersData
+                            maxNumberOfQuestion = questionsAnswers.size
                             setUpAdapter()
                         }
 
@@ -102,18 +114,70 @@ class QuizFragment : Fragment() {
     }
 
     private fun showExitConfirmationDialog() {
-        AlertDialog.Builder(requireContext()).setTitle("Leave Quiz")
-            .setMessage("Are you sure you want to leave the quiz? Your progress will be lost.")
-            .setPositiveButton("Yes") { _, _ ->
-                activity?.onBackPressed()
-            }.setNegativeButton("No", null).show()
+        val inflater = LayoutInflater.from(requireContext())
+        val view = inflater.inflate(R.layout.exit_confirmation_dialog, null)
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        view.findViewById<Button>(R.id.yesButton).setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("courseId", courseId)
+                putInt("chapterId", chapterId)
+                putInt("lessonId", lessonId)
+            }
+
+            findNavController().navigate(
+                R.id.action_quizFragment_to_chaptersFragment,
+                bundle
+            )
+            viewModel.deleteResponses(lessonId)
+            dialog.dismiss()
+        }
+
+        view.findViewById<Button>(R.id.noButton).setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
+
     private fun showQuizResultDialog() {
-        AlertDialog.Builder(requireContext()).setTitle("Quiz Result")
-            .setMessage("Your score is: $totalScore").setPositiveButton("OK") { _, _ ->
-                activity?.onBackPressed()
-            }.show()
+        if (!isAdded || activity == null) {
+            return
+        }
+
+        val dialogView = QuizResultDialogBinding.inflate(layoutInflater).root
+
+        val dialogTitle = dialogView.findViewById<TextView>(R.id.dialogTitle)
+        val dialogMessage = dialogView.findViewById<TextView>(R.id.dialogMessage)
+        val okButton = dialogView.findViewById<Button>(R.id.okButton)
+
+        dialogTitle.text = getString(R.string.quiz_result)
+        dialogMessage.text = getString(R.string.your_score_is, totalScore.toInt().toString())
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(dialogView)
+
+        val alertDialog = alertDialogBuilder.create()
+
+        okButton.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("courseId", courseId)
+                putInt("chapterId", chapterId)
+                putInt("lessonId", lessonId)
+            }
+
+            findNavController().navigate(
+                R.id.action_quizFragment_to_chaptersFragment,
+                bundle
+            )
+
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 
     private fun setUpAdapter() {
@@ -142,23 +206,48 @@ class QuizFragment : Fragment() {
             0, true
         )
     }
+
     @SuppressLint("SetTextI18n")
     private fun updateLessonProgressText(currentQuestion: Int, totalQuestions: Int) {
         binding.textLessonProgress.text = "$currentQuestion/$totalQuestions"
     }
 
     private fun observeScore() {
-        Log.d(TAG, "Observing score... + ${viewModel.scoreLiveData.hashCode()}")
         val observer = Observer<Float> { totalScore ->
             updateScoreUI(totalScore)
         }
         viewModel.scoreLiveData.observe(requireActivity(), observer)
     }
 
+    private fun observeCurrentQuestionNumber() {
+        val observer = Observer<Int> { currentQuestionNumber ->
+            if (currentQuestionNumber == maxNumberOfQuestion) {
+                showQuizResultDialogWithDelay()
+            }
+        }
+        currentQuestionNumber.observe(requireActivity(), observer)
+    }
+
     @SuppressLint("SetTextI18n")
     fun updateScoreUI(newScore: Float) {
         totalScore += newScore * 10
         binding.textScore.text = "Score: ${totalScore.toInt()}"
-        Log.d(TAG, "totalScore: $totalScore")
+    }
+
+    override fun onDestroyView() {
+        Log.d(TAG, "onDestroyView")
+        super.onDestroyView()
+        viewModel.scoreLiveData.removeObservers(requireActivity())
+        viewModel.scoreLiveData.value = 0.0f
+        currentQuestionNumber.removeObservers(requireActivity())
+        currentQuestionNumber.value = 0
+        totalScore = 0.0f
+    }
+
+    private fun showQuizResultDialogWithDelay() {
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(500)
+            showQuizResultDialog()
+        }
     }
 }

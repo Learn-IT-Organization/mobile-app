@@ -1,14 +1,12 @@
 package com.example.learnit.data.user.login.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class Data(
-    @SerialName("name")
+    @SerializedName("name")
     val name: String,
-    @SerialName("value")
+    @SerializedName("value")
     val value: String,
-    @SerialName("expires")
+    @SerializedName("expires")
     val expires: Long,
-)
+) : java.io.Serializable

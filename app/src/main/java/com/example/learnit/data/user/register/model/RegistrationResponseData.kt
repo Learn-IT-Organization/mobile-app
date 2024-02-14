@@ -1,12 +1,10 @@
 package com.example.learnit.data.user.register.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class RegistrationResponseData(
-    @SerialName("success")
+    @SerializedName("success")
     val success: String,
-    @SerialName("message")
+    @SerializedName("message")
     val message: String
-)
+) : java.io.Serializable

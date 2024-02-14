@@ -1,12 +1,11 @@
 package com.example.learnit.data.user.login.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@Serializable
 data class ErrorLogin(
-    @SerialName("code")
+    @SerializedName("code")
     val code: String,
-    @SerialName("msg")
+    @SerializedName("msg")
     val message: String
-)
+) : Serializable
