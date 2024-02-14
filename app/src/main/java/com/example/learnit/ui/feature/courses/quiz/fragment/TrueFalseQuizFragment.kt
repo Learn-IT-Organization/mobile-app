@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
@@ -38,7 +39,6 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
 
         binding.trueButton.setOnClickListener {
             viewModel.setUserResponse(true)
-            Log.d(TAG, "response: ${viewModel.getUserResponse()}")
             setButtonState(binding.trueButton, true)
             setButtonState(binding.falseButton, false)
             hasAnswered = true
@@ -46,7 +46,6 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
 
         binding.falseButton.setOnClickListener {
             viewModel.setUserResponse(false)
-            Log.d(TAG, "response: ${viewModel.getUserResponse()}")
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
             hasAnswered = true
@@ -56,7 +55,11 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
             if (hasAnswered) {
                 onNextButtonClicked()
             } else {
-                Toast.makeText(requireContext(), "Please select an answer!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    R.string.please_select_an_answer,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -88,10 +91,10 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
                 score = 0.0f
             )
         )
-        Log.d(TAG, "question id:${currentQuestion?.questionId}")
-        Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
-        Log.d(TAG, "true_false onNextButtonClicked")
         QuizFragment.viewPager.currentItem += 1
+        Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
+        QuizFragment.currentQuestionNumber.postValue(QuizFragment.currentQuestionNumber.value?.plus(1) ?: 0)
+        Log.d(TAG, "currentQuestionNumber: ${QuizFragment.currentQuestionNumber.value}")
     }
 
     override fun updateUI() {

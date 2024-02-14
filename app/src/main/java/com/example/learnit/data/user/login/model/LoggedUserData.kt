@@ -5,21 +5,21 @@ import java.io.Serializable
 
 data class LoggedUserData(
     @SerializedName("user_id")
-    val user_id: Long,
+    val userId: Long,
     @SerializedName("user_role")
-    val user_role: String,
+    val userRole: String,
     @SerializedName("first_name")
-    val first_name: String,
+    val firstName: String,
     @SerializedName("last_name")
-    val last_name: String,
+    val lastName: String,
     @SerializedName("user_name")
-    val user_name: String,
+    val userName: String,
     @SerializedName("user_password")
-    val user_password: String,
+    val userPassword: String,
     @SerializedName("gender")
     val gender: String,
     @SerializedName("user_level")
-    val user_level: String,
+    val userLevel: String,
     @SerializedName("streak")
     val streak: Int
 ) : Serializable

@@ -44,7 +44,7 @@
 
     <style name="paragraph_style">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="password_text_field">

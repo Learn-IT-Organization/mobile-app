@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,11 +17,14 @@ import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.courses.chapters.adapter.ChaptersAdapter
 import com.example.learnit.ui.feature.courses.chapters.viewModel.ChaptersViewModel
+import com.example.learnit.ui.feature.courses.chapters.viewModel.LessonsViewModel
 import kotlinx.coroutines.launch
 
 class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
-    private val viewModel: ChaptersViewModel by viewModels()
+    private val viewModel: ChaptersViewModel by activityViewModels()
+    private val lessonViewModel: LessonsViewModel by activityViewModels()
+
     private lateinit var binding: FragmentChaptersBinding
 
     companion object {
@@ -45,7 +48,12 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         val courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
+        val lessonId = arguments?.getInt("lessonId", -1) ?: -1
+        Log.d(TAG, "Course id: $courseId")
+        Log.d(TAG, "Lesson id: $lessonId")
         viewModel.loadChapters(courseId)
+        lessonViewModel.loadLessonResult(lessonId)
+        observeLessonResult()
     }
 
     private fun observeState() {
@@ -65,6 +73,28 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
                         is ChaptersViewModel.ChaptersScreenState.Failure -> {
                             Log.e(TAG, "Error loading chapters: ${state.throwable}")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeLessonResult() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                lessonViewModel.state.collect { state ->
+                    when (state) {
+                        is LessonsViewModel.LessonScreenState.Loading -> {
+                            Log.d(TAG, "Loading lesson result...")
+                        }
+
+                        is LessonsViewModel.LessonScreenState.Success -> {
+                            Log.d(TAG, "Lesson result loaded")
+                        }
+
+                        is LessonsViewModel.LessonScreenState.Failure -> {
+                            Log.e(TAG, "Error loading lesson result: ${state.throwable}")
                         }
                     }
                 }
@@ -94,4 +124,5 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
             R.id.action_chaptersFragment_to_theoryFragment
         )
     }
+
 }

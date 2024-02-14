@@ -71,12 +71,12 @@ class RegisterFragment : Fragment() {
         val streak = 0
 
         return RegistrationData(
-            first_name = firstName,
-            last_name = lastName,
-            user_name = userName,
-            user_password = password,
+            firstName = firstName,
+            lastName = lastName,
+            userName = userName,
+            userPassword = password,
             gender = gender,
-            user_level = userLevel,
+            userLevel = userLevel,
             streak = streak
         )
     }

@@ -113,10 +113,10 @@ class HomeFragment : Fragment() {
     private fun updateProfileUi() {
         val loggedUserId = SharedPreferences.getUserId()
         val loggedUser = viewModel.getUserById(loggedUserId)
-        binding.textViewUsername.text = loggedUser?.user_name
-        binding.textViewName.text = loggedUser?.first_name + " ! "
+        binding.textViewUsername.text = loggedUser?.userName
+        binding.textViewName.text = loggedUser?.firstName + " ! "
         binding.textViewStreaks.text = loggedUser?.streak.toString()
-        binding.textViewUserLevel.text = loggedUser?.user_level
+        binding.textViewUserLevel.text = loggedUser?.userLevel
     }
 
     private fun displayProfilePicture(imagePath: String?) {

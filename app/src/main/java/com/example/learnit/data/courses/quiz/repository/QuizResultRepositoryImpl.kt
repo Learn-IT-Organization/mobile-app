@@ -2,6 +2,7 @@ package com.example.learnit.data.courses.quiz.repository
 
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
+import com.example.learnit.data.courses.lessons.model.DeleteResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.domain.quiz.repository.QuizResultRepository
@@ -18,5 +19,15 @@ object QuizResultRepositoryImpl : QuizResultRepository {
             return response.body()!!
         }
         throw Exception("Error sending quiz response")
+    }
+
+    override suspend fun deleteResponses(lessonId: Int): DeleteResponseData {
+        val response = apiService.deleteResponses(lessonId)
+        if (response.isSuccessful && response.body() != null) {
+            val message = response.body()!!.message
+            Log.d(TAG, "Message: $message")
+            return response.body()!!
+        }
+        throw Exception("Error deleting quiz response")
     }
 }

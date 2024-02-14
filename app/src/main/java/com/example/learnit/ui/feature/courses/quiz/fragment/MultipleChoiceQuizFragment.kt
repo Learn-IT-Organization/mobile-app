@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
@@ -37,7 +38,11 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
             if (hasAtLeastOneAnswerSelected()) {
                 onNextButtonClicked()
             } else {
-                Toast.makeText(requireContext(), "Please select an answer!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.please_select_an_answer), Toast.LENGTH_SHORT
+                )
+                    .show()
             }
         }
 
@@ -82,10 +87,15 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
                 score = 0.0f
             )
         )
-        Log.d(TAG, "question id:${currentQuestion?.questionId}")
-        Log.d(TAG, "multiple_choice onNextButtonClicked")
         clearCheckBoxes()
         QuizFragment.viewPager.currentItem += 1
+        Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
+        QuizFragment.currentQuestionNumber.postValue(
+            QuizFragment.currentQuestionNumber.value?.plus(
+                1
+            ) ?: 0
+        )
+        Log.d(TAG, "currentQuestionNumber: ${QuizFragment.currentQuestionNumber.value}")
     }
 
     private fun getSelectedAnswers(): List<Boolean> {
@@ -101,7 +111,6 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
         for (checkBox in answerCheckBoxes) {
             selectedAnswers.add(checkBox.isChecked)
         }
-        Log.d(TAG, "getSelectedAnswers: $selectedAnswers")
         return selectedAnswers
     }
 

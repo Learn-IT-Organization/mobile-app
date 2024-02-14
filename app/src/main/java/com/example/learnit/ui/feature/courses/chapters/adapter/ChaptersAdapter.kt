@@ -20,7 +20,7 @@ class ChaptersAdapter(
 
     class ChaptersViewHolder(
         private val binding: ChapterListItemBinding,
-        private val listener: OnItemClickListener
+        listener: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
 

@@ -26,6 +26,7 @@ class SharedQuizViewModel : ViewModel() {
     private val quizResultRepository: QuizResultRepository =
         App.instance.getQuizResultRepository()
 
+
     private var loadedQuestionsAnswers: List<BaseQuestionData> = emptyList()
     private var userResponse: Boolean = false
     private var isResponseSet = false
@@ -84,12 +85,15 @@ class SharedQuizViewModel : ViewModel() {
     }
 
     fun sendUserResponse(userResponse: QuizResponseData) {
-        Log.d(TAG, "User response: $userResponse")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)
-            Log.d(TAG, "Score: ${response.score}")
             scoreLiveData.postValue(response.score)
-            Log.d(TAG, "Live score: ${scoreLiveData.value}")
+        }
+    }
+
+    fun deleteResponses(lessonId: Int) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            quizResultRepository.deleteResponses(lessonId)
         }
     }
 }

@@ -31,4 +31,12 @@
     <string name="continue_learning">Continue learning:</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="please_select_an_answer">Please select an answer!</string>
+    <string name="quiz_result">Quiz Result</string>
+    <string name="your_score_is">Your score is: %1$s</string>
+    <string name="are_you_sure_you_want_to_leave_the_quiz_your_progress_will_be_lost">Are you sure you want to leave the quiz? Your progress will be lost.</string>
+    <string name="leave_quiz">Leave Quiz</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
 </resources>

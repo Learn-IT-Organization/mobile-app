@@ -37,11 +37,11 @@ class ChaptersViewModel : ViewModel() {
             try {
                 val loadedChapters = repository.getChaptersByCourseId(courseId)
                 mutableState.value = ChaptersScreenState.Success(loadedChapters)
-                Log.d(TAG, loadedChapters.toString())
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching chapters: ${e.message}")
                 mutableState.value = ChaptersScreenState.Failure(e)
             }
         }
     }
+
 }

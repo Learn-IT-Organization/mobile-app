@@ -3,10 +3,12 @@ package com.example.learnit.data
 import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.course.model.CourseData
+import com.example.learnit.data.courses.lessons.model.DeleteResponseData
 import com.example.learnit.data.courses.lessons.model.LessonData
+import com.example.learnit.data.courses.lessons.model.LessonResultData
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
-import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
+import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.LoginData
@@ -59,4 +61,10 @@ interface ApiService {
 
     @GET("/myCourses")
     suspend fun getMyCourses(): Response<List<CourseData>>
+
+    @GET("/lessonResult/{lessonId}")
+    suspend fun getLessonResult(@Path("lessonId") lessonId: Int): Response<LessonResultData>
+
+    @GET("/deleteResponses/{lessonId}")
+    suspend fun deleteResponses(@Path("lessonId") lessonId: Int): Response<DeleteResponseData>
 }

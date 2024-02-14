@@ -3,6 +3,7 @@ package com.example.learnit.data.courses.lessons.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.model.LessonData
+import com.example.learnit.data.courses.lessons.model.LessonResultData
 import com.example.learnit.domain.course.repository.LessonRepository
 
 object LessonRepositoryImpl : LessonRepository {
@@ -36,5 +37,16 @@ object LessonRepositoryImpl : LessonRepository {
         return emptyList()
     }
 
+    override suspend fun getLessonResult(lessonId: Int): LessonResultData {
+        try {
+            val response = apiService.getLessonResult(lessonId)
+            if (response.isSuccessful) {
+                return response.body() ?: LessonResultData()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching lesson result: ${e.message}")
+        }
+        return LessonResultData()
+    }
 
 }
