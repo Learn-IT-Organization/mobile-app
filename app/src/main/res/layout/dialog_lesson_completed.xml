@@ -5,27 +5,38 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/titleTextView"
         style="@style/title_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/leave_quiz" />
+        android:text="@string/this_lesson_is_completed" />
 
     <TextView
-        style="@style/paragraph_style"
+        android:id="@+id/scoreTextView"
+        style="@style/subtitle_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/are_you_sure_you_want_to_leave_the_quiz_your_progress_will_be_lost" />
+        android:text="Your score is: " />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/creatures_server_down" />
+        android:src="@drawable/creatures_growing" />
+
+    <TextView
+        android:id="@+id/messageTextView"
+        style="@style/paragraph_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/you_have_already_completed_this_lesson_would_you_like_to_start_another_one" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,13 +45,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
         <Button
             android:id="@+id/noButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:onClick="onExitConfirmationNoClick"
+            android:onClick="onExitConfirmationYesClick"
             android:text="@string/no" />
 
         <Button
@@ -48,7 +58,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:onClick="onExitConfirmationYesClick"
+            android:onClick="onExitConfirmationNoClick"
             android:text="@string/yes" />
 
     </LinearLayout>

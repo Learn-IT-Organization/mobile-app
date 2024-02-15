@@ -19,11 +19,16 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.learnit.R
+import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
+import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
+import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
+import com.example.learnit.databinding.ExitConfirmationDialogBinding
 import com.example.learnit.databinding.FragmentQuizBinding
 import com.example.learnit.databinding.QuizResultDialogBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -57,9 +62,9 @@ class QuizFragment : Fragment() {
     ): View {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 
-        courseId = arguments?.getInt("courseId", -1) ?: -1
-        chapterId = arguments?.getInt("chapterId", -1) ?: -1
-        lessonId = arguments?.getInt("lessonId", -1) ?: -1
+        courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
+        chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
+        lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
 
         viewPager = binding.viewPager
         viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
@@ -114,8 +119,7 @@ class QuizFragment : Fragment() {
     }
 
     private fun showExitConfirmationDialog() {
-        val inflater = LayoutInflater.from(requireContext())
-        val view = inflater.inflate(R.layout.exit_confirmation_dialog, null)
+        val view = ExitConfirmationDialogBinding.inflate(layoutInflater).root
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(view)
@@ -125,9 +129,9 @@ class QuizFragment : Fragment() {
 
         view.findViewById<Button>(R.id.yesButton).setOnClickListener {
             val bundle = Bundle().apply {
-                putInt("courseId", courseId)
-                putInt("chapterId", chapterId)
-                putInt("lessonId", lessonId)
+                putInt(ARG_COURSE_ID, courseId)
+                putInt(ARG_CHAPTER_ID, chapterId)
+                putInt(ARG_LESSON_ID, lessonId)
             }
 
             findNavController().navigate(
@@ -142,7 +146,6 @@ class QuizFragment : Fragment() {
             dialog.dismiss()
         }
     }
-
 
     private fun showQuizResultDialog() {
         if (!isAdded || activity == null) {
@@ -165,9 +168,9 @@ class QuizFragment : Fragment() {
 
         okButton.setOnClickListener {
             val bundle = Bundle().apply {
-                putInt("courseId", courseId)
-                putInt("chapterId", chapterId)
-                putInt("lessonId", lessonId)
+                putInt(ARG_COURSE_ID, courseId)
+                putInt(ARG_CHAPTER_ID, chapterId)
+                putInt(ARG_LESSON_ID, lessonId)
             }
 
             findNavController().navigate(
@@ -235,7 +238,6 @@ class QuizFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        Log.d(TAG, "onDestroyView")
         super.onDestroyView()
         viewModel.scoreLiveData.removeObservers(requireActivity())
         viewModel.scoreLiveData.value = 0.0f
@@ -244,9 +246,10 @@ class QuizFragment : Fragment() {
         totalScore = 0.0f
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun showQuizResultDialogWithDelay() {
         GlobalScope.launch(Dispatchers.Main) {
-            delay(500)
+            delay(1000)
             showQuizResultDialog()
         }
     }
