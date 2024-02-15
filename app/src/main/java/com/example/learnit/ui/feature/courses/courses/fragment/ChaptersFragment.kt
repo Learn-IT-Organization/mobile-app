@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.chapters.fragment
+package com.example.learnit.ui.feature.courses.courses.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -22,9 +22,9 @@ import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.databinding.DialogLessonCompletedBinding
 import com.example.learnit.databinding.FragmentChaptersBinding
-import com.example.learnit.ui.feature.courses.chapters.adapter.ChaptersAdapter
-import com.example.learnit.ui.feature.courses.chapters.viewModel.ChaptersViewModel
-import com.example.learnit.ui.feature.courses.chapters.viewModel.LessonsViewModel
+import com.example.learnit.ui.feature.courses.courses.adapter.ChaptersAdapter
+import com.example.learnit.ui.feature.courses.courses.viewModel.ChaptersViewModel
+import com.example.learnit.ui.feature.courses.courses.viewModel.LessonsViewModel
 import kotlinx.coroutines.launch
 
 class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {

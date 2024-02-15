@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.chapters.adapter
+package com.example.learnit.ui.feature.courses.courses.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
