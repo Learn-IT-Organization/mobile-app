@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
 import com.example.learnit.databinding.FragmentTheoryBinding
 import com.example.learnit.ui.feature.courses.chapters.viewModel.TheoryViewModel
 import kotlinx.coroutines.launch
@@ -34,7 +35,10 @@ class TheoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
-        binding.toolbar.setNavigationOnClickListener {
+        val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
+        Log.d(TAG, "Lesson id: $lessonId")
+        viewModel.loadLessonContents(lessonId)
+        binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
         }
     }
@@ -50,12 +54,6 @@ class TheoryFragment : Fragment() {
 
                         is TheoryViewModel.TheoryPageState.Success -> {
                             Log.d(TAG, "Lesson contents loaded")
-
-                            binding.textViewIntroduction.text =
-                                state.lessonContentData[0].toString()
-
-                            binding.textViewLessonTitle.invalidate()
-                            binding.textViewIntroduction.invalidate()
                         }
 
                         is TheoryViewModel.TheoryPageState.Failure -> {

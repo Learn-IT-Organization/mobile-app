@@ -4,6 +4,7 @@ import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.courses.lessons.model.DeleteResponseData
+import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonResultData
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
@@ -20,6 +21,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.io.InputStream
 
 interface ApiService {
     @GET("/users")
@@ -61,6 +63,11 @@ interface ApiService {
 
     @GET("/myCourses")
     suspend fun getMyCourses(): Response<List<CourseData>>
+
+    @GET("/lesson/{lessonId}/contents")
+    suspend fun getLessonContentByLessonId(
+        @Path("lessonId") lessonId: Int
+    ): Response<List<LessonContentData>>
 
     @GET("/lessonResult/{lessonId}")
     suspend fun getLessonResult(@Path("lessonId") lessonId: Int): Response<LessonResultData>

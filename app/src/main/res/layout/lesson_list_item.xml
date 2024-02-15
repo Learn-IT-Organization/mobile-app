@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/stateImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:src="@drawable/ic_play"
@@ -41,10 +41,10 @@
 
         <ImageView
             android:id="@+id/theoryImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_theory"
+            android:src="@drawable/book_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
