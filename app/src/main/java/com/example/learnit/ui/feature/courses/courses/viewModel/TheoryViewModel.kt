@@ -1,10 +1,9 @@
-package com.example.learnit.ui.feature.courses.chapters.viewModel
+package com.example.learnit.ui.feature.courses.courses.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.lessons.model.LessonContentData
-import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler

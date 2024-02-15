@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/chaptersFragment"
-        android:name="com.example.learnit.ui.feature.courses.chapters.fragment.ChaptersFragment"
+        android:name="com.example.learnit.ui.feature.courses.courses.fragment.ChaptersFragment"
         android:label="ChaptersFragment"
         tools:layout="@layout/fragment_chapters">
         <action
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/theoryFragment"
-        android:name="com.example.learnit.ui.feature.courses.chapters.fragment.TheoryFragment"
+        android:name="com.example.learnit.ui.feature.courses.courses.fragment.TheoryFragment"
         android:label="TheoryFragment"
         tools:layout="@layout/fragment_theory" />
 

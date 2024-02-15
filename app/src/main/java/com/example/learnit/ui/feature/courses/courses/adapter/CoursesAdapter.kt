@@ -45,5 +45,4 @@ class CoursesAdapter(private val courses: List<CourseData>) :
     override fun getItemCount(): Int {
         return courses.size
     }
-
 }

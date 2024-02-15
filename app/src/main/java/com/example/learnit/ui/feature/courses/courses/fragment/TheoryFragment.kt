@@ -1,4 +1,4 @@
-package com.example.learnit.ui.feature.courses.chapters.fragment
+package com.example.learnit.ui.feature.courses.courses.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,8 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
+import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.databinding.FragmentTheoryBinding
-import com.example.learnit.ui.feature.courses.chapters.viewModel.TheoryViewModel
+import com.example.learnit.ui.feature.courses.courses.adapter.CoursesAdapter
+import com.example.learnit.ui.feature.courses.courses.adapter.TheoryAdapter
+import com.example.learnit.ui.feature.courses.courses.viewModel.TheoryViewModel
 import kotlinx.coroutines.launch
 
 class TheoryFragment : Fragment() {
@@ -54,6 +57,8 @@ class TheoryFragment : Fragment() {
 
                         is TheoryViewModel.TheoryPageState.Success -> {
                             Log.d(TAG, "Lesson contents loaded")
+                            val adapter = TheoryAdapter(state.lessonContentData)
+                            binding.contentsRecyclerView.adapter = adapter
                         }
 
                         is TheoryViewModel.TheoryPageState.Failure -> {
