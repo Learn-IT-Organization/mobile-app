@@ -2,7 +2,7 @@
     android:width="64dp"
     android:height="64dp"
     android:viewportWidth="64"
-    android:viewportHeight="64"
+    android:viewportHeight="68"
     android:tint="@color/md_theme_onSecondaryFixed_mediumContrast">
   <path
       android:fillColor="#FF000000"

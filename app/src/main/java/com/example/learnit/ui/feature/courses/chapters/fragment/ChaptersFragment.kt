@@ -129,8 +129,14 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
     }
 
     override fun onTheoryClick(lesson: LessonData) {
+
+        val bundle = Bundle().apply {
+            putInt(ARG_LESSON_ID, lesson.lessonId)
+        }
+
         findNavController().navigate(
-            R.id.action_chaptersFragment_to_theoryFragment
+            R.id.action_chaptersFragment_to_theoryFragment,
+            bundle
         )
     }
 

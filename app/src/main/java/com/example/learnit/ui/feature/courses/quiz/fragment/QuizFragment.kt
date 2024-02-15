@@ -37,15 +37,12 @@ import kotlinx.coroutines.launch
 class QuizFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizBinding
-
     private val viewModel: SharedQuizViewModel by activityViewModels()
     private var maxNumberOfQuestion: Int = -1
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-
     private var totalScore: Float = 0.0f
-
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
 
     companion object {
@@ -83,7 +80,10 @@ class QuizFragment : Fragment() {
         }
 
         binding.bookButton.setOnClickListener {
-            findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment)
+            val bundle = Bundle().apply {
+                putInt(ARG_LESSON_ID, lessonId)
+            }
+            findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment, bundle)
         }
 
         observeScore()

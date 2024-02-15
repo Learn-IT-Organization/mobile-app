@@ -3,6 +3,7 @@ package com.example.learnit.ui.feature.courses.chapters.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.App
@@ -24,7 +25,7 @@ class TheoryViewModel : ViewModel() {
 
     sealed class TheoryPageState {
         data object Loading : TheoryPageState()
-        data class Success(val lessonContentData: List<LessonData>) : TheoryPageState()
+        data class Success(val lessonContentData: List<LessonContentData>) : TheoryPageState()
         data class Failure(val throwable: Throwable) : TheoryPageState()
     }
 
@@ -35,12 +36,12 @@ class TheoryViewModel : ViewModel() {
     fun loadLessonContents(lessonId: Int) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedLessons = repository.getLessons()
-                Log.d(TAG, "loadedLessonContents: $loadedLessons")
-                mutableState.value = TheoryPageState.Success(loadedLessons)
+                val loadedContents = repository.getLessonContentByLessonId(lessonId)
+                Log.d(TAG, "Loaded lesson contents: $loadedContents")
+                mutableState.value = TheoryViewModel.TheoryPageState.Success(loadedContents)
             } catch (e: Exception) {
-                Log.e(TAG, "Error fetching lesson contents: ${e.message}")
-                mutableState.value = TheoryPageState.Failure(e)
+                Log.e(ChaptersViewModel.TAG, "Error fetching chapters: ${e.message}")
+                mutableState.value = TheoryViewModel.TheoryPageState.Failure(e)
             }
         }
     }
