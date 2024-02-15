@@ -15,12 +15,12 @@
 
     <TextView
         android:id="@+id/dialogMessage"
-        style="@style/paragraph_style"
+        style="@style/subtitle_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Message" />
+        android:text="@string/message" />
 
     <ImageView
         android:id="@+id/imageView"

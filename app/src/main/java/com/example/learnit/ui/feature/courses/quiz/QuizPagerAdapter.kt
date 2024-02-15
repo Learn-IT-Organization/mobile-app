@@ -1,10 +1,12 @@
 package com.example.learnit.ui.feature.courses.quiz
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
+import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
+import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.example.learnit.data.courses.quiz.model.SortingQuestionData
@@ -33,7 +35,6 @@ class QuizPagerAdapter(
 
     private fun shuffleQuestions() {
         questionList = shuffleQuestionsByType(questionList)
-        Log.d(TAG, "shuffledQuestionList: $questionList")
     }
 
     private fun shuffleQuestionsByType(questions: List<BaseQuestionData>): List<BaseQuestionData> {
@@ -50,7 +51,6 @@ class QuizPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         val shuffledQuestion = questionList[position]
-        Log.d(TAG, "shuffledQuestion: $shuffledQuestion")
         usedQuestions.add(shuffledQuestion.questionId)
 
         val fragment: Fragment = when (shuffledQuestion) {
@@ -74,6 +74,7 @@ class QuizPagerAdapter(
                 }
                 tfFragment
             }
+
             else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion::class.java.simpleName}")
         }
 
@@ -82,9 +83,9 @@ class QuizPagerAdapter(
 
     private fun createBundle(question: BaseQuestionData): Bundle {
         return Bundle().apply {
-            putInt("courseId", courseId)
-            putInt("chapterId", chapterId)
-            putInt("lessonId", lessonId)
+            putInt(ARG_COURSE_ID, courseId)
+            putInt(ARG_CHAPTER_ID, chapterId)
+            putInt(ARG_LESSON_ID, lessonId)
             putSerializable("question", question)
         }
     }

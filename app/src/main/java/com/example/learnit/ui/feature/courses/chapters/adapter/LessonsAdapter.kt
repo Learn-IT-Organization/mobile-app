@@ -15,7 +15,6 @@ class LessonsAdapter(
 
     fun submitList(newList: List<LessonData>) {
         lessons = newList
-        notifyDataSetChanged()
     }
 
     inner class LessonsViewHolder(private val binding: LessonListItemBinding) :
@@ -26,7 +25,7 @@ class LessonsAdapter(
 
             val completionImageResource =
                 if (lesson.isCompleted) R.drawable.ic_completed else R.drawable.ic_play
-
+            
             binding.stateImageView.setImageResource(completionImageResource)
 
             binding.stateImageView.setOnClickListener {
