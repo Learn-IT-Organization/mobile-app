@@ -5,7 +5,7 @@ import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.model.DeleteResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
-import com.example.learnit.domain.quiz.repository.QuizResultRepository
+import com.example.learnit.domain.quiz.QuizResultRepository
 
 object QuizResultRepositoryImpl : QuizResultRepository {
     private val apiService = RetrofitAdapter.provideApiService()

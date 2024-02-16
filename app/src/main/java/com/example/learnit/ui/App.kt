@@ -11,14 +11,14 @@ import com.example.learnit.data.courses.quiz.repository.QuestionsAnswersReposito
 import com.example.learnit.data.user.login.repository.LoginRepositoryImpl
 import com.example.learnit.data.user.login.repository.UserRepositoryImpl
 import com.example.learnit.data.user.register.repository.RegisterRepositoryImpl
-import com.example.learnit.domain.course.repository.ChaptersRepository
-import com.example.learnit.domain.course.repository.CourseRepository
-import com.example.learnit.domain.course.repository.LessonRepository
-import com.example.learnit.domain.login.repository.LoginRepository
-import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
-import com.example.learnit.domain.quiz.repository.QuizResultRepository
-import com.example.learnit.domain.register.repository.RegisterRepository
-import com.example.learnit.domain.user.repository.UserRepository
+import com.example.learnit.domain.course.ChaptersRepository
+import com.example.learnit.domain.course.CourseRepository
+import com.example.learnit.domain.course.LessonRepository
+import com.example.learnit.domain.login.LoginRepository
+import com.example.learnit.domain.quiz.QuestionsAnswersRepository
+import com.example.learnit.domain.quiz.QuizResultRepository
+import com.example.learnit.domain.register.RegisterRepository
+import com.example.learnit.domain.user.UserRepository
 
 class App : Application() {
 

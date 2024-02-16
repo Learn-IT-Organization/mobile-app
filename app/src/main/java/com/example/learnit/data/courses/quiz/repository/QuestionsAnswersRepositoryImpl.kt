@@ -3,7 +3,7 @@ package com.example.learnit.data.courses.quiz.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
-import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
+import com.example.learnit.domain.quiz.QuestionsAnswersRepository
 
 object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
     private val TAG = QuestionsAnswersRepositoryImpl::class.java.simpleName

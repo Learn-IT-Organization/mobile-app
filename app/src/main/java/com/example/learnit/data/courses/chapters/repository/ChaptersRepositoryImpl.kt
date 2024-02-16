@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
-import com.example.learnit.domain.course.repository.ChaptersRepository
+import com.example.learnit.domain.course.ChaptersRepository
 
 object ChaptersRepositoryImpl : ChaptersRepository {
     private val apiService = RetrofitAdapter.provideApiService()

@@ -3,7 +3,7 @@ package com.example.learnit.data.courses.course.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.course.model.CourseData
-import com.example.learnit.domain.course.repository.CourseRepository
+import com.example.learnit.domain.course.CourseRepository
 
 object CourseRepositoryImpl : CourseRepository {
     private val apiService = RetrofitAdapter.provideApiService()

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.lessons.model.LessonContentData
-import com.example.learnit.domain.course.repository.LessonRepository
+import com.example.learnit.domain.course.LessonRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers

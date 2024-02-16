@@ -3,7 +3,7 @@ package com.example.learnit.data.user.login.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.user.login.model.LoggedUserData
-import com.example.learnit.domain.user.repository.UserRepository
+import com.example.learnit.domain.user.UserRepository
 
 object UserRepositoryImpl : UserRepository {
     private val apiService = RetrofitAdapter.provideApiService()

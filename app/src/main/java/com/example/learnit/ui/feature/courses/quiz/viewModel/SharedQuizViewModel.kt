@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
-import com.example.learnit.domain.quiz.repository.QuestionsAnswersRepository
-import com.example.learnit.domain.quiz.repository.QuizResultRepository
+import com.example.learnit.domain.quiz.QuestionsAnswersRepository
+import com.example.learnit.domain.quiz.QuizResultRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
