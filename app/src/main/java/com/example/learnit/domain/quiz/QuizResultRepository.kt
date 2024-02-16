@@ -1,4 +1,4 @@
-package com.example.learnit.domain.quiz.repository
+package com.example.learnit.domain.quiz
 
 import com.example.learnit.data.courses.lessons.model.DeleteResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData

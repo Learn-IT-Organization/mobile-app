@@ -5,7 +5,7 @@ import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
-import com.example.learnit.domain.course.repository.LessonRepository
+import com.example.learnit.domain.course.LessonRepository
 
 object LessonRepositoryImpl : LessonRepository {
 

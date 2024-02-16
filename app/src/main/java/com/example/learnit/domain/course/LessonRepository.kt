@@ -1,4 +1,4 @@
-package com.example.learnit.domain.course.repository
+package com.example.learnit.domain.course
 
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData

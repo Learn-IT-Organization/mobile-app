@@ -1,4 +1,4 @@
-package com.example.learnit.domain.user.repository
+package com.example.learnit.domain.user
 
 import com.example.learnit.data.user.login.model.LoggedUserData
 

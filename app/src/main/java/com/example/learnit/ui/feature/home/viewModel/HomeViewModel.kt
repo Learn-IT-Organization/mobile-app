@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.courses.course.model.CourseData
 import com.example.learnit.data.user.login.model.LoggedUserData
-import com.example.learnit.domain.course.repository.CourseRepository
-import com.example.learnit.domain.user.repository.UserRepository
+import com.example.learnit.domain.course.CourseRepository
+import com.example.learnit.domain.user.UserRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +22,7 @@ class HomeViewModel : ViewModel() {
 
     private val repository: UserRepository = App.instance.getUserRepository()
     private val coursesRepository: CourseRepository = App.instance.getCourseRepository()
+
     private var userList: List<LoggedUserData> = mutableListOf()
     private var courseList: List<CourseData> = mutableListOf()
 
@@ -43,11 +44,7 @@ class HomeViewModel : ViewModel() {
         mutableState.value = UserPageState.Failure(exception)
     }
 
-    init {
-        loadAndLogUsers()
-    }
-
-    private fun loadAndLogUsers() {
+    fun loadAndLogUsers() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 userList = repository.getUsers()

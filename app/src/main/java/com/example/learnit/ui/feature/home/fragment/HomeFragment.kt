@@ -12,11 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.databinding.FragmentHomeBinding
 import com.example.learnit.ui.feature.home.adapter.MyCoursesAdapter
 import com.example.learnit.ui.feature.home.viewModel.HomeViewModel
@@ -48,6 +47,8 @@ class HomeFragment : Fragment() {
 
         observeState()
 
+        viewModel.loadAndLogUsers()
+        
         binding.imageViewProfilePhoto.setOnClickListener {
             openGalleryForImage()
         }
@@ -68,34 +69,33 @@ class HomeFragment : Fragment() {
 
     private fun observeState() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    when (state) {
-                        is HomeViewModel.UserPageState.Loading -> {
-                            Log.d(TAG, "Loading users...")
-                        }
-
-                        is HomeViewModel.UserPageState.Success -> {
-                            updateProfileUi()
-                            binding.myCoursesRecycleView.adapter =
-                                MyCoursesAdapter(state.courseData)
-                            if (state.courseData.isEmpty()) {
-                                binding.textViewContinueLearning.visibility = View.GONE
-                            } else {
-                                binding.textViewContinueLearning.visibility = View.VISIBLE
-                            }
-                            Log.d(TAG, "Users loaded")
-                        }
-
-                        is HomeViewModel.UserPageState.ImagePathSuccess -> {
-                            displayProfilePicture(state.imagePath)
-                        }
-
-                        is HomeViewModel.UserPageState.Failure -> {
-                            Log.e(TAG, "Error loading users: ${state.throwable}")
-                        }
+            viewModel.state.collect { state ->
+                when (state) {
+                    is HomeViewModel.UserPageState.Loading -> {
+                        Log.d(TAG, "Loading users...")
                     }
 
+                    is HomeViewModel.UserPageState.Success -> {
+                        val loggedUserId = SharedPreferences.getUserId()
+                        val loggedUser = viewModel.getUserById(loggedUserId)
+                        updateProfileUi(loggedUser!!)
+                        binding.myCoursesRecycleView.adapter =
+                            MyCoursesAdapter(state.courseData)
+                        if (state.courseData.isEmpty()) {
+                            binding.textViewContinueLearning.visibility = View.GONE
+                        } else {
+                            binding.textViewContinueLearning.visibility = View.VISIBLE
+                        }
+                        Log.d(TAG, "Users loaded")
+                    }
+
+                    is HomeViewModel.UserPageState.ImagePathSuccess -> {
+                        displayProfilePicture(state.imagePath)
+                    }
+
+                    is HomeViewModel.UserPageState.Failure -> {
+                        Log.e(TAG, "Error loading users: ${state.throwable}")
+                    }
                 }
 
             }
@@ -110,13 +110,11 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateProfileUi() {
-        val loggedUserId = SharedPreferences.getUserId()
-        val loggedUser = viewModel.getUserById(loggedUserId)
-        binding.textViewUsername.text = loggedUser?.userName
-        binding.textViewName.text = loggedUser?.firstName + " ! "
-        binding.textViewStreaks.text = loggedUser?.streak.toString()
-        binding.textViewUserLevel.text = loggedUser?.userLevel
+    private fun updateProfileUi(loggedUser: LoggedUserData) {
+        binding.textViewUsername.text = loggedUser.userName
+        binding.textViewName.text = loggedUser.firstName + " ! "
+        binding.textViewStreaks.text = loggedUser.streak.toString()
+        binding.textViewUserLevel.text = loggedUser.userLevel
     }
 
     private fun displayProfilePicture(imagePath: String?) {
