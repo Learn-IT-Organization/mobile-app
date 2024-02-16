@@ -2,31 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/fab_margin"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="@dimen/fab_margin">
 
     <TextView
         android:id="@+id/loginText"
+        style="@style/subtitle_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        style="@style/subtitle_style"
         android:fontFamily="@font/baloo"
         android:text="@string/login"
         android:textAlignment="center"
-        android:textSize="@dimen/login_text_size"
-        />
+        android:textSize="@dimen/login_text_size" />
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginText"
-        android:hint="@string/username"
-        android:inputType="text"
+        android:layout_marginTop="@dimen/margin_top_login"
         android:autofillHints=""
-        android:minHeight="@dimen/minimum_height"
-        android:layout_marginTop="@dimen/margin_top_login" />
+        android:hint="@string/username"
+        android:text="EveKri"
+        android:inputType="text"
+        android:minHeight="@dimen/minimum_height" />
 
     <TextView
         android:id="@+id/require1"
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextUsername"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
         android:text=""
         android:textColor="@color/md_theme_error" />
 
@@ -45,10 +45,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextUsername"
         android:layout_marginTop="@dimen/margin_top_button"
+        android:autofillHints=""
         android:hint="@string/password"
+        android:text="EveKri"
         android:inputType="textPassword"
-        android:minHeight="@dimen/minimum_height"
-        android:autofillHints="" />
+        android:minHeight="@dimen/minimum_height" />
 
     <TextView
         android:id="@+id/require2"
@@ -56,55 +57,55 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
         android:text=""
         android:textColor="@color/md_theme_error" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
-        android:textColor="@color/md_theme_onPrimary"
         android:layout_height="@dimen/login_button_height"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="@dimen/margin_top_button"
-        android:textSize="@dimen/login_button_size"
-        android:text="@string/login" />
+        android:text="@string/login"
+        android:textColor="@color/md_theme_onPrimary"
+        android:textSize="@dimen/login_button_size" />
 
     <LinearLayout
         android:id="@+id/linearLayoutRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@+id/buttonLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/buttonLogin"
         android:gravity="center_horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewRegister"
+            style="@style/paragraph_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account?"
-            style="@style/paragraph_style"
-            />
+            android:text="@string/don_t_have_an_account" />
 
         <TextView
             android:id="@+id/singUpButton"
+            style="@style/paragraph_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            style="@style/paragraph_style"
-            android:textSize="15dp"
-            android:textColor="@color/md_theme_primary"
+            android:layout_marginStart="5dp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:text="@string/sign_up"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewError"
         android:layout_width="wrap_content"
+        style="@style/paragraph_style"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayoutRegister"
         android:layout_centerHorizontal="true"

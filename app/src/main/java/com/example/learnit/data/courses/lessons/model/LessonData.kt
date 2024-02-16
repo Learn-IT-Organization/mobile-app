@@ -17,9 +17,5 @@ data class LessonData(
     @SerializedName("lesson_type")
     val lessonType: String,
     @SerializedName("lesson_tags")
-    val lessonTags: String,
-    @SerializedName("lesson_score")
-    val lessonScore: Float,
-    @SerializedName("is_completed")
-    val isCompleted: Boolean = false
+    val lessonTags: String
 ) : Serializable

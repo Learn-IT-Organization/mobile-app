@@ -1,8 +1,9 @@
 package com.example.learnit.ui.feature.courses.courses.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnit.data.courses.lessons.model.LessonResultData
+import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.domain.course.repository.LessonRepository
 import com.example.learnit.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -23,7 +24,7 @@ class LessonsViewModel : ViewModel() {
 
     sealed class LessonScreenState {
         data object Loading : LessonScreenState()
-        data class Success(val lessonResultData: LessonResultData) : LessonScreenState()
+        data class Success(val lessonResultData: List<LessonProgressData>) : LessonScreenState()
         data class Failure(val throwable: Throwable) : LessonScreenState()
     }
 
@@ -31,10 +32,11 @@ class LessonsViewModel : ViewModel() {
         mutableState.value = LessonScreenState.Failure(exception)
     }
 
-    fun loadLessonResult(lessonId: Int) {
+    fun loadLessonResult() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
-                val loadedLessonResult = repository.getLessonResult(lessonId)
+                val loadedLessonResult = repository.getLessonProgress()
+                Log.d(TAG, "Lesson result: $loadedLessonResult")
                 mutableState.value = LessonScreenState.Success(loadedLessonResult)
             } catch (e: Exception) {
                 mutableState.value = LessonScreenState.Failure(e)

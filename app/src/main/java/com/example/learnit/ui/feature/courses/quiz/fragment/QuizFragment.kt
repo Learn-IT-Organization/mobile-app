@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -57,6 +58,7 @@ class QuizFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 
         courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
@@ -72,6 +74,14 @@ class QuizFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitConfirmationDialog()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         observeState()
 
@@ -138,6 +148,7 @@ class QuizFragment : Fragment() {
                 R.id.action_quizFragment_to_chaptersFragment,
                 bundle
             )
+            Log.d(TAG, "Deleting responses for lessonId: $lessonId")
             viewModel.deleteResponses(lessonId)
             dialog.dismiss()
         }
@@ -177,6 +188,7 @@ class QuizFragment : Fragment() {
                 R.id.action_quizFragment_to_chaptersFragment,
                 bundle
             )
+
 
             alertDialog.dismiss()
         }
