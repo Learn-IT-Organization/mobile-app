@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
-import com.example.learnit.data.courses.lessons.model.LessonResultData
+import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.domain.course.repository.LessonRepository
 
 object LessonRepositoryImpl : LessonRepository {
@@ -51,15 +51,18 @@ object LessonRepositoryImpl : LessonRepository {
         }
         return emptyList()
     }
-    override suspend fun getLessonResult(lessonId: Int): LessonResultData {
+
+    override suspend fun getLessonProgress(): List<LessonProgressData> {
         try {
-            val response = apiService.getLessonResult(lessonId)
+            val response = apiService.getLessonProgress()
             if (response.isSuccessful) {
-                return response.body() ?: LessonResultData()
+                Log.d(TAG, "Lesson progress response: ${response.body()}")
+                return response.body()?: emptyList()
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error fetching lesson result: ${e.message}")
+            Log.e(TAG, "Error fetching lesson progress: ${e.message}")
         }
-        return LessonResultData()
+        return emptyList()
     }
+
 }

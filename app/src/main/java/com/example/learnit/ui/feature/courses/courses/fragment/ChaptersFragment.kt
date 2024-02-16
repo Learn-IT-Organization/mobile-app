@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,7 +20,9 @@ import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
 import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
 import com.example.learnit.data.courses.chapters.model.ChapterData
+import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.lessons.model.LessonData
+import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.databinding.DialogLessonCompletedBinding
 import com.example.learnit.databinding.FragmentChaptersBinding
 import com.example.learnit.ui.feature.courses.courses.adapter.ChaptersAdapter
@@ -34,6 +37,11 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentChaptersBinding
 
+    private lateinit var chaptersList: List<ChapterWithLessonsData>
+    private var lessonProgressList: List<LessonProgressData> = emptyList()
+
+    private lateinit var progressBar: ProgressBar
+
     companion object {
         val TAG: String = ChaptersFragment::class.java.simpleName
     }
@@ -47,16 +55,15 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
         }
+        progressBar = binding.loadingSpinner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeState()
         val courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
-        val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
         viewModel.loadChapters(courseId)
-        lessonViewModel.loadLessonResult(lessonId)
+        lessonViewModel.loadLessonResult()
         observeLessonResult()
     }
 
@@ -66,12 +73,20 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                 viewModel.state.collect { state ->
                     when (state) {
                         is ChaptersViewModel.ChaptersScreenState.Loading -> {
+                            progressBar.visibility = View.VISIBLE
                             Log.d(TAG, "Loading chapters...")
                         }
 
                         is ChaptersViewModel.ChaptersScreenState.Success -> {
+                            progressBar.visibility = View.GONE
                             Log.d(TAG, "Chapters loaded")
-                            val adapter = ChaptersAdapter(state.chaptersData, this@ChaptersFragment)
+                            chaptersList = state.chaptersData
+                            Log.d(TAG, "$chaptersList")
+                            val adapter = ChaptersAdapter(
+                                state.chaptersData,
+                                lessonProgressList,
+                                this@ChaptersFragment
+                            )
                             binding.chaptersRecyclerView.adapter = adapter
                         }
 
@@ -90,10 +105,16 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                 lessonViewModel.state.collect { state ->
                     when (state) {
                         is LessonsViewModel.LessonScreenState.Loading -> {
+                            progressBar.visibility = View.VISIBLE
                             Log.d(TAG, "Loading lesson result...")
                         }
 
                         is LessonsViewModel.LessonScreenState.Success -> {
+                            progressBar.visibility = View.GONE
+                            lessonProgressList = state.lessonResultData
+                            if (lessonProgressList.isNotEmpty()) {
+                                observeState()
+                            }
                             Log.d(TAG, "Lesson result loaded")
                         }
 
@@ -110,9 +131,14 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         TODO()
     }
 
-    override fun onPlayStateClick(lesson: LessonData) {
-        if (lesson.isCompleted) {
-            showDialogLessonCompleted(lesson)
+    override fun onPlayStateClick(
+        lesson: LessonData,
+        lessonProgressData: List<LessonProgressData>
+    ) {
+        val progress = lessonProgressData.find { it.lessonId == lesson.lessonId }
+
+        if (progress?.isCompleted == true) {
+            showDialogLessonCompleted(lesson, lessonProgressData)
         } else {
 
             val bundle = Bundle().apply {
@@ -140,17 +166,23 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         )
     }
 
-    private fun showDialogLessonCompleted(lesson: LessonData) {
+    private fun showDialogLessonCompleted(
+        lesson: LessonData,
+        lessonProgressData: List<LessonProgressData>
+    ) {
         val inflater = LayoutInflater.from(requireContext())
         val view = DialogLessonCompletedBinding.inflate(inflater).root
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(view)
 
+        val progress = lessonProgressData.find { it.lessonId == lesson.lessonId }
+
         view.findViewById<TextView>(R.id.scoreTextView).text =
-            getString(R.string.your_score_is, lesson.lessonScore.toInt().toString())
+            getString(R.string.your_score_is, progress?.lessonScore?.toInt().toString())
+
         val dialog = builder.create()
-        
+
         dialog.show()
 
         view.findViewById<Button>(R.id.yesButton).setOnClickListener {
@@ -171,4 +203,5 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
             dialog.dismiss()
         }
     }
+
 }
