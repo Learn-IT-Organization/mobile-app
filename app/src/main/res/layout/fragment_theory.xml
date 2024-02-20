@@ -18,23 +18,12 @@
         android:id="@+id/contentsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/imageViewBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintBottom_toTopOf="@+id/theoryImageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/content_list_item"/>
 
-    <ImageView
-        android:id="@+id/theoryImageView"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:src="@drawable/road_to_knowledge"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/contentsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.databinding.ContentListItemBinding
+import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 
-class TheoryAdapter(private val contents: List<LessonContentData>) :
+class TheoryAdapter(
+    private val contents: List<LessonContentData>,
+    private val listener: TheoryAdapterListener
+) :
     RecyclerView.Adapter<TheoryAdapter.TheoryViewHolder>() {
 
-    inner class TheoryViewHolder(private val binding: ContentListItemBinding) :
+    inner class TheoryViewHolder(val binding: ContentListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -42,8 +46,12 @@ class TheoryAdapter(private val contents: List<LessonContentData>) :
     }
 
     override fun onBindViewHolder(holder: TheoryViewHolder, position: Int) {
-        val course = contents[position]
-        holder.bind(course)
+        val content = contents[position]
+        holder.bind(content)
+
+        val currentLessonId = listener.getCurrentLessonName()
+
+        holder.binding.urlTextView.text = currentLessonId
     }
 
     override fun getItemCount(): Int {
