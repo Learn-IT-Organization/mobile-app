@@ -1,5 +1,6 @@
 package com.example.learnit.ui.feature.courses.quiz
 
+import MultipleChoiceQuizFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -11,7 +12,6 @@ import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.example.learnit.data.courses.quiz.model.SortingQuestionData
 import com.example.learnit.data.courses.quiz.model.TrueFalseQuestionData
-import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.SortingQuizFragment
 import com.example.learnit.ui.feature.courses.quiz.fragment.TrueFalseQuizFragment
 

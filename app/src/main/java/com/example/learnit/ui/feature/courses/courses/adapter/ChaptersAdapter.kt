@@ -32,7 +32,7 @@ class ChaptersAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(chapter: ChapterWithLessonsData) {
             binding.nameTextView.text =
-                chapter.chapter.chapterSequenceNumber.toString() + "." + chapter.chapter.chapterName
+                chapter.chapter.chapterSequenceNumber.toString() + ". " + chapter.chapter.chapterName
 
             Log.d(TAG, "Chapter: $lessonProgressList")
 
