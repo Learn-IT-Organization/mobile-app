@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
@@ -34,34 +33,12 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.verifyButton.isEnabled = false
+
         binding.verifyButton.setOnClickListener {
-            if (hasAtLeastOneAnswerSelected()) {
-                onNextButtonClicked()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.please_select_an_answer), Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
+            onNextButtonClicked()
         }
 
-    }
-
-    private fun hasAtLeastOneAnswerSelected(): Boolean {
-        val answerCheckBoxes = listOf(
-            binding.option1CheckBox,
-            binding.option2CheckBox,
-            binding.option3CheckBox,
-            binding.option4CheckBox,
-        )
-
-        for (checkBox in answerCheckBoxes) {
-            if (checkBox.isChecked) {
-                return true
-            }
-        }
-        return false
     }
 
     private fun clearCheckBoxes() {
@@ -111,6 +88,7 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
         for (checkBox in answerCheckBoxes) {
             selectedAnswers.add(checkBox.isChecked)
         }
+
         return selectedAnswers
     }
 
@@ -130,5 +108,10 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
                 }
             }
         }
+    }
+
+    private fun updateButtonStyle() {
+        binding.verifyButton.setBackgroundColor(resources.getColor(R.color.md_theme_secondary_mediumContrast))
+        binding.verifyButton.setTextColor(resources.getColor(R.color.md_theme_onPrimary))
     }
 }
