@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
@@ -42,6 +44,7 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
             setButtonState(binding.trueButton, true)
             setButtonState(binding.falseButton, false)
             hasAnswered = true
+            updateButtonStyle()
         }
 
         binding.falseButton.setOnClickListener {
@@ -49,27 +52,41 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
             setButtonState(binding.trueButton, false)
             setButtonState(binding.falseButton, true)
             hasAnswered = true
+            updateButtonStyle()
         }
 
         binding.verifyButton.setOnClickListener {
             if (hasAnswered) {
                 onNextButtonClicked()
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    R.string.please_select_an_answer,
-                    Toast.LENGTH_SHORT
-                ).show()
+                animateButtonSize(binding.trueButton)
+                animateButtonSize(binding.falseButton)
             }
         }
+    }
 
+    private fun updateButtonStyle() {
+        binding.verifyButton.setBackgroundColor(resources.getColor(R.color.md_theme_secondary_mediumContrast))
+        binding.verifyButton.setTextColor(resources.getColor(R.color.md_theme_onPrimary))
+    }
+
+    private fun animateButtonSize(button: ImageView) {
+        val scale = 1.3f
+
+        val scaleX = ObjectAnimator.ofFloat(button, "scaleX", scale, 1.0f)
+        val scaleY = ObjectAnimator.ofFloat(button, "scaleY", scale, 1.0f)
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(scaleX, scaleY)
+        animatorSet.duration = 800
+        animatorSet.start()
     }
 
     private fun setButtonState(button: ImageView, selected: Boolean) {
         button.isSelected = selected
         button.isEnabled = !selected
 
-        val scale = if (selected) 1.2f else 1.0f
+        val scale = if (selected) 1.3f else 1.0f
 
         val scaleX = ObjectAnimator.ofFloat(button, "scaleX", scale)
         val scaleY = ObjectAnimator.ofFloat(button, "scaleY", scale)
@@ -93,7 +110,11 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
         )
         QuizFragment.viewPager.currentItem += 1
         Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
-        QuizFragment.currentQuestionNumber.postValue(QuizFragment.currentQuestionNumber.value?.plus(1) ?: 0)
+        QuizFragment.currentQuestionNumber.postValue(
+            QuizFragment.currentQuestionNumber.value?.plus(
+                1
+            ) ?: 0
+        )
         Log.d(TAG, "currentQuestionNumber: ${QuizFragment.currentQuestionNumber.value}")
     }
 

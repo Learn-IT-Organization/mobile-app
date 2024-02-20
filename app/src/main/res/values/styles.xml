@@ -24,10 +24,16 @@
         <item name="android:textColor">@color/md_theme_secondaryContainer</item>
     </style>
 
-    <style name="submit_button" parent="ShapeAppearanceOverlay.Material3.Button">
+    <style name="verify_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_onPrimary</item>
         <item name="android:textSize">20sp</item>
         <item name="android:backgroundTint">@color/md_theme_secondary_mediumContrast</item>
+    </style>
+
+    <style name="unable_verify_button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textColor">@color/md_theme_outline_mediumContrast</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:backgroundTint">@color/md_theme_outlineVariant_mediumContrast</item>
     </style>
 
     <style name="title_style">

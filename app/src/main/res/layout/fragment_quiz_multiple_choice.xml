@@ -83,7 +83,7 @@
 
     <Button
         android:id="@+id/verifyButton"
-        style="@style/submit_button"
+        style="@style/unable_verify_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
