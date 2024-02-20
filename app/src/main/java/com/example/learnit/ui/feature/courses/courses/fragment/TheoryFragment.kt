@@ -11,14 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
-import com.example.learnit.data.courses.lessons.model.LessonContentData
+import com.example.learnit.data.ApiConstants.ARG_LESSON_NAME
 import com.example.learnit.databinding.FragmentTheoryBinding
-import com.example.learnit.ui.feature.courses.courses.adapter.CoursesAdapter
+import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 import com.example.learnit.ui.feature.courses.courses.adapter.TheoryAdapter
 import com.example.learnit.ui.feature.courses.courses.viewModel.TheoryViewModel
 import kotlinx.coroutines.launch
 
-class TheoryFragment : Fragment() {
+class TheoryFragment : Fragment(), TheoryAdapterListener {
     private val viewModel: TheoryViewModel by viewModels()
     private lateinit var binding: FragmentTheoryBinding
 
@@ -39,7 +39,9 @@ class TheoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
-        Log.d(TAG, "Lesson id: $lessonId")
+        val lessonName = arguments?.getString(ARG_LESSON_NAME) ?: ""
+        Log.d(TAG, "Lesson id: $lessonId" + "Lesson name: $lessonName")
+
         viewModel.loadLessonContents(lessonId)
         binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
@@ -57,7 +59,8 @@ class TheoryFragment : Fragment() {
 
                         is TheoryViewModel.TheoryPageState.Success -> {
                             Log.d(TAG, "Lesson contents loaded")
-                            val adapter = TheoryAdapter(state.lessonContentData)
+                            val adapter =
+                                TheoryAdapter(state.lessonContentData, this@TheoryFragment)
                             binding.contentsRecyclerView.adapter = adapter
                         }
 
@@ -69,5 +72,9 @@ class TheoryFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun getCurrentLessonName(): String {
+        return arguments?.getString(ARG_LESSON_NAME) ?: ""
     }
 }

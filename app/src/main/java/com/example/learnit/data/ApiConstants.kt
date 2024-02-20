@@ -15,5 +15,6 @@ object ApiConstants {
     const val ARG_COURSE_ID = "courseId"
     const val ARG_CHAPTER_ID = "chapterId"
     const val ARG_LESSON_ID = "lessonId"
+    const val ARG_LESSON_NAME = "lessonTitle"
 
 }

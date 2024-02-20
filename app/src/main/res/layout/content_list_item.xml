@@ -6,37 +6,38 @@
     app:cardElevation="0dp"
     app:strokeColor="@android:color/transparent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/purple_bg">
+        android:layout_height="160dp">
 
-        <TextView
-            android:id="@+id/urlTextView"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/title_style"
-            android:padding="20dp"
-            android:text="URL"
-            android:textColor="@drawable/link_color"
-            android:textSize="20dp"
-            android:autoLink="web" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/purple_bg">
+
+            <TextView
+                android:id="@+id/urlTextView"
+                style="@style/title_style"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Title"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                android:textSize="20dp" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/contentImageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/link"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/girl_with_code_snippet" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

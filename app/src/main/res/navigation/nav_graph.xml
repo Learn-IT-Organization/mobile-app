@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_chaptersFragment_to_theoryFragment"
             app:destination="@id/theoryFragment" />
+        <action
+            android:id="@+id/action_chaptersFragment_to_courseFragment"
+            app:destination="@id/coursesFragment" />
     </fragment>
 
     <fragment
