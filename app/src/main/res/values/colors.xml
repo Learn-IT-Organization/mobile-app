@@ -141,7 +141,8 @@
     <color name="md_theme_surfaceContainerHigh_highContrast">#EEE6EE</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#E8E0E8</color>
     <color name="white">#FFFFFF</color>
-    <color name="green">#28D237</color>
+    <color name="green">#009000</color>
     <color name="link_color">#0000EE</color>
     <color name="visited_link_color">#551A8B</color>
+    <color name="purple">#6E528B</color>
 </resources>

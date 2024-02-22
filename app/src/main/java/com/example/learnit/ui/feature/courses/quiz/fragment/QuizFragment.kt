@@ -1,6 +1,7 @@
 package com.example.learnit.ui.feature.courses.quiz.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.databinding.ExitConfirmationDialogBinding
 import com.example.learnit.databinding.FragmentQuizBinding
 import com.example.learnit.databinding.QuizResultDialogBinding
+import com.example.learnit.ui.activities.MainActivity
 import com.example.learnit.ui.feature.courses.quiz.QuizPagerAdapter
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -45,6 +47,7 @@ class QuizFragment : Fragment() {
     private var lessonId: Int = -1
     private var totalScore: Float = 0.0f
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
+    private var mainActivity: MainActivity? = null
 
     companion object {
         lateinit var viewPager: ViewPager2
@@ -67,6 +70,8 @@ class QuizFragment : Fragment() {
 
         viewPager = binding.viewPager
         viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
+
+        mainActivity?.hideBottomNavigationView()
 
         return binding.root
     }
@@ -251,6 +256,8 @@ class QuizFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mainActivity?.showBottomNavigationView()
+
         viewModel.scoreLiveData.removeObservers(requireActivity())
         viewModel.scoreLiveData.value = 0.0f
         currentQuestionNumber.removeObservers(requireActivity())
@@ -264,5 +271,15 @@ class QuizFragment : Fragment() {
             delay(1000)
             showQuizResultDialog()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as? MainActivity
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mainActivity = null
     }
 }

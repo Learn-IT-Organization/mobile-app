@@ -1,6 +1,7 @@
 package com.example.learnit.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -11,6 +12,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    fun hideBottomNavigationView() {
+        binding.bottomNavigationView.visibility = View.GONE
+    }
+
+    fun showBottomNavigationView() {
+        binding.bottomNavigationView.visibility = View.VISIBLE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,5 +57,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 }
