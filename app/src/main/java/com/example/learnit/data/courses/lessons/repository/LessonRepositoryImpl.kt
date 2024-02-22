@@ -40,7 +40,7 @@ object LessonRepositoryImpl : LessonRepository {
 
     override suspend fun getLessonContentByLessonId(
         lessonId: Int
-    ): List<LessonContentData>{
+    ): List<LessonContentData> {
         try {
             val response = apiService.getLessonContentByLessonId(lessonId)
             if (response.isSuccessful) {
@@ -57,7 +57,7 @@ object LessonRepositoryImpl : LessonRepository {
             val response = apiService.getLessonProgress()
             if (response.isSuccessful) {
                 Log.d(TAG, "Lesson progress response: ${response.body()}")
-                return response.body()?: emptyList()
+                return response.body() ?: emptyList()
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson progress: ${e.message}")
@@ -65,4 +65,15 @@ object LessonRepositoryImpl : LessonRepository {
         return emptyList()
     }
 
+    override suspend fun getLessonById(lessonId: Int): LessonData? {
+        try {
+            val response = apiService.getLessonById(lessonId)
+            if (response.isSuccessful) {
+                return response.body()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching lesson by ID: ${e.message}")
+        }
+        return null
+    }
 }

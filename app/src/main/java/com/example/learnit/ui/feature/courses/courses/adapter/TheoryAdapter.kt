@@ -49,9 +49,7 @@ class TheoryAdapter(
         val content = contents[position]
         holder.bind(content)
 
-        val currentLessonId = listener.getCurrentLessonName()
-
-        holder.binding.urlTextView.text = currentLessonId
+        val currentLessonId = listener.getCurrentLessonId()
     }
 
     override fun getItemCount(): Int {

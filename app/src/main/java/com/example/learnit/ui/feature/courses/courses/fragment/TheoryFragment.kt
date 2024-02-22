@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
-import com.example.learnit.data.ApiConstants.ARG_LESSON_NAME
 import com.example.learnit.databinding.FragmentTheoryBinding
 import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 import com.example.learnit.ui.feature.courses.courses.adapter.TheoryAdapter
@@ -39,9 +38,6 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
-        val lessonName = arguments?.getString(ARG_LESSON_NAME) ?: ""
-        Log.d(TAG, "Lesson id: $lessonId" + "Lesson name: $lessonName")
-
         viewModel.loadLessonContents(lessonId)
         binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
@@ -74,7 +70,8 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
         }
     }
 
-    override fun getCurrentLessonName(): String {
-        return arguments?.getString(ARG_LESSON_NAME) ?: ""
+    override fun getCurrentLessonId(): Int {
+        return arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
+
     }
 }

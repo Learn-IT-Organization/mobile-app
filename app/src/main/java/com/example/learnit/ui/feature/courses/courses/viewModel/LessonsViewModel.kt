@@ -44,4 +44,14 @@ class LessonsViewModel : ViewModel() {
         }
     }
 
+    fun getLessonById(lessonId: Int) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            try {
+                val lesson = repository.getLessonById(lessonId)
+                Log.d(TAG, "Lesson: $lesson")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching lesson: ${e.message}")
+            }
+        }
+    }
 }
