@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
+import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.databinding.FragmentTheoryBinding
 import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 import com.example.learnit.ui.feature.courses.courses.adapter.TheoryAdapter
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 class TheoryFragment : Fragment(), TheoryAdapterListener {
     private val viewModel: TheoryViewModel by viewModels()
     private lateinit var binding: FragmentTheoryBinding
+    private lateinit var currentLesson: LessonData
 
     companion object {
         val TAG: String = TheoryFragment::class.java.simpleName
@@ -37,8 +39,10 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeState()
+        observeState2()
         val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
         viewModel.loadLessonContents(lessonId)
+        viewModel.loadLessonById(lessonId)
         binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
         }
@@ -70,8 +74,36 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
         }
     }
 
-    override fun getCurrentLessonId(): Int {
-        return arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
+    private fun observeState2() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state2.collect { state2 ->
+                    when (state2) {
+                        is TheoryViewModel.TheoryPageStateForLesson.Loading -> {
+                            Log.d(TAG, "Loading lesson by id...")
+                        }
 
+                        is TheoryViewModel.TheoryPageStateForLesson.Success -> {
+                            Log.d(TAG, "Lesson by id loaded")
+                            currentLesson = state2.lessonData!!
+                            Log.d(TAG, "lesson: $currentLesson")
+                        }
+
+                        is TheoryViewModel.TheoryPageStateForLesson.Failure -> {
+                            Log.e(TAG, "Error loading lesson by id: ${state2.throwable}")
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    override fun getCurrentLesson(): LessonData {
+        return currentLesson
+    }
+
+    override fun onBackToQuizClick() {
+        parentFragmentManager.popBackStack()
     }
 }

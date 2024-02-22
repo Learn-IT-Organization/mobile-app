@@ -31,7 +31,6 @@
                     style="@style/title_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="Title"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
@@ -39,7 +38,7 @@
                 <TextView
                     android:id="@+id/descriptionTextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="56dp"
                     android:text="Description"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
