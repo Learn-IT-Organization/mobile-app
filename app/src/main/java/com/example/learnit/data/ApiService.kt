@@ -73,4 +73,7 @@ interface ApiService {
 
     @GET("/deleteResponses/{lessonId}")
     suspend fun deleteResponses(@Path("lessonId") lessonId: Int): Response<DeleteResponseData>
+
+    @GET("/lesson/{lessonId}")
+    suspend fun getLessonById(@Path("lessonId") lessonId: Int): Response<LessonData>
 }

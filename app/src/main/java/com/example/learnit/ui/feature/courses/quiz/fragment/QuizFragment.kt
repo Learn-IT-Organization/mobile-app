@@ -23,7 +23,6 @@ import com.example.learnit.R
 import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
 import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
-import com.example.learnit.data.ApiConstants.ARG_LESSON_NAME
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.databinding.ExitConfirmationDialogBinding
 import com.example.learnit.databinding.FragmentQuizBinding
@@ -44,7 +43,6 @@ class QuizFragment : Fragment() {
     private var courseId: Int = -1
     private var chapterId: Int = -1
     private var lessonId: Int = -1
-    private var lessonName: String = ""
     private var totalScore: Float = 0.0f
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
 
@@ -66,7 +64,6 @@ class QuizFragment : Fragment() {
         courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
         chapterId = arguments?.getInt(ARG_CHAPTER_ID, -1) ?: -1
         lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
-        lessonName = arguments?.getString(ARG_LESSON_NAME) ?: ""
 
         viewPager = binding.viewPager
         viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
@@ -95,7 +92,6 @@ class QuizFragment : Fragment() {
         binding.bookButton.setOnClickListener {
             val bundle = Bundle().apply {
                 putInt(ARG_LESSON_ID, lessonId)
-                putString(ARG_LESSON_NAME, lessonName)
             }
             findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment, bundle)
         }

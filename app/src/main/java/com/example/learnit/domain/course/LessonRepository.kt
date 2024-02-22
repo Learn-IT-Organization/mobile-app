@@ -9,4 +9,5 @@ interface LessonRepository {
     suspend fun getLessonsByChapterId(chapterId: Int): List<LessonData>
     suspend fun getLessonContentByLessonId(lessonId: Int): List<LessonContentData>
     suspend fun getLessonProgress(): List<LessonProgressData>
+    suspend fun getLessonById(lessonId: Int): LessonData?
 }

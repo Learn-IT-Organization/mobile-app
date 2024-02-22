@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
+import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.lessons.model.LessonContentData
+import com.example.learnit.data.courses.lessons.model.LessonData
+import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.databinding.ContentListItemBinding
 import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 
@@ -19,17 +22,6 @@ class TheoryAdapter(
 
     inner class TheoryViewHolder(val binding: ContentListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.urlTextView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val content = contents[position]
-                    openUrlInBrowser(content.url, binding.root.context)
-                }
-            }
-        }
-
         fun bind(content: LessonContentData) {
             when (content.contentType) {
                 "video" -> binding.contentImageView.setImageResource(R.drawable.video)
@@ -49,9 +41,21 @@ class TheoryAdapter(
         val content = contents[position]
         holder.bind(content)
 
-        val currentLessonId = listener.getCurrentLessonName()
+        val currentLesson = listener.getCurrentLesson()
+        holder.binding.urlTextView.text = currentLesson.lessonName
+        holder.binding.descriptionTextView.text = currentLesson.lessonDescription
 
-        holder.binding.urlTextView.text = currentLessonId
+        holder.binding.moreButton.setOnClickListener() {
+            val position = holder.adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                val content = contents[position]
+                openUrlInBrowser(content.url, holder.binding.root.context)
+            }
+        }
+
+        holder.binding.backToQuizButton.setOnClickListener() {
+            listener.onBackToQuizClick()
+        }
     }
 
     override fun getItemCount(): Int {

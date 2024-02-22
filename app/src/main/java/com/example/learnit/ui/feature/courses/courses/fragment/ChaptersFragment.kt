@@ -19,7 +19,6 @@ import com.example.learnit.R
 import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
 import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
-import com.example.learnit.data.ApiConstants.ARG_LESSON_NAME
 import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.lessons.model.LessonData
@@ -148,7 +147,6 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                 putInt(ARG_COURSE_ID, arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
                 putInt(ARG_CHAPTER_ID, lesson.lessonChapterId)
                 putInt(ARG_LESSON_ID, lesson.lessonId)
-                putString(ARG_LESSON_NAME, lesson.lessonName)
             }
 
             findNavController().navigate(
@@ -162,7 +160,6 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
         val bundle = Bundle().apply {
             putInt(ARG_LESSON_ID, lesson.lessonId)
-            putString(ARG_LESSON_NAME, lesson.lessonName)
         }
 
         findNavController().navigate(
