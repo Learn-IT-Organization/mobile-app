@@ -27,8 +27,6 @@ class LessonsAdapter(
 
             val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
 
-            Log.d(TAG, "Lesson progress: $progress")
-
             val completionImageResource =
                 if (progress?.isCompleted == true) R.drawable.ic_completed else R.drawable.ic_play
 

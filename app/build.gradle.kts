@@ -91,4 +91,6 @@ dependencies {
     implementation("org.danilopianini:gson-extras:0.2.1")
     //CardView
     implementation("androidx.cardview:cardview:1.0.0")
+    //Progressbar
+    implementation("com.github.MackHartley:RoundedProgressBar:3.0.0")
 }

@@ -1,5 +1,6 @@
 package com.example.learnit.data.courses.chapters.repository
 
+import ChapterResultData
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.chapters.model.ChapterData
@@ -32,5 +33,17 @@ object ChaptersRepositoryImpl : ChaptersRepository {
             return (responseData ?: emptyList())
         }
         return emptyList()
+    }
+
+    override suspend fun getChapterResult(courseId: Int, chapterId: Int): ChapterResultData {
+        val response = apiService.getChapterResult(courseId, chapterId)
+        Log.d(TAG, response.raw().toString())
+
+        if (response.isSuccessful) {
+            val responseData = response.body()
+            Log.d(TAG, response.raw().toString())
+            return (responseData ?: ChapterResultData())
+        }
+        return ChapterResultData()
     }
 }

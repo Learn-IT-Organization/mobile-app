@@ -1,4 +1,5 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/course_card_view"
@@ -21,12 +22,41 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textSize="20sp" />
 
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_below="@+id/nameTextView"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:progress="10"
+            android:progressTint="@color/md_theme_tertiary" />
+
+        <com.mackhartley.roundedprogressbar.RoundedProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_below="@+id/nameTextView"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:rpbBackgroundColor="@color/white"
+            app:rpbBackgroundTextColor="@color/purple"
+            app:rpbCornerRadiusBottomLeft="6dp"
+            app:rpbCornerRadiusBottomRight="20dp"
+            app:rpbCornerRadiusTopLeft="20dp"
+            app:rpbCornerRadiusTopRight="6dp"
+            app:rpbIsRadiusRestricted="false"
+            app:rpbProgressColor="@color/purple"
+            app:rpbProgressTextColor="@color/white"
+            app:rpbTextPadding="12dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lessonsRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameTextView"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/progressBar"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -36,6 +36,10 @@ class ChaptersViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedChapters = repository.getChaptersByCourseId(courseId)
+                loadedChapters.forEach {
+                    it.chapterResultData = repository.getChapterResult(courseId, it.chapter.chapterId)
+                }
+                Log.d(TAG, "Chapters: $loadedChapters")
                 mutableState.value = ChaptersScreenState.Success(loadedChapters)
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching chapters: ${e.message}")
@@ -43,5 +47,6 @@ class ChaptersViewModel : ViewModel() {
             }
         }
     }
+
 
 }

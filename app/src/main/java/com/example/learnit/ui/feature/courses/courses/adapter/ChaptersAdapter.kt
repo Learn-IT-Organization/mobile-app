@@ -1,7 +1,6 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,7 @@ import com.example.learnit.databinding.ChapterListItemBinding
 class ChaptersAdapter(
     private val chapters: List<ChapterWithLessonsData>,
     private val lessonProgressList: List<LessonProgressData>,
-    private val onChapterItemClickListener: OnItemClickListener
+    private val onChapterItemClickListener: OnItemClickListener,
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ChaptersViewHolder>() {
 
@@ -34,7 +33,13 @@ class ChaptersAdapter(
             binding.nameTextView.text =
                 chapter.chapter.chapterSequenceNumber.toString() + ". " + chapter.chapter.chapterName
 
-            Log.d(TAG, "Chapter: $lessonProgressList")
+            binding.progressBar.setProgressPercentage(
+                (if (chapter.chapterResultData.totalLessons != 0 && chapter.chapterResultData.lessonsCompleted != 0) {
+                    (chapter.chapterResultData.lessonsCompleted.toDouble() / chapter.chapterResultData.totalLessons.toDouble()) * 100
+                } else {
+                    0.0
+                })
+            )
 
             binding.lessonsRecycleView.adapter =
                 LessonsAdapter(chapter.lessons, lessonProgressList, listener)

@@ -1,5 +1,6 @@
 package com.example.learnit.data
 
+import ChapterResultData
 import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.course.model.CourseData
@@ -76,4 +77,10 @@ interface ApiService {
 
     @GET("/lesson/{lessonId}")
     suspend fun getLessonById(@Path("lessonId") lessonId: Int): Response<LessonData>
+
+    @GET("/course/{courseId}/chapter/{chapterId}/score")
+    suspend fun getChapterResult(
+        @Path("courseId") courseId: Int,
+        @Path("chapterId") chapterId: Int
+    ): Response<ChapterResultData>
 }
