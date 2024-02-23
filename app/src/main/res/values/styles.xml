@@ -32,13 +32,13 @@
 
     <style name="theory_more_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_primary</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:backgroundTint">@color/md_theme_onPrimary</item>
     </style>
 
     <style name="theory_back_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:backgroundTint">@color/md_theme_primary</item>
     </style>
 
