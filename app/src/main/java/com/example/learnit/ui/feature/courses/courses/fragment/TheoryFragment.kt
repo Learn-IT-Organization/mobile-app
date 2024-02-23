@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class TheoryFragment : Fragment(), TheoryAdapterListener {
     private val viewModel: TheoryViewModel by viewModels()
     private lateinit var binding: FragmentTheoryBinding
-    private lateinit var currentLesson: LessonData
+    private var currentLesson: LessonData ?= null
 
     companion object {
         val TAG: String = TheoryFragment::class.java.simpleName
@@ -41,6 +41,7 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
         observeState()
         observeState2()
         val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
+        Log.d(TAG, "lessonId: $lessonId")
         viewModel.loadLessonContents(lessonId)
         viewModel.loadLessonById(lessonId)
         binding.imageViewBack.setOnClickListener {
@@ -100,7 +101,10 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
     }
 
     override fun getCurrentLesson(): LessonData {
-        return currentLesson
+        if (currentLesson == null) {
+            throw IllegalStateException("Lesson is not loaded yet")
+        }
+        return currentLesson!!
     }
 
     override fun onBackToQuizClick() {
