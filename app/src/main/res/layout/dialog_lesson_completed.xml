@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/you_have_already_completed_this_lesson_would_you_like_to_start_another_one" />
+        android:text="@string/see_results" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +50,6 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:onClick="onExitConfirmationYesClick"
             android:text="@string/no" />
 
         <Button
@@ -58,7 +57,6 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:onClick="onExitConfirmationNoClick"
             android:text="@string/yes" />
 
     </LinearLayout>

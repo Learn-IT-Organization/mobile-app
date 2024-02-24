@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_chaptersFragment_to_courseFragment"
             app:destination="@id/coursesFragment" />
+        <action
+            android:id="@+id/action_chaptersFragment_to_userAnswerFragment"
+            app:destination="@id/userAnswerFragment" />
     </fragment>
 
     <fragment
@@ -117,5 +120,11 @@
         android:name="com.example.learnit.ui.feature.courses.courses.fragment.TheoryFragment"
         android:label="TheoryFragment"
         tools:layout="@layout/fragment_theory" />
+
+    <fragment
+        android:id="@+id/userAnswerFragment"
+        android:name="com.example.learnit.ui.feature.courses.courses.fragment.UserAnswersFragment"
+        android:label="UserAnswerFragment"
+        tools:layout="@layout/fragment_user_answers" />
 
 </navigation>

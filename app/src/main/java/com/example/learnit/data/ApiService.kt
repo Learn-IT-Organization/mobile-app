@@ -8,6 +8,7 @@ import com.example.learnit.data.courses.lessons.model.DeleteResponseData
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
+import com.example.learnit.data.courses.lessons.model.UserAnswersData
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
@@ -83,4 +84,7 @@ interface ApiService {
         @Path("courseId") courseId: Int,
         @Path("chapterId") chapterId: Int
     ): Response<ChapterResultData>
+
+    @GET("/userResultsWithValidation/{lessonId}/lesson")
+    suspend fun getLessonResultWithValidation(@Path("lessonId") lessonId: Int): Response<List<UserAnswersData>>
 }

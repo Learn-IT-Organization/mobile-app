@@ -5,6 +5,7 @@ import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
+import com.example.learnit.data.courses.lessons.model.UserAnswersData
 import com.example.learnit.domain.course.LessonRepository
 
 object LessonRepositoryImpl : LessonRepository {
@@ -75,5 +76,17 @@ object LessonRepositoryImpl : LessonRepository {
             Log.e(TAG, "Error fetching lesson by ID: ${e.message}")
         }
         return null
+    }
+
+    override suspend fun getLessonResultWithValidation(lessonId: Int): List<UserAnswersData> {
+        try {
+            val response = apiService.getLessonResultWithValidation(lessonId)
+            if (response.isSuccessful) {
+                return response.body() ?: emptyList()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching lesson result with validation: ${e.message}")
+        }
+        return emptyList()
     }
 }

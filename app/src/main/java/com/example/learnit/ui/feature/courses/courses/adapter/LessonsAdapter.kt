@@ -1,6 +1,5 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
