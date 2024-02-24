@@ -47,7 +47,7 @@ class ChaptersAdapter(
     }
 
     interface OnItemClickListener {
-        fun onChapterItemClick(chapter: ChapterData)
+        //fun onChapterItemClick(chapter: ChapterData)
         fun onPlayStateClick(lesson: LessonData, lessonProgressData: List<LessonProgressData>)
         fun onTheoryClick(lesson: LessonData)
     }
@@ -61,9 +61,9 @@ class ChaptersAdapter(
     override fun onBindViewHolder(holder: ChaptersViewHolder, position: Int) {
         val chapter = chapters[position]
         holder.bind(chapter)
-        holder.itemView.setOnClickListener {
-            onChapterItemClickListener.onChapterItemClick(chapter.chapter)
-        }
+//        holder.itemView.setOnClickListener {
+//            onChapterItemClickListener.onChapterItemClick(chapter.chapter)
+//        }
     }
 
     override fun getItemCount(): Int {

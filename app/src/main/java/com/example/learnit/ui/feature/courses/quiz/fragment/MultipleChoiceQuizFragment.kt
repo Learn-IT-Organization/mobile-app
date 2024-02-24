@@ -1,3 +1,5 @@
+package com.example.learnit.ui.feature.courses.quiz.fragment
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +14,6 @@ import com.example.learnit.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.databinding.FragmentQuizMultipleChoiceBinding
 import com.example.learnit.ui.feature.courses.quiz.QuizButtonClickListener
-import com.example.learnit.ui.feature.courses.quiz.fragment.BaseQuizFragment
-import com.example.learnit.ui.feature.courses.quiz.fragment.QuizFragment
 import com.example.learnit.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import java.util.Date
 

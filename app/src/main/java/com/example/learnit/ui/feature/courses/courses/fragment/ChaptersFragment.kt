@@ -50,9 +50,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
     ): View {
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.imageViewBack.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_chaptersFragment_to_courseFragment
-            )
+            findNavController().popBackStack()
         }
         progressBar = binding.loadingSpinner
         return binding.root
@@ -122,9 +120,9 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         }
     }
 
-    override fun onChapterItemClick(chapter: ChapterData) {
-        TODO()
-    }
+//    override fun onChapterItemClick(chapter: ChapterData) {
+//        TODO()
+//    }
 
     override fun onPlayStateClick(
         lesson: LessonData,
@@ -181,16 +179,14 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         dialog.show()
 
         view.findViewById<Button>(R.id.yesButton).setOnClickListener {
-//            val bundle = Bundle().apply {
-//                putInt(ARG_COURSE_ID, arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
-//                putInt(ARG_CHAPTER_ID, lesson.lessonChapterId)
-//                putInt(ARG_LESSON_ID, lesson.lessonId + 1)
-//            }
-//
-//            findNavController().navigate(
-//                R.id.action_chaptersFragment_to_quizFragment,
-//                bundle
-//            )
+            val bundle = Bundle().apply {
+                putInt(ARG_LESSON_ID, lesson.lessonId)
+            }
+
+            findNavController().navigate(
+                R.id.action_chaptersFragment_to_userAnswerFragment,
+                bundle
+            )
             dialog.dismiss()
         }
 

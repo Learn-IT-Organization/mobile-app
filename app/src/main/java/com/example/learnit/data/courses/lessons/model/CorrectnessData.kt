@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class CorrectnessData(
-    @SerializedName("correctness")
-    val correctness: Boolean,
+    @SerializedName("correct")
+    val correct: Boolean,
     @SerializedName("responseText")
     val responseText: String
 ) :Serializable

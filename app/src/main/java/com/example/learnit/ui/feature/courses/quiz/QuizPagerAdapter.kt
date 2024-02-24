@@ -1,6 +1,6 @@
 package com.example.learnit.ui.feature.courses.quiz
 
-import MultipleChoiceQuizFragment
+import com.example.learnit.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

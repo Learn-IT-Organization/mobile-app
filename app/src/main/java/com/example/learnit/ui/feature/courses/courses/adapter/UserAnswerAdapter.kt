@@ -1,49 +1,68 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
-import com.example.learnit.data.ApiConstants
-import com.example.learnit.data.courses.course.model.CourseData
-import com.example.learnit.databinding.CourseListItemBinding
+import com.example.learnit.data.courses.lessons.model.UserAnswersData
+import com.example.learnit.databinding.AnswerListItemBinding
 
-class UserAnswerAdapter(private val courses: List<CourseData>) :
-    RecyclerView.Adapter<CoursesAdapter.CourseViewHolder>() {
+class UserAnswerAdapter(private val userAnswersList: List<UserAnswersData>) :
+    RecyclerView.Adapter<UserAnswerAdapter.UserAnswerViewHolder>() {
 
-    inner class UserAnswerViewHolder(private val binding: UserA) :
+    inner class UserAnswerViewHolder(private val binding: AnswerListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(course: CourseData) {
-            binding.nameTextView.text = course.course_name
-            if (adapterPosition % 2 == 0) {
-                binding.courseImageView.setImageResource(R.drawable.girl_with_code_snippet)
+
+        @SuppressLint("SetTextI18n")
+        fun bind(userAnswer: UserAnswersData) {
+            binding.iconQuestionType.setImageResource(
+                when (userAnswer.questionType) {
+                    "multiple_choice" -> {
+                        R.drawable.ic_multiple_choice
+                    }
+
+                    "true_false" -> {
+                        R.drawable.ic_true_false
+                    }
+
+                    "sorting" -> {
+                        R.drawable.ic_sorting
+                    }
+
+                    else -> {
+                        android.R.drawable.ic_menu_help
+                    }
+                }
+            )
+
+            binding.questionText.text = userAnswer.questionText
+            
+            binding.userAnswer.text = "Your answer: ${userAnswer.userAnswer}"
+            if (userAnswer.correctness.correct) {
+                binding.correctness.text = "Correct!!"
+                binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.green))
             } else {
-                binding.courseImageView.setImageResource(R.drawable.boy_developer)
+                binding.correctness.text = userAnswer.correctness.responseText
+                binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.red))
             }
-            binding.root.setOnClickListener {
-                itemView.findNavController().navigate(
-                    R.id.action_CoursesFragment_to_ChaptersFragemnt,
-                    bundleOf(ApiConstants.COURSE_ID to course.course_id)
-                )
-            }
+            binding.score.text = "Score: ${userAnswer.score.toInt()}"
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAnswerViewHolder {
         val binding =
-            CourseListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            AnswerListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserAnswerViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CoursesAdapter.CourseViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: UserAnswerViewHolder, position: Int) {
+        val userAnswer = userAnswersList[position]
+        holder.bind(userAnswer)
     }
-
-
 
     override fun getItemCount(): Int {
-        return courses.size
+        return userAnswersList.size
     }
+
 }

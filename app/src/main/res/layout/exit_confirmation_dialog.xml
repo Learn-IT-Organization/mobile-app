@@ -40,7 +40,6 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:onClick="onExitConfirmationNoClick"
             android:text="@string/no" />
 
         <Button
@@ -48,7 +47,6 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:onClick="onExitConfirmationYesClick"
             android:text="@string/yes" />
 
     </LinearLayout>

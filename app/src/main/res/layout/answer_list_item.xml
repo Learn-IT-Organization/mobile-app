@@ -3,7 +3,7 @@
     android:id="@+id/question_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="4dp"
+    app:cardElevation="5dp"
     app:strokeColor="@android:color/transparent">
 
     <LinearLayout
@@ -16,15 +16,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/questionText"
-            style="@style/paragraph_style"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="In an array with a capacity of 100 and a size of 50, what is the index of the last element?"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iconQuestionType"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_multiple_choice" />
+
+            <TextView
+                android:id="@+id/questionText"
+                style="@style/paragraph_style"
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="In an array with a capacity of 100 and a size of 50, what is the index of the last element?"
+                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/userAnswer"

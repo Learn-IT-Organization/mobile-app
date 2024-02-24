@@ -40,10 +40,10 @@
     <string name="no">No</string>
     <string name="ok">OK</string>
     <string name="this_lesson_is_completed">This lesson is completed!</string>
-    <string name="you_have_already_completed_this_lesson_would_you_like_to_start_another_one">You have already completed this lesson. Would you like to start another one?</string>
     <string name="message">Message</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="question">Question</string>
     <string name="verify">VERIFY</string>
     <string name="your_answers">Your answers</string>
+    <string name="see_results">Do you want to check out your quiz results?</string>
 </resources>

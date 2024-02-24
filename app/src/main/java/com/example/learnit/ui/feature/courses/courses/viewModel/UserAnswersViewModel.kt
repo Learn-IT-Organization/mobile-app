@@ -37,7 +37,6 @@ class UserAnswersViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 val loadedUserAnswers = repository.getLessonResultWithValidation(lessonId)
-                Log.d(TAG, "User answers: $loadedUserAnswers")
                 mutableState.value = UserAnswersScreenState.Success(loadedUserAnswers)
             } catch (e: Exception) {
                 mutableState.value = UserAnswersScreenState.Failure(e)
