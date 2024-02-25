@@ -3,14 +3,12 @@ package com.example.learnit.ui.feature.courses.courses.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
-import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.lessons.model.LessonContentData
-import com.example.learnit.data.courses.lessons.model.LessonData
-import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.databinding.ContentListItemBinding
 import com.example.learnit.ui.feature.courses.courses.TheoryAdapterListener
 
@@ -41,11 +39,10 @@ class TheoryAdapter(
         val content = contents[position]
         holder.bind(content)
 
-        val currentLesson = listener.getCurrentLesson()
-        holder.binding.urlTextView.text = currentLesson.lessonName
-        holder.binding.descriptionTextView.text = currentLesson.lessonDescription
+        holder.binding.urlTextView.text = content.contentTitle
+        holder.binding.descriptionTextView.text = content.contentDescription
 
-        holder.binding.moreButton.setOnClickListener() {
+        holder.binding.moreButton.setOnClickListener {
             val position = holder.adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val content = contents[position]

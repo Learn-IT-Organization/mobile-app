@@ -28,7 +28,8 @@
 
                 <TextView
                     android:id="@+id/urlTextView"
-                    style="@style/title_style"
+                    style="@style/subtitle_style"
+                    android:textSize="15sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Title"
@@ -57,7 +58,7 @@
                 <Button
                     android:id="@+id/backToQuizButton"
                     style="@style/theory_back_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="5dp"
                     android:text="Back to quiz" />
@@ -65,7 +66,7 @@
                 <Button
                     android:id="@+id/moreButton"
                     style="@style/theory_more_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:text="More" />
             </LinearLayout>
