@@ -1,9 +1,10 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learnit.R
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.databinding.LessonListItemBinding
@@ -21,25 +22,30 @@ class LessonsAdapter(
     inner class LessonsViewHolder(private val binding: LessonListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(lesson: LessonData, lessonProgressList: List<LessonProgressData>) {
             binding.lessonTitleTextView.text = lesson.lessonName
 
             val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
 
-            val completionImageResource =
-                if (progress?.isCompleted == true) R.drawable.ic_completed else R.drawable.ic_play
+            if (progress?.isCompleted == true) {
+                binding.buttonQuiz.text = "See results"
+            } else {
+                binding.buttonQuiz.text = "Quiz"
+            }
 
-            binding.stateImageView.setImageResource(completionImageResource)
+            if (lesson.lessonType == "theory")
+                binding.buttonQuiz.visibility = View.GONE
 
-            binding.stateImageView.setOnClickListener {
-                onLessonItemClickListener.onPlayStateClick(lesson, lessonProgressList)
+            binding.buttonQuiz.setOnClickListener {
+                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
             }
 
             binding.lessonTitleTextView.setOnClickListener {
-                onLessonItemClickListener.onPlayStateClick(lesson, lessonProgressList)
+                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
             }
 
-            binding.theoryImageView.setOnClickListener {
+            binding.buttonTheory.setOnClickListener {
                 onLessonItemClickListener.onTheoryClick(lesson)
             }
         }

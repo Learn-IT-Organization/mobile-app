@@ -17,7 +17,6 @@ import com.example.learnit.R
 import com.example.learnit.data.ApiConstants.ARG_CHAPTER_ID
 import com.example.learnit.data.ApiConstants.ARG_COURSE_ID
 import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
-import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
@@ -120,11 +119,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         }
     }
 
-//    override fun onChapterItemClick(chapter: ChapterData) {
-//        TODO()
-//    }
-
-    override fun onPlayStateClick(
+    override fun onQuizClick(
         lesson: LessonData,
         lessonProgressData: List<LessonProgressData>
     ) {
@@ -133,17 +128,28 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         if (progress?.isCompleted == true) {
             showDialogLessonCompleted(lesson, lessonProgressData)
         } else {
+            if (lesson.lessonType == "exercise") {
+                val bundle = Bundle().apply {
+                    putInt(ARG_COURSE_ID, arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
+                    putInt(ARG_CHAPTER_ID, lesson.lessonChapterId)
+                    putInt(ARG_LESSON_ID, lesson.lessonId)
+                }
 
-            val bundle = Bundle().apply {
-                putInt(ARG_COURSE_ID, arguments?.getInt(ARG_COURSE_ID, -1) ?: -1)
-                putInt(ARG_CHAPTER_ID, lesson.lessonChapterId)
-                putInt(ARG_LESSON_ID, lesson.lessonId)
+                findNavController().navigate(
+                    R.id.action_chaptersFragment_to_quizFragment,
+                    bundle
+                )
+            } else {
+
+                val bundle = Bundle().apply {
+                    putInt(ARG_LESSON_ID, lesson.lessonId)
+                }
+
+                findNavController().navigate(
+                    R.id.action_chaptersFragment_to_theoryFragment,
+                    bundle
+                )
             }
-
-            findNavController().navigate(
-                R.id.action_chaptersFragment_to_quizFragment,
-                bundle
-            )
         }
     }
 
