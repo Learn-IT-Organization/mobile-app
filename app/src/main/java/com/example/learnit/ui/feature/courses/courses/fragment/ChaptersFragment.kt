@@ -119,10 +119,6 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         }
     }
 
-//    override fun onChapterItemClick(chapter: ChapterData) {
-//        TODO()
-//    }
-
     override fun onQuizClick(
         lesson: LessonData,
         lessonProgressData: List<LessonProgressData>
