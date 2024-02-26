@@ -78,4 +78,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="lesson_more_button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textColor">@color/md_theme_primary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:backgroundTint">@color/md_theme_onPrimary</item>
+    </style>
+
 </resources>

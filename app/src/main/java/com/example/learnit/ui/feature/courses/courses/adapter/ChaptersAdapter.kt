@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learnit.data.courses.chapters.model.ChapterData
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
@@ -48,7 +47,7 @@ class ChaptersAdapter(
 
     interface OnItemClickListener {
         //fun onChapterItemClick(chapter: ChapterData)
-        fun onPlayStateClick(lesson: LessonData, lessonProgressData: List<LessonProgressData>)
+        fun onQuizClick(lesson: LessonData, lessonProgressData: List<LessonProgressData>)
         fun onTheoryClick(lesson: LessonData)
     }
 
