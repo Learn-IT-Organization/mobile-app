@@ -46,4 +46,5 @@
     <string name="verify">VERIFY</string>
     <string name="your_answers">Your answers</string>
     <string name="see_results">Do you want to check out your quiz results?</string>
+    <string name="description_text">Description text</string>
 </resources>

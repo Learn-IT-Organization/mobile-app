@@ -1,10 +1,13 @@
 package com.example.learnit.ui.feature.courses.courses.adapter
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learnit.data.courses.chapters.model.ChapterData
+import com.example.learnit.R
 import com.example.learnit.data.courses.chapters.model.ChapterWithLessonsData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
@@ -40,6 +43,22 @@ class ChaptersAdapter(
                     0.0
                 })
             )
+
+            binding.moreButton.setOnClickListener{
+                val customDialog = Dialog(binding.root.context)
+                customDialog.setContentView(R.layout.dialog_description)
+
+                val descriptionTextView: TextView = customDialog.findViewById(R.id.descriptionTextView)
+                descriptionTextView.text = chapter.chapter.chapterDescription
+
+                val closeButton: ImageButton = customDialog.findViewById(R.id.closeButton)
+                closeButton.setOnClickListener {
+                    customDialog.dismiss()
+                }
+
+                customDialog.show()
+            }
+
 
             binding.lessonsRecycleView.adapter =
                 LessonsAdapter(chapter.lessons, lessonProgressList, listener)
