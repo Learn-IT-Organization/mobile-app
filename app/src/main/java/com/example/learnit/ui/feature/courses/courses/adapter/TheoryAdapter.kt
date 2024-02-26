@@ -39,7 +39,7 @@ class TheoryAdapter(
         val content = contents[position]
         holder.bind(content)
 
-        holder.binding.urlTextView.text = content.contentTitle
+        holder.binding.titleTextView.text = content.contentTitle
         holder.binding.descriptionTextView.text = content.contentDescription
 
         holder.binding.moreButton.setOnClickListener {

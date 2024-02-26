@@ -24,7 +24,6 @@
         android:layout_marginTop="@dimen/margin_top_login"
         android:autofillHints=""
         android:hint="@string/username"
-        android:text="EveKri"
         android:inputType="text"
         android:minHeight="@dimen/minimum_height" />
 
@@ -47,7 +46,6 @@
         android:layout_marginTop="@dimen/margin_top_button"
         android:autofillHints=""
         android:hint="@string/password"
-        android:text="EveKri"
         android:inputType="textPassword"
         android:minHeight="@dimen/minimum_height" />
 
