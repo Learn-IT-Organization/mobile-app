@@ -13,7 +13,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.databinding.FragmentHomeBinding
@@ -53,6 +56,10 @@ class HomeFragment : Fragment() {
             openGalleryForImage()
         }
 
+        binding.buttonStartLearning.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_courses)
+        }
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -83,8 +90,14 @@ class HomeFragment : Fragment() {
                             MyCoursesAdapter(state.courseData)
                         if (state.courseData.isEmpty()) {
                             binding.textViewContinueLearning.visibility = View.GONE
+                            binding.textViewNoCourse.visibility = View.VISIBLE
+                            binding.imageViewNoCourse.visibility = View.VISIBLE
+                            binding.buttonStartLearning.visibility = View.VISIBLE
                         } else {
                             binding.textViewContinueLearning.visibility = View.VISIBLE
+                            binding.textViewNoCourse.visibility = View.GONE
+                            binding.imageViewNoCourse.visibility = View.GONE
+                            binding.buttonStartLearning.visibility = View.GONE
                         }
                         Log.d(TAG, "Users loaded")
                     }
