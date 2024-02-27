@@ -29,8 +29,11 @@ class LessonsAdapter(
             val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
 
             if (progress?.isCompleted == true) {
-                binding.buttonQuiz.text = "See results"
+                binding.buttonQuiz.visibility = View.GONE
+                binding.buttonSeeResults.visibility = View.VISIBLE
             } else {
+                binding.buttonQuiz.visibility = View.VISIBLE
+                binding.buttonSeeResults.visibility = View.GONE
                 binding.buttonQuiz.text = "Quiz"
             }
 
@@ -41,11 +44,15 @@ class LessonsAdapter(
                 onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
             }
 
+            binding.buttonSeeResults.setOnClickListener {
+                onLessonItemClickListener.onTheoryClick(lesson)
+            }
+
             binding.lessonTitleTextView.setOnClickListener {
                 onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
             }
 
-            binding.buttonTheory.setOnClickListener {
+            binding.buttonReadMore.setOnClickListener {
                 onLessonItemClickListener.onTheoryClick(lesson)
             }
         }

@@ -8,9 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
 import com.example.learnit.R
 import com.example.learnit.data.SharedPreferences
@@ -108,8 +105,10 @@ class TrueFalseQuizFragment : BaseQuizFragment<TrueFalseQuestionData>(), QuizBut
                 score = 0.0f
             )
         )
-        QuizFragment.viewPager.currentItem += 1
-        Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
+        viewModel.currentQuestionItemLiveData.postValue(
+            (viewModel.currentQuestionItemLiveData.value ?: 0) + 1
+        )
+        Log.d(TAG, "currentItem: ${viewModel.currentQuestionItemLiveData.value}")
         QuizFragment.currentQuestionNumber.postValue(
             QuizFragment.currentQuestionNumber.value?.plus(
                 1

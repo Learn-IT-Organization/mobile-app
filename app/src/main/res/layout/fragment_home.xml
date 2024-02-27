@@ -31,13 +31,14 @@
 
             <TextView
                 android:id="@+id/welcomeBackTextView"
-                style="@style/title_style"
+                style="@style/subtitle_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/welcome_back"
                 android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewProfilePhoto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -178,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="No courses started" />
+                android:text="@string/you_haven_t_started_any_courses_yet" />
 
             <ImageView
                 android:id="@+id/imageViewNoCourse"
@@ -195,12 +196,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/verify_button"
-                android:text="Let's Start Learning"
+                android:fontFamily="@font/baloo"
+                android:text="@string/let_s_start_learning"
                 app:layout_constraintTop_toBottomOf="@id/imageViewNoCourse"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,7 +213,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/continue_learning" />
+            android:text="@string/continue_learning"
+            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myCoursesRecycleView"

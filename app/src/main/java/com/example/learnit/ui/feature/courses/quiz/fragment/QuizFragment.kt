@@ -48,9 +48,9 @@ class QuizFragment : Fragment() {
     private var totalScore: Float = 0.0f
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
     private var mainActivity: MainActivity? = null
+    private lateinit var viewPager: ViewPager2
 
     companion object {
-        lateinit var viewPager: ViewPager2
         val TAG: String = QuizFragment::class.java.simpleName
         val currentQuestionNumber: MutableLiveData<Int> by lazy {
             MutableLiveData<Int>(0)
@@ -103,6 +103,7 @@ class QuizFragment : Fragment() {
 
         observeScore()
         observeCurrentQuestionNumber()
+        observeCurrentQuestionItem()
     }
 
     private fun observeState() {
@@ -248,6 +249,13 @@ class QuizFragment : Fragment() {
         currentQuestionNumber.observe(requireActivity(), observer)
     }
 
+    private fun observeCurrentQuestionItem() {
+        viewModel.currentQuestionItemLiveData.observe(viewLifecycleOwner) { currentItem ->
+            viewPager.currentItem = currentItem
+            Log.d(TAG, "currentItem: $currentItem")
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     fun updateScoreUI(newScore: Float) {
         totalScore += newScore * 10
@@ -260,6 +268,8 @@ class QuizFragment : Fragment() {
 
         viewModel.scoreLiveData.removeObservers(requireActivity())
         viewModel.scoreLiveData.value = 0.0f
+        viewModel.currentQuestionItemLiveData.removeObservers(requireActivity())
+        viewModel.currentQuestionItemLiveData.value = 0
         currentQuestionNumber.removeObservers(requireActivity())
         currentQuestionNumber.value = 0
         totalScore = 0.0f

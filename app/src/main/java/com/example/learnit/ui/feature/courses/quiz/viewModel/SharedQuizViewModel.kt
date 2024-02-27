@@ -31,6 +31,10 @@ class SharedQuizViewModel : ViewModel() {
     private var userResponse: Boolean = false
     private var isResponseSet = false
 
+    val currentQuestionItemLiveData: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>(0)
+    }
+
     private val mutableState: MutableStateFlow<QuestionAnswersPageState> =
         MutableStateFlow(QuestionAnswersPageState.Loading)
 
