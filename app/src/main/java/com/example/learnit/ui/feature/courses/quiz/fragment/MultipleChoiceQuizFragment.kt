@@ -112,8 +112,10 @@ class MultipleChoiceQuizFragment : BaseQuizFragment<MultipleChoiceQuestionData>(
             )
         )
         clearButtons()
-        QuizFragment.viewPager.currentItem += 1
-        Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
+        viewModel.currentQuestionItemLiveData.postValue(
+            (viewModel.currentQuestionItemLiveData.value ?: 0) + 1
+        )
+        Log.d(TAG, "currentItem: ${viewModel.currentQuestionItemLiveData.value}")
         QuizFragment.currentQuestionNumber.postValue(
             QuizFragment.currentQuestionNumber.value?.plus(
                 1

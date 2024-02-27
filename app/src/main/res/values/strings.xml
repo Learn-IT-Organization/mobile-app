@@ -27,7 +27,7 @@
     <string name="streak_example">2</string>
     <string name="student_gmail">student@gmail.com</string>
     <string name="student">Student</string>
-    <string name="welcome_back">Welcome back</string>
+    <string name="welcome_back">Welcome to the LearnIT app</string>
     <string name="continue_learning">Continue learning:</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -44,10 +44,17 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="question">Question</string>
     <string name="verify">VERIFY</string>
-    <string name="your_answers">Your answers</string>
+    <string name="your_answers">Your answers:</string>
     <string name="see_results">Do you want to check out your quiz results?</string>
     <string name="description_text">Description text</string>
     <string name="quiz">Quiz</string>
     <string name="see_results_button">See results</string>
     <string name="read_more">Read more</string>
+    <string name="let_s_start_learning">Let\'s Start Learning</string>
+    <string name="you_haven_t_started_any_courses_yet">You haven\'t started any courses yet</string>
+    <string name="theme_icon">Theme Icon</string>
+    <string name="theme">Theme</string>
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="general">General</string>
 </resources>
