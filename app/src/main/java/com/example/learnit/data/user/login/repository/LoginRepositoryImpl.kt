@@ -4,15 +4,19 @@ import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.SharedPreferences
 import com.example.learnit.data.user.login.model.Data
+import com.example.learnit.data.user.login.model.ForgotPasswordData
 import com.example.learnit.data.user.login.model.LoginData
+import com.example.learnit.data.user.login.model.ResetCodeData
+import com.example.learnit.data.user.login.model.ResetPasswordResponseData
 import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.domain.login.LoginRepository
+import com.google.android.gms.common.api.Response
 
 object LoginRepositoryImpl : LoginRepository {
     private val TAG = LoginRepositoryImpl::class.java.simpleName
+    private val apiService = RetrofitAdapter.provideApiService()
 
     override suspend fun getLoginInformation(loginForm: LoginData): ResponseData<Data> {
-        val apiService = RetrofitAdapter.provideApiService()
         val response = apiService.authorizeLogin(loginForm)
 
         if (response.isSuccessful) {
@@ -38,4 +42,17 @@ object LoginRepositoryImpl : LoginRepository {
         }
         return response.body()!!
     }
+
+    override suspend fun requestResetCode(forgotPasswordData: ForgotPasswordData): ResetPasswordResponseData {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.requestResetCode(forgotPasswordData)
+        return response.body()!!
+    }
+
+    override suspend fun changePasswordWithResetCode(resetCodeData: ResetCodeData): ResetPasswordResponseData {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.changePasswordWithResetCode(resetCodeData)
+        return response.body()!!
+    }
+
 }
