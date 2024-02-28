@@ -25,5 +25,6 @@ data class LoggedUserData(
     val streak: Int,
     @SerializedName("last_response_time")
     val lastResponseTime: Date,
-
+    @SerializedName("reset_code")
+    val resetCode: Long,
     ) : Serializable

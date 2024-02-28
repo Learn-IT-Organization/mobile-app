@@ -50,6 +50,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            style="@style/paragraph_style"
             android:text="@string/no" />
 
         <Button
@@ -57,6 +58,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            style="@style/paragraph_style"
             android:text="@string/yes" />
 
     </LinearLayout>

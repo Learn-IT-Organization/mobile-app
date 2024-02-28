@@ -57,4 +57,15 @@
     <string name="account">Account</string>
     <string name="logout">Logout</string>
     <string name="general">General</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="send_email">Send email</string>
+    <string name="enter_reset_code">Enter verification code</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="confirm_your_new_password">Confirm password</string>
+    <string name="reset_password">Reset password</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset_your_password">Reset your password</string>
 </resources>
