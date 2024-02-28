@@ -13,6 +13,8 @@ object SharedPreferences {
     private const val MY_PREFS = "MyPrefs"
     private const val DARK_MODE_STATUS = "darkModeStatus"
     private const val IMAGE_PATH = "userImagePath"
+    private const val REMEMBERED_USERNAME = "remembered_username"
+    private const val REMEMBERED_PASSWORD = "remembered_password"
 
     fun storeToken(token: String) {
         sharedPreferences.edit().putString(ApiConstants.TOKEN, token).apply()
@@ -97,4 +99,27 @@ object SharedPreferences {
         editor.putString(IMAGE_PATH, imagePath)
         editor.apply()
     }
+
+    fun saveRememberedCredentials(context: Context, username: String, password: String) {
+        val editor = getSharedPreferences(context).edit()
+        editor.putString(REMEMBERED_USERNAME, username)
+        editor.putString(REMEMBERED_PASSWORD, password)
+        editor.apply()
+    }
+
+    fun getRememberedUsername(context: Context): String? {
+        return getSharedPreferences(context).getString(REMEMBERED_USERNAME, null)
+    }
+
+    fun getRememberedPassword(context: Context): String? {
+        return getSharedPreferences(context).getString(REMEMBERED_PASSWORD, null)
+    }
+
+    fun clearRememberedCredentials(context: Context) {
+        val editor = getSharedPreferences(context).edit()
+        editor.remove(REMEMBERED_USERNAME)
+        editor.remove(REMEMBERED_PASSWORD)
+        editor.apply()
+    }
+
 }

@@ -14,8 +14,11 @@ import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
 import com.example.learnit.data.user.login.model.Data
+import com.example.learnit.data.user.login.model.ForgotPasswordData
 import com.example.learnit.data.user.login.model.LoggedUserData
 import com.example.learnit.data.user.login.model.LoginData
+import com.example.learnit.data.user.login.model.ResetCodeData
+import com.example.learnit.data.user.login.model.ResetPasswordResponseData
 import com.example.learnit.data.user.login.model.ResponseData
 import com.example.learnit.data.user.register.model.RegistrationData
 import com.example.learnit.data.user.register.model.RegistrationResponseData
@@ -91,4 +94,11 @@ interface ApiService {
 
     @POST("/FCM_token")
     suspend fun sendFCMToken(@Body token: TokenData): Response<String>
+
+    @POST("requestResetCode")
+    suspend fun requestResetCode(@Body resetRequest: ForgotPasswordData): Response<ResetPasswordResponseData>
+
+    @POST("/changePassword")
+    suspend fun changePasswordWithResetCode(@Body resetCodeData: ResetCodeData): Response<ResetPasswordResponseData>
+
 }

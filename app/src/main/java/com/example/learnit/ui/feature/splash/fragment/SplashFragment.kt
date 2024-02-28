@@ -53,11 +53,13 @@ class SplashFragment : Fragment() {
         })
 
         Handler().postDelayed({
-            if (viewModel.verifyTokenValid()) {
-                val intent = Intent(context, MainActivity::class.java)
-                startActivity(intent)
-            } else {
-                findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+            if (isAdded && !isDetached) {
+                if (viewModel.verifyTokenValid()) {
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+                }
             }
         }, 3000)
 

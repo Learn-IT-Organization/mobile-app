@@ -15,8 +15,13 @@ class SplashViewModel : ViewModel() {
 
     private val repository: LoginRepository = App.instance.getLoginRepository()
 
+
+    companion object {
+        val TAG: String = SplashViewModel::class.java.simpleName
+    }
+
     fun verifyTokenValid(): Boolean {
-        Log.d("SplashViewModel", "verifyTokenValid: ${SharedPreferences.getExpiresTime()}")
+        Log.d(TAG, "verifyTokenValid: ${SharedPreferences.getExpiresTime()}")
         return SharedPreferences.getExpiresTime() > System.currentTimeMillis()
     }
 

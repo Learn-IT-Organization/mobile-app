@@ -102,8 +102,10 @@ class SortingQuizFragment : BaseQuizFragment<SortingQuestionData>(), QuizButtonC
         Log.d(TAG, "question id:${currentQuestion?.questionId}")
         Log.d(TAG, "user response: ${listOf(viewModel.getUserResponse())}")
         Log.d(TAG, "sorting onNextButtonClicked")
-        QuizFragment.viewPager.currentItem += 1
-        Log.d(TAG, "currentItem: ${QuizFragment.viewPager.currentItem}")
+        viewModel.currentQuestionItemLiveData.postValue(
+            (viewModel.currentQuestionItemLiveData.value ?: 0) + 1
+        )
+        Log.d(TAG, "currentItem: ${viewModel.currentQuestionItemLiveData.value}")
         QuizFragment.currentQuestionNumber.postValue(QuizFragment.currentQuestionNumber.value?.plus(1) ?: 0)
         Log.d(TAG, "currentQuestionNumber: ${QuizFragment.currentQuestionNumber.value}")
 
