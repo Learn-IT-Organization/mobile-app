@@ -9,6 +9,7 @@ import com.example.learnit.data.courses.lessons.model.LessonContentData
 import com.example.learnit.data.courses.lessons.model.LessonData
 import com.example.learnit.data.courses.lessons.model.LessonProgressData
 import com.example.learnit.data.courses.lessons.model.UserAnswersData
+import com.example.learnit.data.courses.notifications.TokenData
 import com.example.learnit.data.courses.quiz.model.BaseQuestionData
 import com.example.learnit.data.courses.quiz.model.QuizResponseData
 import com.example.learnit.data.courses.quiz.model.QuizResultData
@@ -87,4 +88,7 @@ interface ApiService {
 
     @GET("/userResultsWithValidation/{lessonId}/lesson")
     suspend fun getLessonResultWithValidation(@Path("lessonId") lessonId: Int): Response<List<UserAnswersData>>
+
+    @POST("/FCM_token")
+    suspend fun sendFCMToken(@Body token: TokenData): Response<String>
 }

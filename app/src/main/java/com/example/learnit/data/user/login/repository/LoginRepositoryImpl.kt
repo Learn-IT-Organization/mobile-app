@@ -3,6 +3,7 @@ package com.example.learnit.data.user.login.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.courses.notifications.TokenData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.LoginData
 import com.example.learnit.data.user.login.model.ResponseData
@@ -37,5 +38,13 @@ object LoginRepositoryImpl : LoginRepository {
 
         }
         return response.body()!!
+    }
+
+    override suspend fun sendFCMToken(token: TokenData) {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.sendFCMToken(token)
+        if (response.isSuccessful) {
+            Log.d(TAG, "sendFCMToken: $response")
+        }
     }
 }

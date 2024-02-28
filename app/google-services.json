@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "829237836210",
+    "project_id": "learnit-eb4b1",
+    "storage_bucket": "learnit-eb4b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829237836210:android:9fc7239a46bcb3e8c38cab",
+        "android_client_info": {
+          "package_name": "com.example.learnit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT5G3LBkzJwmvsX0q2IvHVHCYUcOpy3WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
