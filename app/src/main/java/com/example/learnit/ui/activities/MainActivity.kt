@@ -1,13 +1,16 @@
 package com.example.learnit.ui.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.learnit.R
 import com.example.learnit.databinding.ActivityMainBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val navController = this.findNavController(R.id.nav_host_fragment)
         val bottomNavigationView: BottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setupWithNavController(navController)
@@ -57,6 +59,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 }
+

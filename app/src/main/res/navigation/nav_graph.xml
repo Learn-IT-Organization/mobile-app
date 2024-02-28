@@ -45,7 +45,11 @@
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.example.learnit.ui.feature.notifications.fragment.NotificationsFragment"
-        android:label="NotificationsFragment" />
+        android:label="NotificationsFragment">
+        <action
+            android:id="@+id/action_notificationsFragment_to_chaptersFragment"
+            app:destination="@id/chaptersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.learnit.ui.feature.login.fragment.LoginFragment"

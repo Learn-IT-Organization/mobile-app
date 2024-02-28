@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("kotlin-kapt")
 }
 
 android {
@@ -93,4 +95,14 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     //Progressbar
     implementation("com.github.MackHartley:RoundedProgressBar:3.0.0")
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    annotationProcessor ("androidx.room:room-compiler:2.6.0")
 }

@@ -3,6 +3,7 @@ package com.example.learnit.ui.feature.splash.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.example.learnit.R
 import com.example.learnit.databinding.FragmentSplashBinding
 import com.example.learnit.ui.activities.MainActivity
 import com.example.learnit.ui.feature.splash.viewModel.SplashViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class SplashFragment : Fragment() {
 
@@ -37,6 +40,17 @@ class SplashFragment : Fragment() {
         splashImage.startAnimation(topAnim)
         splashImage.startAnimation(scaleUpAnimation)
         splashTitle.startAnimation(bottomAnim)
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.d("FCM", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            viewModel.sendFCMToken(token)
+
+        })
 
         Handler().postDelayed({
             if (isAdded && !isDetached) {

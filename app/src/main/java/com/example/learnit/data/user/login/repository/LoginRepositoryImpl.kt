@@ -3,6 +3,7 @@ package com.example.learnit.data.user.login.repository
 import android.util.Log
 import com.example.learnit.data.RetrofitAdapter
 import com.example.learnit.data.SharedPreferences
+import com.example.learnit.data.courses.notifications.TokenData
 import com.example.learnit.data.user.login.model.Data
 import com.example.learnit.data.user.login.model.ForgotPasswordData
 import com.example.learnit.data.user.login.model.LoginData
@@ -17,6 +18,7 @@ object LoginRepositoryImpl : LoginRepository {
     private val apiService = RetrofitAdapter.provideApiService()
 
     override suspend fun getLoginInformation(loginForm: LoginData): ResponseData<Data> {
+        val apiService = RetrofitAdapter.provideApiService()
         val response = apiService.authorizeLogin(loginForm)
 
         if (response.isSuccessful) {
@@ -41,6 +43,14 @@ object LoginRepositoryImpl : LoginRepository {
 
         }
         return response.body()!!
+    }
+
+    override suspend fun sendFCMToken(token: TokenData) {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.sendFCMToken(token)
+        if (response.isSuccessful) {
+            Log.d(TAG, "sendFCMToken: $response")
+        }
     }
 
     override suspend fun requestResetCode(forgotPasswordData: ForgotPasswordData): ResetPasswordResponseData {
