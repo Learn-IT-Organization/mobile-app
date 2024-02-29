@@ -1,14 +1,18 @@
 package com.example.learnit.ui.feature.notifications.fragment
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.learnit.R
 import com.example.learnit.databinding.FragmentNotificationsBinding
 import com.example.learnit.ui.feature.notifications.adapter.NotificationsAdapter
 
@@ -25,8 +29,9 @@ class NotificationsFragment : Fragment() {
         binding.imageViewBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.imageViewBack.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
 
-        adapter = NotificationsAdapter()
+        adapter = NotificationsAdapter(requireContext())
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
         binding.notificationsRecyclerView.layoutManager = linearLayoutManager

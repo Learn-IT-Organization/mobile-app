@@ -47,8 +47,8 @@
         android:name="com.example.learnit.ui.feature.notifications.fragment.NotificationsFragment"
         android:label="NotificationsFragment">
         <action
-            android:id="@+id/action_notificationsFragment_to_chaptersFragment"
-            app:destination="@id/chaptersFragment" />
+            android:id="@+id/action_notificationsFragment_to_coursesFragment"
+            app:destination="@id/coursesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

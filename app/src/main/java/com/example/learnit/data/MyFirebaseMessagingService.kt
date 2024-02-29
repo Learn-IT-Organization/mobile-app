@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.MutableLiveData
 import com.example.learnit.R
 import com.example.learnit.ui.activities.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -21,8 +22,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         private const val TAG = "MyFirebaseMsgService"
         private const val CHANNEL_ID = "NewChapterChannel"
         private const val NOTIFICATION_ID = 1
+        private var instance: MyFirebaseMessagingService? = null
+
+        fun getInstance(): MyFirebaseMessagingService {
+            return instance ?: synchronized(this) {
+                instance ?: MyFirebaseMessagingService().also { instance = it }
+            }
+        }
 
     }
+    val notificationLiveData = MutableLiveData<Boolean>()
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
@@ -37,6 +46,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             if (isNewChapter == "true") {
                 Log.d(TAG, "New chapter available")
                 showNewChapterNotification()
+                notificationLiveData.postValue(true)
                 saveNotificationToSharedPreferences(this, remoteMessage.notification?.body ?: "")
             }
         }
