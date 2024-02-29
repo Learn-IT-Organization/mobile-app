@@ -94,13 +94,6 @@ class QuizFragment : Fragment() {
             showExitConfirmationDialog()
         }
 
-        binding.bookButton.setOnClickListener {
-            val bundle = Bundle().apply {
-                putInt(ARG_LESSON_ID, lessonId)
-            }
-            findNavController().navigate(R.id.action_quizFragment_to_TheoryFragment, bundle)
-        }
-
         observeScore()
         observeCurrentQuestionNumber()
         observeCurrentQuestionItem()

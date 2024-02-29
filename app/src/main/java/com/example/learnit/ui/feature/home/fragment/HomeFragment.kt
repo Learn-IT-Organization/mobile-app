@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.learnit.R
@@ -51,7 +50,7 @@ class HomeFragment : Fragment() {
         observeState()
 
         viewModel.loadAndLogUsers()
-        
+
         binding.imageViewProfilePhoto.setOnClickListener {
             openGalleryForImage()
         }

@@ -2,7 +2,7 @@ package com.example.learnit.data
 
 object ApiConstants {
 
-    const val API_BASE_URL = "http://192.168.0.103:3307/"
+    const val API_BASE_URL = "http://82.79.128.245:1026/"
     const val TOKEN = "token"
     const val EXPIRATION_TIME = "expirationTime"
     const val ID = "id"
@@ -14,5 +14,6 @@ object ApiConstants {
     const val ARG_COURSE_ID = "courseId"
     const val ARG_CHAPTER_ID = "chapterId"
     const val ARG_LESSON_ID = "lessonId"
+    const val ARG_LESSON_SCORE = "quizId"
 
 }
