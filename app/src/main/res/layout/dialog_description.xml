@@ -17,17 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/closeButton"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="@string/description"
-        android:textSize="15dp" />
+        android:text="@string/description" />
 
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/closeButton"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="Description text" />
+        style="@style/paragraph_style"
+        android:text="@string/description_text" />
 
 </RelativeLayout>

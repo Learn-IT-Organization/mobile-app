@@ -2,6 +2,8 @@ package com.example.learnit.ui.feature.register.fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +59,24 @@ class RegisterFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+        val imageViewShowPassword = binding.imageViewShowPassword
+        val editTextPassword = binding.editTextPassword
+
+        imageViewShowPassword.setOnClickListener {
+            val isPasswordVisible =
+                editTextPassword.transformationMethod is PasswordTransformationMethod
+
+            if (isPasswordVisible) {
+                editTextPassword.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                imageViewShowPassword.setImageResource(R.drawable.ic_eye_off)
+            } else {
+                editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                imageViewShowPassword.setImageResource(R.drawable.ic_eye)
+            }
+
+            editTextPassword.setSelection(editTextPassword.text.length)
         }
     }
 

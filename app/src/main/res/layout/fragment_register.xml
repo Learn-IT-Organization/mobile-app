@@ -27,8 +27,8 @@
             android:layout_below="@+id/signUpText"
             android:layout_marginTop="@dimen/margin_top_sign_up"
             android:autofillHints=""
-            android:importantForAutofill="yes"
             android:hint="@string/first_name"
+            android:importantForAutofill="yes"
             android:inputType="text"
             android:minHeight="@dimen/minimum_height" />
 
@@ -39,8 +39,8 @@
             android:layout_below="@id/editTextFirstName"
             android:layout_marginTop="@dimen/margin_top_button"
             android:autofillHints=""
-            android:importantForAutofill="yes"
             android:hint="@string/last_name"
+            android:importantForAutofill="yes"
             android:inputType="text"
             android:minHeight="@dimen/minimum_height" />
 
@@ -65,6 +65,17 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="@dimen/minimum_height" />
+
+        <ImageView
+            android:id="@+id/imageViewShowPassword"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/editTextUsername"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:clickable="true"
+            android:src="@drawable/ic_eye" />
 
         <RadioGroup
             android:id="@+id/genderRadioGroup"
@@ -137,9 +148,9 @@
                 style="@style/paragraph_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_marginStart="5dp"
                 android:text="@string/login"
                 android:textColor="@color/md_theme_primary"
                 android:textSize="15sp" />

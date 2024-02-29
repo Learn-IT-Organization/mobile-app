@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnit.R
 import com.example.learnit.data.ApiConstants
+import com.example.learnit.data.ApiConstants.ARG_LESSON_ID
+import com.example.learnit.data.ApiConstants.ARG_LESSON_SCORE
 import com.example.learnit.data.courses.lessons.model.UserAnswersData
 import com.example.learnit.databinding.FragmentUserAnswersBinding
 import com.example.learnit.ui.feature.courses.courses.adapter.UserAnswerAdapter
@@ -37,7 +39,7 @@ class UserAnswersFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        val lessonId = arguments?.getInt(ApiConstants.ARG_LESSON_ID, -1) ?: -1
+        val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
 
         viewModel.loadUserAnswers(lessonId)
         return binding.root

@@ -45,7 +45,7 @@ class LessonsAdapter(
             }
 
             binding.buttonSeeResults.setOnClickListener {
-                onLessonItemClickListener.onTheoryClick(lesson)
+                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
             }
 
             binding.lessonTitleTextView.setOnClickListener {
