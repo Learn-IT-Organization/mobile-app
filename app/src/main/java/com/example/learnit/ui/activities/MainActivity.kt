@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.learnit.R
+import com.example.learnit.data.MyFirebaseMessagingService
 import com.example.learnit.databinding.ActivityMainBinding
+import com.example.learnit.ui.feature.courses.quiz.fragment.QuizFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
@@ -33,6 +35,14 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.nav_host_fragment)
         val bottomNavigationView: BottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setupWithNavController(navController)
+
+        MyFirebaseMessagingService.getInstance().notificationLiveData.observe(this) {
+            if (it) {
+                bottomNavigationView.menu.findItem(R.id.notificationsFragment)
+                    .setIcon(R.drawable.nav_notifications_active)
+                Log.d("MainActivity", "Notification received")
+            }
+        }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {

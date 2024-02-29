@@ -1,17 +1,19 @@
 package com.example.learnit.ui.feature.notifications.adapter
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnit.R
-import com.example.learnit.data.ApiConstants
 import com.example.learnit.databinding.NotificationsListItemBinding
 
-class NotificationsAdapter : RecyclerView.Adapter<NotificationsAdapter.NotificationViewHolder>() {
+class NotificationsAdapter(private val context: Context) : RecyclerView.Adapter<NotificationsAdapter.NotificationViewHolder>() {
 
     private var notifications: List<String> = emptyList()
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("notification_button_pressed", Context.MODE_PRIVATE)
 
     fun setNotifications(notifications: List<String>) {
         this.notifications = notifications
@@ -21,14 +23,25 @@ class NotificationsAdapter : RecyclerView.Adapter<NotificationsAdapter.Notificat
     inner class NotificationViewHolder(private val binding: NotificationsListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: String) {
-            binding.titleTextView.text = notification
 
-//            binding.root.setOnClickListener {
-//                itemView.findNavController().navigate(
-//                    R.id.action_notificationsFragment_to_chaptersFragment,
-//                    bundleOf(ApiConstants.COURSE_ID to course.course_id)
-//                )
-//            }
+            binding.titleTextView.text = notification
+            val notificationKey = "notification_$adapterPosition"
+
+            val wasClicked = sharedPreferences.getBoolean(notificationKey, false)
+
+            val backgroundColor = if (wasClicked) {
+                ContextCompat.getColor(context, android.R.color.white)
+            } else {
+                ContextCompat.getColor(context, R.color.md_theme_primaryContainer)
+            }
+            binding.notificationContainer.setBackgroundColor(backgroundColor)
+            binding.root.setOnClickListener {
+                sharedPreferences.edit().putBoolean(notificationKey, true).apply()
+
+                itemView.findNavController().navigate(
+                    R.id.action_notificationsFragment_to_coursesFragment
+                )
+            }
         }
     }
 
