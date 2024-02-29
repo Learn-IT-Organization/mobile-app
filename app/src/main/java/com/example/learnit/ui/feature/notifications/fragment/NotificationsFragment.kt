@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnit.R
+import com.example.learnit.data.MyFirebaseMessagingService
 import com.example.learnit.databinding.FragmentNotificationsBinding
 import com.example.learnit.ui.feature.notifications.adapter.NotificationsAdapter
 
@@ -42,7 +43,7 @@ class NotificationsFragment : Fragment() {
         val notificationsSet = sharedPreferences.getStringSet("notifications", mutableSetOf())
 
         val notificationsList = notificationsSet?.toList() ?: emptyList()
-        adapter.setNotifications(notificationsList)
+        adapter.setNotifications(notificationsList.reversed())
 
         return binding.root
     }
@@ -50,11 +51,15 @@ class NotificationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val sharedPreferences =
             requireContext().getSharedPreferences("notification_pref", Context.MODE_PRIVATE)
         val notificationsSet = sharedPreferences.getStringSet("notifications", mutableSetOf())
         val notificationsList = notificationsSet?.toList() ?: emptyList()
         Log.d("NotificationsFragment", "Notifications: $notificationsList")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MyFirebaseMessagingService.notificationIsActive()
     }
 }

@@ -1,18 +1,22 @@
 package com.example.learnit.ui.activities
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.learnit.R
 import com.example.learnit.data.MyFirebaseMessagingService
+import com.example.learnit.data.SharedPreferences
 import com.example.learnit.databinding.ActivityMainBinding
-import com.example.learnit.ui.feature.courses.quiz.fragment.QuizFragment
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!areNotificationsEnabled()) {
+            showNotificationPermissionDialog()
+        }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,11 +45,14 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView: BottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setupWithNavController(navController)
 
-        MyFirebaseMessagingService.getInstance().notificationLiveData.observe(this) {
+        MyFirebaseMessagingService.notificationLiveData2.observe(this) {
             if (it) {
                 bottomNavigationView.menu.findItem(R.id.notificationsFragment)
                     .setIcon(R.drawable.nav_notifications_active)
                 Log.d("MainActivity", "Notification received")
+            } else {
+                bottomNavigationView.menu.findItem(R.id.notificationsFragment)
+                    .setIcon(R.drawable.nav_notifications)
             }
         }
 
@@ -70,5 +82,38 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun areNotificationsEnabled(): Boolean {
+        val notificationManagerCompat = NotificationManagerCompat.from(this)
+        return notificationManagerCompat.areNotificationsEnabled()
+    }
+
+    private fun navigateToAppSettings() {
+        val intent: Intent
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+        } else {
+            intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", packageName, null)
+            intent.data = uri
+        }
+        startActivity(intent)
+    }
+
+    private fun showNotificationPermissionDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Notification Permission Required")
+        alertDialogBuilder.setMessage("To receive notifications, please enable notification permission in the app settings.")
+        alertDialogBuilder.setPositiveButton("Go to Settings") { _, _ ->
+            navigateToAppSettings()
+        }
+        alertDialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
 }
 

@@ -9,12 +9,14 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.learnit.R
 import com.example.learnit.ui.activities.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -22,16 +24,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         private const val TAG = "MyFirebaseMsgService"
         private const val CHANNEL_ID = "NewChapterChannel"
         private const val NOTIFICATION_ID = 1
-        private var instance: MyFirebaseMessagingService? = null
 
-        fun getInstance(): MyFirebaseMessagingService {
-            return instance ?: synchronized(this) {
-                instance ?: MyFirebaseMessagingService().also { instance = it }
-            }
+        private val notificationLiveData = MutableLiveData<Boolean>()
+        val notificationLiveData2: LiveData<Boolean> = notificationLiveData
+
+        fun notificationIsActive() {
+            notificationLiveData.value = false
         }
-
     }
-    val notificationLiveData = MutableLiveData<Boolean>()
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
@@ -46,8 +46,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             if (isNewChapter == "true") {
                 Log.d(TAG, "New chapter available")
                 showNewChapterNotification()
+//                clearNotificationsFromSharedPreferences(this)
                 notificationLiveData.postValue(true)
-                saveNotificationToSharedPreferences(this, remoteMessage.notification?.body ?: "")
+                saveNotificationToSharedPreferences(
+                    this,
+                    remoteMessage.notification?.body ?: ""
+                )
             }
         }
     }
@@ -64,22 +68,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_MUTABLE
+        )
+
         val notification =
-            NotificationCompat.Builder(this, CHANNEL_ID).setContentTitle("New Chapter Available")
+            NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("New Chapter Available")
                 .setContentText("A new chapter is available for you to learn!")
                 .setSmallIcon(R.drawable.nav_notifications)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
                 .build()
-
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
+
     private fun saveNotificationToSharedPreferences(context: Context, notificationBody: String) {
-        val sharedPreferences =
-            context.getSharedPreferences("notification_pref", Context.MODE_PRIVATE)
-        val notifications = sharedPreferences.getStringSet("notifications", mutableSetOf())?.toMutableSet()
+        val sharedPreferences = context.getSharedPreferences("notification_pref", Context.MODE_PRIVATE)
+
+        val notifications = sharedPreferences.getStringSet("notifications", mutableSetOf())?.toMutableList()
+
         notifications?.add(notificationBody)
-        sharedPreferences.edit().putStringSet("notifications", notifications).apply()
+
+        notifications?.sortByDescending { it }
+
+        sharedPreferences.edit().putStringSet("notifications", notifications?.toSet()).apply()
     }
 
+
+    private fun clearNotificationsFromSharedPreferences(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("notification_pref", Context.MODE_PRIVATE)
+        sharedPreferences.edit().remove("notifications").apply()
+    }
 }

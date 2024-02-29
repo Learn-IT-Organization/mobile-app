@@ -30,7 +30,7 @@ class SplashViewModel : ViewModel() {
             try {
                 repository.sendFCMToken(TokenData(token))
             } catch (e: Exception) {
-                Log.e(CoursesViewModel.TAG, "Error fetching courses: ${e.message}")
+                Log.e(TAG, "sendFCMToken: $e")
             }
         }
     }
