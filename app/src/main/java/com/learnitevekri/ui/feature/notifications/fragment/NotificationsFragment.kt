@@ -39,7 +39,14 @@ class NotificationsFragment : Fragment() {
         val notificationsSet = sharedPreferences.getStringSet("notifications", mutableSetOf())
 
         val notificationsList = notificationsSet?.toList() ?: emptyList()
-        adapter.setNotifications(notificationsList.reversed())
+        if (notificationsList.isEmpty())
+        {
+            binding.textViewNoNotifications.visibility = View.VISIBLE
+        }
+        else {
+            binding.textViewNoNotifications.visibility = View.GONE
+            adapter.setNotifications(notificationsList)
+        }
 
         return binding.root
     }
