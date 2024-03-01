@@ -25,8 +25,8 @@
         android:layout_marginEnd="10dp"
         android:clickable="true"
         android:onClick="trueButtonClicked"
-        app:layout_constraintEnd_toStartOf="@+id/falseButton"
         android:src="@mipmap/ic_true_foreground"
+        app:layout_constraintEnd_toStartOf="@+id/falseButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/question" />
 
@@ -34,14 +34,14 @@
         android:id="@+id/falseButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="80dp"
         android:clickable="false"
         android:onClick="falseButtonClicked"
         android:src="@mipmap/ic_false_foreground"
-        app:layout_constraintStart_toEndOf="@+id/trueButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trueButton"
         app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <ImageView
@@ -51,7 +51,7 @@
         android:src="@drawable/question"
         app:layout_constraintBottom_toTopOf="@+id/verifyButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/verifyButton"
