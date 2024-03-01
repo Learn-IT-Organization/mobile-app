@@ -49,7 +49,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
     ): View {
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.imageViewBack.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_chaptersFragment_to_courseFragment)
         }
         progressBar = binding.loadingSpinner
         return binding.root
