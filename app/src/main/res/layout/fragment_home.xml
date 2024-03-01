@@ -1,228 +1,245 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_onSecondary"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/md_theme_onSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <View
-                android:id="@+id/containerViewProfile"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="197dp"
-                android:background="@drawable/custom_profile_container"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/welcomeBackTextView"
-                style="@style/subtitle_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/welcome_back"
-                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewProfilePhoto"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:id="@+id/containerViewProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="197dp"
+                    android:background="@drawable/custom_profile_container"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewName"
-                style="@style/subtitle_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/student"
-                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/welcomeBackTextView" />
+                <TextView
+                    android:id="@+id/welcomeBackTextView"
+                    style="@style/subtitle_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/welcome_back"
+                    android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                    app:layout_constraintEnd_toStartOf="@+id/imageViewProfilePhoto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageViewDecor"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginTop="125dp"
-                android:src="@drawable/graduation_girl"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintStart_toEndOf="@+id/iconUsername"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textViewName"
+                    style="@style/subtitle_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/student"
+                    android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/welcomeBackTextView" />
 
-            <ImageView
-                android:id="@+id/iconUsername"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_username"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewName" />
+                <ImageView
+                    android:id="@+id/imageViewDecor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/graduation_girl"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewProfilePhoto"
+                    app:layout_constraintStart_toEndOf="@+id/textViewUsername"
+                    app:layout_constraintTop_toBottomOf="@id/textViewUsername" />
 
-            <TextView
-                android:id="@+id/textViewUsername"
-                style="@style/paragraph_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/student_gmail"
-                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-                app:layout_constraintStart_toEndOf="@id/iconUsername"
-                app:layout_constraintTop_toBottomOf="@id/textViewName" />
+                <ImageView
+                    android:id="@+id/iconUsername"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_username"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageViewProfilePhoto"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/avatar_female"
-                app:layout_constraintBottom_toBottomOf="@id/containerViewProfile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/Circular" />
+                <TextView
+                    android:id="@+id/textViewUsername"
+                    style="@style/paragraph_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/student_gmail"
+                    android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+                    app:layout_constraintStart_toEndOf="@id/iconUsername"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="-20dp"
-                android:background="@drawable/white_background"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containerViewProfile">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageViewProfilePhoto"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/avatar_female"
+                    app:layout_constraintBottom_toBottomOf="@id/containerViewProfile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/Circular" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/linearLayout"
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="-20dp"
+                    android:background="@drawable/white_background"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/containerViewProfile">
 
-                    <TextView
-                        android:id="@+id/textViewStreaks"
-                        style="@style/paragraph_style"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/streak_example"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/iconStreak"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/iconStreak"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_streak"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/textViewStreaks"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewUserLevel"
-                        style="@style/paragraph_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="200dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="1dp"
-                        android:text="@string/user_level_beginner"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iconUserLevel"
-                        app:layout_constraintStart_toEndOf="@id/iconStreak"
-                        app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/textViewStreaks"
+                                style="@style/paragraph_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/streak_example" />
 
-                    <ImageView
-                        android:id="@+id/iconUserLevel"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_level"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/textViewUserLevel"
-                        app:layout_constraintTop_toTopOf="parent" />
+                            <ImageView
+                                android:id="@+id/iconStreak"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:src="@drawable/ic_streak" />
 
+                        </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textViewUserLevel"
+                                style="@style/paragraph_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/user_level_beginner" />
+
+                            <ImageView
+                                android:id="@+id/iconUserLevel"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_level" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewNoCourse"
+                    style="@style/title_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/you_haven_t_started_any_courses_yet"
+                    app:layout_constraintBottom_toTopOf="@id/imageViewNoCourse"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                <ImageView
+                    android:id="@+id/imageViewNoCourse"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/road_to_knowledge"
+                    app:layout_constraintBottom_toTopOf="@id/buttonStartLearning"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewNoCourse" />
+
+                <Button
+                    android:id="@+id/buttonStartLearning"
+                    style="@style/verify_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/baloo"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/let_s_start_learning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewNoCourse" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textViewNoCourse"
+                android:id="@+id/textViewContinueLearning"
                 style="@style/title_style"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/you_haven_t_started_any_courses_yet" />
+                android:text="@string/continue_learning"
+                android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/imageViewNoCourse"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:layout_constraintTop_toBottomOf="@id/textViewNoCourse"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/road_to_knowledge"
-                />
-
-            <Button
-                android:id="@+id/buttonStartLearning"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myCoursesRecycleView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/verify_button"
-                android:fontFamily="@font/baloo"
-                android:text="@string/let_s_start_learning"
-                app:layout_constraintTop_toBottomOf="@id/imageViewNoCourse"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-            />
+                android:paddingTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/my_course_list_item" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/textViewContinueLearning"
-            style="@style/title_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/continue_learning"
-            android:visibility="gone"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/myCoursesRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/my_course_list_item" />
-
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
