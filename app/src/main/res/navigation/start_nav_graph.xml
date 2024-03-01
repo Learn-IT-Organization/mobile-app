@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.learnit.ui.feature.splash.fragment.SplashFragment"
+        android:name="com.learnitevekri.ui.feature.splash.fragment.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.learnit.ui.feature.login.fragment.LoginFragment"
+        android:name="com.learnitevekri.ui.feature.login.fragment.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.learnit.ui.feature.register.fragment.RegisterFragment"
+        android:name="com.learnitevekri.ui.feature.register.fragment.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action

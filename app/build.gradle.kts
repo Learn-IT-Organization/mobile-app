@@ -8,11 +8,11 @@ plugins {
 
 android {
 
-    namespace = "com.example.learnit"
+    namespace = "com.learnitevekri"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.learnit"
+        applicationId = "com.learnitevekri"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
