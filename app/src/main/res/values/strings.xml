@@ -69,4 +69,6 @@
     <string name="cancel">Cancel</string>
     <string name="reset_your_password">Reset your password</string>
     <string name="notifications">Notifications</string>
+    <string name="back_to_quiz">Back to quiz</string>
+    <string name="more">More</string>
 </resources>
