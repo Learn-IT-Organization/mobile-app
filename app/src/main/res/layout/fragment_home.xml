@@ -26,7 +26,7 @@
                 <View
                     android:id="@+id/containerViewProfile"
                     android:layout_width="match_parent"
-                    android:layout_height="197dp"
+                    android:layout_height="200dp"
                     android:background="@drawable/custom_profile_container"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="15dp"
                     android:src="@drawable/graduation_girl"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                     app:layout_constraintEnd_toStartOf="@id/imageViewProfilePhoto"

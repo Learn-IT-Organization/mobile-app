@@ -52,7 +52,7 @@
                 android:drawableLeft="@drawable/book_button"
                 android:fontFamily="@font/baloo"
                 android:text="@string/read_more"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/buttonQuiz"
@@ -64,7 +64,7 @@
                 android:drawableLeft="@drawable/ic_quiz"
                 android:fontFamily="@font/baloo"
                 android:text="@string/quiz"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:visibility="visible" />
 
             <Button
@@ -75,7 +75,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/baloo"
                 android:text="@string/see_results_button"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:visibility="gone" />
         </LinearLayout>
 

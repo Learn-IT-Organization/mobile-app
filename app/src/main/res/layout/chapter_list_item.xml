@@ -16,21 +16,20 @@
             style="@style/title_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/moreButton"
             android:padding="20dp"
             android:text="@string/title"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textSize="20sp"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/moreButton"
-            android:layout_marginEnd="16dp" />
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <ImageButton
             android:id="@+id/moreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:padding="20dp"
             android:backgroundTint="@android:color/transparent"
+            android:padding="20dp"
             android:src="@drawable/more" />
 
         <ProgressBar

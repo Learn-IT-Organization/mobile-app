@@ -46,4 +46,5 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="66dp"
         tools:listitem="@layout/chapter_list_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

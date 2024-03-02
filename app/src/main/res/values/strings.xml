@@ -71,4 +71,15 @@
     <string name="notifications">Notifications</string>
     <string name="back_to_quiz">Back to quiz</string>
     <string name="more">More</string>
+    <string name="you_don_t_have_any_notifications_yet">You don\'t have any notifications yet.</string>
+    <string name="score_0">Score: 0</string>
+    <string name="_1_10">1/10</string>
+    <string name="option_3">Option 3</string>
+    <string name="option_4">Option 4</string>
+    <string name="option_2">Option 2</string>
+    <string name="option_1">Option 1</string>
+    <string name="up">UP</string>
+    <string name="concept_1">CONCEPT 1</string>
+    <string name="down">DOWN</string>
+    <string name="learn_it">LEARN IT</string>
 </resources>

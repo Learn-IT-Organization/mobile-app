@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
-        android:text="UP"
+        android:fontFamily="@font/baloo"
+        android:text="@string/up"
         app:layout_constraintBottom_toTopOf="@id/concept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,8 @@
         style="@style/sorting_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CONCEPT 1"
+        android:fontFamily="@font/baloo"
+        android:text="@string/concept_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp"
-        android:text="DOWN"
+        android:fontFamily="@font/baloo"
+        android:text="@string/down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/concept" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

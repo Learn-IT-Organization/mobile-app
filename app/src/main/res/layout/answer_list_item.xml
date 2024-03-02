@@ -1,5 +1,4 @@
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/question_card_view"
     android:layout_width="match_parent"
@@ -25,20 +24,19 @@
                 android:id="@+id/iconQuestionType"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/ic_multiple_choice" />
 
             <TextView
                 android:id="@+id/questionText"
-                style="@style/paragraph_style"
-                android:layout_marginStart="5dp"
+                style="@style/subtitle_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="In an array with a capacity of 100 and a size of 50, what is the index of the last element?"
-                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-                android:textSize="18sp" />
+                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
         </LinearLayout>
 
         <TextView
@@ -48,8 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Your answer: 49, 99"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-            android:textSize="14sp" />
+            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
 
         <TextView
             android:id="@+id/correctness"
@@ -58,8 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Correctness: Incorrect, correct answer(s): 49"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-            android:textSize="14sp" />
+            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
 
         <TextView
             android:id="@+id/score"
@@ -68,7 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Score: 0"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-            android:textSize="14sp" />
+            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
