@@ -1,7 +1,7 @@
 <resources>
     <string-array name="user_level_array">
-        <item>Beginner</item>
-        <item>Intermediate</item>
-        <item>Advanced</item>
+        <item style="@style/subtitle_style">Beginner</item>
+        <item style="@style/subtitle_style">Intermediate</item>
+        <item style="@style/subtitle_style">Advanced</item>
     </string-array>
 </resources>

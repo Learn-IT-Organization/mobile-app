@@ -8,7 +8,7 @@
     </style>
 
     <style name="sorting_button" parent="ShapeAppearanceOverlay.Material3.Button">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:backgroundTint">@color/md_theme_secondaryContainer</item>
         <item name="android:textColor">@color/md_theme_secondary_mediumContrast</item>
@@ -18,7 +18,7 @@
 
     <style name="sorting_textView" parent="Widget.AppCompat.TextView">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">30dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:background">@drawable/rounded_background_sorting</item>
         <item name="android:textColor">@color/md_theme_secondaryContainer</item>
@@ -26,49 +26,49 @@
 
     <style name="verify_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:backgroundTint">@color/md_theme_secondary_mediumContrast</item>
     </style>
 
     <style name="theory_more_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_primary</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:backgroundTint">@color/md_theme_onPrimary</item>
     </style>
 
     <style name="theory_back_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:backgroundTint">@color/md_theme_primary</item>
     </style>
 
     <style name="unable_verify_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_outline_mediumContrast</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:backgroundTint">@color/md_theme_outlineVariant_mediumContrast</item>
     </style>
 
     <style name="title_style">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="description_title_style">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:titleMarginStart">10dp</item>
     </style>
 
     <style name="subtitle_style">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="paragraph_style">
         <item name="android:fontFamily">@font/baloo</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="password_text_field">
@@ -86,7 +86,7 @@
 
     <style name="lesson_more_button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/md_theme_primary</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:backgroundTint">@color/md_theme_onPrimary</item>
     </style>
 

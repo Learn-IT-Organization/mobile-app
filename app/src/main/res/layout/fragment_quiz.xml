@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@+id/textScore"
-        style="@style/paragraph_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Score: 0"
+        android:fontFamily="@font/baloo"
+        android:text="@string/score_0"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +28,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        style="@style/paragraph_style"
-        android:text="1/10"
+        android:fontFamily="@font/baloo"
+        android:text="@string/_1_10"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textScore" />
@@ -54,8 +55,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="109dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/close"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/textScore"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +72,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
