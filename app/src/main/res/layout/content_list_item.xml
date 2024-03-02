@@ -73,7 +73,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/baloo"
                 android:text="@string/back_to_quiz"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/moreButton"
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/baloo"
                 android:text="@string/more"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
         </LinearLayout>
 

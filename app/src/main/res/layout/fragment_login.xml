@@ -157,7 +157,7 @@
             android:focusable="true"
             android:text="@string/sign_up"
             android:textColor="@color/md_theme_primary"
-            android:textSize="15sp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <TextView

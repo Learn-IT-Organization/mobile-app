@@ -28,7 +28,7 @@
         android:fontFamily="@font/black_ops_one"
         android:text="LEARN IT"
         android:textColor="@color/md_theme_primary"
-        android:textSize="60sp"
+        android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

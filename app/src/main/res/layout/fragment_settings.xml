@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/general"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/theme"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
 
         <Switch
             android:id="@+id/themeSwitch"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/account"
-            android:textSize="22sp"
+            android:textSize="22dp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/logout"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
     </LinearLayout>
 
 </RelativeLayout>
