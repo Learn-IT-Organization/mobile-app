@@ -93,7 +93,7 @@ interface ApiService {
     suspend fun getLessonResultWithValidation(@Path("lessonId") lessonId: Int): Response<List<UserAnswersData>>
 
     @POST("/FCM_token")
-    suspend fun sendFCMToken(@Body token: TokenData): Response<String>
+    suspend fun sendFCMToken(@Body token: TokenData): Response<Void>
 
     @POST("requestResetCode")
     suspend fun requestResetCode(@Body resetRequest: ForgotPasswordData): Response<ResetPasswordResponseData>

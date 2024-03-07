@@ -14,7 +14,6 @@ import com.learnitevekri.domain.login.LoginRepository
 
 object LoginRepositoryImpl : LoginRepository {
     private val TAG = LoginRepositoryImpl::class.java.simpleName
-    private val apiService = RetrofitAdapter.provideApiService()
 
     override suspend fun getLoginInformation(loginForm: LoginData): ResponseData<Data> {
         val apiService = RetrofitAdapter.provideApiService()
@@ -44,12 +43,10 @@ object LoginRepositoryImpl : LoginRepository {
         return response.body()!!
     }
 
-    override suspend fun sendFCMToken(token: TokenData) {
+    override suspend fun sendFCMToken(token: String) {
         val apiService = RetrofitAdapter.provideApiService()
-        val response = apiService.sendFCMToken(token)
-        if (response.isSuccessful) {
-            Log.d(TAG, "sendFCMToken: $response")
-        }
+        val response = apiService.sendFCMToken(TokenData(token_name = token))
+        Log.d(TAG, "sendFCMToken: $response")
     }
 
     override suspend fun requestResetCode(forgotPasswordData: ForgotPasswordData): ResetPasswordResponseData {

@@ -15,8 +15,15 @@ import com.learnitevekri.R
 import com.learnitevekri.ui.activities.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.learnitevekri.domain.login.LoginRepository
+import com.learnitevekri.ui.App
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    private val repository: LoginRepository = App.instance.getLoginRepository()
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
@@ -33,6 +40,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                repository.sendFCMToken(token)
+            }
+            catch (e: Exception) {
+                Log.e(TAG, "Error sending FCM token: $e")
+            }
+        }
         Log.d(com.learnitevekri.data.MyFirebaseMessagingService.Companion.TAG, "Refreshed token: $token")
     }
 
