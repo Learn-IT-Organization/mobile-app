@@ -3,6 +3,7 @@ package com.learnitevekri.ui.feature.courses.courses.adapter
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
@@ -44,11 +45,12 @@ class ChaptersAdapter(
                 })
             )
 
-            binding.moreButton.setOnClickListener{
+            binding.moreButton.setOnClickListener {
                 val customDialog = Dialog(binding.root.context)
                 customDialog.setContentView(R.layout.dialog_description)
 
-                val descriptionTextView: TextView = customDialog.findViewById(R.id.descriptionTextView)
+                val descriptionTextView: TextView =
+                    customDialog.findViewById(R.id.descriptionTextView)
                 descriptionTextView.text = chapter.chapter.chapterDescription
 
                 val closeButton: ImageButton = customDialog.findViewById(R.id.closeButton)
@@ -79,10 +81,25 @@ class ChaptersAdapter(
     override fun onBindViewHolder(holder: ChaptersViewHolder, position: Int) {
         val chapter = chapters[position]
         holder.bind(chapter)
+        
+        val isPreviousChapterCompleted = if (position == 0) true else isChapterCompleted(position - 1)
+
+        if (isPreviousChapterCompleted) {
+            holder.itemView.visibility = View.VISIBLE
+        } else {
+            holder.itemView.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
         return chapters.size
     }
 
+    private fun isChapterCompleted(chapterPosition: Int): Boolean {
+        if (chapterPosition >= 0 && chapterPosition < chapters.size) {
+            val chapter = chapters[chapterPosition]
+            return chapter.chapterResultData.lessonsCompleted == chapter.chapterResultData.totalLessons
+        }
+        return false
+    }
 }
