@@ -28,8 +28,10 @@ class LessonsAdapter(
             binding.lessonTitleTextView.text = lesson.lessonName
 
             if (!isPreviousChapterCompleted) {
-                binding.buttonQuiz.isEnabled = false
-                binding.buttonSeeResults.isEnabled = false
+                if (lesson.lessonType == "theory") {
+                    binding.buttonQuiz.visibility = View.GONE
+                }
+                binding.buttonReadMore.isEnabled = false
             } else {
                 val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
 
