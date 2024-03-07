@@ -11,12 +11,12 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.learnitevekri.R
 import com.learnitevekri.databinding.FragmentSplashBinding
 import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.splash.viewModel.SplashViewModel
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 
 class SplashFragment : Fragment() {
 
@@ -32,7 +32,8 @@ class SplashFragment : Fragment() {
 
         val topAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.top_animation)
         val bottomAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.bottom_animation)
-        val scaleUpAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.scale_up_animation)
+        val scaleUpAnimation =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.scale_up_animation)
 
         val splashImage = binding.splashImage
         val splashTitle = binding.splashTitle
@@ -48,8 +49,7 @@ class SplashFragment : Fragment() {
             }
 
             val token = task.result
-            viewModel.sendFCMToken(token)
-
+            Log.d("FCM", "FCM token: $token")
         })
 
         Handler().postDelayed({
