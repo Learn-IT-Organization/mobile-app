@@ -3,7 +3,6 @@ package com.learnitevekri.ui.feature.courses.courses.adapter
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
@@ -26,7 +25,7 @@ class ChaptersAdapter(
     }
 
     class ChaptersViewHolder(
-        private val binding: ChapterListItemBinding,
+        val binding: ChapterListItemBinding,
         private var lessonProgressList: List<LessonProgressData>,
         private val listener: OnItemClickListener
     ) :
@@ -60,10 +59,7 @@ class ChaptersAdapter(
 
                 customDialog.show()
             }
-
-
-            binding.lessonsRecycleView.adapter =
-                LessonsAdapter(chapter.lessons, lessonProgressList, listener)
+            
         }
     }
 
@@ -81,14 +77,12 @@ class ChaptersAdapter(
     override fun onBindViewHolder(holder: ChaptersViewHolder, position: Int) {
         val chapter = chapters[position]
         holder.bind(chapter)
-        
-        val isPreviousChapterCompleted = if (position == 0) true else isChapterCompleted(position - 1)
-
-        if (isPreviousChapterCompleted) {
-            holder.itemView.visibility = View.VISIBLE
-        } else {
-            holder.itemView.visibility = View.GONE
-        }
+        val isPreviousChapterCompleted =
+            if (position == 0) true else isChapterCompleted(position - 1)
+        holder.binding.courseCardView.alpha = if (isPreviousChapterCompleted) 1.0f else 0.5f
+        holder.binding.moreButton.isEnabled = isPreviousChapterCompleted
+        val lessonsAdapter = LessonsAdapter(chapter.lessons, lessonProgressList, onChapterItemClickListener, isPreviousChapterCompleted)
+        holder.binding.lessonsRecycleView.adapter = lessonsAdapter
     }
 
     override fun getItemCount(): Int {

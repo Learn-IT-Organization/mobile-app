@@ -12,7 +12,8 @@ import com.learnitevekri.databinding.LessonListItemBinding
 class LessonsAdapter(
     private val lessonList: List<LessonData>,
     private var lessonProgressList: List<LessonProgressData>,
-    private val onLessonItemClickListener: ChaptersAdapter.OnItemClickListener
+    private val onLessonItemClickListener: ChaptersAdapter.OnItemClickListener,
+    private val isPreviousChapterCompleted: Boolean
 ) : RecyclerView.Adapter<LessonsAdapter.LessonsViewHolder>() {
 
     companion object {
@@ -26,37 +27,41 @@ class LessonsAdapter(
         fun bind(lesson: LessonData, lessonProgressList: List<LessonProgressData>) {
             binding.lessonTitleTextView.text = lesson.lessonName
 
-            val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
-
-            if (progress?.isCompleted == true) {
-                binding.buttonQuiz.visibility = View.GONE
-                binding.buttonSeeResults.visibility = View.VISIBLE
+            if (!isPreviousChapterCompleted) {
+                binding.buttonQuiz.isEnabled = false
+                binding.buttonSeeResults.isEnabled = false
             } else {
-                binding.buttonQuiz.visibility = View.VISIBLE
-                binding.buttonSeeResults.visibility = View.GONE
-                binding.buttonQuiz.text = "Quiz"
-            }
+                val progress = lessonProgressList.find { it.lessonId == lesson.lessonId }
 
-            if (lesson.lessonType == "theory")
-                binding.buttonQuiz.visibility = View.GONE
+                if (progress?.isCompleted == true) {
+                    binding.buttonQuiz.visibility = View.GONE
+                    binding.buttonSeeResults.visibility = View.VISIBLE
+                } else {
+                    binding.buttonQuiz.visibility = View.VISIBLE
+                    binding.buttonSeeResults.visibility = View.GONE
+                    binding.buttonQuiz.text = "Quiz"
+                }
 
-            binding.buttonQuiz.setOnClickListener {
-                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
-            }
+                if (lesson.lessonType == "theory")
+                    binding.buttonQuiz.visibility = View.GONE
 
-            binding.buttonSeeResults.setOnClickListener {
-                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
-            }
+                binding.buttonQuiz.setOnClickListener {
+                    onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
+                }
 
-            binding.lessonTitleTextView.setOnClickListener {
-                onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
-            }
+                binding.buttonSeeResults.setOnClickListener {
+                    onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
+                }
 
-            binding.buttonReadMore.setOnClickListener {
-                onLessonItemClickListener.onTheoryClick(lesson)
+                binding.lessonTitleTextView.setOnClickListener {
+                    onLessonItemClickListener.onQuizClick(lesson, lessonProgressList)
+                }
+
+                binding.buttonReadMore.setOnClickListener {
+                    onLessonItemClickListener.onTheoryClick(lesson)
+                }
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonsViewHolder {
