@@ -11,10 +11,10 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.learnitevekri.R
 import com.learnitevekri.ui.activities.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.learnitevekri.R
 import com.learnitevekri.domain.login.LoginRepository
 import com.learnitevekri.ui.App
 import kotlinx.coroutines.CoroutineScope
@@ -60,12 +60,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             if (isNewChapter == "true") {
                 Log.d(com.learnitevekri.data.MyFirebaseMessagingService.Companion.TAG, "New chapter available")
                 showNewChapterNotification()
-//                clearNotificationsFromSharedPreferences(this)
                 com.learnitevekri.data.MyFirebaseMessagingService.Companion.notificationLiveData.postValue(true)
                 saveNotificationToSharedPreferences(
                     this,
                     remoteMessage.notification?.body ?: ""
                 )
+//                clearNotificationsFromSharedPreferences(this)
             }
         }
     }
