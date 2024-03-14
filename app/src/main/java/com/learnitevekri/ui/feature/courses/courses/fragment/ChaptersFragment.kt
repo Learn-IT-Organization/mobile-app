@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +52,14 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         binding.imageViewBack.setOnClickListener {
             findNavController().navigate(R.id.action_chaptersFragment_to_courseFragment)
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_chaptersFragment_to_courseFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         progressBar = binding.loadingSpinner
         return binding.root
     }

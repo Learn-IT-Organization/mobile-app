@@ -210,8 +210,8 @@
                     style="@style/verify_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/baloo"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/baloo"
                     android:text="@string/let_s_start_learning"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -226,8 +226,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/continue_learning"
                 android:visibility="gone" />
 
@@ -235,11 +235,12 @@
                 android:id="@+id/myCoursesRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:paddingTop="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/my_course_list_item" />
 
         </LinearLayout>
     </LinearLayout>
+
 </ScrollView>
