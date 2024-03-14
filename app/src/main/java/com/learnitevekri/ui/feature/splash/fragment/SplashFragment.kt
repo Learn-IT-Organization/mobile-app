@@ -1,6 +1,8 @@
 package com.learnitevekri.ui.feature.splash.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -16,13 +18,18 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.learnitevekri.R
 import com.learnitevekri.databinding.FragmentSplashBinding
 import com.learnitevekri.ui.activities.MainActivity
+import com.learnitevekri.ui.feature.courses.courses.fragment.ChaptersFragment
+import com.learnitevekri.ui.feature.splash.SplashNavigationListener
 import com.learnitevekri.ui.feature.splash.viewModel.SplashViewModel
 
-class SplashFragment : Fragment() {
+class SplashFragment : Fragment(), SplashNavigationListener {
 
     private val viewModel: SplashViewModel by viewModels()
     private lateinit var binding: FragmentSplashBinding
 
+    companion object {
+        val TAG: String = SplashFragment::class.java.simpleName
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,14 +49,44 @@ class SplashFragment : Fragment() {
         splashImage.startAnimation(scaleUpAnimation)
         splashTitle.startAnimation(bottomAnim)
 
+        viewModel.setNavigationListener(this)
+
+        if (isNetworkAvailable()) {
+            checkTheServer()
+        } else {
+            findNavController().navigate(R.id.action_SplashFragment_to_NoInternetFragment)
+            Log.d(TAG, "No internet connection")
+        }
+        return binding.root
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    private fun checkTheServer() {
+        viewModel.checkTheServer()
+    }
+
+    override fun navigateToNoConnectionFragment() {
+        findNavController().navigate(R.id.action_SplashFragment_to_NoConnectionFragment)
+    }
+
+    override fun navigateToErrorFragment() {
+        findNavController().navigate(R.id.action_SplashFragment_to_ServerErrorFragment)
+    }
+
+    override fun initSplashScreen() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d("FCM", "Fetching FCM registration token failed", task.exception)
+                Log.d(TAG, "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-
             val token = task.result
-            Log.d("FCM", "FCM token: $token")
+            Log.d(TAG, "FCM token: $token")
         })
 
         Handler().postDelayed({
@@ -62,8 +99,5 @@ class SplashFragment : Fragment() {
                 }
             }
         }, 3000)
-
-        return binding.root
     }
-
 }

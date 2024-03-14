@@ -82,4 +82,9 @@
     <string name="concept_1">CONCEPT 1</string>
     <string name="down">DOWN</string>
     <string name="learn_it">LEARN IT</string>
+    <string name="try_again">Try Again</string>
+    <string name="no_internet_title">Ooops!</string>
+    <string name="no_internet_description">Slow or no internet connection. Please check your internet connection and try again.</string>
+    <string name="no_connection">The port we use is not responding in your area. Please switch to mobile internet and try again.</string>
+    <string name="server_error_message">The server is not responding. We are already working on its restoration, please wait and try again.</string>
 </resources>

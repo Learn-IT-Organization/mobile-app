@@ -23,6 +23,7 @@ import com.learnitevekri.data.user.login.model.ResetCodeData
 import com.learnitevekri.databinding.DialogForgotPasswordBinding
 import com.learnitevekri.databinding.DialogResetPasswordBinding
 import com.learnitevekri.databinding.FragmentLoginBinding
+import com.learnitevekri.databinding.FragmentSplashBinding
 import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.login.model.LoginModel
 import com.learnitevekri.ui.feature.login.viewModel.LoginViewModel
@@ -34,16 +35,14 @@ class LoginFragment : Fragment() {
     }
 
     private val viewModel: LoginViewModel by viewModels()
-
-    private var parentBinding: FragmentLoginBinding? = null
-    private val binding get() = parentBinding!!
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        parentBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -254,11 +253,4 @@ class LoginFragment : Fragment() {
 
         editText.setSelection(selection)
     }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        parentBinding = null
-    }
-
 }

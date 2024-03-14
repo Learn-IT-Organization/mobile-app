@@ -15,9 +15,12 @@ object CourseRepositoryImpl : CourseRepository {
             if (response.isSuccessful) {
                 val responseData = response.body()
                 return responseData ?: emptyList()
+            } else {
+                Log.e(TAG, "Error fetching courses1: ${response.code()}")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error fetching courses: ${e.message}")
+            Log.e(TAG, "Error fetching courses2: ${e.message}")
+            throw e
         }
         return emptyList()
     }

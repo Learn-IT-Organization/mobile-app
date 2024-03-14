@@ -80,6 +80,12 @@
         <item name="android:inputType">textPassword</item>
     </style>
 
+    <style name="no_internet_title_style">
+        <item name="android:fontFamily">@font/baloo</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
     <style name="Circular">
         <item name="cornerSize">50%</item>
     </style>
