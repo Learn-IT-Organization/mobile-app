@@ -52,15 +52,6 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         binding.imageViewBack.setOnClickListener {
             findNavController().navigate(R.id.action_chaptersFragment_to_courseFragment)
         }
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_chaptersFragment_to_courseFragment)
-            }
-        }
-        
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         progressBar = binding.loadingSpinner
         return binding.root
     }
