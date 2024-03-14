@@ -22,6 +22,7 @@ object LoginRepositoryImpl : LoginRepository {
         if (response.isSuccessful) {
             response.body()?.let { responseBody ->
                 val loginData = responseBody.data
+                Log.d(TAG, "getLoginInformation: $loginData")
                 SharedPreferences.storeToken(loginData?.value ?: "")
                 val expirationTimeMillis = System.currentTimeMillis() + (loginData?.expires ?: 0)
                 SharedPreferences.storeExpires(expirationTimeMillis)

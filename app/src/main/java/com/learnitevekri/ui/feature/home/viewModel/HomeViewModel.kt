@@ -59,7 +59,12 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getUserById(loggedUserId: Long): LoggedUserData? {
-        return userList.find { it.userId == loggedUserId }
+        if (userList.isNotEmpty()) {
+            return userList.find {
+                it.userId == loggedUserId
+            }
+        }
+        return null
     }
 
     fun getUserImagePath() {

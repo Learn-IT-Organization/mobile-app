@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/creatures_server_down" />
+        android:src="@drawable/server_down" />
 
     <LinearLayout
         android:layout_width="match_parent"
