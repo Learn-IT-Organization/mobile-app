@@ -18,6 +18,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.learnitevekri.R
@@ -143,10 +144,16 @@ class QuizFragment : Fragment() {
                 putInt(ARG_LESSON_ID, lessonId)
             }
 
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.quizFragment, true)
+                .build()
+
             findNavController().navigate(
                 R.id.action_quizFragment_to_chaptersFragment,
-                bundle
+                bundle,
+                navOptions
             )
+
             Log.d(TAG, "Deleting responses for lessonId: $lessonId")
             viewModel.deleteResponses(lessonId)
             dialog.dismiss()
@@ -267,6 +274,8 @@ class QuizFragment : Fragment() {
         currentQuestionNumber.removeObservers(requireActivity())
         currentQuestionNumber.value = 0
         totalScore = 0.0f
+
+
     }
 
     @OptIn(DelicateCoroutinesApi::class)
