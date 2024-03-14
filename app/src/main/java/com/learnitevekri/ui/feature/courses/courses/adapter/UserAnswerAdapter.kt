@@ -37,16 +37,21 @@ class UserAnswerAdapter(private val userAnswersList: List<UserAnswersData>) :
             )
 
             binding.questionText.text = userAnswer.questionText
-            
+
             binding.userAnswer.text = "Your answer: ${userAnswer.userAnswer}"
             if (userAnswer.correctness.correct) {
-                binding.correctness.text = "Correct!!"
-                binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.green))
+                binding.correctness.text = userAnswer.correctness.responseText
+                if (userAnswer.score.toInt() == 1) {
+                    binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.green))
+                } else {
+                    binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.yellow))
+                }
             } else {
                 binding.correctness.text = userAnswer.correctness.responseText
                 binding.correctness.setTextColor(binding.root.context.resources.getColor(R.color.red))
             }
-            binding.score.text = "Score: ${userAnswer.score.toInt()}"
+
+            binding.score.text = "Score: ${(userAnswer.score * 10).toInt()}"
         }
     }
 
