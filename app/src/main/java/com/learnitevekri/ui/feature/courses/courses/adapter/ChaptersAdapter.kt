@@ -59,7 +59,7 @@ class ChaptersAdapter(
 
                 customDialog.show()
             }
-            
+
         }
     }
 
@@ -81,7 +81,12 @@ class ChaptersAdapter(
             if (position == 0) true else isChapterCompleted(position - 1)
         holder.binding.courseCardView.alpha = if (isPreviousChapterCompleted) 1.0f else 0.5f
         holder.binding.moreButton.isEnabled = isPreviousChapterCompleted
-        val lessonsAdapter = LessonsAdapter(chapter.lessons, lessonProgressList, onChapterItemClickListener, isPreviousChapterCompleted)
+        val lessonsAdapter = LessonsAdapter(
+            chapter.lessons,
+            lessonProgressList,
+            onChapterItemClickListener,
+            isPreviousChapterCompleted
+        )
         holder.binding.lessonsRecycleView.adapter = lessonsAdapter
     }
 

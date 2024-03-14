@@ -5,11 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.databinding.FragmentTheoryBinding

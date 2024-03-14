@@ -118,7 +118,7 @@ class QuizFragment : Fragment() {
                         is SharedQuizViewModel.QuestionAnswersPageState.Failure -> {
                             Log.e(
                                 TAG,
-                                "Error loading MultipleChoice QuestionsAnswers: ${state.throwable}"
+                                "Error loading QuestionsAnswers: ${state.throwable}"
                             )
                         }
                     }
@@ -255,6 +255,7 @@ class QuizFragment : Fragment() {
         binding.textScore.text = "Score: ${totalScore.toInt()}"
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onDestroyView() {
         super.onDestroyView()
         mainActivity?.showBottomNavigationView()
@@ -285,4 +286,5 @@ class QuizFragment : Fragment() {
         super.onDetach()
         mainActivity = null
     }
+    
 }
