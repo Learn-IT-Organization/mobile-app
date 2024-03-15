@@ -13,19 +13,6 @@ object LessonRepositoryImpl : LessonRepository {
     val TAG: String = LessonRepositoryImpl::class.java.simpleName
     private val apiService = RetrofitAdapter.provideApiService()
 
-    override suspend fun getLessons(): List<LessonData> {
-        try {
-            val response = apiService.getLessons()
-            if (response.isSuccessful) {
-                val responseData = response.body()
-                return responseData ?: emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error fetching lessons: ${e.message}")
-        }
-        return emptyList()
-    }
-
     override suspend fun getLessonsByChapterId(chapterId: Int): List<LessonData> {
         try {
             val response = apiService.getLessonsByChapterId(chapterId)
@@ -49,6 +36,7 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson result: ${e.message}")
+            throw e
         }
         return emptyList()
     }

@@ -23,6 +23,7 @@ import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.data.courses.lessons.model.LessonProgressData
 import com.learnitevekri.databinding.DialogLessonCompletedBinding
 import com.learnitevekri.databinding.FragmentChaptersBinding
+import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.courses.courses.adapter.ChaptersAdapter
 import com.learnitevekri.ui.feature.courses.courses.viewModel.ChaptersViewModel
 import com.learnitevekri.ui.feature.courses.courses.viewModel.LessonsViewModel
@@ -114,6 +115,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
                     is LessonsViewModel.LessonScreenState.Failure -> {
                         Log.e(TAG, "Error loading lesson result: ${state.throwable}")
+                        (activity as MainActivity?)?.errorHandling(state.throwable)
                     }
                 }
             }

@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.learnitevekri.R
 import com.learnitevekri.databinding.FragmentCoursesBinding
+import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.courses.courses.adapter.CoursesAdapter
 import com.learnitevekri.ui.feature.courses.courses.viewModel.CoursesViewModel
 import kotlinx.coroutines.launch
@@ -65,6 +66,7 @@ class CoursesFragment : Fragment() {
 
                         is CoursesViewModel.CoursesPageState.Failure -> {
                             Log.e(TAG, "Error loading courses: ${state.throwable}")
+                            (activity as MainActivity?)?.errorHandling(state.throwable)
                         }
                     }
                 }

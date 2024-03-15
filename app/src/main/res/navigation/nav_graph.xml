@@ -143,4 +143,24 @@
         android:label="UserAnswerFragment"
         tools:layout="@layout/fragment_user_answers" />
 
+    <fragment
+        android:id="@+id/noInternetFragment"
+        android:name="com.learnitevekri.ui.feature.splash.fragment.NoInternetFragment"
+        android:label="NoInternetFragment"
+        tools:layout="@layout/fragment_no_internet">
+    </fragment>
+
+    <fragment
+        android:id="@+id/noConnectionFragment"
+        android:name="com.learnitevekri.ui.feature.splash.fragment.NoConnectionFragment"
+        android:label="NoConnectionFragment"
+        tools:layout="@layout/fragment_no_connection">
+    </fragment>
+
+    <fragment
+        android:id="@+id/serverErrorFragment"
+        android:name="com.learnitevekri.ui.feature.splash.fragment.ServerErrorFragment"
+        android:label="ServerErrorFragment"
+        tools:layout="@layout/fragment_server_error">
+    </fragment>
 </navigation>

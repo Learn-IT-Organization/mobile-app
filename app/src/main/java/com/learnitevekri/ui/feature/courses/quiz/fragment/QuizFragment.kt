@@ -121,6 +121,7 @@ class QuizFragment : Fragment() {
                                 TAG,
                                 "Error loading QuestionsAnswers: ${state.throwable}"
                             )
+                            (activity as MainActivity?)?.errorHandling(state.throwable)
                         }
                     }
                 }
@@ -295,5 +296,5 @@ class QuizFragment : Fragment() {
         super.onDetach()
         mainActivity = null
     }
-    
+
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.domain.course.CourseRepository
+import okhttp3.Response
 
 object CourseRepositoryImpl : CourseRepository {
     private val apiService = RetrofitAdapter.provideApiService()
@@ -12,6 +13,7 @@ object CourseRepositoryImpl : CourseRepository {
     override suspend fun getCourses(): List<CourseData> {
         try {
             val response = apiService.getCourses()
+
             if (response.isSuccessful) {
                 val responseData = response.body()
                 return responseData ?: emptyList()

@@ -6,7 +6,6 @@ import com.learnitevekri.data.courses.lessons.model.LessonProgressData
 import com.learnitevekri.data.courses.lessons.model.UserAnswersData
 
 interface LessonRepository {
-    suspend fun getLessons(): List<LessonData>
     suspend fun getLessonsByChapterId(chapterId: Int): List<LessonData>
     suspend fun getLessonContentByLessonId(lessonId: Int): List<LessonContentData>
     suspend fun getLessonProgress(): List<LessonProgressData>

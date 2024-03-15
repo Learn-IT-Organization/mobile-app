@@ -1,5 +1,6 @@
 package com.learnitevekri.ui
 
+import android.app.Activity
 import com.learnitevekri.data.courses.quiz.repository.QuizResultRepositoryImpl
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -21,6 +22,7 @@ import com.learnitevekri.domain.register.RegisterRepository
 import com.learnitevekri.domain.user.UserRepository
 
 class App : Application() {
+    private var currentActivity: Activity? = null
 
     companion object {
         lateinit var instance: App
@@ -37,6 +39,12 @@ class App : Application() {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+    }
+    fun setCurrentActivity(activity: Activity?) {
+        currentActivity = activity
+    }
+    fun getCurrentActivity(): Activity? {
+        return currentActivity
     }
 
     fun getLoginRepository(): LoginRepository = LoginRepositoryImpl

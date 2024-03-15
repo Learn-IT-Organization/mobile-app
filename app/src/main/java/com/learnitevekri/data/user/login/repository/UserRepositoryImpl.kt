@@ -20,6 +20,7 @@ object UserRepositoryImpl : UserRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching users: ${e.message}")
+            throw e
         }
         return emptyList()
     }

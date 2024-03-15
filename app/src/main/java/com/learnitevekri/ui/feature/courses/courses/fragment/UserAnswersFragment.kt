@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
 import com.learnitevekri.data.courses.lessons.model.UserAnswersData
 import com.learnitevekri.databinding.FragmentUserAnswersBinding
+import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.courses.courses.adapter.UserAnswerAdapter
 import com.learnitevekri.ui.feature.courses.courses.viewModel.UserAnswersViewModel
 import kotlinx.coroutines.launch
@@ -63,6 +64,7 @@ class UserAnswersFragment : Fragment() {
 
                     is UserAnswersViewModel.UserAnswersScreenState.Failure -> {
                         Log.e(TAG, "Error fetching user answers: ${state.throwable.message}")
+                        (activity as MainActivity?)?.errorHandling(state.throwable)
                     }
                 }
             }

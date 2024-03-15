@@ -18,7 +18,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.learnitevekri.R
 import com.learnitevekri.databinding.FragmentSplashBinding
 import com.learnitevekri.ui.activities.MainActivity
-import com.learnitevekri.ui.feature.courses.courses.fragment.ChaptersFragment
 import com.learnitevekri.ui.feature.splash.SplashNavigationListener
 import com.learnitevekri.ui.feature.splash.viewModel.SplashViewModel
 
@@ -30,6 +29,7 @@ class SplashFragment : Fragment(), SplashNavigationListener {
     companion object {
         val TAG: String = SplashFragment::class.java.simpleName
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +54,7 @@ class SplashFragment : Fragment(), SplashNavigationListener {
         if (isNetworkAvailable()) {
             checkTheServer()
         } else {
-            findNavController().navigate(R.id.action_SplashFragment_to_NoInternetFragment)
+            navigateToNoInternetFragment()
             Log.d(TAG, "No internet connection")
         }
         return binding.root
@@ -77,6 +77,10 @@ class SplashFragment : Fragment(), SplashNavigationListener {
 
     override fun navigateToErrorFragment() {
         findNavController().navigate(R.id.action_SplashFragment_to_ServerErrorFragment)
+    }
+
+    override fun navigateToNoInternetFragment() {
+        findNavController().navigate(R.id.action_SplashFragment_to_NoInternetFragment)
     }
 
     override fun initSplashScreen() {
