@@ -29,6 +29,7 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
                 TAG,
                 "Error fetching questions and answers by course id, chapter id and lesson id: ${e.message}"
             )
+            throw e
         }
         return emptyList()
     }

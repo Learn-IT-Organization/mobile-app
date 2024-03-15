@@ -12,13 +12,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.learnitevekri.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.learnitevekri.R
+import com.learnitevekri.databinding.ActivityMainBinding
+import com.learnitevekri.ui.App
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    fun errorHandling(error: Throwable?) {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        if (error is ConnectException) {
+            navController.navigate(R.id.noInternetFragment)
+        }
+        if (error is SocketTimeoutException) {
+            navController.navigate(R.id.serverErrorFragment)
+        }
+    }
 
     fun hideBottomNavigationView() {
         binding.bottomNavigationView.visibility = View.GONE
@@ -113,5 +126,14 @@ class MainActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        App.instance.setCurrentActivity(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        App.instance.setCurrentActivity(null)
+    }
 }
 

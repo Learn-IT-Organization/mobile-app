@@ -3,7 +3,9 @@ package com.learnitevekri.ui.feature.splash.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.SharedPreferences
+import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.ui.App
 import com.learnitevekri.ui.feature.splash.SplashNavigationListener
@@ -14,6 +16,7 @@ class SplashViewModel : ViewModel() {
 
     private val repository: CourseRepository = App.instance.getCourseRepository()
     private var navigationListener: SplashNavigationListener? = null
+    private val apiService = RetrofitAdapter.provideApiService()
 
     fun setNavigationListener(listener: SplashNavigationListener) {
         navigationListener = listener
@@ -42,7 +45,7 @@ class SplashViewModel : ViewModel() {
                 }
             } catch (e: IOException) {
                 Log.e(TAG, "Network error: ${e.message}")
-                navigationListener?.navigateToNoConnectionFragment()
+                navigationListener?.navigateToErrorFragment()
             } catch (e: Exception) {
                 Log.e(TAG, "Server is not reachable: ${e.message}")
                 navigationListener?.navigateToErrorFragment()

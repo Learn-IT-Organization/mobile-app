@@ -16,6 +16,7 @@ import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.databinding.FragmentTheoryBinding
+import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.courses.courses.TheoryAdapterListener
 import com.learnitevekri.ui.feature.courses.courses.adapter.TheoryAdapter
 import com.learnitevekri.ui.feature.courses.courses.viewModel.TheoryViewModel
@@ -70,6 +71,7 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
 
                         is TheoryViewModel.TheoryPageState.Failure -> {
                             Log.e(TAG, "Error loading lesson contents: ${state.throwable}")
+                            (activity as MainActivity?)?.errorHandling(state.throwable)
                         }
 
                     }

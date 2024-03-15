@@ -54,6 +54,7 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching users: ${e.message}")
                 mutableState.value = UserPageState.Failure(e)
+
             }
         }
     }

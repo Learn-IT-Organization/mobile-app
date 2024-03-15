@@ -19,9 +19,11 @@ import com.learnitevekri.R
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.user.login.model.LoggedUserData
 import com.learnitevekri.databinding.FragmentHomeBinding
+import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.home.adapter.MyCoursesAdapter
 import com.learnitevekri.ui.feature.home.viewModel.HomeViewModel
 import kotlinx.coroutines.launch
+
 
 class HomeFragment : Fragment() {
     companion object {
@@ -30,6 +32,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
+//    private var networkChangeReceiver: NetworkChangeReceiver? = null
 
     private val PICK_IMAGE_REQUEST = 1
 
@@ -38,8 +41,12 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+//        networkChangeReceiver = NetworkChangeReceiver(this)
+//
+//        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+//        activity?.registerReceiver(networkChangeReceiver, filter)
+
         return binding.root
     }
 
@@ -84,7 +91,9 @@ class HomeFragment : Fragment() {
                     is HomeViewModel.UserPageState.Success -> {
                         val loggedUserId = SharedPreferences.getUserId()
                         val loggedUser = viewModel.getUserById(loggedUserId)
-                        updateProfileUi(loggedUser!!)
+                        if (loggedUser != null) {
+                            updateProfileUi(loggedUser)
+                        }
                         binding.myCoursesRecycleView.adapter =
                             MyCoursesAdapter(state.courseData)
                         if (state.courseData.isEmpty()) {
@@ -107,6 +116,7 @@ class HomeFragment : Fragment() {
 
                     is HomeViewModel.UserPageState.Failure -> {
                         Log.e(TAG, "Error loading users: ${state.throwable}")
+                        (activity as MainActivity?)?.errorHandling(state.throwable)
                     }
                 }
 
