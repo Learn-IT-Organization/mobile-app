@@ -1,4 +1,4 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/course_card_view"
@@ -7,71 +7,65 @@
     app:cardElevation="0dp"
     app:strokeColor="@android:color/transparent">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/nameTextView"
+        style="@style/title_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="20dp"
+        android:text="@string/title"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toStartOf="@id/moreButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/moreButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="20dp"
+        android:src="@drawable/more"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nameTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mackhartley.roundedprogressbar.RoundedProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        app:rpbBackgroundColor="@color/white"
+        app:rpbBackgroundTextColor="@color/purple"
+        app:rpbCornerRadiusBottomLeft="6dp"
+        app:rpbCornerRadiusBottomRight="6dp"
+        app:rpbCornerRadiusTopLeft="6dp"
+        app:rpbCornerRadiusTopRight="6dp"
+        app:rpbIsRadiusRestricted="false"
+        app:rpbProgressColor="@color/purple"
+        app:rpbProgressTextColor="@color/white"
+        app:rpbTextPadding="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lessonsRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:listitem="@layout/lesson_list_item" />
 
-        <TextView
-            android:id="@+id/nameTextView"
-            style="@style/title_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginEnd="16dp"
-            android:layout_toStartOf="@id/moreButton"
-            android:padding="20dp"
-            android:text="@string/title"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
-
-        <ImageButton
-            android:id="@+id/moreButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@android:color/transparent"
-            android:padding="20dp"
-            android:src="@drawable/more" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_below="@+id/nameTextView"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
-            android:progress="10"
-            android:progressTint="@color/md_theme_tertiary" />
-
-        <com.mackhartley.roundedprogressbar.RoundedProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_below="@+id/nameTextView"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="16dp"
-            app:rpbBackgroundColor="@color/white"
-            app:rpbBackgroundTextColor="@color/purple"
-            app:rpbCornerRadiusBottomLeft="6dp"
-            app:rpbCornerRadiusBottomRight="20dp"
-            app:rpbCornerRadiusTopLeft="20dp"
-            app:rpbCornerRadiusTopRight="6dp"
-            app:rpbIsRadiusRestricted="false"
-            app:rpbProgressColor="@color/purple"
-            app:rpbProgressTextColor="@color/white"
-            app:rpbTextPadding="12dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lessonsRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progressBar"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:scrollbars="none"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/lesson_list_item" />
-
-    </RelativeLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

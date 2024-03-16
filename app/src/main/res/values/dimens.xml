@@ -15,4 +15,10 @@
     <!-- Quiz -->
     <dimen name="selected_button_text_size">25dp</dimen>
     <dimen name="unselected_button_text_size">20dp</dimen>
+    <!-- List items-->
+    <dimen name="list_item_margin">15dp</dimen>
+    <dimen name="list_item_padding">15dp</dimen>
+    <!-- Icon images -->
+    <dimen name="icon_size">50dp</dimen>
+    <dimen name="icon_margin">15dp</dimen>
 </resources>

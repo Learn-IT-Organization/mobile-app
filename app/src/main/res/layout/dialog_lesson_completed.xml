@@ -1,67 +1,83 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/titleTextView"
         style="@style/title_style"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/this_lesson_is_completed" />
+        android:text="@string/this_lesson_is_completed"
+        app:layout_constraintBottom_toTopOf="@id/scoreTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/scoreTextView"
         style="@style/subtitle_style"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Your score is: " />
+        android:text="Your score is: "
+        app:layout_constraintBottom_toTopOf="@id/imageViewDesign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
+        android:id="@+id/imageViewDesign"
+        android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/creatures_growing" />
+        android:src="@drawable/creatures_growing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scoreTextView" />
 
     <TextView
         android:id="@+id/messageTextView"
         style="@style/paragraph_style"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/see_results" />
+        android:text="@string/see_results"
+        app:layout_constraintBottom_toTopOf="@id/noButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewDesign" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/noButton"
+        style="@style/paragraph_style"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginEnd="5dp"
+        android:text="@string/no"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toStartOf="@id/yesButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messageTextView" />
 
-        <Button
-            android:id="@+id/noButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            style="@style/paragraph_style"
-            android:textSize="14dp"
-            android:text="@string/no" />
+    <Button
+        android:id="@+id/yesButton"
+        style="@style/paragraph_style"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/yes"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/noButton"
+        app:layout_constraintTop_toBottomOf="@id/messageTextView" />
 
-        <Button
-            android:id="@+id/yesButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            style="@style/paragraph_style"
-            android:textSize="14dp"
-            android:text="@string/yes" />
-
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

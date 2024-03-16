@@ -17,6 +17,7 @@
         android:fontFamily="@font/baloo"
         android:text="@string/score_0"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/textLessonProgress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

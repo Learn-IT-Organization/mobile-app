@@ -1,70 +1,84 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/question_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/list_item_margin"
+    android:layout_marginTop="@dimen/list_item_margin"
+    android:layout_marginEnd="@dimen/list_item_margin"
+    android:background="@drawable/purple_bg"
+    android:padding="@dimen/list_item_padding"
     app:strokeColor="@android:color/transparent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+   <!-- visszaterek > -->
+    <ImageView
+        android:id="@+id/iconQuestionType"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginStart="@dimen/icon_margin"
+        android:layout_marginTop="@dimen/icon_margin"
+        android:src="@drawable/ic_multiple_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/questionText"
+        style="@style/subtitle_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="In an array with a capacity of 100 and a size of 50, what is the index of the last element?"
+        android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconQuestionType"
+        app:layout_constraintTop_toTopOf="@+id/iconQuestionType" />
+
+    <TextView
+        android:id="@+id/userAnswer"
+        style="@style/paragraph_style"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/purple_bg"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Your answer: 49, 99"
+        android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questionText" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/correctness"
+        style="@style/paragraph_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="Correctness: Incorrect, correct answer(s): 49"
+        android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userAnswer" />
 
-            <ImageView
-                android:id="@+id/iconQuestionType"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/ic_multiple_choice" />
+    <TextView
+        android:id="@+id/score"
+        style="@style/paragraph_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Score: 0"
+        android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correctness" />
 
-            <TextView
-                android:id="@+id/questionText"
-                style="@style/subtitle_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:text="In an array with a capacity of 100 and a size of 50, what is the index of the last element?"
-                android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/userAnswer"
-            style="@style/paragraph_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Your answer: 49, 99"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
-
-        <TextView
-            android:id="@+id/correctness"
-            style="@style/paragraph_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Correctness: Incorrect, correct answer(s): 49"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
-
-        <TextView
-            android:id="@+id/score"
-            style="@style/paragraph_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Score: 0"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

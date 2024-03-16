@@ -1,125 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.feature.settings.fragment.SettingsFragment">
 
-    <LinearLayout
-        android:id="@+id/generalLayout"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/generalIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/generalText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/generalText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp">
+        android:layout_marginStart="15dp"
+        android:text="@string/general"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/generalIcon"
+        app:layout_constraintTop_toTopOf="@+id/generalIcon" />
 
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/settings" />
+    <ImageView
+        android:id="@+id/themeIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/dark_mode"
+        app:layout_constraintStart_toStartOf="@+id/generalIcon"
+        app:layout_constraintTop_toBottomOf="@+id/generalIcon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/general"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/themeLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/themeText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/generalLayout"
-        android:orientation="horizontal"
-        android:paddingStart="25dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp">
+        android:layout_marginStart="16dp"
+        android:text="@string/theme"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/themeIcon"
+        app:layout_constraintTop_toTopOf="@+id/themeIcon" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/theme_icon"
-            android:src="@drawable/dark_mode" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/theme"
-            android:textSize="18dp" />
-
-        <Switch
-            android:id="@+id/themeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginStart="20dp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    </LinearLayout>
+    <Switch
+        android:id="@+id/themeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/themeText"
+        app:layout_constraintTop_toTopOf="@+id/themeText"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <View
         android:id="@+id/lineView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/themeLayout"
         android:layout_marginTop="8dp"
-        android:background="#D3D3D3" />
+        android:background="#D3D3D3"
+        app:layout_constraintTop_toBottomOf="@+id/themeIcon" />
 
-    <LinearLayout
-        android:id="@+id/accountLayout"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/accountIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/person_circle"
+        app:layout_constraintStart_toStartOf="@+id/generalIcon"
+        app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
+    <TextView
+        android:id="@+id/accountText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lineView"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp">
+        android:layout_marginStart="15dp"
+        android:text="@string/account"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/accountIcon"
+        app:layout_constraintTop_toTopOf="@+id/accountIcon" />
 
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/person_circle" />
+    <ImageView
+        android:id="@+id/logoutIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logout"
+        app:layout_constraintStart_toStartOf="@+id/themeIcon"
+        app:layout_constraintTop_toBottomOf="@+id/accountIcon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/account"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/logoutLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/accountLayout"
-        android:orientation="horizontal"
-        android:paddingStart="25dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp">
+        android:layout_marginStart="16dp"
+        android:text="@string/logout"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@+id/logoutIcon"
+        app:layout_constraintTop_toTopOf="@+id/logoutIcon" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="2dp"
-            android:src="@drawable/logout" />
-
-        <TextView
-            android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/logout"
-            android:textSize="18dp" />
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
