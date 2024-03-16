@@ -11,11 +11,13 @@ import com.learnitevekri.data.courses.lessons.repository.LessonRepositoryImpl
 import com.learnitevekri.data.courses.quiz.repository.QuestionsAnswersRepositoryImpl
 import com.learnitevekri.data.user.login.repository.LoginRepositoryImpl
 import com.learnitevekri.data.user.login.repository.UserRepositoryImpl
+import com.learnitevekri.data.user.logout.LogOutRepositoryImpl
 import com.learnitevekri.data.user.register.repository.RegisterRepositoryImpl
 import com.learnitevekri.domain.course.ChaptersRepository
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.domain.course.LessonRepository
 import com.learnitevekri.domain.login.LoginRepository
+import com.learnitevekri.domain.logout.LogOutRepository
 import com.learnitevekri.domain.quiz.QuestionsAnswersRepository
 import com.learnitevekri.domain.quiz.QuizResultRepository
 import com.learnitevekri.domain.register.RegisterRepository
@@ -55,5 +57,5 @@ class App : Application() {
     fun getLessonRepository(): LessonRepository = LessonRepositoryImpl
     fun getQuestionsAnswersRepository(): QuestionsAnswersRepository = QuestionsAnswersRepositoryImpl
     fun getQuizResultRepository(): QuizResultRepository = QuizResultRepositoryImpl
-
+    fun getLogoutRepository(): LogOutRepository = LogOutRepositoryImpl
 }

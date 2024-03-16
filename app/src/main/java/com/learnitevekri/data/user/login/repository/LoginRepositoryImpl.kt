@@ -33,9 +33,9 @@ object LoginRepositoryImpl : LoginRepository {
                         val userId = userData.data?.userId
                         SharedPreferences.storeUserId(userId)
                         val userRole = userData.data?.userRole
-                        SharedPreferences.storeTeacher(userRole == "admin")
+                        SharedPreferences.storeAdmin(userRole == "admin")
                         SharedPreferences.storeTeacher(userRole == "teacher")
-                        SharedPreferences.storeTeacher(userRole == "student")
+                        SharedPreferences.storeStudent(userRole == "student")
                     }
                 }
             }

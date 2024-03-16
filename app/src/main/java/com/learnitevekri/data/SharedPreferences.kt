@@ -36,6 +36,10 @@ object SharedPreferences {
         sharedPreferences.edit().putBoolean(com.learnitevekri.data.ApiConstants.TEACHER, teacher).apply()
     }
 
+    fun storeStudent(student: Boolean) {
+        sharedPreferences.edit().putBoolean(com.learnitevekri.data.ApiConstants.STUDENT, student).apply()
+    }
+
     fun getToken(): String? {
         return sharedPreferences.getString(com.learnitevekri.data.ApiConstants.TOKEN, null)
     }

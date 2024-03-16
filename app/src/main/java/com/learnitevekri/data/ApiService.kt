@@ -20,6 +20,7 @@ import com.learnitevekri.data.user.login.model.LoginData
 import com.learnitevekri.data.user.login.model.ResetCodeData
 import com.learnitevekri.data.user.login.model.ResetPasswordResponseData
 import com.learnitevekri.data.user.login.model.ResponseData
+import com.learnitevekri.data.user.logout.LogoutResponseData
 import com.learnitevekri.data.user.register.model.RegistrationData
 import com.learnitevekri.data.user.register.model.RegistrationResponseData
 import retrofit2.Response
@@ -35,6 +36,9 @@ interface ApiService {
     @POST("/login")
     suspend fun authorizeLogin(@Body loginForm: LoginData): Response<ResponseData<Data>>
 
+    @POST("/logout")
+    suspend fun logOut(): Response<LogoutResponseData>
+
     @GET("/profile/user")
     suspend fun getLoggedInUser(): Response<ResponseData<LoggedUserData>>
 
@@ -43,9 +47,6 @@ interface ApiService {
 
     @GET("/courses")
     suspend fun getCourses(): Response<List<CourseData>>
-
-    @GET("/lessons")
-    suspend fun getLessons(): Response<List<LessonData>>
 
     @GET("/chapters")
     suspend fun getChapters(): Response<List<ChapterData>>
