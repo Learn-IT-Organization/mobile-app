@@ -24,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/titleTextView"
         style="@style/subtitle_style"
@@ -43,12 +42,13 @@
         style="@style/subtitle_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-4dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/white"
         android:gravity="center"
         android:text="@string/you_don_t_have_any_notifications_yet"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/notificationsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleView" />
@@ -57,12 +57,11 @@
         android:id="@+id/notificationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-2dp"
+        android:layout_marginTop="-4dp"
         android:layout_marginBottom="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@id/textViewNoNotifications"
         tools:listitem="@layout/notifications_list_item" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
