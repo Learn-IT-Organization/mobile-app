@@ -5,5 +5,6 @@ interface SplashNavigationListener{
     fun navigateToErrorFragment()
     fun initSplashScreen()
     fun navigateToNoInternetFragment()
+    fun navigateToLoginFragment()
 
 }

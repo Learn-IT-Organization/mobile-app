@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -20,6 +21,7 @@ import com.learnitevekri.databinding.FragmentSplashBinding
 import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.splash.SplashNavigationListener
 import com.learnitevekri.ui.feature.splash.viewModel.SplashViewModel
+import kotlinx.coroutines.launch
 
 class SplashFragment : Fragment(), SplashNavigationListener {
 
@@ -83,6 +85,10 @@ class SplashFragment : Fragment(), SplashNavigationListener {
         findNavController().navigate(R.id.action_SplashFragment_to_NoInternetFragment)
     }
 
+    override fun navigateToLoginFragment() {
+        findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+    }
+
     override fun initSplashScreen() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -99,8 +105,17 @@ class SplashFragment : Fragment(), SplashNavigationListener {
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+                    navigateToLoginFragment()
                 }
+//                lifecycleScope.launch {
+//                    val isSuccessful = viewModel.isResponseSuccessful()
+//                    if (isSuccessful) {
+//                        val intent = Intent(context, MainActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        findNavController().navigate(R.id.action_SplashFragment_to_LoginFragment)
+//                    }
+//                }
             }
         }, 3000)
     }

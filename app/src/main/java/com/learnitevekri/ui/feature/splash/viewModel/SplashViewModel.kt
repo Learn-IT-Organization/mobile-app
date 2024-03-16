@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.SharedPreferences
-import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.ui.App
 import com.learnitevekri.ui.feature.splash.SplashNavigationListener
@@ -14,9 +13,7 @@ import java.io.IOException
 
 class SplashViewModel : ViewModel() {
 
-    private val repository: CourseRepository = App.instance.getCourseRepository()
     private var navigationListener: SplashNavigationListener? = null
-    private val apiService = RetrofitAdapter.provideApiService()
 
     fun setNavigationListener(listener: SplashNavigationListener) {
         navigationListener = listener
@@ -31,17 +28,23 @@ class SplashViewModel : ViewModel() {
         return SharedPreferences.getExpiresTime() > System.currentTimeMillis()
     }
 
+    private val apiService = RetrofitAdapter.provideApiService()
+
     fun checkTheServer() {
         viewModelScope.launch {
             try {
-                val courses = repository.getCourses()
+                val courses = apiService.getCourses()
                 Log.d(TAG, "Server is reachable, received courses: $courses")
-                if (courses.isNotEmpty()) {
+                if (courses.isSuccessful && courses.body() != null) {
                     Log.d(TAG, "Server is reachable, received courses: $courses")
                     navigationListener?.initSplashScreen()
-                } else {
+                } else if (courses.isSuccessful && courses.body() == null) {
                     Log.d(TAG, "Server is reachable, but no courses received")
                     navigationListener?.navigateToNoConnectionFragment()
+                }
+                    else if (courses.code() == 401) {
+                    Log.d(TAG, "Token expired")
+                    navigationListener?.navigateToLoginFragment()
                 }
             } catch (e: IOException) {
                 Log.e(TAG, "Network error: ${e.message}")

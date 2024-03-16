@@ -28,13 +28,18 @@ object ChaptersRepositoryImpl : ChaptersRepository {
     }
 
     override suspend fun getChapterResult(courseId: Int, chapterId: Int): ChapterResultData {
-        val response = apiService.getChapterResult(courseId, chapterId)
-        Log.d(TAG, response.raw().toString())
-
-        if (response.isSuccessful) {
-            val responseData = response.body()
+        try {
+            val response = apiService.getChapterResult(courseId, chapterId)
             Log.d(TAG, response.raw().toString())
-            return (responseData ?: ChapterResultData())
+
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                Log.d(TAG, response.raw().toString())
+                return (responseData ?: ChapterResultData())
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching chapter result: ${e.message}")
+            throw e
         }
         return ChapterResultData()
     }

@@ -36,6 +36,7 @@ object CourseRepositoryImpl : CourseRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching my courses: ${e.message}")
+            throw e
         }
         return emptyList()
     }

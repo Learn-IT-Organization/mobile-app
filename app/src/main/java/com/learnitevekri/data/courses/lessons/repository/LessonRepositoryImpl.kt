@@ -50,6 +50,7 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson progress: ${e.message}")
+            throw e
         }
         return emptyList()
     }
@@ -62,6 +63,7 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson by ID: ${e.message}")
+            throw e
         }
         return null
     }
@@ -74,6 +76,7 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson result with validation: ${e.message}")
+            throw e
         }
         return emptyList()
     }

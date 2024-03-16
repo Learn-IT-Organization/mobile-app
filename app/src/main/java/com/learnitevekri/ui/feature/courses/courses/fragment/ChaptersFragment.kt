@@ -89,6 +89,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
                     is ChaptersViewModel.ChaptersScreenState.Failure -> {
                         Log.e(TAG, "Error loading chapters: ${state.throwable}")
+                        (activity as MainActivity?)?.errorHandling(state.throwable)
                     }
                 }
             }
