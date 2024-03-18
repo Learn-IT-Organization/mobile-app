@@ -1,35 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="220dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="60dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="10dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     app:cardElevation="0dp"
     app:strokeColor="@android:color/transparent">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/purple_bg">
+        android:layout_height="160dp"
+        android:background="@drawable/purple_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/nameTextView"
-            style="@style/title_style"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/title"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/nameTextView"
+        style="@style/title_style"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="83dp"
+        android:padding="20dp"
+        android:text="@string/title"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/md_theme_onSecondaryFixed_mediumContrast"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImageView"
+        app:layout_constraintEnd_toStartOf="@id/courseImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />
 
     <ImageView
         android:id="@+id/courseImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/girl_with_code_snippet" />
-
-</RelativeLayout>
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="68dp"
+        android:src="@drawable/girl_with_code_snippet"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/nameTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
