@@ -5,7 +5,7 @@
     android:id="@+id/coursesRecycleView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="@dimen/dimen_20dp"
+    android:layout_marginBottom="@dimen/dimen_5dp"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:listitem="@layout/course_list_item" />

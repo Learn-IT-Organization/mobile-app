@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Login -->
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="login_text_size">50dp</dimen>
-    <dimen name="margin_top_login">80dp</dimen>
-    <dimen name="minimum_height">48dp</dimen>
-    <dimen name="margin_top_button">30dp</dimen>
-    <dimen name="login_button_size">20dp</dimen>
-    <dimen name="login_button_height">60dp</dimen>
-    <!-- Sign up -->
-    <dimen name="margin_top_sign_up">30dp</dimen>
-    <dimen name="margin_end_radio_buttons">50dp</dimen>
-    <dimen name="margin_top_radio_button">10dp</dimen>
-    <!-- Quiz -->
-    <dimen name="selected_button_text_size">25dp</dimen>
-    <dimen name="unselected_button_text_size">20dp</dimen>
-    <!-- List items-->
-    <dimen name="list_item_margin">15dp</dimen>
-    <dimen name="list_item_padding">15dp</dimen>
-    <!-- Icon images -->
-    <dimen name="icon_size">50dp</dimen>
-    <dimen name="icon_margin">15dp</dimen>
+    <dimen name="dimen_minus_20dp">-20dp</dimen>
+    <dimen name="dimen_minus_4dp">-4dp</dimen>
+    <dimen name="dimen_2dp">2dp</dimen>
+    <dimen name="dimen_3dp">3dp</dimen>
+    <dimen name="dimen_5dp">5dp</dimen>
+    <dimen name="dimen_6dp">6dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_14dp">14dp</dimen>
+    <dimen name="dimen_15dp">15dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_18dp">18dp</dimen>
+    <dimen name="dimen_20dp">20dp</dimen>
+    <dimen name="dimen_22dp">22dp</dimen>
+    <dimen name="dimen_25dp">25dp</dimen>
+    <dimen name="dimen_28dp">28dp</dimen>
+    <dimen name="dimen_30dp">30dp</dimen>
+    <dimen name="dimen_35dp">35dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
+    <dimen name="dimen_50dp">50dp</dimen>
+    <dimen name="dimen_60dp">60dp</dimen>
+    <dimen name="dimen_80dp">80dp</dimen>
+    <dimen name="dimen_90dp">90dp</dimen>
+    <dimen name="dimen_100dp">100dp</dimen>
+    <dimen name="dimen_120dp">120dp</dimen>
+    <dimen name="dimen_130dp">130dp</dimen>
+    <dimen name="dimen_150dp">150dp</dimen>
+    <dimen name="dimen_155dp">155dp</dimen>
+    <dimen name="dimen_160dp">160dp</dimen>
+    <dimen name="dimen_200dp">200dp</dimen>
+    <dimen name="dimen_210dp">210dp</dimen>
+    <dimen name="dimen_220dp">220dp</dimen>
+    <dimen name="dimen_250dp">250dp</dimen>
+    <dimen name="dimen_300dp">300dp</dimen>
+    <dimen name="dimen_360dp">360dp</dimen>
+    <dimen name="dimen_400dp">400dp</dimen>
 </resources>

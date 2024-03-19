@@ -3,9 +3,9 @@
     android:id="@+id/notificationContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="10dp"
+    android:layout_marginStart="@dimen/dimen_10dp"
+    android:layout_marginTop="@dimen/dimen_5dp"
+    android:layout_marginEnd="@dimen/dimen_10dp"
     android:background="@drawable/notification_bg">
 
     <TextView
@@ -13,13 +13,11 @@
         style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
         android:text="@string/title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

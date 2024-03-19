@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/dimen_16dp">
 
     <TextView
         android:id="@+id/titleTextView"
         style="@style/title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:gravity="center"
         android:text="@string/this_lesson_is_completed"
         app:layout_constraintBottom_toTopOf="@id/scoreTextView"
@@ -23,9 +23,9 @@
         style="@style/subtitle_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:gravity="center"
-        android:text="Your score is: "
+        android:text="@string/your_score_is"
         app:layout_constraintBottom_toTopOf="@id/imageViewDesign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,19 +34,20 @@
     <ImageView
         android:id="@+id/imageViewDesign"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:src="@drawable/creatures_growing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoreTextView" />
+        app:layout_constraintTop_toBottomOf="@id/scoreTextView"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/messageTextView"
         style="@style/paragraph_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:gravity="center"
         android:text="@string/see_results"
         app:layout_constraintBottom_toTopOf="@id/noButton"
@@ -57,12 +58,12 @@
     <Button
         android:id="@+id/noButton"
         style="@style/paragraph_style"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/dimen_100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
         android:text="@string/no"
-        android:textSize="14dp"
+        android:textSize="@dimen/dimen_14dp"
         app:layout_constraintEnd_toStartOf="@id/yesButton"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,11 +72,11 @@
     <Button
         android:id="@+id/yesButton"
         style="@style/paragraph_style"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/dimen_100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:text="@string/yes"
-        android:textSize="14dp"
+        android:textSize="@dimen/dimen_14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/noButton"
         app:layout_constraintTop_toBottomOf="@id/messageTextView" />

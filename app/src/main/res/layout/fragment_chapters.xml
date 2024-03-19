@@ -7,25 +7,27 @@
 
     <ImageView
         android:id="@+id/imageViewBack"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/dimen_35dp"
+        android:layout_height="@dimen/dimen_35dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:importantForAccessibility="yes"
         android:src="@drawable/arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/go_back" />
 
     <ImageView
         android:id="@+id/imageViewDesign"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="@dimen/dimen_150dp"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:src="@drawable/girl_learning"
         app:layout_constraintBottom_toTopOf="@id/chaptersRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAccessibility="no" />
 
     <ProgressBar
         android:id="@+id/loadingSpinner"
@@ -45,8 +47,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewDesign"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="66dp"
         tools:listitem="@layout/chapter_list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

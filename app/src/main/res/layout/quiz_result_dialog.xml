@@ -2,14 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="@dimen/dimen_15dp">
 
     <TextView
         android:id="@+id/dialogTitle"
         style="@style/title_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:gravity="center"
         android:text="@string/quiz_result" />
 
@@ -18,15 +18,16 @@
         style="@style/subtitle_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:gravity="center"
         android:text="@string/message" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/graduation_creatures" />
 
     <Button
@@ -34,8 +35,8 @@
         style="@style/custom_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:text="@string/ok"
-        android:textSize="16dp" />
+        android:textSize="@dimen/dimen_16dp" />
 
 </LinearLayout>
