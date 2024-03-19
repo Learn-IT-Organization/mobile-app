@@ -70,6 +70,7 @@
     <string name="reset_your_password">Reset your password</string>
     <string name="notifications">Notifications</string>
     <string name="back_to_quiz">Back to quiz</string>
+    <string name="back_to_lessons">Back to lessons</string>
     <string name="more">More</string>
     <string name="you_don_t_have_any_notifications_yet">You don\'t have any notifications yet.</string>
     <string name="score_0">Score: 0</string>
