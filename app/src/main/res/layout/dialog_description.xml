@@ -1,12 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/dimen_16dp">
 
     <ImageButton
         android:id="@+id/closeButton"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="@dimen/dimen_20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:backgroundTint="@android:color/transparent"
@@ -16,7 +16,7 @@
         style="@style/description_title_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:layout_toStartOf="@id/closeButton"
         android:gravity="center"
         android:text="@string/description" />
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/closeButton"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
         android:gravity="center"
         android:text="@string/description_text" />
 
