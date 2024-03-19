@@ -45,7 +45,11 @@ class SplashViewModel : ViewModel() {
                     else if (courses.code() == 401) {
                     Log.d(TAG, "Token expired")
                     navigationListener?.navigateToLoginFragment()
+                } else if (courses.code() == 400) {
+                    Log.d(TAG, "Bad request")
+                    navigationListener?.navigateToLoginFragment()
                 }
+
             } catch (e: IOException) {
                 Log.e(TAG, "Network error: ${e.message}")
                 navigationListener?.navigateToErrorFragment()
