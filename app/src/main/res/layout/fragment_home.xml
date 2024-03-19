@@ -218,7 +218,7 @@
             android:paddingTop="@dimen/dimen_10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewContinueLearning"
-            tools:listitem="@layout/my_course_list_item" />
+            tools:listitem="@layout/course_list_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -30,6 +30,7 @@
     <dimen name="dimen_150dp">150dp</dimen>
     <dimen name="dimen_155dp">155dp</dimen>
     <dimen name="dimen_160dp">160dp</dimen>
+    <dimen name="dimen_180dp">180dp</dimen>
     <dimen name="dimen_200dp">200dp</dimen>
     <dimen name="dimen_210dp">210dp</dimen>
     <dimen name="dimen_220dp">220dp</dimen>
