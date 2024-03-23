@@ -14,6 +14,8 @@ import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
 import com.learnitevekri.data.courses.quiz.model.QuizResponseData
 import com.learnitevekri.data.courses.quiz.model.QuizResultData
 import com.learnitevekri.data.user.login.model.Data
+import com.learnitevekri.data.user.login.model.EditProfileData
+import com.learnitevekri.data.user.login.model.EditProfileResponse
 import com.learnitevekri.data.user.login.model.ForgotPasswordData
 import com.learnitevekri.data.user.login.model.LoggedUserData
 import com.learnitevekri.data.user.login.model.LoginData
@@ -27,6 +29,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -102,4 +105,6 @@ interface ApiService {
     @POST("/changePassword")
     suspend fun changePasswordWithResetCode(@Body resetCodeData: ResetCodeData): Response<ResetPasswordResponseData>
 
+    @PUT("/editUser")
+    suspend fun editUser(@Body userData: EditProfileData): Response<EditProfileResponse>
 }

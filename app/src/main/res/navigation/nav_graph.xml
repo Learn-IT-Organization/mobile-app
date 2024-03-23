@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_home_to_courses"
             app:destination="@id/coursesFragment" />
+        <action
+            android:id="@+id/action_home_to_editProfile"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
@@ -162,5 +165,15 @@
         android:name="com.learnitevekri.ui.feature.splash.fragment.ServerErrorFragment"
         android:label="ServerErrorFragment"
         tools:layout="@layout/fragment_server_error">
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.learnitevekri.ui.feature.home.fragment.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfile_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

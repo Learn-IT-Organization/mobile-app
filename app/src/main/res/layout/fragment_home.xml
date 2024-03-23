@@ -48,7 +48,7 @@
 
         <ImageView
             android:id="@+id/imageViewDecor"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dimen_50dp"
             android:layout_height="@dimen/dimen_50dp"
             android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginBottom="@dimen/dimen_15dp"
@@ -81,6 +81,28 @@
             app:layout_constraintBottom_toTopOf="@id/imageViewDecor"
             app:layout_constraintStart_toEndOf="@id/iconUsername"
             app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+        <ImageView
+            android:id="@+id/iconEdit"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewUsername" />
+
+        <Button
+            android:id="@+id/buttonEditProfile"
+            android:backgroundTint="@android:color/transparent"
+            android:textColor="@color/md_theme_outlineVariant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimen_12dp"
+            android:text="EDIT PROFILE"
+            app:layout_constraintTop_toBottomOf="@id/textViewUsername"
+            app:layout_constraintStart_toEndOf="@id/iconEdit" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewProfilePhoto"

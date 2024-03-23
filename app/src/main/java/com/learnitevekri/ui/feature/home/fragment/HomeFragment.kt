@@ -32,7 +32,6 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
-//    private var networkChangeReceiver: NetworkChangeReceiver? = null
 
     private val PICK_IMAGE_REQUEST = 1
 
@@ -42,11 +41,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-//        networkChangeReceiver = NetworkChangeReceiver(this)
-//
-//        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-//        activity?.registerReceiver(networkChangeReceiver, filter)
-
         return binding.root
     }
 
@@ -57,6 +51,10 @@ class HomeFragment : Fragment() {
         observeState()
 
         viewModel.loadAndLogUsers()
+
+        binding.buttonEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_editProfile)
+        }
 
         binding.imageViewProfilePhoto.setOnClickListener {
             openGalleryForImage()

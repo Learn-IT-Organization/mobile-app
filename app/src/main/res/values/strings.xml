@@ -97,4 +97,5 @@
     <string name="exist_quiz">Exist quiz</string>
     <string name="text_true">True</string>
     <string name="text_false">False</string>
+    <string name="save">Save</string>
 </resources>
