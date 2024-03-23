@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:focusableInTouchMode="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewProfilePhoto"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:layout_marginBottom="@dimen/dimen_30dp"
+            android:background="@drawable/avatar_female"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circular" />
+
+        <TextView
+            android:id="@+id/textViewFirstName"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewProfilePhoto" />
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            style="@style/subtitle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:importantForAutofill="yes"
+            android:inputType="text"
+            android:minHeight="@dimen/dimen_50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewFirstName" />
+
+        <TextView
+            android:id="@+id/textViewLastName"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextFirstName" />
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            style="@style/subtitle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="yes"
+            android:inputType="text"
+            android:minHeight="@dimen/dimen_50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewLastName" />
+
+
+        <TextView
+            android:id="@+id/textViewUserName"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextLastName" />
+
+        <EditText
+            android:id="@+id/editTextUserName"
+            style="@style/subtitle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="yes"
+            android:inputType="text"
+            android:minHeight="@dimen/dimen_50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewUserName" />
+
+        <TextView
+            android:id="@+id/textViewUserPassword"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextUserName" />
+
+        <EditText
+            android:id="@+id/editTextUserPassword"
+            style="@style/subtitle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="yes"
+            android:inputType="text"
+            android:minHeight="@dimen/dimen_50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewUserPassword"
+            tools:ignore="TextFields" />
+
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextUserPassword">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                style="@style/subtitle_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/male" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                style="@style/subtitle_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/female" />
+        </RadioGroup>
+
+
+        <Spinner
+            android:id="@+id/spinnerUserLevel"
+            style="@style/subtitle_style"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_50dp"
+            android:layout_marginTop="@dimen/dimen_30dp"
+            android:entries="@array/user_level_array"
+            android:prompt="@string/choose_user_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genderRadioGroup" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/save"
+            android:textColor="@color/md_theme_onPrimary"
+            android:textSize="@dimen/dimen_20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinnerUserLevel" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
