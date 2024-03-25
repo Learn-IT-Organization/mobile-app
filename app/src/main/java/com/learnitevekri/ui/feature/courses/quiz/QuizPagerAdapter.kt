@@ -1,5 +1,6 @@
 package com.learnitevekri.ui.feature.courses.quiz
 
+import com.learnitevekri.ui.feature.courses.quiz.fragment.MatchingQuizFragment
 import com.learnitevekri.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import com.learnitevekri.data.ApiConstants.ARG_CHAPTER_ID
 import com.learnitevekri.data.ApiConstants.ARG_COURSE_ID
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
+import com.learnitevekri.data.courses.quiz.model.MatchingQuestionData
 import com.learnitevekri.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.learnitevekri.data.courses.quiz.model.SortingQuestionData
 import com.learnitevekri.data.courses.quiz.model.TrueFalseQuestionData
@@ -73,6 +75,13 @@ class QuizPagerAdapter(
                     arguments = createBundle(shuffledQuestion)
                 }
                 tfFragment
+            }
+
+            is MatchingQuestionData -> {
+                val matchingFragment = MatchingQuizFragment().apply {
+                    arguments = createBundle(shuffledQuestion)
+                }
+                matchingFragment
             }
 
             else -> throw IllegalStateException("Invalid question type: ${shuffledQuestion::class.java.simpleName}")

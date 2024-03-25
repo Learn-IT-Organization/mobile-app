@@ -28,3 +28,12 @@ data class SortingAnswer(
     @SerializedName("ansDownText") val ansDownText: String,
     @SerializedName("concepts") val concepts: List<String>
 )
+
+data class MatchingQuestionData(
+    @SerializedName("answers") val answers: List<MatchingAnswer>
+) : BaseQuestionData()
+
+data class MatchingAnswer(
+    @SerializedName("textLeft") val textLeft: String,
+    @SerializedName("textRight") val textRight: String
+)

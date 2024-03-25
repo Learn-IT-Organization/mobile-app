@@ -30,6 +30,9 @@ class UserAnswerAdapter(private val userAnswersList: List<UserAnswersData>) :
                         R.drawable.ic_sorting
                     }
 
+                    "matching" -> {
+                        R.drawable.ic_matching
+                    }
                     else -> {
                         android.R.drawable.ic_menu_help
                     }

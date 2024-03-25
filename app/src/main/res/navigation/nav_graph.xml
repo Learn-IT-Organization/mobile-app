@@ -176,4 +176,9 @@
             android:id="@+id/action_editProfile_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment android:id="@+id/quizMatchingFragment"
+        android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.MatchingQuizFragment"
+        android:label="MatchingQuizFragment"
+        tools:layout="@layout/fragment_quiz_matching"/>
 </navigation>

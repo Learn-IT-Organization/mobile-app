@@ -30,7 +30,7 @@
         style="@style/lesson_more_button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimen_50dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
         android:drawableLeft="@drawable/book_button"
         android:fontFamily="@font/baloo"
         android:text="@string/read_more"
