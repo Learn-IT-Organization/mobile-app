@@ -103,4 +103,5 @@
     <string name="please_select_all_pairs">Please match all the pairs\n</string>
     <string name="please_match_all_pairs">Please match all the pairs</string>
     <string name="select_right_button_first">Please select the pair of the left button firs</string>
+    <string name="save">Save</string>
 </resources>

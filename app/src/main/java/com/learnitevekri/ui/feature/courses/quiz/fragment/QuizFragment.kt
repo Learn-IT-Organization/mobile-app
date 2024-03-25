@@ -2,6 +2,8 @@ package com.learnitevekri.ui.feature.courses.quiz.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,6 +52,7 @@ class QuizFragment : Fragment() {
     private var questionsAnswers: List<BaseQuestionData> = emptyList()
     private var mainActivity: MainActivity? = null
     private lateinit var viewPager: ViewPager2
+    private lateinit var mediaPlayer: MediaPlayer
 
     companion object {
         val TAG: String = QuizFragment::class.java.simpleName
@@ -73,7 +76,7 @@ class QuizFragment : Fragment() {
         viewModel.loadAllQuestionsAnswers(courseId, chapterId, lessonId)
 
         mainActivity?.hideBottomNavigationView()
-
+        mediaPlayer = MediaPlayer()
         return binding.root
     }
 
@@ -96,6 +99,7 @@ class QuizFragment : Fragment() {
         }
 
         observeScore()
+        observeSound()
         observeCurrentQuestionNumber()
         observeCurrentQuestionItem()
     }
@@ -241,6 +245,36 @@ class QuizFragment : Fragment() {
         viewModel.scoreLiveData.observe(requireActivity(), observer)
     }
 
+    private fun observeSound() {
+        viewModel?.let { viewModel ->
+            viewModel.soundLiveData?.observe(viewLifecycleOwner) { shouldPlaySound ->
+                shouldPlaySound?.let {
+                    if (shouldPlaySound) {
+                        mediaPlayer.apply {
+                            reset()
+                            setDataSource(
+                                requireContext(),
+                                Uri.parse("android.resource://${requireContext().packageName}/${R.raw.correct}")
+                            )
+                            prepare()
+                            start()
+                        }
+                    } else {
+                        mediaPlayer.apply {
+                            reset()
+                            setDataSource(
+                                requireContext(),
+                                Uri.parse("android.resource://${requireContext().packageName}/${R.raw.wrong}")
+                            )
+                            prepare()
+                            start()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun observeCurrentQuestionNumber() {
         val observer = Observer<Int> { currentQuestionNumber ->
             if (currentQuestionNumber == maxNumberOfQuestion) {
@@ -270,13 +304,13 @@ class QuizFragment : Fragment() {
 
         viewModel.scoreLiveData.removeObservers(requireActivity())
         viewModel.scoreLiveData.value = 0.0f
+        viewModel.soundLiveData.removeObservers(requireActivity())
+        viewModel.soundLiveData.value = null
         viewModel.currentQuestionItemLiveData.removeObservers(requireActivity())
         viewModel.currentQuestionItemLiveData.value = 0
         currentQuestionNumber.removeObservers(requireActivity())
         currentQuestionNumber.value = 0
         totalScore = 0.0f
-
-
     }
 
     @OptIn(DelicateCoroutinesApi::class)

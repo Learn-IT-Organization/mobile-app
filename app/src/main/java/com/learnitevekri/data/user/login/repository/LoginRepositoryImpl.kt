@@ -5,7 +5,10 @@ import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.notifications.TokenData
 import com.learnitevekri.data.user.login.model.Data
+import com.learnitevekri.data.user.login.model.EditProfileData
+import com.learnitevekri.data.user.login.model.EditProfileResponse
 import com.learnitevekri.data.user.login.model.ForgotPasswordData
+import com.learnitevekri.data.user.login.model.LoggedUserData
 import com.learnitevekri.data.user.login.model.LoginData
 import com.learnitevekri.data.user.login.model.ResetCodeData
 import com.learnitevekri.data.user.login.model.ResetPasswordResponseData
@@ -62,4 +65,9 @@ object LoginRepositoryImpl : LoginRepository {
         return response.body()!!
     }
 
+    override suspend fun editProfile(userData: EditProfileData): EditProfileResponse {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.editUser(userData)
+        return response.body()!!
+    }
 }
