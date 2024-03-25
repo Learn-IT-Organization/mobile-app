@@ -46,6 +46,10 @@ class SharedQuizViewModel : ViewModel() {
         MutableLiveData<Float>()
     }
 
+    val soundLiveData: MutableLiveData<Boolean?> by lazy {
+        MutableLiveData<Boolean?>()
+    }
+
     val state: StateFlow<QuestionAnswersPageState> = mutableState
 
     sealed class QuestionAnswersPageState {
@@ -92,6 +96,14 @@ class SharedQuizViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             val response = quizResultRepository.sendResponse(userResponse)
             scoreLiveData.postValue(response.score)
+            Log.d(TAG, response.score.toString())
+
+            val soundEnabled = when (response.score) {
+                0.0f -> false
+                else -> true
+            }
+
+            soundLiveData.postValue(soundEnabled)
         }
     }
 
