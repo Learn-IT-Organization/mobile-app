@@ -1,15 +1,13 @@
 package com.learnitevekri.data
 
-import android.util.Log
-import androidx.navigation.Navigation.findNavController
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
-import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.API_BASE_URL
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
+import com.learnitevekri.data.courses.quiz.model.MatchingQuestionData
 import com.learnitevekri.data.courses.quiz.model.MultipleChoiceQuestionData
 import com.learnitevekri.data.courses.quiz.model.SortingQuestionData
 import com.learnitevekri.data.courses.quiz.model.TrueFalseQuestionData
@@ -18,7 +16,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 
 object RetrofitAdapter {
 
@@ -46,6 +43,7 @@ object RetrofitAdapter {
                     .registerSubtype(TrueFalseQuestionData::class.java, "true_false")
                     .registerSubtype(MultipleChoiceQuestionData::class.java, "multiple_choice")
                     .registerSubtype(SortingQuestionData::class.java, "sorting")
+                    .registerSubtype(MatchingQuestionData::class.java, "matching")
             )
             .create()
 
@@ -56,7 +54,7 @@ object RetrofitAdapter {
             .build()
     }
 
-    fun provideApiService(): com.learnitevekri.data.ApiService =
-        retrofit.create(com.learnitevekri.data.ApiService::class.java)
+    fun provideApiService(): ApiService =
+        retrofit.create(ApiService::class.java)
 
 }

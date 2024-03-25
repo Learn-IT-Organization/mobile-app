@@ -1,0 +1,161 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_10dp">
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/match_the_pairs"
+        android:textSize="@dimen/dimen_25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/option1ButtonLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:backgroundTint="@color/pink"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/option1ButtonRight"
+        app:layout_constraintEnd_toStartOf="@id/option1ButtonRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/questionTextView" />
+
+    <Button
+        android:id="@+id/option1ButtonRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_40dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/option1ButtonLeft"
+        app:layout_constraintTop_toBottomOf="@id/questionTextView" />
+
+    <Button
+        android:id="@+id/option2ButtonLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:backgroundTint="@color/pink"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/option2ButtonRight"
+        app:layout_constraintEnd_toStartOf="@id/option2ButtonRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/option1ButtonLeft" />
+
+    <Button
+        android:id="@+id/option2ButtonRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/option2ButtonLeft"
+        app:layout_constraintTop_toBottomOf="@id/option1ButtonLeft" />
+
+    <Button
+        android:id="@+id/option3ButtonLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:backgroundTint="@color/pink"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+
+        app:layout_constraintBaseline_toBaselineOf="@id/option3ButtonRight"
+        app:layout_constraintEnd_toStartOf="@id/option3ButtonRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/option2ButtonLeft" />
+
+    <Button
+        android:id="@+id/option3ButtonRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/option3ButtonLeft"
+        app:layout_constraintTop_toBottomOf="@id/option2ButtonLeft" />
+
+    <Button
+        android:id="@+id/option4ButtonLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:backgroundTint="@color/pink"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+
+        app:layout_constraintBaseline_toBaselineOf="@id/option4ButtonRight"
+        app:layout_constraintEnd_toStartOf="@id/option4ButtonRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/option3ButtonLeft" />
+
+    <Button
+        android:id="@+id/option4ButtonRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_70dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:fontFamily="@font/baloo"
+        android:text="@string/option_1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/option4ButtonLeft"
+        app:layout_constraintTop_toBottomOf="@id/option3ButtonLeft" />
+
+    <ImageView
+        android:id="@+id/trueFalseImageView"
+        android:layout_width="@dimen/dimen_300dp"
+        android:layout_height="@dimen/dimen_80dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/match_the_pairs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

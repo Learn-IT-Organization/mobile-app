@@ -163,4 +163,9 @@
         android:label="ServerErrorFragment"
         tools:layout="@layout/fragment_server_error">
     </fragment>
+
+    <fragment android:id="@+id/quizMatchingFragment"
+        android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.MatchingQuizFragment"
+        android:label="MatchingQuizFragment"
+        tools:layout="@layout/fragment_quiz_matching"/>
 </navigation>
