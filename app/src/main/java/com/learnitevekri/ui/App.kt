@@ -13,6 +13,7 @@ import com.learnitevekri.data.user.login.repository.LoginRepositoryImpl
 import com.learnitevekri.data.user.login.repository.UserRepositoryImpl
 import com.learnitevekri.data.user.logout.LogOutRepositoryImpl
 import com.learnitevekri.data.user.register.repository.RegisterRepositoryImpl
+import com.learnitevekri.data.user.teacher.repository.TeacherRequestRepositoryImpl
 import com.learnitevekri.domain.course.ChaptersRepository
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.domain.course.LessonRepository
@@ -21,6 +22,7 @@ import com.learnitevekri.domain.logout.LogOutRepository
 import com.learnitevekri.domain.quiz.QuestionsAnswersRepository
 import com.learnitevekri.domain.quiz.QuizResultRepository
 import com.learnitevekri.domain.register.RegisterRepository
+import com.learnitevekri.domain.user.TeacherRequestRepository
 import com.learnitevekri.domain.user.UserRepository
 
 class App : Application() {
@@ -58,4 +60,6 @@ class App : Application() {
     fun getQuestionsAnswersRepository(): QuestionsAnswersRepository = QuestionsAnswersRepositoryImpl
     fun getQuizResultRepository(): QuizResultRepository = QuizResultRepositoryImpl
     fun getLogoutRepository(): LogOutRepository = LogOutRepositoryImpl
+
+    fun getTeacherRequestRepository(): TeacherRequestRepository = TeacherRequestRepositoryImpl
 }
