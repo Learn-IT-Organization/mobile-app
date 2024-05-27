@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.learnitevekri.R
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.databinding.ActivityMainBinding
 import com.learnitevekri.ui.App
 import java.net.ConnectException
@@ -22,6 +23,7 @@ import java.net.SocketTimeoutException
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val TAG = MainActivity::class.java.simpleName
 
     fun errorHandling(error: Throwable?) {
         val navController = this.findNavController(R.id.nav_host_fragment)
@@ -56,11 +58,15 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView: BottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setupWithNavController(navController)
 
+        if (!SharedPreferences.getAdmin()) {
+            bottomNavigationView.menu.removeItem(R.id.adminFragment)
+        }
+
         com.learnitevekri.data.MyFirebaseMessagingService.notificationLiveData2.observe(this) {
             if (it) {
                 bottomNavigationView.menu.findItem(R.id.notificationsFragment)
                     .setIcon(R.drawable.nav_notifications_active)
-                Log.d("MainActivity", "Notification received")
+                Log.d(TAG, "Notification received")
             } else {
                 bottomNavigationView.menu.findItem(R.id.notificationsFragment)
                     .setIcon(R.drawable.nav_notifications)
@@ -86,6 +92,11 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.notificationsFragment -> {
                     navController.navigate(R.id.notificationsFragment)
+                    true
+                }
+
+                R.id.adminFragment -> {
+                    navController.navigate(R.id.adminFragment)
                     true
                 }
 
@@ -136,4 +147,3 @@ class MainActivity : AppCompatActivity() {
         App.instance.setCurrentActivity(null)
     }
 }
-

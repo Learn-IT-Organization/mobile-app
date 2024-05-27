@@ -25,6 +25,9 @@ import com.learnitevekri.data.user.login.model.ResponseData
 import com.learnitevekri.data.user.logout.LogoutResponseData
 import com.learnitevekri.data.user.register.model.RegistrationData
 import com.learnitevekri.data.user.register.model.RegistrationResponseData
+import com.learnitevekri.data.user.teacher.model.Message
+import com.learnitevekri.data.user.teacher.model.TeacherRequestData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestInfo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -107,4 +110,13 @@ interface ApiService {
 
     @PUT("/editUser")
     suspend fun editUser(@Body userData: EditProfileData): Response<EditProfileResponse>
+
+    @GET("/teacherRequests")
+    suspend fun getTeacherRequests(): Response<List<TeacherRequestData>>
+
+    @POST("/validateTeacher")
+    suspend fun acceptTeacherRequest(@Body teacherRequestInfo: TeacherRequestInfo): Response<Message>
+
+    @POST("/declineRequest")
+    suspend fun declineTeacherRequest(@Body teacherRequestInfo: TeacherRequestInfo): Response<Message>
 }

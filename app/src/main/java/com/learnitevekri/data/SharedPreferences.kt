@@ -17,43 +17,47 @@ object SharedPreferences {
     private const val REMEMBERED_PASSWORD = "remembered_password"
 
     fun storeToken(token: String) {
-        sharedPreferences.edit().putString(com.learnitevekri.data.ApiConstants.TOKEN, token).apply()
+        sharedPreferences.edit().putString(ApiConstants.TOKEN, token).apply()
     }
 
     fun storeExpires(expires: Long) {
-        sharedPreferences.edit().putLong(com.learnitevekri.data.ApiConstants.EXPIRATION_TIME, expires).apply()
+        sharedPreferences.edit().putLong(ApiConstants.EXPIRATION_TIME, expires).apply()
     }
 
     fun storeUserId(userId: Long?) {
-        sharedPreferences.edit().putLong(com.learnitevekri.data.ApiConstants.USER_ID, userId!!).apply()
+        sharedPreferences.edit().putLong(ApiConstants.USER_ID, userId!!)
+            .apply()
     }
 
     fun storeAdmin(admin: Boolean) {
-        sharedPreferences.edit().putBoolean(com.learnitevekri.data.ApiConstants.ADMIN, admin).apply()
+        sharedPreferences.edit().putBoolean(ApiConstants.ADMIN, admin)
+            .apply()
     }
 
     fun storeTeacher(teacher: Boolean) {
-        sharedPreferences.edit().putBoolean(com.learnitevekri.data.ApiConstants.TEACHER, teacher).apply()
+        sharedPreferences.edit().putBoolean(ApiConstants.TEACHER, teacher)
+            .apply()
     }
 
     fun storeStudent(student: Boolean) {
-        sharedPreferences.edit().putBoolean(com.learnitevekri.data.ApiConstants.STUDENT, student).apply()
+        sharedPreferences.edit().putBoolean(ApiConstants.STUDENT, student)
+            .apply()
     }
 
     fun getToken(): String? {
-        return sharedPreferences.getString(com.learnitevekri.data.ApiConstants.TOKEN, null)
+        return sharedPreferences.getString(ApiConstants.TOKEN, null)
     }
 
     fun getExpiresTime(): Long {
-        return sharedPreferences.getLong(com.learnitevekri.data.ApiConstants.EXPIRATION_TIME, 0)
+        return sharedPreferences.getLong(ApiConstants.EXPIRATION_TIME, 0)
     }
 
     fun getUserId(): Long {
-        return sharedPreferences.getLong(com.learnitevekri.data.ApiConstants.USER_ID, 0)
+        return sharedPreferences.getLong(ApiConstants.USER_ID, 0)
     }
 
     fun getAdmin(): Boolean {
-        return sharedPreferences.getBoolean(com.learnitevekri.data.ApiConstants.ADMIN, false)
+        return sharedPreferences.getBoolean(ApiConstants.ADMIN, false)
     }
 
     fun getTeacher(): Boolean {
@@ -61,15 +65,15 @@ object SharedPreferences {
     }
 
     fun getStudent(): Boolean {
-        return sharedPreferences.getBoolean(com.learnitevekri.data.ApiConstants.STUDENT, false)
+        return sharedPreferences.getBoolean(ApiConstants.STUDENT, false)
     }
 
     fun clearUserData() {
         sharedPreferences.edit().apply {
-            remove(com.learnitevekri.data.ApiConstants.TOKEN)
-            remove(com.learnitevekri.data.ApiConstants.EXPIRATION_TIME)
-            remove(com.learnitevekri.data.ApiConstants.ID)
-            remove(com.learnitevekri.data.ApiConstants.ADMIN)
+            remove(ApiConstants.TOKEN)
+            remove(ApiConstants.EXPIRATION_TIME)
+            remove(ApiConstants.ID)
+            remove(ApiConstants.ADMIN)
         }.apply()
     }
 

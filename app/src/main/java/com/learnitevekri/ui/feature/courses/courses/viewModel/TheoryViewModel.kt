@@ -47,10 +47,10 @@ class TheoryViewModel : ViewModel() {
             try {
                 val loadedContents = repository.getLessonContentByLessonId(lessonId)
                 Log.d(TAG, "Loaded lesson contents: $loadedContents")
-                mutableState.value = TheoryViewModel.TheoryPageState.Success(loadedContents)
+                mutableState.value = TheoryPageState.Success(loadedContents)
             } catch (e: Exception) {
                 Log.e(ChaptersViewModel.TAG, "Error fetching chapters: ${e.message}")
-                mutableState.value = TheoryViewModel.TheoryPageState.Failure(e)
+                mutableState.value = TheoryPageState.Failure(e)
             }
         }
     }
@@ -60,10 +60,10 @@ class TheoryViewModel : ViewModel() {
             try {
                 val loadedLesson = repository.getLessonById(lessonId)
                 Log.d(TAG, "Loaded lesson contents: $loadedLesson")
-                mutableState2.value = TheoryViewModel.TheoryPageStateForLesson.Success(loadedLesson)
+                mutableState2.value = TheoryPageStateForLesson.Success(loadedLesson)
             } catch (e: Exception) {
                 Log.e(ChaptersViewModel.TAG, "Error fetching chapters: ${e.message}")
-                mutableState.value = TheoryViewModel.TheoryPageState.Failure(e)
+                mutableState.value = TheoryPageState.Failure(e)
             }
         }
     }
