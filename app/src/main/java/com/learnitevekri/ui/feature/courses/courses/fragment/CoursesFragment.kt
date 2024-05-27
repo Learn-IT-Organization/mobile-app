@@ -46,6 +46,9 @@ class CoursesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fabAddCourse.setOnClickListener {
+            findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
+        }
         observeState()
     }
 

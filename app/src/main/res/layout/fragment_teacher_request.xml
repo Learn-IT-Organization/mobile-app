@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/attention"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Attention!"
+        android:textStyle="bold"
+        style="@style/title_style"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Only teachers can add courses. To request access, please provide your email address and full name, and submit the required documents."
+        style="@style/subtitle_style"
+        app:layout_constraintTop_toBottomOf="@id/attention"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="yes"
+        android:accessibilityLiveRegion="assertive" />
+
+    <EditText
+        android:id="@+id/et_full_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"
+        android:importantForAccessibility="yes"
+        android:accessibilityLiveRegion="assertive" />
+
+    <ImageView
+        android:id="@+id/image_access_denied"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_300dp"
+        android:padding="@dimen/dimen_40dp"
+        android:src="@drawable/access_denied"
+        app:layout_constraintTop_toBottomOf="@id/et_full_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_request_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Request"
+        app:layout_constraintTop_toBottomOf="@id/image_access_denied"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
