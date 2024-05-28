@@ -3,7 +3,7 @@ package com.learnitevekri.data.user.teacher.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class TeacherRequestDataFull(
+data class TeacherRequestDataFull(
 
     @SerializedName("request_id")
     val requestId: Int,

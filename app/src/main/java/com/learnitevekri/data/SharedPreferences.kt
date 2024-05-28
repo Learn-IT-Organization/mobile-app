@@ -63,7 +63,7 @@ object SharedPreferences {
     }
 
     fun getTeacher(): Boolean {
-        return sharedPreferences.getBoolean(com.learnitevekri.data.ApiConstants.TEACHER, false)
+        return sharedPreferences.getBoolean(ApiConstants.TEACHER, false)
     }
 
     fun getStudent(): Boolean {

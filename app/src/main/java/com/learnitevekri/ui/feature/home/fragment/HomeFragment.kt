@@ -49,8 +49,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeState()
+        observeTeacherRequestState()
 
         viewModel.loadAndLogUsers()
+        viewModel.getTeacherRequest()
 
         binding.buttonEditProfile.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_editProfile)
@@ -126,6 +128,63 @@ class HomeFragment : Fragment() {
 
         binding.imageViewProfilePhoto.setOnClickListener {
             openGalleryForImage()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun observeTeacherRequestState() {
+        lifecycleScope.launch {
+            viewModel.teacherRequestState.collect { state ->
+                when (state) {
+                    is HomeViewModel.TeacherRequestState.Loading -> {
+                        Log.d(TAG, "Loading teacher request...")
+                    }
+
+                    is HomeViewModel.TeacherRequestState.Success -> {
+                        state.teacherRequest?.let { teacherRequest ->
+                            Log.d(TAG, "Teacher request loaded: $teacherRequest")
+                            binding.textViewTitle.visibility = View.VISIBLE
+                            binding.cardViewTeacherRequests.visibility = View.VISIBLE
+                            binding.textViewEmailTeacher.text = "Email: ${teacherRequest.email}"
+                            binding.textViewFullNameTeacher.text =
+                                "Name: ${teacherRequest.fullName}"
+                            binding.textViewApprovalStatus.text =
+                                "Status: ${teacherRequest.isApproved}"
+                            when (teacherRequest.isApproved) {
+                                "pending" -> {
+                                    binding.linearLayoutTeacherRequests.setBackgroundColor(
+                                        resources.getColor(
+                                            R.color.light_gray
+                                        )
+                                    )
+                                }
+
+                                "accepted" -> {
+                                    binding.linearLayoutTeacherRequests.setBackgroundColor(
+                                        resources.getColor(
+                                            R.color.light_green
+                                        )
+                                    )
+                                }
+
+                                "declined" -> {
+                                    binding.linearLayoutTeacherRequests.setBackgroundColor(
+                                        resources.getColor(
+                                            R.color.light_red
+                                        )
+                                    )
+
+                                }
+                            }
+                        }
+                    }
+
+                    is HomeViewModel.TeacherRequestState.Failure -> {
+                        binding.cardViewTeacherRequests.visibility = View.GONE
+                        Log.e(TAG, "Error loading teacher request: ${state.throwable}")
+                    }
+                }
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.data.user.login.model.LoggedUserData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestDataFull
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.domain.user.UserRepository
 import com.learnitevekri.ui.App
@@ -21,6 +22,7 @@ class HomeViewModel : ViewModel() {
     }
 
     private val repository: UserRepository = App.instance.getUserRepository()
+    private val teacherRequestRepository = App.instance.getTeacherRequestRepository()
     private val coursesRepository: CourseRepository = App.instance.getCourseRepository()
 
     private var userList: List<LoggedUserData> = mutableListOf()
@@ -29,8 +31,11 @@ class HomeViewModel : ViewModel() {
     private val mutableUserImagePath = MutableStateFlow<String?>(null)
 
     sealed class UserPageState {
-        data object Loading : UserPageState()
-        data class Success(val userData: List<LoggedUserData>, val courseData: List<CourseData>) :
+        object Loading : UserPageState()
+        data class Success(
+            val userData: List<LoggedUserData>,
+            val courseData: List<CourseData>,
+        ) :
             UserPageState()
 
         data class ImagePathSuccess(val imagePath: String?) : UserPageState()
@@ -39,6 +44,19 @@ class HomeViewModel : ViewModel() {
 
     private val mutableState = MutableStateFlow<UserPageState>(UserPageState.Loading)
     val state: StateFlow<UserPageState> = mutableState
+
+    sealed class TeacherRequestState {
+        object Loading : TeacherRequestState()
+        data class Success(val teacherRequest: TeacherRequestDataFull?) :
+            TeacherRequestState()
+
+        data class Failure(val throwable: Throwable) : TeacherRequestState()
+    }
+
+    private val mutableTeacherRequestState = MutableStateFlow<TeacherRequestState>(
+        TeacherRequestState.Loading
+    )
+    val teacherRequestState: StateFlow<TeacherRequestState> = mutableTeacherRequestState
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         mutableState.value = UserPageState.Failure(exception)
@@ -54,7 +72,6 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching users: ${e.message}")
                 mutableState.value = UserPageState.Failure(e)
-
             }
         }
     }
@@ -77,4 +94,17 @@ class HomeViewModel : ViewModel() {
         mutableUserImagePath.value = imagePath
         SharedPreferences.setUserImagePath(App.instance, imagePath)
     }
+
+    fun getTeacherRequest() {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            try {
+                val teacherRequest = teacherRequestRepository.getUserRequests()
+                mutableTeacherRequestState.value = TeacherRequestState.Success(teacherRequest)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching teacher request: ${e.message}")
+                mutableTeacherRequestState.value = TeacherRequestState.Failure(e)
+            }
+        }
+    }
+
 }

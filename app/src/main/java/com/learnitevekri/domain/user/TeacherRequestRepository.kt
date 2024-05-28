@@ -11,4 +11,5 @@ interface TeacherRequestRepository {
     suspend fun acceptTeacherRequest(teacherRequestInfo: TeacherRequestInfo): Message
     suspend fun declineTeacherRequest(teacherRequestInfo: TeacherRequestInfo): Message
     suspend fun sendTeacherRequest(teacherRequestData: TeacherRequestData): TeacherRequestResponseData?
+    suspend fun getUserRequests(): TeacherRequestDataFull?
 }

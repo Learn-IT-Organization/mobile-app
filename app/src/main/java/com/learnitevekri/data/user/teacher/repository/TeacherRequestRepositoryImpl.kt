@@ -59,4 +59,17 @@ object TeacherRequestRepositoryImpl : TeacherRequestRepository {
         }
         return null
     }
+
+    override suspend fun getUserRequests(): TeacherRequestDataFull? {
+        try {
+            val response = apiService.getUserRequests()
+            if (response.isSuccessful) {
+                return response.body()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching teacher requests: ${e.message}")
+            throw e
+        }
+        return null
+    }
 }
