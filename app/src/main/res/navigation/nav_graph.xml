@@ -190,4 +190,10 @@
         android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.MatchingQuizFragment"
         android:label="MatchingQuizFragment"
         tools:layout="@layout/fragment_quiz_matching"/>
+
+    <fragment android:id="@+id/adminFragment"
+        android:name="com.learnitevekri.ui.feature.admin.fragment.AdminFragment"
+        android:label="AdminFragment"
+        tools:layout="@layout/fragment_admin"/>
+
 </navigation>

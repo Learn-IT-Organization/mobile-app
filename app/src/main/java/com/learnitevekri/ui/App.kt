@@ -60,6 +60,5 @@ class App : Application() {
     fun getQuestionsAnswersRepository(): QuestionsAnswersRepository = QuestionsAnswersRepositoryImpl
     fun getQuizResultRepository(): QuizResultRepository = QuizResultRepositoryImpl
     fun getLogoutRepository(): LogOutRepository = LogOutRepositoryImpl
-
     fun getTeacherRequestRepository(): TeacherRequestRepository = TeacherRequestRepositoryImpl
 }

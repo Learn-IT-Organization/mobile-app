@@ -79,7 +79,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //MaterialDesign
     implementation("com.google.android.material:material:1.11.0")
-    //RecyclerView
+    //RecyclerView                                       Nav
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     //Photo requesting
     implementation("androidx.camera:camera-camera2:1.4.0-alpha04")

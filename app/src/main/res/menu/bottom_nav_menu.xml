@@ -2,17 +2,22 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/nav_home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/coursesFragment"
         android:icon="@drawable/nav_courses"
-        android:title="Courses" />
+        android:title="@string/courses" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/nav_settings"
-        android:title="Settings" />
+        android:title="@string/settings" />
     <item
         android:id="@+id/notificationsFragment"
         android:icon="@drawable/nav_notifications"
-        android:title="Notifications" />
+        android:title="@string/notifications" />
+
+    <item
+        android:id="@+id/adminFragment"
+        android:icon="@drawable/nav_admin"
+        android:title="@string/admin" />
 </menu>
