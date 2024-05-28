@@ -46,5 +46,13 @@ object TeacherRequestRepositoryImpl : TeacherRequestRepository {
             return responseData!!
         }
         return Message("Failed to decline teacher request")
+
+ override suspend fun sendTeacherRequest(teacherRequestData: TeacherRequestData): TeacherRequestResponseData? {
+        val apiService = RetrofitAdapter.provideApiService()
+        val response = apiService.sendTeacherRequest(teacherRequestData)
+        if (response.isSuccessful && response.body() != null) {
+            return response.body()
+        }
+        return null
     }
 }

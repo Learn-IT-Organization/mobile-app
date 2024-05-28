@@ -8,4 +8,6 @@ interface TeacherRequestRepository {
     suspend fun getTeacherRequests(): List<TeacherRequestData>
     suspend fun acceptTeacherRequest(teacherRequestInfo: TeacherRequestInfo): Message
     suspend fun declineTeacherRequest(teacherRequestInfo: TeacherRequestInfo): Message
+    suspend fun sendTeacherRequest(teacherRequestData: TeacherRequestData): TeacherRequestResponseData?
+
 }

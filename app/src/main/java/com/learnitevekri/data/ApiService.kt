@@ -25,6 +25,8 @@ import com.learnitevekri.data.user.login.model.ResponseData
 import com.learnitevekri.data.user.logout.LogoutResponseData
 import com.learnitevekri.data.user.register.model.RegistrationData
 import com.learnitevekri.data.user.register.model.RegistrationResponseData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestResponseData
 import com.learnitevekri.data.user.teacher.model.Message
 import com.learnitevekri.data.user.teacher.model.TeacherRequestData
 import com.learnitevekri.data.user.teacher.model.TeacherRequestInfo
@@ -110,6 +112,9 @@ interface ApiService {
 
     @PUT("/editUser")
     suspend fun editUser(@Body userData: EditProfileData): Response<EditProfileResponse>
+
+    @POST("/createRequest")
+    suspend fun sendTeacherRequest(@Body teacherRequestData: TeacherRequestData): Response<TeacherRequestResponseData>
 
     @GET("/teacherRequests")
     suspend fun getTeacherRequests(): Response<List<TeacherRequestData>>
