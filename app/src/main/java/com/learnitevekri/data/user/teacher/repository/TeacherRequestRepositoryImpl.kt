@@ -5,14 +5,16 @@ import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.user.login.repository.UserRepositoryImpl
 import com.learnitevekri.data.user.teacher.model.Message
 import com.learnitevekri.data.user.teacher.model.TeacherRequestData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestDataFull
 import com.learnitevekri.data.user.teacher.model.TeacherRequestInfo
+import com.learnitevekri.data.user.teacher.model.TeacherRequestResponseData
 import com.learnitevekri.domain.user.TeacherRequestRepository
 
 object TeacherRequestRepositoryImpl : TeacherRequestRepository {
     private val apiService = RetrofitAdapter.provideApiService()
     private val TAG = UserRepositoryImpl::class.java.simpleName
 
-    override suspend fun getTeacherRequests(): List<TeacherRequestData> {
+    override suspend fun getTeacherRequests(): List<TeacherRequestDataFull> {
         try {
             val response = apiService.getTeacherRequests()
             if (response.isSuccessful) {
@@ -47,7 +49,9 @@ object TeacherRequestRepositoryImpl : TeacherRequestRepository {
         }
         return Message("Failed to decline teacher request")
 
- override suspend fun sendTeacherRequest(teacherRequestData: TeacherRequestData): TeacherRequestResponseData? {
+    }
+
+    override suspend fun sendTeacherRequest(teacherRequestData: TeacherRequestData): TeacherRequestResponseData? {
         val apiService = RetrofitAdapter.provideApiService()
         val response = apiService.sendTeacherRequest(teacherRequestData)
         if (response.isSuccessful && response.body() != null) {

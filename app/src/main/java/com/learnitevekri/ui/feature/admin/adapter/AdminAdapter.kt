@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.learnitevekri.R
-import com.learnitevekri.data.user.teacher.model.TeacherRequestData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestDataFull
 import com.learnitevekri.databinding.ItemTeacherRequestBinding
 
 class AdminAdapter(
-    private var teacherRequests: List<TeacherRequestData>,
-    private val onAcceptClicked: (TeacherRequestData) -> Unit,
-    private val onDeclineClicked: (TeacherRequestData) -> Unit
+    private var teacherRequests: List<TeacherRequestDataFull>,
+    private val onAcceptClicked: (TeacherRequestDataFull) -> Unit,
+    private val onDeclineClicked: (TeacherRequestDataFull) -> Unit
 ) : RecyclerView.Adapter<AdminAdapter.TeacherRequestViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherRequestViewHolder {
@@ -28,14 +28,9 @@ class AdminAdapter(
         return teacherRequests.size
     }
 
-    fun updateData(newRequests: List<TeacherRequestData>) {
-        teacherRequests = newRequests
-        notifyDataSetChanged()
-    }
-
     inner class TeacherRequestViewHolder(private val binding: ItemTeacherRequestBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(teacherRequest: TeacherRequestData) {
+        fun bind(teacherRequest: TeacherRequestDataFull) {
             when (teacherRequest.isApproved) {
                 "accepted" -> {
                     binding.statusIcon.visibility = View.VISIBLE

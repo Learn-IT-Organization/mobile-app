@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.learnitevekri.data.user.teacher.model.TeacherRequestData
+import com.learnitevekri.data.user.teacher.model.TeacherRequestDataFull
 import com.learnitevekri.data.user.teacher.model.TeacherRequestInfo
 import com.learnitevekri.domain.user.TeacherRequestRepository
 import com.learnitevekri.ui.App
@@ -26,7 +27,7 @@ class AdminViewModel : ViewModel() {
 
     sealed class TeacherRequestsScreenState {
         object Loading : TeacherRequestsScreenState()
-        data class Success(val teacherRequests: List<TeacherRequestData>) :
+        data class Success(val teacherRequests: List<TeacherRequestDataFull>) :
             TeacherRequestsScreenState()
 
         data class Failure(val throwable: Throwable) : TeacherRequestsScreenState()
@@ -47,7 +48,7 @@ class AdminViewModel : ViewModel() {
         }
     }
 
-    fun acceptTeacherRequest(teacherRequest: TeacherRequestData) {
+    fun acceptTeacherRequest(teacherRequest: TeacherRequestDataFull) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 repository.acceptTeacherRequest(
@@ -63,7 +64,7 @@ class AdminViewModel : ViewModel() {
         }
     }
 
-    fun declineTeacherRequest(teacherRequest: TeacherRequestData) {
+    fun declineTeacherRequest(teacherRequest: TeacherRequestDataFull) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
                 repository.declineTeacherRequest(
