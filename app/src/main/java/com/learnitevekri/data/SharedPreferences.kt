@@ -15,6 +15,8 @@ object SharedPreferences {
     private const val IMAGE_PATH = "userImagePath"
     private const val REMEMBERED_USERNAME = "remembered_username"
     private const val REMEMBERED_PASSWORD = "remembered_password"
+    private const val LAST_VIEWED_POSITION = "last_viewed_position"
+
 
     fun storeToken(token: String) {
         sharedPreferences.edit().putString(com.learnitevekri.data.ApiConstants.TOKEN, token).apply()
@@ -125,5 +127,11 @@ object SharedPreferences {
         editor.remove(REMEMBERED_PASSWORD)
         editor.apply()
     }
+    fun saveLastViewedPosition(position: Int) {
+        sharedPreferences.edit().putInt(LAST_VIEWED_POSITION, position).apply()
+    }
 
+    fun getLastViewedPosition(): Int {
+        return sharedPreferences.getInt(LAST_VIEWED_POSITION, 0)
+    }
 }
