@@ -124,4 +124,7 @@ interface ApiService {
 
     @POST("/declineRequest")
     suspend fun declineTeacherRequest(@Body teacherRequestInfo: TeacherRequestInfo): Response<Message>
+
+    @GET("/userRequests")
+    suspend fun getUserRequests(): Response<TeacherRequestDataFull>
 }

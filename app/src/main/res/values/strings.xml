@@ -111,4 +111,5 @@
     <string name="accept">Accept\n</string>
     <string name="decline">Decline\n</string>
     <string name="status_icon">Status icon</string>
+    <string name="teacher_requests">Teacher request status:</string>
 </resources>

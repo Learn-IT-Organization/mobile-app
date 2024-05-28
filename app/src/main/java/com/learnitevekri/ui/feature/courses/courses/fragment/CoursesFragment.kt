@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.learnitevekri.R
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.databinding.FragmentCoursesBinding
 import com.learnitevekri.ui.activities.MainActivity
 import com.learnitevekri.ui.feature.courses.courses.adapter.CoursesAdapter
@@ -47,7 +49,11 @@ class CoursesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fabAddCourse.setOnClickListener {
-            findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
+            if (SharedPreferences.getStudent()) {
+                findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
+            } else {
+                Toast.makeText(context, "You are already a teacher", Toast.LENGTH_SHORT).show()
+            }
         }
         observeState()
     }
