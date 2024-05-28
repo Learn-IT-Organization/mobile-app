@@ -80,4 +80,17 @@ object LessonRepositoryImpl : LessonRepository {
         }
         return emptyList()
     }
+
+    override suspend fun createLessonContent(lessonContentData: LessonContentData): LessonContentData {
+        try {
+            val response = apiService.createLessonContent(lessonContentData)
+            if (response.isSuccessful) {
+                return response.body()!!
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating lesson content: ${e.message}")
+            throw e
+        }
+        return null!!
+    }
 }

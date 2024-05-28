@@ -52,7 +52,7 @@ class CoursesFragment : Fragment() {
             if (SharedPreferences.getStudent()) {
                 findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
             } else {
-                Toast.makeText(context, "You are already a teacher", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_coursesFragment_to_addContentFragment)
             }
         }
         observeState()

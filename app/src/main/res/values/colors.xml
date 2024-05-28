@@ -151,4 +151,5 @@
     <color name="pink">#ff6584</color>
     <color name="light_green">#cefad0</color>
     <color name="light_red">#ff6865</color>
+    <color name="black">#000000</color>
 </resources>

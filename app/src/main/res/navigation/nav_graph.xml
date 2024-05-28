@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_coursesFragment_to_teacherRequestFragment"
             app:destination="@id/teacherRequestFragment" />
+        <action
+            android:id="@+id/action_coursesFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
     </fragment>
 
     <fragment
@@ -195,5 +198,11 @@
         android:name="com.learnitevekri.ui.feature.admin.fragment.AdminFragment"
         android:label="AdminFragment"
         tools:layout="@layout/fragment_admin"/>
+
+    <fragment android:id="@+id/addContentFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.AddContentFragment"
+        android:label="AddContentFragment"
+        tools:layout="@layout/fragment_add_content"/>
+
 
 </navigation>

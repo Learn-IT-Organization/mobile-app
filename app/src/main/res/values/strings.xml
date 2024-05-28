@@ -112,4 +112,10 @@
     <string name="decline">Decline\n</string>
     <string name="status_icon">Status icon</string>
     <string name="teacher_requests">Teacher request status:</string>
+    <string name="content_url">Content URL</string>
+    <string name="content_title">Content Title</string>
+    <string name="content_description">Content Description</string>
+    <string name="add_content">Add Content</string>
+    <string name="_0_255">0/255</string>
+    <string name="content_type">Content Type:</string>
 </resources>

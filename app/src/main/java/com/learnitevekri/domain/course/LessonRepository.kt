@@ -11,4 +11,5 @@ interface LessonRepository {
     suspend fun getLessonProgress(): List<LessonProgressData>
     suspend fun getLessonById(lessonId: Int): LessonData?
     suspend fun getLessonResultWithValidation(lessonId: Int): List<UserAnswersData>
+    suspend fun createLessonContent(lessonContentData: LessonContentData): LessonContentData
 }
