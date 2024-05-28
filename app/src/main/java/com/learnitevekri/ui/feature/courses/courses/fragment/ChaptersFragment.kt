@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.ARG_CHAPTER_ID
 import com.learnitevekri.data.ApiConstants.ARG_COURSE_ID
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.data.courses.lessons.model.LessonProgressData
@@ -63,6 +65,9 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         viewModel.loadChapters(courseId)
         lessonViewModel.loadLessonResult()
         observeLessonResult()
+        val lastViewedPosition = SharedPreferences.getLastViewedPosition()
+        val layoutManager = binding.chaptersRecyclerView.layoutManager as LinearLayoutManager
+        layoutManager.scrollToPosition(lastViewedPosition)
     }
 
     private fun observeState() {
@@ -204,6 +209,13 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         view.findViewById<Button>(R.id.noButton).setOnClickListener {
             dialog.dismiss()
         }
+    }
+    override fun onPause() {
+        super.onPause()
+        val layoutManager = binding.chaptersRecyclerView.layoutManager as LinearLayoutManager
+        val lastViewedPosition = layoutManager.findLastVisibleItemPosition()
+        SharedPreferences.saveLastViewedPosition(lastViewedPosition)
+        Log.d(TAG, "Last viewed position: $lastViewedPosition")
     }
 
 }
