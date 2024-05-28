@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.learnitevekri.data.user.teacher.model.TeacherRequestData
 import com.learnitevekri.databinding.FragmentAdminBinding
 import com.learnitevekri.ui.feature.admin.adapter.AdminAdapter
 import com.learnitevekri.ui.feature.admin.viewModel.AdminViewModel
@@ -46,7 +45,14 @@ class AdminFragment : Fragment() {
                     }
 
                     is AdminViewModel.TeacherRequestsScreenState.Success -> {
-                        adapter = AdminAdapter(state.teacherRequests)
+                        adapter = AdminAdapter(state.teacherRequests,
+                            onAcceptClicked = { teacherRequest ->
+                                viewModel.acceptTeacherRequest(teacherRequest)
+                            },
+                            onDeclineClicked = { teacherRequest ->
+                                viewModel.declineTeacherRequest(teacherRequest)
+                            }
+                        )
                         binding.recyclerViewTeacherRequests.adapter = adapter
                         Log.d(TAG, "Success")
                     }
@@ -64,5 +70,4 @@ class AdminFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.recyclerViewTeacherRequests.layoutManager = LinearLayoutManager(requireContext())
     }
-    
 }
