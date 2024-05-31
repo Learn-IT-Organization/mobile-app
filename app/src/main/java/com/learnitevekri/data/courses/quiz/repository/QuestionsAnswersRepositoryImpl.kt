@@ -33,4 +33,17 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         }
         return emptyList()
     }
+
+    override suspend fun createQuestionAnswer(questionData: BaseQuestionData): BaseQuestionData {
+        try {
+            val response = apiService.createQuestionAnswer(questionData)
+            if (response.isSuccessful) {
+                return response.body() ?: questionData
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating question and answer: ${e.message}")
+            throw e
+        }
+        return questionData
+    }
 }

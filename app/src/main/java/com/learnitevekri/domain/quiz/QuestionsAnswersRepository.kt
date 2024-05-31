@@ -8,4 +8,8 @@ interface QuestionsAnswersRepository {
         chapterId: Int,
         lessonId: Int
     ): List<BaseQuestionData>
+
+    suspend fun createQuestionAnswer(
+        questionData: BaseQuestionData
+    ): BaseQuestionData
 }

@@ -165,6 +165,7 @@ class HomeFragment : Fragment() {
                                             R.color.light_green
                                         )
                                     )
+                                    SharedPreferences.storeTeacher(true)
                                 }
 
                                 "declined" -> {

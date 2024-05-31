@@ -112,4 +112,11 @@ class SharedQuizViewModel : ViewModel() {
             quizResultRepository.deleteResponses(lessonId)
         }
     }
+
+    fun addQuestionAnswer(questionAnswer: BaseQuestionData) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            val response = repository.createQuestionAnswer(questionAnswer)
+            Log.d(TAG, response.toString())
+        }
+    }
 }

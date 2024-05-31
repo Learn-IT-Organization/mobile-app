@@ -128,7 +128,9 @@ interface ApiService {
     @GET("/userRequests")
     suspend fun getUserRequests(): Response<TeacherRequestDataFull>
 
-    @POST("lessonContents")
+    @POST("/lessonContents")
     suspend fun createLessonContent(@Body lessonContent: LessonContentData): Response<LessonContentData>
 
+    @POST("/questionsAnswers")
+    suspend fun createQuestionAnswer(@Body questionAnswer: BaseQuestionData): Response<BaseQuestionData>
 }

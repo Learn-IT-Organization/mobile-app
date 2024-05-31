@@ -118,4 +118,8 @@
     <string name="add_content">Add Content</string>
     <string name="_0_255">0/255</string>
     <string name="content_type">Content Type:</string>
+    <string name="enter_the_answer">Enter the answer</string>
+    <string name="enter_your_question">Enter your question</string>
+    <string name="true_text">True</string>
+    <string name="false_text">False</string>
 </resources>
