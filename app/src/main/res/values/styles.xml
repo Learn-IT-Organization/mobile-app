@@ -96,4 +96,20 @@
         <item name="android:backgroundTint">@color/md_theme_onPrimary</item>
     </style>
 
+
+    <style name="CancelButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/md_theme_onPrimary</item>
+        <item name="android:backgroundTint">@color/md_theme_error</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="ProceedButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/md_theme_onPrimary</item>
+        <item name="android:backgroundTint">@color/md_theme_primary</item>
+        <item name="android:padding">12dp</item>
+    </style>
 </resources>

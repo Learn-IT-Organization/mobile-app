@@ -1,8 +1,7 @@
 package com.learnitevekri.data
 
 object ApiConstants {
-
-    const val API_BASE_URL = "http://192.168.0.104:44200/"
+    const val API_BASE_URL = "http://192.168.1.10:44200/"
     const val TOKEN = "token"
     const val EXPIRATION_TIME = "expirationTime"
     const val ID = "id"
