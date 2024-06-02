@@ -1,10 +1,18 @@
 package com.learnitevekri.data
 
 import ChapterResultData
+import com.learnitevekri.data.courses.chapters.model.AddNewChapterData
+import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
 import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
+import com.learnitevekri.data.courses.chapters.model.EditChapterData
+import com.learnitevekri.data.courses.course.model.AddNewCourseData
+import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
+import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
+import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
+import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.data.courses.lessons.model.LessonProgressData
@@ -94,8 +102,7 @@ interface ApiService {
 
     @GET("/course/{courseId}/chapter/{chapterId}/score")
     suspend fun getChapterResult(
-        @Path("courseId") courseId: Int,
-        @Path("chapterId") chapterId: Int
+        @Path("courseId") courseId: Int, @Path("chapterId") chapterId: Int
     ): Response<ChapterResultData>
 
     @GET("/userResultsWithValidation/{lessonId}/lesson")
@@ -127,4 +134,23 @@ interface ApiService {
 
     @GET("/userRequests")
     suspend fun getUserRequests(): Response<TeacherRequestDataFull>
+
+    @POST("/courses")
+    suspend fun addNewCourse(@Body addNewCourseData: AddNewCourseData): Response<AddNewCourseResponseData>
+
+    @POST("/chapters")
+    suspend fun addNewChapter(@Body addNewChapterData: AddNewChapterData): Response<AddNewChapterResponseData>
+
+    @POST("/lessons")
+    suspend fun addNewLesson(@Body addNewLessonData: AddNewLessonData): Response<AddNewLessonResponseData>
+
+    @PUT("/editChapter/{chapterId}")
+    suspend fun editChapter(
+        @Path("chapterId") chapterId: Int, @Body editChapterData: EditChapterData
+    ): Response<AddNewChapterResponseData>
+
+    @PUT("/editLesson/{lessonId}")
+    suspend fun editLesson(
+        @Path("lessonId") lessonId: Int, @Body editLessonData: EditLessonData
+    ): Response<AddNewLessonResponseData>
 }

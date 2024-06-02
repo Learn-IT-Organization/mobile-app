@@ -3,6 +3,7 @@ package com.learnitevekri.ui.feature.courses.courses.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.domain.course.CourseRepository
 import com.learnitevekri.ui.App
@@ -11,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CoursesViewModel : ViewModel() {
     private val repository: CourseRepository = App.instance.getCourseRepository()
@@ -44,6 +46,17 @@ class CoursesViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching courses: ${e.message}")
                 mutableState.value = CoursesPageState.Failure(e)
+            }
+        }
+    }
+
+    suspend fun addNewCourse(addNewCourseData: AddNewCourseData): Int? {
+        return withContext(Dispatchers.IO) {
+            try {
+                repository.addNewCourse(addNewCourseData)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error adding new course: ${e.message}")
+                null
             }
         }
     }
