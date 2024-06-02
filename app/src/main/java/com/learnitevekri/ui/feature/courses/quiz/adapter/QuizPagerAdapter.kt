@@ -1,4 +1,4 @@
-package com.learnitevekri.ui.feature.courses.quiz
+package com.learnitevekri.ui.feature.courses.quiz.adapter
 
 import com.learnitevekri.ui.feature.courses.quiz.fragment.MatchingQuizFragment
 import com.learnitevekri.ui.feature.courses.quiz.fragment.MultipleChoiceQuizFragment

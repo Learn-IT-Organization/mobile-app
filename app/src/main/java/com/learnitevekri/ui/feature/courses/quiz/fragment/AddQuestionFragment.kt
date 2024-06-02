@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.learnitevekri.databinding.FragmentAddQuestionBinding
-import com.learnitevekri.ui.feature.courses.quiz.AddQuestionPagerAdapter
+import com.learnitevekri.ui.feature.courses.quiz.adapter.AddQuestionPagerAdapter
 import com.learnitevekri.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 
 class AddQuestionFragment : Fragment() {

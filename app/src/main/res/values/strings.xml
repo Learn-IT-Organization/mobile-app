@@ -122,4 +122,8 @@
     <string name="enter_your_question">Enter your question</string>
     <string name="true_text">True</string>
     <string name="false_text">False</string>
+    <string name="matching_question">Matching Question</string>
+    <string name="add_pair">Add Pair</string>
+    <string name="item">Item</string>
+    <string name="item_s_pair">Item\'s Pair</string>
 </resources>

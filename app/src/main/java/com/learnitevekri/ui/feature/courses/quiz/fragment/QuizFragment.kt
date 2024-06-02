@@ -32,7 +32,7 @@ import com.learnitevekri.databinding.ExitConfirmationDialogBinding
 import com.learnitevekri.databinding.FragmentQuizBinding
 import com.learnitevekri.databinding.QuizResultDialogBinding
 import com.learnitevekri.ui.activities.MainActivity
-import com.learnitevekri.ui.feature.courses.quiz.QuizPagerAdapter
+import com.learnitevekri.ui.feature.courses.quiz.adapter.QuizPagerAdapter
 import com.learnitevekri.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
