@@ -59,6 +59,7 @@
             android:id="@+id/action_notificationsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.learnitevekri.ui.feature.login.fragment.LoginFragment"
@@ -82,7 +83,7 @@
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.CoursesFragment"
         android:label="CoursesFragment">
         <action
-            android:id="@+id/action_CoursesFragment_to_ChaptersFragemnt"
+            android:id="@+id/action_CoursesFragment_to_ChaptersFragment"
             app:destination="@id/chaptersFragment" />
         <action
             android:id="@+id/action_coursesFragment_to_homeFragment"
@@ -93,6 +94,33 @@
         <action
             android:id="@+id/action_coursesFragment_to_addNewCourseFragment"
             app:destination="@id/addNewCourseFragment" />
+        <action
+            android:id="@+id/action_CoursesFragment_to_EditCourseFragment"
+            app:destination="@id/editCourseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editCourseFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.EditCourseFragment"
+        android:label="EditCourseFragment">
+        <action
+            android:id="@+id/action_EditCourseFragment_to_CoursesFragment"
+            app:destination="@id/coursesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editChapterFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.EditChapterFragment"
+        android:label="EditChapterFragment">
+        <action
+            android:id="@+id/action_EditChapterFragment_to_ChaptersFragment"
+            app:destination="@id/chaptersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editLessonFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.EditLessonFragment"
+        android:label="EditLessonFragment">
     </fragment>
 
     <fragment
@@ -148,7 +176,22 @@
         <action
             android:id="@+id/action_chaptersFragment_to_userAnswerFragment"
             app:destination="@id/userAnswerFragment" />
+        <action
+            android:id="@+id/action_chaptersFragment_to_editChapterFragment"
+            app:destination="@id/editChapterFragment" />
+        <action
+            android:id="@+id/action_chaptersFragment_to_editLessonFragment"
+            app:destination="@id/editLessonFragment" />
+        <action
+            android:id="@+id/action_chaptersFragment_to_MoreLessonFragment"
+            app:destination="@id/moreLessonFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/moreLessonFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.MoreLessonFragment"
+        android:label="MoreLessonFragment"
+        tools:layout="@layout/fragment_more_lesson" />
 
     <fragment
         android:id="@+id/trueFalseQuizFragment"

@@ -140,4 +140,7 @@
     <string name="chapters">Chapters</string>
     <string name="save_and_back_to_chapters">Save and back to chapters</string>
     <string name="save_and_add_content">Save and add content</string>
+    <string name="edit_course">Edit course</string>
+    <string name="edit_chapter">Edit chapter</string>
+    <string name="edit_lesson">Edit lesson</string>
 </resources>
