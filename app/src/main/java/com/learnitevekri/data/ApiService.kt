@@ -9,6 +9,7 @@ import com.learnitevekri.data.courses.chapters.model.EditChapterData
 import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
+import com.learnitevekri.data.courses.course.model.EditCourseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
@@ -144,6 +145,11 @@ interface ApiService {
     @POST("/lessons")
     suspend fun addNewLesson(@Body addNewLessonData: AddNewLessonData): Response<AddNewLessonResponseData>
 
+    @PUT("/editCourse/{courseId}")
+    suspend fun editCourse(
+        @Path("courseId") courseId: Int, @Body editCourseData: EditCourseData
+    ): Response<AddNewCourseResponseData>
+
     @PUT("/editChapter/{chapterId}")
     suspend fun editChapter(
         @Path("chapterId") chapterId: Int, @Body editChapterData: EditChapterData
@@ -153,4 +159,11 @@ interface ApiService {
     suspend fun editLesson(
         @Path("lessonId") lessonId: Int, @Body editLessonData: EditLessonData
     ): Response<AddNewLessonResponseData>
+
+    @GET("/course/{courseId}")
+    suspend fun getCourseById(@Path("courseId") courseId: Int): Response<CourseData>
+
+    @GET("/chapter/{chapterId}")
+    suspend fun getChapterById(@Path("chapterId") chapterId: Int): Response<ChapterData>
+
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -47,9 +48,17 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
         if (lessons.isEmpty()) {
             setupEmptyLesson()
         }
+
         setupRecyclerView()
         setupAddLessonButton()
         checkAllFieldsFilled()
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun setupEmptyLesson() {
@@ -70,7 +79,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
                     disableEditTextEditing(lessons.size)
                 }
             } else {
-                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
         binding.btnAddMoreLesson.setOnClickListener {
@@ -83,7 +93,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
                     checkAllFieldsFilled()
                 }
             } else {
-                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
         binding.btnBackToChapter.setOnClickListener {
@@ -93,18 +104,21 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
                 }
                 findNavController().navigateUp()
             } else {
-                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
     private fun disableEditTextEditing(position: Int) {
-        val viewHolder = binding.rvAddNewLesson.findViewHolderForAdapterPosition(position) as? AddNewLessonAdapter.LessonViewHolder
+        val viewHolder =
+            binding.rvAddNewLesson.findViewHolderForAdapterPosition(position) as? AddNewLessonAdapter.LessonViewHolder
         viewHolder?.disableEditing()
     }
 
     private fun enableEditTextEditing(position: Int) {
-        val viewHolder = binding.rvAddNewLesson.findViewHolderForAdapterPosition(position) as? AddNewLessonAdapter.LessonViewHolder
+        val viewHolder =
+            binding.rvAddNewLesson.findViewHolderForAdapterPosition(position) as? AddNewLessonAdapter.LessonViewHolder
         viewHolder?.enableEditing()
     }
 
@@ -119,7 +133,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     override fun onSaveClick(currentLessonId: Int, editLessonData: EditLessonData) {
         lifecycleScope.launch {
             viewModel.editLesson(currentLessonId, editLessonData)
-            Snackbar.make(requireView(), "Lesson updated successfully", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Lesson updated successfully", Snackbar.LENGTH_SHORT)
+                .show()
             val position = lessons.indexOfFirst { it.lessonId == currentLessonId }
             if (position != -1) {
                 disableEditTextEditing(position)
@@ -174,7 +189,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
             if (lesson.lessonName.isEmpty() ||
                 lesson.lessonDescription.isEmpty() ||
                 lesson.lessonType.isEmpty() ||
-                lesson.lessonTags.isEmpty()) {
+                lesson.lessonTags.isEmpty()
+            ) {
                 return false
             }
         }
