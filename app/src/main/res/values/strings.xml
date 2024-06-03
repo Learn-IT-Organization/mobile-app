@@ -122,8 +122,17 @@
     <string name="enter_your_question">Enter your question</string>
     <string name="true_text">True</string>
     <string name="false_text">False</string>
-    <string name="matching_question">Matching Question</string>
     <string name="add_pair">Add Pair</string>
     <string name="item">Item</string>
     <string name="item_s_pair">Item\'s Pair</string>
+    <string name="add_item">Add Item</string>
+    <string name="enter_item">Enter Item</string>
+    <string name="group_1">Group 1</string>
+    <string name="group_2">Group 2</string>
+    <string name="group_title">Group Title</string>
+    <string name="add_answer">Add answer</string>
+    <string name="correct">Correct</string>
+    <string name="select_question_type">Select question type:</string>
+    <string name="make_pairs">Make pairs</string>
+    <string name="edit">Edit</string>
 </resources>

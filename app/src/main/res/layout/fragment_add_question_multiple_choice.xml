@@ -1,49 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/dimen_10dp">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/questionEditText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/enter_your_question"
-        android:inputType="textMultiLine"
-        android:maxLines="3" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/answer1EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/enter_the_answer"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/questionEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:autofillHints="Question"
+            android:hint="@string/enter_your_question"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/answer2EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/enter_the_answer"
-        android:inputType="text" />
+        <LinearLayout
+            android:id="@+id/answersLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/questionEditText" />
 
-    <EditText
-        android:id="@+id/answer3EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/enter_the_answer"
-        android:inputType="text" />
+        <Button
+            android:id="@+id/addAnswerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:fontFamily="@font/baloo"
+            android:text="@string/add_answer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/answersLinearLayout" />
 
-    <EditText
-        android:id="@+id/answer4EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/enter_the_answer"
-        android:inputType="text" />
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:fontFamily="@font/baloo"
+            android:text="@string/edit"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addAnswerButton" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:fontFamily="@font/baloo"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addAnswerButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
