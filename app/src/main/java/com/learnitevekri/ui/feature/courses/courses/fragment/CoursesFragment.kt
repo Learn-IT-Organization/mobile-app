@@ -52,7 +52,8 @@ class CoursesFragment : Fragment() {
             if (SharedPreferences.getStudent()) {
                 findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
             } else {
-                findNavController().navigate(R.id.action_coursesFragment_to_addQuestionFragment)
+                findNavController().navigate(R.id.action_coursesFragment_to_addNewCourseFragment)
+                //findNavController().navigate(R.id.action_coursesFragment_to_addQuestionFragment)
             }
         }
         observeState()

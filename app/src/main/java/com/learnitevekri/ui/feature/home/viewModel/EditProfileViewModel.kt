@@ -52,16 +52,6 @@ class EditProfileViewModel: ViewModel() {
         mutableState.value = UserPageState.Failure(exception)
     }
 
-//    fun editProfile(userData: EditProfileData) {
-//        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-//            try {
-//                editProfileRepository.editProfile(userData)
-//                Log.d(TAG, "Profile edited successfully with data: $userData")
-//            } catch (e: Exception) {
-//                Log.e(TAG, "Error fetching users: ${e.message}")
-//            }
-//        }
-//    }
     fun editProfile(userData: EditProfileData) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {

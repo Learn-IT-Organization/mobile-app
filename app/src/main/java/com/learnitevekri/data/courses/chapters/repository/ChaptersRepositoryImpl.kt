@@ -3,7 +3,11 @@ package com.learnitevekri.data.courses.chapters.repository
 import ChapterResultData
 import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
+import com.learnitevekri.data.courses.chapters.model.AddNewChapterData
+import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
+import com.learnitevekri.data.courses.chapters.model.EditChapterData
+import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
 import com.learnitevekri.domain.course.ChaptersRepository
 
 object ChaptersRepositoryImpl : ChaptersRepository {
@@ -17,7 +21,6 @@ object ChaptersRepositoryImpl : ChaptersRepository {
 
             if (response.isSuccessful) {
                 val responseData = response.body()
-                Log.d(TAG, response.raw().toString())
                 return (responseData ?: emptyList())
             }
         } catch (e: Exception) {
@@ -42,5 +45,40 @@ object ChaptersRepositoryImpl : ChaptersRepository {
             throw e
         }
         return ChapterResultData()
+    }
+
+    override suspend fun addNewChapter(addNewChapterData: AddNewChapterData): Int? {
+        try {
+            val response = apiService.addNewChapter(addNewChapterData)
+            if (response.isSuccessful && response.body() != null) {
+                Log.d(TAG, response.body()?.chapterId.toString())
+                return response.body()?.chapterId
+            }
+        } catch (e: Exception) {
+            Log.e(CourseRepositoryImpl.TAG, "Error adding new chapter: ${e.message}")
+            throw e
+        }
+        return null
+    }
+
+    override suspend fun editChapter(
+        chapterId: Int,
+        editChapterData: EditChapterData
+    ): AddNewChapterResponseData {
+        try {
+            val response = apiService.editChapter(chapterId, editChapterData)
+            Log.d(TAG, "Attempt to update chapter with ID $chapterId")
+
+            if (response.isSuccessful && response.body() != null) {
+                Log.d(TAG, "Chapter updated successfully: ${response.body()}")
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Failed to update chapter: ${response.errorBody()?.string()}")
+                throw RuntimeException("Failed to update chapter due to server error")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating chapter: ${e.message}")
+            throw e
+        }
     }
 }
