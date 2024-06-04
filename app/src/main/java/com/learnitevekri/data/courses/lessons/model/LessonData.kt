@@ -17,5 +17,7 @@ data class LessonData(
     @SerializedName("lesson_type")
     val lessonType: String,
     @SerializedName("lesson_tags")
-    val lessonTags: String
+    val lessonTags: String,
+    @SerializedName("lesson_user_id")
+    val lessonUserId: Int
 ) : Serializable

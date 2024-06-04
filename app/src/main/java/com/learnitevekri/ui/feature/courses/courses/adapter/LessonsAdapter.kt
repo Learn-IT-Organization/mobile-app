@@ -13,7 +13,8 @@ class LessonsAdapter(
     private val lessonList: List<LessonData>,
     private var lessonProgressList: List<LessonProgressData>,
     private val onLessonItemClickListener: ChaptersAdapter.OnItemClickListener,
-    private val isPreviousChapterCompleted: Boolean
+    private val isPreviousChapterCompleted: Boolean,
+    private val userId: String
 ) : RecyclerView.Adapter<LessonsAdapter.LessonsViewHolder>() {
 
     companion object {
@@ -62,6 +63,14 @@ class LessonsAdapter(
                 binding.buttonReadMore.setOnClickListener {
                     onLessonItemClickListener.onTheoryClick(lesson)
                 }
+            }
+            if (lesson.lessonUserId.toString() == userId) {
+                binding.btnEdit.visibility = View.VISIBLE
+                binding.btnEdit.setOnClickListener{
+                    onLessonItemClickListener.onEditLessonClick(lesson)
+                }
+            } else {
+                binding.btnEdit.visibility = View.GONE
             }
         }
     }

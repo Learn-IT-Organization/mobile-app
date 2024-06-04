@@ -60,17 +60,19 @@ object LessonRepositoryImpl : LessonRepository {
         return emptyList()
     }
 
-    override suspend fun getLessonById(lessonId: Int): LessonData? {
+    override suspend fun getLessonById(lessonId: Int): LessonData {
         try {
             val response = apiService.getLessonById(lessonId)
             if (response.isSuccessful) {
-                return response.body()
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error fetching lesson by ID: ${response.code()}")
+                throw RuntimeException("Failed to fetch lesson by ID")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching lesson by ID: ${e.message}")
             throw e
         }
-        return null
     }
 
     override suspend fun getLessonResultWithValidation(lessonId: Int): List<UserAnswersData> {

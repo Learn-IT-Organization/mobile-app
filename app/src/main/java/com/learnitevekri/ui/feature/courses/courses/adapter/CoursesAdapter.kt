@@ -1,6 +1,7 @@
 package com.learnitevekri.ui.feature.courses.courses.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
@@ -9,7 +10,11 @@ import com.learnitevekri.R
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.databinding.CourseListItemBinding
 
-class CoursesAdapter(private val courses: List<CourseData>) :
+class CoursesAdapter(
+    private val courses: List<CourseData>,
+    private val userId: String,
+    private val onEditClicked: (CourseData) -> Unit
+) :
     RecyclerView.Adapter<CoursesAdapter.CourseViewHolder>() {
 
     inner class CourseViewHolder(private val binding: CourseListItemBinding) :
@@ -23,9 +28,18 @@ class CoursesAdapter(private val courses: List<CourseData>) :
             }
             binding.root.setOnClickListener {
                 itemView.findNavController().navigate(
-                    R.id.action_CoursesFragment_to_ChaptersFragemnt,
+                    R.id.action_CoursesFragment_to_ChaptersFragment,
                     bundleOf(com.learnitevekri.data.ApiConstants.COURSE_ID to course.course_id)
                 )
+            }
+
+            if (course.course_user_id.toString() == userId) {
+                binding.btnEdit.visibility = View.VISIBLE
+                binding.btnEdit.setOnClickListener {
+                    onEditClicked(course)
+                }
+            } else {
+                binding.btnEdit.visibility = View.GONE
             }
         }
     }

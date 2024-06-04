@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -38,12 +38,11 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     private val viewModel: ChaptersViewModel by activityViewModels()
     private val lessonViewModel: LessonsViewModel by activityViewModels()
-
-    private lateinit var binding: FragmentChaptersBinding
-
-    private lateinit var chaptersList: List<ChapterWithLessonsData>
+    private val chapterUserId = SharedPreferences.getUserId()
     private var lessonProgressList: List<LessonProgressData> = emptyList()
 
+    private lateinit var binding: FragmentChaptersBinding
+    private lateinit var chaptersList: List<ChapterWithLessonsData>
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -87,7 +86,15 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                         val adapter = ChaptersAdapter(
                             state.chaptersData,
                             lessonProgressList,
-                            this@ChaptersFragment
+                            this@ChaptersFragment,
+                            chapterUserId.toString(),
+                            onEditClicked = { chapter ->
+                                val bundle = bundleOf("chapterId" to chapter.chapterId)
+                                findNavController().navigate(
+                                    R.id.action_chaptersFragment_to_editChapterFragment,
+                                    bundle
+                                )
+                            }
                         )
                         binding.chaptersRecyclerView.adapter = adapter
                     }
@@ -150,11 +157,9 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                 )
 
             } else {
-
                 val bundle = Bundle().apply {
                     putInt(ARG_LESSON_ID, lesson.lessonId)
                 }
-
                 findNavController().navigate(
                     R.id.action_chaptersFragment_to_theoryFragment,
                     bundle
@@ -171,6 +176,28 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
         findNavController().navigate(
             R.id.action_chaptersFragment_to_theoryFragment,
+            bundle
+        )
+    }
+
+    override fun onEditLessonClick(lesson: LessonData) {
+        val bundle = Bundle().apply {
+            putInt(ARG_LESSON_ID, lesson.lessonId)
+        }
+        findNavController().navigate(
+            R.id.action_chaptersFragment_to_editLessonFragment,
+            bundle
+        )
+    }
+
+    override fun onMoreLessonClick(chapterId: Int, lessonSize: Int) {
+        Log.d(TAG, "Chapter ID: $chapterId")
+        val bundle = Bundle().apply {
+            putInt("chapterId", chapterId)
+            putInt("lessonSize", lessonSize)
+        }
+        findNavController().navigate(
+            R.id.action_chaptersFragment_to_MoreLessonFragment,
             bundle
         )
     }
@@ -210,6 +237,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
             dialog.dismiss()
         }
     }
+
     override fun onPause() {
         super.onPause()
         val layoutManager = binding.chaptersRecyclerView.layoutManager as LinearLayoutManager
@@ -218,4 +246,13 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         Log.d(TAG, "Last viewed position: $lastViewedPosition")
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshChapters()
+    }
+
+    private fun refreshChapters() {
+        val courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
+        viewModel.loadChapters(courseId)
+    }
 }

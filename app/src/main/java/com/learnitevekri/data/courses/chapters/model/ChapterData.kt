@@ -8,5 +8,6 @@ data class ChapterData(
     @SerializedName("chapter_name") val chapterName: String,
     @SerializedName("chapter_course_id") val chapterCourseId: Int,
     @SerializedName("chapter_description") val chapterDescription: String,
-    @SerializedName("chapter_sequence_number") val chapterSequenceNumber: Int
+    @SerializedName("chapter_sequence_number") val chapterSequenceNumber: Int,
+    @SerializedName("chapter_user_id") val chapterUserId: Int
 ) : Serializable

@@ -5,6 +5,7 @@ import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.courses.chapters.model.AddNewChapterData
 import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
+import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.chapters.model.EditChapterData
 import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
@@ -78,6 +79,21 @@ object ChaptersRepositoryImpl : ChaptersRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error updating chapter: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun getChapterById(chapterId: Int): ChapterData {
+        try {
+            val response = apiService.getChapterById(chapterId)
+            if (response.isSuccessful) {
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error fetching chapter by ID: ${response.code()}")
+                throw RuntimeException("Failed to fetch chapter by ID")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching chapter by ID: ${e.message}")
             throw e
         }
     }

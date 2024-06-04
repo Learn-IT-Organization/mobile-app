@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.learnitevekri.data.courses.chapters.model.AddNewChapterData
 import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
+import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.chapters.model.EditChapterData
+import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
+import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.domain.course.ChaptersRepository
 import com.learnitevekri.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -22,6 +25,9 @@ class ChaptersViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<ChaptersScreenState>(ChaptersScreenState.Loading)
     val state: StateFlow<ChaptersScreenState> = mutableState
 
+    private val mutableState2 = MutableStateFlow<EditChapterState>(EditChapterState.Loading)
+    val state2: StateFlow<EditChapterState> = mutableState2
+
     companion object {
         val TAG: String = ChaptersViewModel::class.java.simpleName
     }
@@ -30,6 +36,13 @@ class ChaptersViewModel : ViewModel() {
         data object Loading : ChaptersScreenState()
         data class Success(val chaptersData: List<ChapterWithLessonsData>) : ChaptersScreenState()
         data class Failure(val throwable: Throwable) : ChaptersScreenState()
+    }
+
+    sealed class EditChapterState {
+        object Loading : EditChapterState()
+        data class Success(val chapterData: ChapterData) : EditChapterState()
+        data class Updated(val response: AddNewChapterResponseData) : EditChapterState()
+        data class Failure(val throwable: Throwable) : EditChapterState()
     }
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
@@ -49,6 +62,18 @@ class ChaptersViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching chapters: ${e.message}")
                 mutableState.value = ChaptersScreenState.Failure(e)
+            }
+        }
+    }
+
+    fun loadChapterById(chapterId: Int) {
+        viewModelScope.launch {
+            try {
+                val chapter = repository.getChapterById(chapterId)
+                mutableState2.value = EditChapterState.Success(chapter)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching chapter by id: ${e.message}")
+                mutableState2.value = EditChapterState.Failure(e)
             }
         }
     }
@@ -76,7 +101,6 @@ class ChaptersViewModel : ViewModel() {
                         throw IllegalArgumentException("Chapter not found")
                     }
                 }
-
                 repository.editChapter(chapterId, editChapterData).also {
                     Log.d(TAG, "Chapter updated successfully: $chapterId")
                 }
