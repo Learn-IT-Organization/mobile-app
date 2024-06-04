@@ -73,7 +73,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     }
 
     private fun setupAddLessonButton() {
-        binding.btnAddContent.setOnClickListener {
+        binding.btnSaveAndAddContent.setOnClickListener {
             if (checkAllFieldsFilled()) {
                 lifecycleScope.launch {
                     performAddOperation { lessonId ->
@@ -135,6 +135,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
 
     override fun onSaveClick(currentLessonId: Int, editLessonData: EditLessonData) {
         lifecycleScope.launch {
+            viewModel.editLesson(currentLessonId, editLessonData)
             viewModel.editLesson(currentLessonId, editLessonData)
             Snackbar.make(requireView(), "Lesson updated successfully", Snackbar.LENGTH_SHORT)
                 .show()

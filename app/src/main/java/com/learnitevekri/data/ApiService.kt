@@ -14,13 +14,16 @@ import com.learnitevekri.data.courses.course.model.EditCourseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
+import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.data.courses.lessons.model.LessonProgressData
 import com.learnitevekri.data.courses.lessons.model.UserAnswersData
 import com.learnitevekri.data.courses.notifications.TokenData
+import com.learnitevekri.data.courses.quiz.model.AddQuestionAnswerResponseData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
+import com.learnitevekri.data.courses.quiz.model.EditQuestionAnswerData
 import com.learnitevekri.data.courses.quiz.model.QuizResponseData
 import com.learnitevekri.data.courses.quiz.model.QuizResultData
 import com.learnitevekri.data.user.login.model.Data
@@ -141,7 +144,7 @@ interface ApiService {
     suspend fun addNewCourse(@Body addNewCourseData: AddNewCourseData): Response<AddNewCourseResponseData>
 
     @POST("/chapters")
-    suspend fun addNewChapter(@Body addNewChapterData: AddNewChapterData): Response<AddNewChapterResponseData>
+    suspend fun addNewChapter(@Body lessonContents: AddNewChapterData): Response<AddNewChapterResponseData>
 
     @POST("/lessons")
     suspend fun addNewLesson(@Body addNewLessonData: AddNewLessonData): Response<AddNewLessonResponseData>
@@ -162,7 +165,7 @@ interface ApiService {
     ): Response<AddNewLessonResponseData>
 
     @POST("/lessonContents")
-    suspend fun createLessonContent(@Body lessonContent: LessonContentData): Response<LessonContentData>
+    suspend fun createLessonContent(@Body lessonContent: LessonContentData): Response<AddLessonContentResponseData>
 
     @POST("/questionsAnswers")
     suspend fun createQuestionAnswer(@Body questionAnswer: BaseQuestionData): Response<BaseQuestionData>

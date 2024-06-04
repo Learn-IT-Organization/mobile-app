@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.learnitevekri.R
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
@@ -22,13 +23,11 @@ import kotlinx.coroutines.launch
 
 class AddContentFragment : Fragment(), LessonContentClickListener {
 
-    private val viewModel: AddContentViewModel by viewModels({ requireParentFragment() })
+    private val viewModel: AddContentViewModel by viewModels()
     private lateinit var binding: FragmentAddContentBinding
     private lateinit var adapter: AddLessonContentAdapter
     private val contents = mutableListOf<LessonContentData>()
-    private var courseId = -1
-    private var contentId: Int? = null
-    private var lessonId: Int? = null
+    private var lessonId = -1
 
     companion object {
         val TAG: String = AddContentFragment::class.java.simpleName
@@ -43,50 +42,147 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupArguments()
-        setupViews()
-        setupListeners()
-        setupOnBackPressedCallback()
-    }
 
-    private fun setupArguments() {
-        courseId = arguments?.getInt("course_id", -1) ?: -1
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
-        Log.d(TAG, "Course ID, lessonId: $courseId, $lessonId")
         if (contents.isEmpty()) {
-            contents.add(LessonContentData(0, "", "", 0, "", ""))
+            setupEmptyContent()
         }
-    }
 
-    private fun setupViews() {
-        adapter = AddLessonContentAdapter(contents, this, viewModel)
-        binding.rvAddContent.adapter = adapter
-    }
+        setupRecyclerView()
+        setupAddContentButton()
+        checkAllFieldsFilled()
 
-    private fun setupListeners() {
-        binding.btnAddContent.setOnClickListener { onMoreContentClick() }
-        binding.btnSaveAndAddAnother.setOnClickListener { onSaveAndAddAnotherClick() }
-    }
-
-    private fun setupOnBackPressedCallback() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                Log.d(TAG, "Back pressed")
-                findNavController().popBackStack()
+
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun onMoreContentClick() {
+    private fun setupEmptyContent() {
         contents.add(LessonContentData(0, "", "", 0, "", ""))
-        adapter.notifyItemInserted(contents.size - 1)
-        disableEditTextEditing()
-        binding.rvAddContent.scrollToPosition(contents.size - 1)
     }
 
-    override fun onEditClick(editLessonContentData: LessonContentData) {
-        enableEditTextEditing()
+    private fun setupRecyclerView() {
+        adapter = AddLessonContentAdapter(contents, this)
+        binding.rvAddContent.adapter = adapter
+        binding.rvAddContent.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun setupAddContentButton() {
+        binding.btnSaveAndAddContent.setOnClickListener {
+            if (checkAllFieldsFilled()) {
+                lifecycleScope.launch {
+                    performAddOperation { lessonId ->
+                        navigateToAddQuestionFragment(lessonId)
+                    }
+                    disableEditTextEditing(contents.size - 1)
+                }
+            } else {
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        binding.btnSaveAndAddAnother.setOnClickListener {
+            if (checkAllFieldsFilled()) {
+                lifecycleScope.launch {
+                    performAddOperation()
+                    contents.add(LessonContentData(0, "", "", 0, "", ""))
+                    adapter.notifyItemInserted(contents.size - 1)
+                    binding.rvAddContent.scrollToPosition(contents.size - 1)
+                    checkAllFieldsFilled()
+                    disableEditTextEditing(contents.size)
+                }
+            } else {
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    private fun disableEditTextEditing(position: Int) {
+        val viewHolder =
+            binding.rvAddContent.findViewHolderForAdapterPosition(position) as? AddLessonContentAdapter.AddLessonContentViewHolder
+        viewHolder?.disableEditing()
+    }
+
+    private fun enableEditTextEditing(position: Int) {
+        val viewHolder =
+            binding.rvAddContent.findViewHolderForAdapterPosition(position) as? AddLessonContentAdapter.AddLessonContentViewHolder
+        viewHolder?.enableEditing()
+    }
+
+    private suspend fun performAddOperation(onSuccess: ((Int) -> Unit)? = null) {
+        val lastContent = contents.last()
+        val contentTitle = lastContent.contentTitle
+        val contentDescription = lastContent.contentDescription
+        val contentType = lastContent.contentType
+        val contentUrl = lastContent.url
+
+        if (contentUrl.isEmpty() || contentType.isEmpty() || contentDescription.isEmpty() || contentTitle.isEmpty()) {
+            Snackbar.make(
+                requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val newContentData = LessonContentData(
+            0,
+            contentType,
+            contentUrl,
+            lessonId,
+            contentTitle,
+            contentDescription
+        )
+        val newContentIndex = contents.size - 1
+        contents[newContentIndex] = newContentData
+        adapter.notifyItemChanged(newContentIndex)
+
+        val newContentId = viewModel.createLessonContent(newContentData)
+
+        if (newContentId != null) {
+            Snackbar.make(requireView(), "Lesson content added successfully", Snackbar.LENGTH_SHORT)
+                .show()
+            contents[newContentIndex].contentId = newContentId
+
+            Log.d(TAG, "New content id: $newContentId")
+
+            adapter.updateContentId(newContentIndex, newContentId)
+            disableEditTextEditing(newContentIndex)
+            onSuccess?.invoke(newContentId)
+        } else {
+            Snackbar.make(requireView(), "Failed to add new lesson content", Snackbar.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun navigateToAddQuestionFragment(lessonId: Int) {
+        val bundle = Bundle().apply {
+            putInt("lesson_id", lessonId)
+        }
+        findNavController().navigate(
+            R.id.action_addContentFragment_to_addQuestionFragment,
+            bundle
+        )
+    }
+
+    private fun checkAllFieldsFilled(): Boolean {
+        for (content in contents) {
+            if (content.contentTitle.isEmpty() || content.contentDescription.isEmpty()
+                || content.url.isEmpty() || content.contentType.isEmpty()
+            ) {
+                return false
+            }
+        }
+        return true
+    }
+
+    override fun onAddContentClick(editLessonContentData: LessonContentData) {
+        val position = contents.indexOf(editLessonContentData)
+        if (position != -1) {
+            enableEditTextEditing(position)
+        }
     }
 
     override fun onSaveClick(
@@ -94,115 +190,19 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
         editLessonContentData: EditLessonContentData
     ) {
         lifecycleScope.launch {
+            Log.d(TAG, "Saving content with id: $currentLessonContentId")
             viewModel.editLessonContent(currentLessonContentId, editLessonContentData)
             Snackbar.make(
                 requireView(),
                 "Lesson content updated successfully",
                 Snackbar.LENGTH_SHORT
-            ).show()
-            disableEditTextEditing()
-        }
-    }
-
-    override fun onAddQuestionClick(currentPosition: Int): Boolean {
-        var success = false
-        lifecycleScope.launch {
-            val lastContent = contents[currentPosition]
-            val contentType = lastContent.contentType
-            val url = lastContent.url
-            val contentTitle = lastContent.contentTitle
-            val contentDescription = lastContent.contentDescription
-
-            if (url.isEmpty() || contentDescription.isEmpty() || contentTitle.isEmpty() || contentType.isEmpty()) {
-                Snackbar.make(
-                    requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT
-                ).show()
-                return@launch
-            } else {
-                val newContentData = lessonId?.let {
-                    LessonContentData(
-                        0,
-                        contentType,
-                        url,
-                        it,
-                        contentTitle,
-                        contentDescription
-                    )
-                }
-
-                contents[contents.size - 1] = newContentData!!
-                adapter.notifyItemChanged(contents.size - 1)
-
-                contentId = viewModel.createLessonContent(newContentData)
-
-                if (contentId == null) {
-                    Snackbar.make(
-                        requireView(), "Failed to add new content", Snackbar.LENGTH_SHORT
-                    ).show()
-                    return@launch
-                } else {
-                    success = true
-                    contentId?.let { it1 -> adapter.updateContentId(contents.size - 1, it1) }
-                    disableEditTextEditing()
-                    val bundle = Bundle().apply {
-                        contentId?.let { it1 -> putInt("content_id", it1) }
-                    }
-                    findNavController().navigate(
-                        R.id.action_addContentFragment_to_addQuestionFragment, bundle
-                    )
-                }
+            )
+                .show()
+            Log.d(TAG, "Lesson content updated successfully")
+            val position = contents.indexOfFirst { it.contentId == currentLessonContentId }
+            if (position != -1) {
+                disableEditTextEditing(position)
             }
         }
-        return success
-    }
-
-    private fun onSaveAndAddAnotherClick() {
-        val lastPosition = contents.size - 1
-        val lastContent = contents[lastPosition]
-        val contentType = lastContent.contentType
-        val url = lastContent.url
-        val contentTitle = lastContent.contentTitle
-        val contentDescription = lastContent.contentDescription
-
-        if (url.isEmpty() || contentDescription.isEmpty() || contentTitle.isEmpty() || contentType.isEmpty()) {
-            Snackbar.make(
-                requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT
-            ).show()
-            return
-        } else {
-            val newContentData = lessonId?.let {
-                LessonContentData(
-                    0,
-                    contentType,
-                    url,
-                    it,
-                    contentTitle,
-                    contentDescription
-                )
-
-            }
-            contents[lastPosition] = newContentData!!
-            adapter.notifyItemChanged(lastPosition)
-            disableEditTextEditing()
-
-            contents.add(LessonContentData(0, "", "", 0, "", ""))
-            adapter.notifyItemInserted(lastPosition + 1)
-            binding.rvAddContent.scrollToPosition(lastPosition + 1)
-
-        }
-    }
-
-    private fun enableEditTextEditing() {
-        val lastPosition = contents.size - 1
-        val viewHolder =
-            binding.rvAddContent.findViewHolderForAdapterPosition(lastPosition) as? AddLessonContentAdapter.AddLessonContentViewHolder
-        viewHolder?.showEditMode()
-    }
-
-    private fun disableEditTextEditing() {
-        val lastPosition = contents.size - 1
-        val viewHolder =
-            binding.rvAddContent.findViewHolderForAdapterPosition(lastPosition) as? AddLessonContentAdapter.AddLessonContentViewHolder
-        viewHolder?.showViewMode()
     }
 }

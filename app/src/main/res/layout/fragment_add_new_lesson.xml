@@ -51,7 +51,7 @@
             android:text="@string/add_more_lesson" />
 
         <Button
-            android:id="@+id/btnAddContent"
+            android:id="@+id/btnSaveAndAddContent"
             style="@style/ProceedButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

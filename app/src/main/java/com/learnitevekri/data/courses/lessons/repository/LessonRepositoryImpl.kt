@@ -141,13 +141,16 @@ object LessonRepositoryImpl : LessonRepository {
     ): AddLessonContentResponseData {
         try {
             val response = apiService.editLessonContent(lessonContentId, editLessonContentData)
-            if (response.isSuccessful) {
+            if (response.isSuccessful && response.body() != null) {
+                Log.d(TAG, "Lesson content updated successfully: ${response.body()}")
                 return response.body()!!
+            } else {
+                Log.e(TAG, "Failed to update lesson content: ${response.errorBody()?.string()}")
+                throw RuntimeException("Failed to update lesson content due to server error")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error editing lesson content: ${e.message}")
+            Log.e(TAG, "Error updating lesson: ${e.message}")
             throw e
         }
-        return null!!
     }
 }

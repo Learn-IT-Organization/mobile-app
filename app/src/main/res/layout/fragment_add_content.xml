@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/dimen_5dp">
 
         <TextView
@@ -18,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_10dp"
             android:text="@string/add_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,33 +23,31 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAddContent"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dimen_460dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_420dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAddContent"
-            app:layout_constraintBottom_toTopOf="@id/btnSaveAndAddAnother"
+            tools:listitem="@layout/add_content_list_item" />
+
+        <Button
+            android:id="@+id/btnSaveAndAddContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:text="@string/add_content_and_save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/add_content_list_item" />
+            app:layout_constraintTop_toBottomOf="@id/rvAddContent" />
 
         <Button
             android:id="@+id/btnSaveAndAddAnother"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save_and_add_another"
-            app:layout_constraintTop_toBottomOf="@id/rvAddContent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnAddContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp"
-            android:text="@string/add_content"
-            app:layout_constraintTop_toBottomOf="@id/btnSaveAndAddAnother"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btnSaveAndAddContent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

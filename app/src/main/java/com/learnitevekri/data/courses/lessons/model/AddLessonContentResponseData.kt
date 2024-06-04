@@ -8,8 +8,8 @@ data class AddLessonContentResponseData(
     val success: Boolean,
     @SerializedName("message")
     val message: String,
-    @SerializedName("lessonContentId")
-    val lessonContentId: Int,
     @SerializedName("lessonId")
-    val lessonId: Int
+    val lessonId: Int,
+    @SerializedName("contentId")
+    val contentId: Int
 ) : Serializable

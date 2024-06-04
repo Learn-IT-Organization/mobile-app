@@ -35,7 +35,6 @@
         android:layout_marginEnd="@dimen/dimen_30dp"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone"
         android:src="@drawable/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -128,7 +127,6 @@
         android:layout_marginEnd="@dimen/dimen_10dp"
         android:src="@drawable/google_drive"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/btnAddContent"
         app:layout_constraintEnd_toStartOf="@id/imgBrowser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCharCount" />
@@ -141,7 +139,6 @@
         android:layout_marginEnd="@dimen/dimen_10dp"
         android:src="@drawable/google"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/btnAddContent"
         app:layout_constraintEnd_toStartOf="@id/imgYouTube"
         app:layout_constraintStart_toEndOf="@id/imgGoogleDrive"
         app:layout_constraintTop_toBottomOf="@id/tvCharCount" />
@@ -153,19 +150,9 @@
         android:layout_marginTop="@dimen/dimen_5dp"
         android:src="@drawable/youtube"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/btnAddContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgBrowser"
         app:layout_constraintTop_toBottomOf="@id/tvCharCount" />
 
-    <Button
-        android:id="@+id/btnAddContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10dp"
-        android:text="@string/add_content_and_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBrowser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
