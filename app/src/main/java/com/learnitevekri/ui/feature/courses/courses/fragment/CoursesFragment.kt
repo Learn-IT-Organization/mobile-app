@@ -53,7 +53,6 @@ class CoursesFragment : Fragment() {
                 findNavController().navigate(R.id.action_coursesFragment_to_teacherRequestFragment)
             } else {
                 findNavController().navigate(R.id.action_coursesFragment_to_addNewCourseFragment)
-                //findNavController().navigate(R.id.action_coursesFragment_to_addQuestionFragment)
             }
         }
         observeState()

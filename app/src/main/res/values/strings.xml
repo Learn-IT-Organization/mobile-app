@@ -133,7 +133,6 @@
     <string name="lesson_number">Lesson number:</string>
     <string name="lesson_name">Lesson name</string>
     <string name="lesson_description">Lesson description</string>
-    <string name="add_content">Add content</string>
     <string name="lesson_type">Lesson type</string>
     <string name="lesson_tags">Lesson tags</string>
     <string name="add_lesson">Save and add lesson</string>
@@ -143,8 +142,7 @@
     <string name="content_url">Content URL</string>
     <string name="content_title">Content Title</string>
     <string name="content_description">Content Description</string>
-    <string name="add_content">Add Content</string>
-    <string name="_0_255">0/255</string>
+    <string name="add_content_and_save">Save and add questions</string>
     <string name="content_type">Content Type:</string>
     <string name="enter_the_answer">Enter the answer</string>
     <string name="enter_your_question">Enter your question</string>
@@ -163,4 +161,7 @@
     <string name="select_question_type">Select question type:</string>
     <string name="make_pairs">Make pairs</string>
     <string name="edit">Edit</string>
+    <string name="add_content">Add content</string>
+    <string name="content_number">Content number</string>
+    <string name="save_and_add_another">Save and add another</string>
 </resources>

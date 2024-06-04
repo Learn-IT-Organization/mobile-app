@@ -2,7 +2,9 @@ package com.learnitevekri.data.courses.quiz.repository
 
 import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
+import com.learnitevekri.data.courses.quiz.model.AddQuestionAnswerResponseData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
+import com.learnitevekri.data.courses.quiz.model.EditQuestionAnswerData
 import com.learnitevekri.domain.quiz.QuestionsAnswersRepository
 
 object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
@@ -45,5 +47,21 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
             throw e
         }
         return questionData
+    }
+
+    override suspend fun <T> editQuestionAnswer(
+        questionId: Int,
+        editQuestionAnswerData: EditQuestionAnswerData<T>
+    ): AddQuestionAnswerResponseData {
+        try {
+            val response = apiService.editQuestionAnswer(questionId, editQuestionAnswerData)
+            if (response.isSuccessful) {
+                return response.body()!!
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error editing question and answer: ${e.message}")
+            throw e
+        }
+        return null!!
     }
 }

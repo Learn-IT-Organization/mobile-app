@@ -1,157 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dimen_5dp">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tvContentTypeLabel"
-        style="@style/subtitle_style"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_50dp"
-        android:text="@string/content_type"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:padding="@dimen/dimen_5dp">
 
-    <Spinner
-        android:id="@+id/spinnerContentType"
-        style="@style/subtitle_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:entries="@array/content_type_array"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvContentTypeLabel" />
+        <TextView
+            android:id="@+id/tvAddContent"
+            style="@style/title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:text="@string/add_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/etContentTitle"
-        style="@style/subtitle_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:autofillHints=""
-        android:hint="@string/content_title"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerContentType" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAddContent"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_460dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tvAddContent"
+            app:layout_constraintBottom_toTopOf="@id/btnSaveAndAddAnother"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/add_content_list_item" />
 
-    <EditText
-        android:id="@+id/etContentUrl"
-        style="@style/subtitle_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:autofillHints="Url with the lesson content"
-        android:hint="@string/content_url"
-        android:inputType="textUri"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etContentTitle" />
+        <Button
+            android:id="@+id/btnSaveAndAddAnother"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_and_add_another"
+            app:layout_constraintTop_toBottomOf="@id/rvAddContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgGoogleDrive"
-        android:layout_width="@dimen/dimen_40dp"
-        android:layout_height="@dimen/dimen_40dp"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:src="@drawable/google_drive"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/etContentDescription"
-        app:layout_constraintEnd_toStartOf="@id/imgBrowser"
-        app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etContentUrl" />
+        <Button
+            android:id="@+id/btnAddContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/add_content"
+            app:layout_constraintTop_toBottomOf="@id/btnSaveAndAddAnother"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgBrowser"
-        android:layout_width="@dimen/dimen_40dp"
-        android:layout_height="@dimen/dimen_40dp"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:src="@drawable/google"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/etContentDescription"
-        app:layout_constraintEnd_toStartOf="@id/imgYouTube"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/imgGoogleDrive"
-        app:layout_constraintTop_toBottomOf="@id/etContentUrl" />
-
-    <ImageView
-        android:id="@+id/imgYouTube"
-        android:layout_width="@dimen/dimen_50dp"
-        android:layout_height="@dimen/dimen_50dp"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_15dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:src="@drawable/youtube"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/etContentDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
-        app:layout_constraintStart_toEndOf="@id/imgBrowser"
-        app:layout_constraintTop_toBottomOf="@id/etContentUrl" />
-
-    <EditText
-        android:id="@+id/etContentDescription"
-        style="@style/subtitle_style"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:autofillHints="Short description about the lesson content"
-        android:hint="@string/content_description"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgYouTube" />
-
-    <TextView
-        android:id="@+id/tvDescriptionCounter"
-        style="@style/subtitle_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:text="@string/_0_255"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etContentDescription" />
-
-    <Button
-        android:id="@+id/btnAddContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:fontFamily="@font/baloo"
-        android:text="@string/add_content"
-        app:layout_constraintEnd_toStartOf="@id/btnCancel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDescriptionCounter" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:fontFamily="@font/baloo"
-        android:text="@string/cancel"
-        app:layout_constraintBaseline_toBaselineOf="@id/btnAddContent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnAddContent"
-        app:layout_constraintTop_toBottomOf="@id/tvDescriptionCounter" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

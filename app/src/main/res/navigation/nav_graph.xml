@@ -135,8 +135,10 @@
         <action
             android:id="@+id/action_addNewLessonFragment_to_addNewChapterFragment"
             app:destination="@id/addNewChapterFragment" />
+        <action
+            android:id="@+id/action_addNewLessonFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
     </fragment>
-        android:label="TeacherRequestFragment"></fragment>
 
     <fragment
         android:id="@+id/chaptersFragment"
@@ -199,22 +201,19 @@
         android:id="@+id/noInternetFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.NoInternetFragment"
         android:label="NoInternetFragment"
-        tools:layout="@layout/fragment_no_internet">
-    </fragment>
+        tools:layout="@layout/fragment_no_internet" />
 
     <fragment
         android:id="@+id/noConnectionFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.NoConnectionFragment"
         android:label="NoConnectionFragment"
-        tools:layout="@layout/fragment_no_connection">
-    </fragment>
+        tools:layout="@layout/fragment_no_connection" />
 
     <fragment
         android:id="@+id/serverErrorFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.ServerErrorFragment"
         android:label="ServerErrorFragment"
-        tools:layout="@layout/fragment_server_error">
-    </fragment>
+        tools:layout="@layout/fragment_server_error" />
 
     <fragment
         android:id="@+id/editProfileFragment"
@@ -242,7 +241,11 @@
         android:id="@+id/addContentFragment"
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.AddContentFragment"
         android:label="AddContentFragment"
-        tools:layout="@layout/fragment_add_content" />
+        tools:layout="@layout/fragment_add_content" >
+        <action
+            android:id="@+id/action_addContentFragment_to_addQuestionFragment"
+            app:destination="@id/addQuestionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addQuestionFragment"

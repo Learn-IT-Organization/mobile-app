@@ -58,7 +58,7 @@ class ChaptersViewModel : ViewModel() {
             try {
                 repository.addNewChapter(addNewChapterData)
             } catch (e: Exception) {
-                Log.e(CoursesViewModel.TAG, "Error adding new chapter: ${e.message}")
+                Log.e(TAG, "Error adding new chapter: ${e.message}")
                 null
             }
         }

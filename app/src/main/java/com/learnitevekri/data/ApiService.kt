@@ -9,9 +9,12 @@ import com.learnitevekri.data.courses.chapters.model.EditChapterData
 import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
+import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.quiz.model.AddQuestionAnswerResponseData
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
+import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
 import com.learnitevekri.data.courses.lessons.model.LessonData
@@ -19,6 +22,7 @@ import com.learnitevekri.data.courses.lessons.model.LessonProgressData
 import com.learnitevekri.data.courses.lessons.model.UserAnswersData
 import com.learnitevekri.data.courses.notifications.TokenData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
+import com.learnitevekri.data.courses.quiz.model.EditQuestionAnswerData
 import com.learnitevekri.data.courses.quiz.model.QuizResponseData
 import com.learnitevekri.data.courses.quiz.model.QuizResultData
 import com.learnitevekri.data.user.login.model.Data
@@ -160,4 +164,14 @@ interface ApiService {
 
     @POST("/questionsAnswers")
     suspend fun createQuestionAnswer(@Body questionAnswer: BaseQuestionData): Response<BaseQuestionData>
+
+    @PUT("/editLessonContent/{id}")
+    suspend fun editLessonContent(
+        @Path("id") id: Int, @Body editLessonContentData: EditLessonContentData
+    ): Response<AddLessonContentResponseData>
+
+    @PUT("/editQuestionsAnswers/{id}")
+    suspend fun <T> editQuestionAnswer(
+        @Path("id") id: Int, @Body editQuestionAnswerData: EditQuestionAnswerData<T>
+    ): Response<AddQuestionAnswerResponseData>
 }
