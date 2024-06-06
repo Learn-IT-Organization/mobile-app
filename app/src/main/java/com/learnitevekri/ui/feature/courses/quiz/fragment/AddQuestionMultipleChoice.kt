@@ -1,88 +1,137 @@
 package com.learnitevekri.ui.feature.courses.quiz.fragment
 
-import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.learnitevekri.R
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.snackbar.Snackbar
+import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceAnswer
+import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceQuestionData
 import com.learnitevekri.databinding.FragmentAddQuestionMultipleChoiceBinding
+import com.learnitevekri.ui.feature.courses.quiz.viewModel.SharedQuizViewModel
 
 class AddQuestionMultipleChoice : Fragment() {
+    private var lessonId: Int = -1
+    private var chapterId: Int = -1
+    private var courseId: Int = -1
     private lateinit var binding: FragmentAddQuestionMultipleChoiceBinding
-    private val answerViews = mutableListOf<View>()
+    private val viewModel: SharedQuizViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddQuestionMultipleChoiceBinding.inflate(inflater, container, false)
+        lessonId = arguments?.getInt("lesson_id", -1) ?: -1
+        chapterId = arguments?.getInt("chapter_id", -1) ?: -1
+        courseId = arguments?.getInt("course_id", -1) ?: -1
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addAnswerField()
-        addAnswerField()
-
-        binding.addAnswerButton.setOnClickListener {
-            if (answerViews.size < 6) {
-                addAnswerField()
+        binding.saveButton.setOnClickListener {
+            if (areFieldsValid()) {
+                saveQuestion()
             } else {
-                Toast.makeText(
-                    requireContext(),
-                    "You can add a maximum of 6 answers",
-                    Toast.LENGTH_SHORT
+                Snackbar.make(
+                    binding.root,
+                    "Please fill in all fields and select at least one correct answer",
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addAnswerField() {
-        val answerLayout = LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.HORIZONTAL
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 8, 0, 8)
+    private fun areFieldsValid(): Boolean {
+        val answerEditTexts = listOf(
+            binding.answer1EditText,
+            binding.answer2EditText,
+            binding.answer3EditText,
+            binding.answer4EditText
+        )
+
+        val isCorrectCheckBoxes = listOf(
+            binding.isCorrectCheckBox1,
+            binding.isCorrectCheckBox2,
+            binding.isCorrectCheckBox3,
+            binding.isCorrectCheckBox4
+        )
+
+        for (i in answerEditTexts.indices) {
+            val answerText = answerEditTexts[i].text.toString().trim()
+            val isCorrect = isCorrectCheckBoxes[i].isChecked
+
+            if (answerText.isEmpty() && isCorrect) {
+                return false
+            }
+
+            if (i == 0 && answerText.isEmpty()) {
+                return false
             }
         }
 
-        val answerEditText = EditText(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1f
-            )
-            hint = getString(R.string.enter_the_answer)
-            inputType = InputType.TYPE_CLASS_TEXT
-        }
-
-        val isCorrectCheckBox = CheckBox(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            text = getString(R.string.correct)
-            
-        }
-
-        answerLayout.addView(answerEditText)
-        answerLayout.addView(isCorrectCheckBox)
-        binding.answersLinearLayout.addView(answerLayout)
-        answerViews.add(answerLayout)
+        return true
     }
+
+    private fun saveQuestion() {
+        val answers = mutableListOf<AddMultipleChoiceAnswer>()
+
+        val answerEditTexts = listOf(
+            binding.answer1EditText,
+            binding.answer2EditText,
+            binding.answer3EditText,
+            binding.answer4EditText
+        )
+
+        val isCorrectCheckBoxes = listOf(
+            binding.isCorrectCheckBox1,
+            binding.isCorrectCheckBox2,
+            binding.isCorrectCheckBox3,
+            binding.isCorrectCheckBox4
+        )
+
+        var isAnyChecked = false
+
+        for (i in answerEditTexts.indices) {
+            val answerText = answerEditTexts[i].text.toString().trim()
+            val isCorrect = isCorrectCheckBoxes[i].isChecked
+
+            if (answerText.isNotEmpty()) {
+                answers.add(AddMultipleChoiceAnswer(isCorrect, answerText))
+            }
+
+            if (isCorrect) {
+                isAnyChecked = true
+            }
+        }
+
+        if (!isAnyChecked) {
+            Snackbar.make(
+                binding.root,
+                "Please select at least one correct answer",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val questionText = binding.questionEditText.text.toString().trim()
+
+        val questionData = AddMultipleChoiceQuestionData(
+            qaLessonId = lessonId,
+            questionText = questionText,
+            questionType = "multiple_choice",
+            answers = answers,
+            qaChapterId = chapterId,
+            qaCourseId = courseId
+        )
+
+        viewModel.addQuestionAnswerMultipleChoice(questionData)
+    }
+
 
 }

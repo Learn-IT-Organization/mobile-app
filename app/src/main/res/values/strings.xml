@@ -167,4 +167,5 @@
     <string name="add_content">Add content</string>
     <string name="content_number">Content number</string>
     <string name="save_and_add_another">Save and add another</string>
+    <string name="save_and_back_to_lessons">Save and back to lessons</string>
 </resources>

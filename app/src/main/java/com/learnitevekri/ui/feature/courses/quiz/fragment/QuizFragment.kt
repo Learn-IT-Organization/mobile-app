@@ -246,8 +246,8 @@ class QuizFragment : Fragment() {
     }
 
     private fun observeSound() {
-        viewModel?.let { viewModel ->
-            viewModel.soundLiveData?.observe(viewLifecycleOwner) { shouldPlaySound ->
+        viewModel.let { viewModel ->
+            viewModel.soundLiveData.observe(viewLifecycleOwner) { shouldPlaySound ->
                 shouldPlaySound?.let {
                     if (shouldPlaySound) {
                         mediaPlayer.apply {

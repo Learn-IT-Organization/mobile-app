@@ -29,6 +29,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     private lateinit var adapter: AddNewLessonAdapter
     private val lessons = mutableListOf<AddNewLessonData>()
     private var chapterId = -1
+    private var courseId = -1
     private val userId = SharedPreferences.getUserId()
 
     companion object {
@@ -36,7 +37,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddNewLessonBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,7 +46,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
-        Log.d(TAG, "Chapter ID: $chapterId")
+        courseId = arguments?.getInt("course_id", -1) ?: -1
+        Log.d(TAG, "Corse ID, Chapter ID: $courseId, $chapterId")
         if (lessons.isEmpty()) {
             setupEmptyLesson()
         }
@@ -77,7 +79,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
             if (checkAllFieldsFilled()) {
                 lifecycleScope.launch {
                     performAddOperation { lessonId ->
-                        navigateToAddContentFragment(chapterId, lessonId)
+                        val lessonType = lessons.last().lessonType
+                        navigateToAddContentFragment(chapterId, lessonId, lessonType)
                     }
                     disableEditTextEditing(lessons.size - 1)
                 }
@@ -169,6 +172,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
             lessonTags,
             userId.toInt()
         )
+
         val newLessonIndex = lessons.size - 1
         lessons[newLessonIndex] = newLessonData
         adapter.notifyItemChanged(newLessonIndex)
@@ -189,10 +193,12 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
         }
     }
 
-    private fun navigateToAddContentFragment(chapterId: Int, lessonId: Int) {
+    private fun navigateToAddContentFragment(chapterId: Int, lessonId: Int, lessonType: String) {
         val bundle = Bundle().apply {
+            putInt("course_id", courseId)
             putInt("chapter_id", chapterId)
             putInt("lesson_id", lessonId)
+            putString("lesson_type", lessonType)
         }
         findNavController().navigate(R.id.action_addNewLessonFragment_to_addContentFragment, bundle)
     }

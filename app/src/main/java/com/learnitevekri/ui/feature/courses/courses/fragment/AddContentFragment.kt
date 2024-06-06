@@ -28,13 +28,16 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
     private lateinit var adapter: AddLessonContentAdapter
     private val contents = mutableListOf<LessonContentData>()
     private var lessonId = -1
+    private var chapterId = -1
+    private var courseId = -1
+    private var lessonType: String? = null
 
     companion object {
         val TAG: String = AddContentFragment::class.java.simpleName
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddContentBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,7 +46,16 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        courseId = arguments?.getInt("course_id", -1) ?: -1
+        chapterId = arguments?.getInt("chapter_id", -1) ?: -1
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
+        lessonType = arguments?.getString("lesson_type")
+
+        Log.d(TAG, "Course ID, Chapter ID, Lesson ID: $courseId, $chapterId, $lessonId")
+        if (lessonType == "theory") {
+            binding.btnSaveAndAddQuestion.visibility = View.GONE
+        }
+
         if (contents.isEmpty()) {
             setupEmptyContent()
         }
@@ -53,11 +65,21 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
         checkAllFieldsFilled()
 
         val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-
-            }
+            override fun handleOnBackPressed() {}
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        binding.btnSaveAndBackToLessons.setOnClickListener {
+            if (checkAllFieldsFilled()) {
+                lifecycleScope.launch {
+                    performAddOperation()
+                }
+                findNavController().navigateUp()
+            } else {
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
     private fun setupEmptyContent() {
@@ -71,10 +93,10 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
     }
 
     private fun setupAddContentButton() {
-        binding.btnSaveAndAddContent.setOnClickListener {
+        binding.btnSaveAndAddQuestion.setOnClickListener {
             if (checkAllFieldsFilled()) {
                 lifecycleScope.launch {
-                    performAddOperation { lessonId ->
+                    performAddOperation {
                         navigateToAddQuestionFragment(lessonId)
                     }
                     disableEditTextEditing(contents.size - 1)
@@ -92,7 +114,6 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
                     adapter.notifyItemInserted(contents.size - 1)
                     binding.rvAddContent.scrollToPosition(contents.size - 1)
                     checkAllFieldsFilled()
-                    disableEditTextEditing(contents.size)
                 }
             } else {
                 Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
@@ -131,7 +152,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
             0,
             contentType,
             contentUrl,
-            lessonId,
+            220,
             contentTitle,
             contentDescription
         )
@@ -159,6 +180,8 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
 
     private fun navigateToAddQuestionFragment(lessonId: Int) {
         val bundle = Bundle().apply {
+            putInt("course_id", courseId)
+            putInt("chapter_id", chapterId)
             putInt("lesson_id", lessonId)
         }
         findNavController().navigate(
@@ -187,7 +210,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
 
     override fun onSaveClick(
         currentLessonContentId: Int,
-        editLessonContentData: EditLessonContentData
+        editLessonContentData: EditLessonContentData,
     ) {
         lifecycleScope.launch {
             Log.d(TAG, "Saving content with id: $currentLessonContentId")

@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_CoursesFragment_to_EditCourseFragment"
             app:destination="@id/editCourseFragment" />
+        <action
+            android:id="@+id/action_coursesFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
     </fragment>
 
     <fragment
@@ -284,7 +287,7 @@
         android:id="@+id/addContentFragment"
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.AddContentFragment"
         android:label="AddContentFragment"
-        tools:layout="@layout/fragment_add_content" >
+        tools:layout="@layout/fragment_add_content">
         <action
             android:id="@+id/action_addContentFragment_to_addQuestionFragment"
             app:destination="@id/addQuestionFragment" />
@@ -294,6 +297,10 @@
         android:id="@+id/addQuestionFragment"
         android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.AddQuestionFragment"
         android:label="AddQuestionFragment"
-        tools:layout="@layout/fragment_add_question" />
+        tools:layout="@layout/fragment_add_question" >
+        <action
+            android:id="@+id/action_addQuestionFragment_to_coursesFragment"
+            app:destination="@id/coursesFragment" />
+    </fragment>
 
 </navigation>

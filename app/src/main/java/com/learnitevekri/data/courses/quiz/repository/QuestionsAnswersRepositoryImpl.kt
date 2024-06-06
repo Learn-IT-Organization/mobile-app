@@ -2,7 +2,11 @@ package com.learnitevekri.data.courses.quiz.repository
 
 import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
+import com.learnitevekri.data.courses.quiz.model.AddMatchingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceQuestionData
 import com.learnitevekri.data.courses.quiz.model.AddQuestionAnswerResponseData
+import com.learnitevekri.data.courses.quiz.model.AddSortingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddTrueFalseQuestionData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
 import com.learnitevekri.data.courses.quiz.model.EditQuestionAnswerData
 import com.learnitevekri.domain.quiz.QuestionsAnswersRepository
@@ -13,7 +17,7 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
     override suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
         courseId: Int,
         chapterId: Int,
-        lessonId: Int
+        lessonId: Int,
     ): List<BaseQuestionData> {
         try {
             val response =
@@ -36,22 +40,62 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         return emptyList()
     }
 
-    override suspend fun createQuestionAnswer(questionData: BaseQuestionData): BaseQuestionData {
+    override suspend fun createQuestionAnswerMatching(questionData: AddMatchingQuestionData): AddQuestionAnswerResponseData {
+        Log.d(TAG, "createQuestionAnswer: $questionData")
         try {
-            val response = apiService.createQuestionAnswer(questionData)
+            val response = apiService.createQuestionAnswerMatching(questionData)
             if (response.isSuccessful) {
-                return response.body() ?: questionData
+                return response.body()!!
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error creating question and answer: ${e.message}")
             throw e
         }
-        return questionData
+        return null!!
+    }
+
+    override suspend fun createTrueFalseQuestionAnswer(questionData: AddTrueFalseQuestionData): AddQuestionAnswerResponseData {
+        try {
+            val response = apiService.createTrueFalseQuestionAnswer(questionData)
+            if (response.isSuccessful) {
+                return response.body()!!
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating question and answer: ${e.message}")
+            throw e
+        }
+        return null!!
+    }
+
+    override suspend fun createMultipleChoiceQuestionAnswer(questionData: AddMultipleChoiceQuestionData): AddQuestionAnswerResponseData {
+        try {
+            val response = apiService.createMultipleChoiceQuestionAnswer(questionData)
+            if (response.isSuccessful) {
+                return response.body()!!
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating question and answer: ${e.message}")
+            throw e
+        }
+        return null!!
+    }
+
+    override suspend fun createSortingQuestionAnswer(questionData: AddSortingQuestionData): AddQuestionAnswerResponseData {
+        try {
+            val response = apiService.createSortingQuestionAnswer(questionData)
+            if (response.isSuccessful) {
+                return response.body()!!
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating question and answer: ${e.message}")
+            throw e
+        }
+        return null!!
     }
 
     override suspend fun <T> editQuestionAnswer(
         questionId: Int,
-        editQuestionAnswerData: EditQuestionAnswerData<T>
+        editQuestionAnswerData: EditQuestionAnswerData<T>,
     ): AddQuestionAnswerResponseData {
         try {
             val response = apiService.editQuestionAnswer(questionId, editQuestionAnswerData)

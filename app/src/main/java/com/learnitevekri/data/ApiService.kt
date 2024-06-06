@@ -9,8 +9,8 @@ import com.learnitevekri.data.courses.chapters.model.EditChapterData
 import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
-import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.course.model.EditCourseData
+import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
@@ -21,7 +21,11 @@ import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.data.courses.lessons.model.LessonProgressData
 import com.learnitevekri.data.courses.lessons.model.UserAnswersData
 import com.learnitevekri.data.courses.notifications.TokenData
+import com.learnitevekri.data.courses.quiz.model.AddMatchingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceQuestionData
 import com.learnitevekri.data.courses.quiz.model.AddQuestionAnswerResponseData
+import com.learnitevekri.data.courses.quiz.model.AddSortingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddTrueFalseQuestionData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
 import com.learnitevekri.data.courses.quiz.model.EditQuestionAnswerData
 import com.learnitevekri.data.courses.quiz.model.QuizResponseData
@@ -85,7 +89,7 @@ interface ApiService {
     suspend fun getQuestionsAnswersByCourseIdChapterIdLessonId(
         @Path("courseId") courseId: Int,
         @Path("chapterId") chapterId: Int,
-        @Path("lessonId") lessonId: Int
+        @Path("lessonId") lessonId: Int,
     ): Response<List<BaseQuestionData>>
 
     @GET("/myCourses")
@@ -93,7 +97,7 @@ interface ApiService {
 
     @GET("/lesson/{lessonId}/contents")
     suspend fun getLessonContentByLessonId(
-        @Path("lessonId") lessonId: Int
+        @Path("lessonId") lessonId: Int,
     ): Response<List<LessonContentData>>
 
     @GET("/lessonResult")
@@ -107,7 +111,7 @@ interface ApiService {
 
     @GET("/course/{courseId}/chapter/{chapterId}/score")
     suspend fun getChapterResult(
-        @Path("courseId") courseId: Int, @Path("chapterId") chapterId: Int
+        @Path("courseId") courseId: Int, @Path("chapterId") chapterId: Int,
     ): Response<ChapterResultData>
 
     @GET("/userResultsWithValidation/{lessonId}/lesson")
@@ -151,33 +155,42 @@ interface ApiService {
 
     @PUT("/editCourse/{courseId}")
     suspend fun editCourse(
-        @Path("courseId") courseId: Int, @Body editCourseData: EditCourseData
+        @Path("courseId") courseId: Int, @Body editCourseData: EditCourseData,
     ): Response<AddNewCourseResponseData>
 
     @PUT("/editChapter/{chapterId}")
     suspend fun editChapter(
-        @Path("chapterId") chapterId: Int, @Body editChapterData: EditChapterData
+        @Path("chapterId") chapterId: Int, @Body editChapterData: EditChapterData,
     ): Response<AddNewChapterResponseData>
 
     @PUT("/editLesson/{lessonId}")
     suspend fun editLesson(
-        @Path("lessonId") lessonId: Int, @Body editLessonData: EditLessonData
+        @Path("lessonId") lessonId: Int, @Body editLessonData: EditLessonData,
     ): Response<AddNewLessonResponseData>
 
     @POST("/lessonContents")
     suspend fun createLessonContent(@Body lessonContent: LessonContentData): Response<AddLessonContentResponseData>
 
     @POST("/questionsAnswers")
-    suspend fun createQuestionAnswer(@Body questionAnswer: BaseQuestionData): Response<BaseQuestionData>
+    suspend fun createQuestionAnswerMatching(@Body questionData: AddMatchingQuestionData): Response<AddQuestionAnswerResponseData>
+
+    @POST("/questionsAnswers")
+    suspend fun createTrueFalseQuestionAnswer(@Body questionData: AddTrueFalseQuestionData): Response<AddQuestionAnswerResponseData>
+
+    @POST("/questionsAnswers")
+    suspend fun createMultipleChoiceQuestionAnswer(@Body questionData: AddMultipleChoiceQuestionData): Response<AddQuestionAnswerResponseData>
+
+    @POST("/questionsAnswers")
+    suspend fun createSortingQuestionAnswer(@Body questionData: AddSortingQuestionData): Response<AddQuestionAnswerResponseData>
 
     @PUT("/editLessonContent/{id}")
     suspend fun editLessonContent(
-        @Path("id") id: Int, @Body editLessonContentData: EditLessonContentData
+        @Path("id") id: Int, @Body editLessonContentData: EditLessonContentData,
     ): Response<AddLessonContentResponseData>
 
     @PUT("/editQuestionsAnswers/{id}")
     suspend fun <T> editQuestionAnswer(
-        @Path("id") id: Int, @Body editQuestionAnswerData: EditQuestionAnswerData<T>
+        @Path("id") id: Int, @Body editQuestionAnswerData: EditQuestionAnswerData<T>,
     ): Response<AddQuestionAnswerResponseData>
 
     @GET("/course/{courseId}")

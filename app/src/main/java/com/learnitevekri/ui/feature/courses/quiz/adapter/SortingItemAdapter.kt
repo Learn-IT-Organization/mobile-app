@@ -32,4 +32,8 @@ class SortingItemAdapter(
         items.add(item)
         notifyItemInserted(items.size - 1)
     }
+
+    fun getItems(): List<String> {
+        return items.toList()
+    }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textLessonProgress"
+        android:id="@+id/questionCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16dp"
@@ -32,7 +32,7 @@
         android:progressTint="@color/md_theme_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textLessonProgress" />
+        app:layout_constraintTop_toBottomOf="@id/questionCount" />
 
     <ImageButton
         android:id="@+id/escapeButton"
@@ -45,7 +45,7 @@
         android:contentDescription="@string/exist_quiz"
         android:src="@drawable/close"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toStartOf="@+id/textLessonProgress"
+        app:layout_constraintEnd_toStartOf="@+id/questionCount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

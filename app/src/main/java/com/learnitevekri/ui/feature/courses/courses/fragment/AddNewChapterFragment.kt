@@ -139,6 +139,7 @@ class AddNewChapterFragment : Fragment(), ChapterItemClickListener {
                     chapterId?.let { it1 -> adapter.updateChapterId(chapters.size - 1, it1) }
                     disableEditTextEditing()
                     val bundle = Bundle().apply {
+                        putInt("course_id", courseId)
                         chapterId?.let { it1 -> putInt("chapter_id", it1) }
                     }
                     findNavController().navigate(

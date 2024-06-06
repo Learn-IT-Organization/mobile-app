@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.learnitevekri.data.courses.quiz.model.AddMatchingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddSortingQuestionData
+import com.learnitevekri.data.courses.quiz.model.AddTrueFalseQuestionData
 import com.learnitevekri.data.courses.quiz.model.BaseQuestionData
 import com.learnitevekri.data.courses.quiz.model.QuizResponseData
 import com.learnitevekri.domain.quiz.QuestionsAnswersRepository
@@ -34,6 +38,9 @@ class SharedQuizViewModel : ViewModel() {
     val currentQuestionItemLiveData: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>(0)
     }
+    val questionCounterLiveData: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>(1)
+    }
 
     private val mutableState: MutableStateFlow<QuestionAnswersPageState> =
         MutableStateFlow(QuestionAnswersPageState.Loading)
@@ -63,7 +70,7 @@ class SharedQuizViewModel : ViewModel() {
     fun loadAllQuestionsAnswers(
         courseId: Int,
         chapterId: Int,
-        lessonId: Int
+        lessonId: Int,
     ) {
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             try {
@@ -113,10 +120,41 @@ class SharedQuizViewModel : ViewModel() {
         }
     }
 
-    fun addQuestionAnswer(questionAnswer: BaseQuestionData) {
+
+    fun addQuestionAnswerMatching(questionAnswer: AddMatchingQuestionData) {
+        Log.d(TAG, "addQuestionAnswer: $questionAnswer")
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            val response = repository.createQuestionAnswer(questionAnswer)
-            Log.d(TAG, response.toString())
+            val response = repository.createQuestionAnswerMatching(questionAnswer)
+            Log.d(TAG, "Response: $response")
+            questionCounterLiveData.postValue(questionCounterLiveData.value?.plus(1))
         }
     }
+
+    fun addQuestionAnswerTrueFalse(questionAnswer: AddTrueFalseQuestionData) {
+        Log.d(TAG, "addQuestionAnswer: $questionAnswer")
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            val response = repository.createTrueFalseQuestionAnswer(questionAnswer)
+            Log.d(TAG, "Response: $response")
+            questionCounterLiveData.postValue(questionCounterLiveData.value?.plus(1))
+        }
+    }
+
+    fun addQuestionAnswerMultipleChoice(questionAnswer: AddMultipleChoiceQuestionData) {
+        Log.d(TAG, "addQuestionAnswer: $questionAnswer")
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            val response = repository.createMultipleChoiceQuestionAnswer(questionAnswer)
+            Log.d(TAG, "Response: $response")
+            questionCounterLiveData.postValue(questionCounterLiveData.value?.plus(1))
+        }
+    }
+
+    fun addQuestionAnswerSorting(questionAnswer: AddSortingQuestionData) {
+        Log.d(TAG, "addQuestionAnswer: $questionAnswer")
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            val response = repository.createSortingQuestionAnswer(questionAnswer)
+            Log.d(TAG, "Response: $response")
+            questionCounterLiveData.postValue(questionCounterLiveData.value?.plus(1))
+        }
+    }
+
 }
