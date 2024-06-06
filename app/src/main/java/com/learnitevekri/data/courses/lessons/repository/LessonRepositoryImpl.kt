@@ -2,9 +2,10 @@ package com.learnitevekri.data.courses.lessons.repository
 
 import android.util.Log
 import com.learnitevekri.data.RetrofitAdapter
-import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
+import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
 import com.learnitevekri.data.courses.lessons.model.LessonData
@@ -113,6 +114,39 @@ object LessonRepositoryImpl : LessonRepository {
             } else {
                 Log.e(TAG, "Failed to update lesson: ${response.errorBody()?.string()}")
                 throw RuntimeException("Failed to update lesson due to server error")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating lesson: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun createLessonContent(lessonContentData: LessonContentData): Int? {
+        try {
+            val response = apiService.createLessonContent(lessonContentData)
+            if (response.isSuccessful && response.body() != null){
+                Log.d(TAG,"Lesson content id: ${response.body()?.contentId.toString()}")
+                return response.body()?.contentId
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error creating lesson content: ${e.message}")
+            throw e
+        }
+        return null
+    }
+
+    override suspend fun editLessonContent(
+        lessonContentId: Int,
+        editLessonContentData: EditLessonContentData
+    ): AddLessonContentResponseData {
+        try {
+            val response = apiService.editLessonContent(lessonContentId, editLessonContentData)
+            if (response.isSuccessful && response.body() != null) {
+                Log.d(TAG, "Lesson content updated successfully: ${response.body()}")
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Failed to update lesson content: ${response.errorBody()?.string()}")
+                throw RuntimeException("Failed to update lesson content due to server error")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error updating lesson: ${e.message}")

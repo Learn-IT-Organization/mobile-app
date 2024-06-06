@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="question_types_array">
+        <item style="@style/subtitle_style">multiple_choice</item>
+        <item style="@style/subtitle_style">true_false</item>
+        <item style="@style/subtitle_style">sorting</item>
+        <item style="@style/subtitle_style">matching</item>
+    </string-array>
+</resources>

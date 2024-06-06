@@ -15,13 +15,14 @@ import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.databinding.AddNewLessonItemBinding
 import com.learnitevekri.ui.feature.courses.courses.LessonItemClickListener
+import com.learnitevekri.ui.feature.courses.courses.LessonTypeChangeListener
 
 class AddNewLessonAdapter(
     private var lessons: MutableList<AddNewLessonData>,
-    private val itemClickListener: LessonItemClickListener
-) :
-    RecyclerView.Adapter<AddNewLessonAdapter.LessonViewHolder>() {
+    private val itemClickListener: LessonItemClickListener,
+) : RecyclerView.Adapter<AddNewLessonAdapter.LessonViewHolder>() {
 
+    private val TAG: String = AddNewLessonAdapter::class.java.simpleName
     private val lessonTypes = arrayOf("theory", "exercise")
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
@@ -36,7 +37,6 @@ class AddNewLessonAdapter(
     inner class LessonViewHolder(private val binding: AddNewLessonItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: AddNewLessonData) {
-
             binding.etLessonName.setText(lesson.lessonName)
             binding.etLessonDescription.setText(lesson.lessonDescription)
             binding.etLessonTags.setText(lesson.lessonTags)
@@ -62,13 +62,12 @@ class AddNewLessonAdapter(
                         parent: AdapterView<*>?,
                         view: View?,
                         position: Int,
-                        id: Long
+                        id: Long,
                     ) {
                         lessons[adapterPosition].lessonType = lessonTypes[position]
                     }
 
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
 
             val position = adapterPosition + 1
@@ -79,7 +78,7 @@ class AddNewLessonAdapter(
                     s: CharSequence?,
                     start: Int,
                     count: Int,
-                    after: Int
+                    after: Int,
                 ) {
                 }
 
@@ -100,7 +99,7 @@ class AddNewLessonAdapter(
 
             binding.ivEditLesson.setOnClickListener {
                 Log.d(
-                    "AddNewLessonAdapter",
+                    TAG,
                     "Edit Clicked on $adapterPosition: ${lessons[adapterPosition]}"
                 )
                 binding.ivSaveEditLesson.visibility = View.VISIBLE
@@ -145,9 +144,9 @@ class AddNewLessonAdapter(
     }
 
     fun updateLessonId(position: Int, lessonId: Int) {
-        Log.d("AddNewLessonAdapter", "Updating lesson ID: $lessonId at position: $position")
+        Log.d(TAG, "Updating lesson ID: $lessonId at position: $position")
         lessons[position].lessonId = lessonId
         notifyItemChanged(position)
-        Log.d("AddNewLessonAdapter", lessons.toString())
+        Log.d(TAG, lessons.toString())
     }
 }

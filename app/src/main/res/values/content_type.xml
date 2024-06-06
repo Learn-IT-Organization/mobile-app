@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="content_type_array">
+        <item style="@style/subtitle_style">folder</item>
+        <item style="@style/subtitle_style">link</item>
+        <item style="@style/subtitle_style">video</item>
+    </string-array>
+</resources>

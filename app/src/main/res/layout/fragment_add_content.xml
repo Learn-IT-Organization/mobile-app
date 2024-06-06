@@ -7,57 +7,59 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_5dp">
 
         <TextView
-            android:id="@+id/tvAddNewLesson"
+            android:id="@+id/tvAddContent"
             style="@style/title_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_20dp"
-            android:text="@string/add_new_lesson"
-            android:textSize="@dimen/dimen_28dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:text="@string/add_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAddNewLesson"
+            android:id="@+id/rvAddContent"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_400dp"
+            android:layout_height="@dimen/dimen_420dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAddNewLesson"
-            tools:listitem="@layout/add_new_lesson_item" />
+            app:layout_constraintTop_toBottomOf="@id/tvAddContent"
+            tools:listitem="@layout/add_content_list_item" />
 
         <Button
-            android:id="@+id/btnBackToChapter"
-            style="@style/ProceedButtonStyle"
+            android:id="@+id/btnSaveAndBackToLessons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/rvAddNewLesson"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/save_and_back_to_lessons"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/save_and_back_to_chapters" />
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvAddContent" />
 
         <Button
-            android:id="@+id/btnAddMoreLesson"
-            style="@style/ProceedButtonStyle"
+            android:id="@+id/btnSaveAndAddAnother"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/btnBackToChapter"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/save_and_add_another"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/add_more_lesson" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSaveAndBackToLessons" />
 
         <Button
-            android:id="@+id/btnSaveAndAddContent"
-            style="@style/ProceedButtonStyle"
+            android:id="@+id/btnSaveAndAddQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddMoreLesson"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/add_content_and_save"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/save_and_add_content" />
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSaveAndAddAnother" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

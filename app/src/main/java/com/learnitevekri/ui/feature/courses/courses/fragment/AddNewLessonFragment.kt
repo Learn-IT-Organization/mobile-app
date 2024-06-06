@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.learnitevekri.R
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
@@ -28,6 +29,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     private lateinit var adapter: AddNewLessonAdapter
     private val lessons = mutableListOf<AddNewLessonData>()
     private var chapterId = -1
+    private var courseId = -1
     private val userId = SharedPreferences.getUserId()
 
     companion object {
@@ -35,7 +37,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddNewLessonBinding.inflate(inflater, container, false)
         return binding.root
@@ -44,7 +46,8 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
-        Log.d(TAG, "Chapter ID: $chapterId")
+        courseId = arguments?.getInt("course_id", -1) ?: -1
+        Log.d(TAG, "Corse ID, Chapter ID: $courseId, $chapterId")
         if (lessons.isEmpty()) {
             setupEmptyLesson()
         }
@@ -72,11 +75,14 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     }
 
     private fun setupAddLessonButton() {
-        binding.btnAddContent.setOnClickListener {
+        binding.btnSaveAndAddContent.setOnClickListener {
             if (checkAllFieldsFilled()) {
                 lifecycleScope.launch {
-                    performAddOperation()
-                    disableEditTextEditing(lessons.size)
+                    performAddOperation { lessonId ->
+                        val lessonType = lessons.last().lessonType
+                        navigateToAddContentFragment(chapterId, lessonId, lessonType)
+                    }
+                    disableEditTextEditing(lessons.size - 1)
                 }
             } else {
                 Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_SHORT)
@@ -133,6 +139,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
     override fun onSaveClick(currentLessonId: Int, editLessonData: EditLessonData) {
         lifecycleScope.launch {
             viewModel.editLesson(currentLessonId, editLessonData)
+            viewModel.editLesson(currentLessonId, editLessonData)
             Snackbar.make(requireView(), "Lesson updated successfully", Snackbar.LENGTH_SHORT)
                 .show()
             val position = lessons.indexOfFirst { it.lessonId == currentLessonId }
@@ -142,7 +149,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
         }
     }
 
-    private suspend fun performAddOperation() {
+    private suspend fun performAddOperation(onSuccess: ((Int) -> Unit)? = null) {
         val lastLesson = lessons.last()
         val lessonName = lastLesson.lessonName
         val lessonDescription = lastLesson.lessonDescription
@@ -165,6 +172,7 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
             lessonTags,
             userId.toInt()
         )
+
         val newLessonIndex = lessons.size - 1
         lessons[newLessonIndex] = newLessonData
         adapter.notifyItemChanged(newLessonIndex)
@@ -178,10 +186,21 @@ class AddNewLessonFragment : Fragment(), LessonItemClickListener {
             lessons[newLessonIndex].lessonId = newLessonId
             adapter.updateLessonId(newLessonIndex, newLessonId)
             disableEditTextEditing(newLessonIndex)
+            onSuccess?.invoke(newLessonId)
         } else {
             Snackbar.make(requireView(), "Failed to add new lesson", Snackbar.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun navigateToAddContentFragment(chapterId: Int, lessonId: Int, lessonType: String) {
+        val bundle = Bundle().apply {
+            putInt("course_id", courseId)
+            putInt("chapter_id", chapterId)
+            putInt("lesson_id", lessonId)
+            putString("lesson_type", lessonType)
+        }
+        findNavController().navigate(R.id.action_addNewLessonFragment_to_addContentFragment, bundle)
     }
 
     private fun checkAllFieldsFilled(): Boolean {

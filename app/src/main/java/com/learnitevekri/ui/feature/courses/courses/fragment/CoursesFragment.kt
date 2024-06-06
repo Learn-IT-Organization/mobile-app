@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -26,6 +25,7 @@ class CoursesFragment : Fragment() {
     private val viewModel: CoursesViewModel by viewModels()
     private lateinit var binding: FragmentCoursesBinding
     private val courseUserId = SharedPreferences.getUserId()
+
     companion object {
         val TAG: String = CoursesFragment::class.java.simpleName
     }
@@ -33,7 +33,7 @@ class CoursesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentCoursesBinding.inflate(inflater, container, false)
 
@@ -74,7 +74,10 @@ class CoursesFragment : Fragment() {
                                 courseUserId.toString(),
                                 onEditClicked = { course ->
                                     val bundle = bundleOf("courseId" to course.course_id)
-                                    findNavController().navigate(R.id.action_CoursesFragment_to_EditCourseFragment, bundle)
+                                    findNavController().navigate(
+                                        R.id.action_CoursesFragment_to_EditCourseFragment,
+                                        bundle
+                                    )
                                 }
                             )
                             binding.coursesRecycleView.adapter = adapter
@@ -89,6 +92,7 @@ class CoursesFragment : Fragment() {
             }
         }
     }
+
     override fun onResume() {
         super.onResume()
         refreshCourses()

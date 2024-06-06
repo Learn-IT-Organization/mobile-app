@@ -16,4 +16,5 @@ interface ChaptersRepository {
     ): AddNewChapterResponseData
 
     suspend fun getChapterById(chapterId: Int): ChapterData
+
 }

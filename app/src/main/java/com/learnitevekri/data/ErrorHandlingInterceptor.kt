@@ -1,8 +1,6 @@
 package com.learnitevekri.data
 
 import android.util.Log
-import androidx.navigation.fragment.findNavController
-import com.learnitevekri.R
 import okhttp3.Interceptor
 import okhttp3.Response
 

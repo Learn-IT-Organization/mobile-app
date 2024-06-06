@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_CoursesFragment_to_EditCourseFragment"
             app:destination="@id/editCourseFragment" />
+        <action
+            android:id="@+id/action_coursesFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
     </fragment>
 
     <fragment
@@ -121,6 +124,12 @@
         android:id="@+id/editLessonFragment"
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.EditLessonFragment"
         android:label="EditLessonFragment">
+        <action
+            android:id="@+id/action_coursesFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
+        <action
+            android:id="@+id/action_coursesFragment_to_addQuestionFragment"
+            app:destination="@id/addQuestionFragment" />
     </fragment>
 
     <fragment
@@ -157,6 +166,9 @@
         <action
             android:id="@+id/action_addNewLessonFragment_to_addNewChapterFragment"
             app:destination="@id/addNewChapterFragment" />
+        <action
+            android:id="@+id/action_addNewLessonFragment_to_addContentFragment"
+            app:destination="@id/addContentFragment" />
     </fragment>
 
     <fragment
@@ -235,19 +247,19 @@
         android:id="@+id/noInternetFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.NoInternetFragment"
         android:label="NoInternetFragment"
-        tools:layout="@layout/fragment_no_internet"></fragment>
+        tools:layout="@layout/fragment_no_internet" />
 
     <fragment
         android:id="@+id/noConnectionFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.NoConnectionFragment"
         android:label="NoConnectionFragment"
-        tools:layout="@layout/fragment_no_connection"></fragment>
+        tools:layout="@layout/fragment_no_connection" />
 
     <fragment
         android:id="@+id/serverErrorFragment"
         android:name="com.learnitevekri.ui.feature.splash.fragment.ServerErrorFragment"
         android:label="ServerErrorFragment"
-        tools:layout="@layout/fragment_server_error"></fragment>
+        tools:layout="@layout/fragment_server_error" />
 
     <fragment
         android:id="@+id/editProfileFragment"
@@ -270,5 +282,25 @@
         android:name="com.learnitevekri.ui.feature.admin.fragment.AdminFragment"
         android:label="AdminFragment"
         tools:layout="@layout/fragment_admin" />
+
+    <fragment
+        android:id="@+id/addContentFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.AddContentFragment"
+        android:label="AddContentFragment"
+        tools:layout="@layout/fragment_add_content">
+        <action
+            android:id="@+id/action_addContentFragment_to_addQuestionFragment"
+            app:destination="@id/addQuestionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addQuestionFragment"
+        android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.AddQuestionFragment"
+        android:label="AddQuestionFragment"
+        tools:layout="@layout/fragment_add_question" >
+        <action
+            android:id="@+id/action_addQuestionFragment_to_coursesFragment"
+            app:destination="@id/coursesFragment" />
+    </fragment>
 
 </navigation>
