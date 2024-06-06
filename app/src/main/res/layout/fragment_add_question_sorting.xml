@@ -42,17 +42,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_group_1_title" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_group_1_items"
-            style="@style/subtitle_style"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/dimen_15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_group_1_item"
-            tools:listitem="@layout/item_sorting_item" />
-
         <Button
             android:id="@+id/btn_add_item_group_1"
             android:layout_width="wrap_content"
@@ -61,7 +50,18 @@
             android:fontFamily="@font/baloo"
             android:text="@string/add_item"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_group_1_items" />
+            app:layout_constraintTop_toBottomOf="@id/et_group_1_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_group_1_items"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_item_group_1"
+            tools:listitem="@layout/item_sorting_item" />
 
         <TextView
             android:id="@+id/tv_group_2"
@@ -99,18 +99,6 @@
             app:layout_constraintStart_toEndOf="@id/et_group_1_item"
             app:layout_constraintTop_toBottomOf="@id/et_group_2_title" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_group_2_items"
-            style="@style/subtitle_style"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/dimen_15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/rv_group_1_items"
-            app:layout_constraintTop_toBottomOf="@id/et_group_2_item"
-            tools:listitem="@layout/item_sorting_item" />
-
         <Button
             android:id="@+id/btn_add_item_group_2"
             android:layout_width="wrap_content"
@@ -120,7 +108,19 @@
             android:text="@string/add_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_add_item_group_1"
-            app:layout_constraintTop_toBottomOf="@id/rv_group_2_items" />
+            app:layout_constraintTop_toBottomOf="@id/et_group_2_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_group_2_items"
+            style="@style/subtitle_style"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rv_group_1_items"
+            app:layout_constraintTop_toBottomOf="@id/btn_add_item_group_2"
+            tools:listitem="@layout/item_sorting_item" />
 
         <Space
             android:id="@+id/space"
@@ -129,7 +129,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_add_item_group_1" />
+            app:layout_constraintTop_toBottomOf="@id/rv_group_1_items" />
 
         <Button
             android:id="@+id/editButton"

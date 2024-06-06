@@ -34,7 +34,7 @@ class AddQuestionFragment : Fragment() {
     ): View {
         binding = FragmentAddQuestionBinding.inflate(inflater, container, false)
 
-        courseId  = arguments?.getInt("course_id", -1) ?: -1
+        courseId = arguments?.getInt("course_id", -1) ?: -1
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
 
@@ -42,9 +42,10 @@ class AddQuestionFragment : Fragment() {
 
         viewPager = binding.viewPager
         questionTypeSpinner = binding.questionTypeSpinner
+        binding.progressBar.max = 10
 
         binding.escapeButton.setOnClickListener {
-
+            findNavController().navigateUp()
         }
 
         questionTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -75,7 +76,13 @@ class AddQuestionFragment : Fragment() {
     }
 
     private fun updateAdapter(selectedPosition: Int) {
-        adapter = AddQuestionPagerAdapter(requireActivity(), selectedPosition, lessonId, chapterId, courseId)
+        adapter = AddQuestionPagerAdapter(
+            requireActivity(),
+            selectedPosition,
+            lessonId,
+            chapterId,
+            courseId
+        )
         viewPager.adapter = adapter
     }
 
