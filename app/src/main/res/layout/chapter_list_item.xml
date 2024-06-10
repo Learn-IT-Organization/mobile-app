@@ -19,8 +19,22 @@
         android:text="@string/title"
         android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
-        app:layout_constraintEnd_toStartOf="@id/moreButton"
+        app:layout_constraintEnd_toStartOf="@id/btnDelete"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnDelete"
+        android:layout_width="@dimen/dimen_30dp"
+        android:layout_height="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_8dp"
+        android:src="@drawable/delete"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toStartOf="@id/btnEdit"
+        app:layout_constraintStart_toEndOf="@id/nameTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -30,10 +44,11 @@
         android:layout_marginTop="@dimen/dimen_16dp"
         android:layout_marginEnd="@dimen/dimen_16dp"
         android:src="@drawable/edit"
-        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintEnd_toStartOf="@id/moreButton"
-        app:layout_constraintStart_toEndOf="@id/nameTextView"
+        app:layout_constraintStart_toEndOf="@id/btnDelete"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -48,7 +63,7 @@
         android:src="@drawable/more"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nameTextView"
+        app:layout_constraintStart_toEndOf="@id/btnEdit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.mackhartley.roundedprogressbar.RoundedProgressBar

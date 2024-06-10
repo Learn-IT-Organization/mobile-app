@@ -9,6 +9,7 @@ import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.chapters.model.EditChapterData
 import com.learnitevekri.data.courses.course.repository.CourseRepositoryImpl
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.domain.course.ChaptersRepository
 
 object ChaptersRepositoryImpl : ChaptersRepository {
@@ -94,6 +95,21 @@ object ChaptersRepositoryImpl : ChaptersRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching chapter by ID: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun deleteChapter(chapterId: Int): DeleteResponseData {
+        try {
+            val response = apiService.deleteChapter(chapterId)
+            if (response.isSuccessful) {
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error deleting chapter: ${response.code()}")
+                throw RuntimeException("Failed to delete chapter")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting chapter: ${e.message}")
             throw e
         }
     }

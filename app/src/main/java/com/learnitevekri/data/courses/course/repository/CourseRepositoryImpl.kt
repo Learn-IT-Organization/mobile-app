@@ -6,6 +6,7 @@ import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.data.courses.course.model.EditCourseData
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.domain.course.CourseRepository
 
 object CourseRepositoryImpl : CourseRepository {
@@ -90,4 +91,21 @@ object CourseRepositoryImpl : CourseRepository {
             throw e
         }
     }
+
+    override suspend fun deleteCourse(courseId: Int): DeleteResponseData {
+        try {
+            val response = apiService.deleteCourse(courseId)
+            if (response.isSuccessful) {
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error deleting course: ${response.code()}")
+                throw RuntimeException("Failed to delete course")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting course: ${e.message}")
+            throw e
+        }
+    }
+
+
 }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class   LessonsViewModel : ViewModel() {
+class LessonsViewModel : ViewModel() {
     private val repository: LessonRepository = App.instance.getLessonRepository()
 
     private val mutableState = MutableStateFlow<LessonScreenState>(LessonScreenState.Loading)
@@ -60,17 +60,6 @@ class   LessonsViewModel : ViewModel() {
         }
     }
 
-    fun getLessonById(lessonId: Int) {
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            try {
-                val lesson = repository.getLessonById(lessonId)
-                Log.d(TAG, "Lesson: $lesson")
-            } catch (e: Exception) {
-                Log.e(TAG, "Error fetching lesson by id: ${e.message}")
-            }
-        }
-    }
-
     suspend fun addNewLesson(addNewLessonData: AddNewLessonData): Int? {
         return withContext(Dispatchers.IO) {
             try {
@@ -105,6 +94,18 @@ class   LessonsViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating lesson: ${e.message}")
                 throw e
+            }
+        }
+    }
+
+    fun deleteLesson(lessonId: Int) {
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    repository.deleteLesson(lessonId)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error deleting lesson: ${e.message}")
             }
         }
     }

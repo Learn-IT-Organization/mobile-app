@@ -6,6 +6,7 @@ import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
 import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.chapters.model.EditChapterData
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 
 interface ChaptersRepository {
     suspend fun getChaptersByCourseId(courseId: Int): List<ChapterWithLessonsData>
@@ -16,5 +17,7 @@ interface ChaptersRepository {
     ): AddNewChapterResponseData
 
     suspend fun getChapterById(chapterId: Int): ChapterData
+
+    suspend fun deleteChapter(chapterId: Int): DeleteResponseData
 
 }

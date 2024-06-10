@@ -4,6 +4,7 @@ import com.learnitevekri.data.courses.course.model.AddNewCourseData
 import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
 import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.data.courses.course.model.EditCourseData
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 
 interface CourseRepository {
     suspend fun getCourses(): List<CourseData>
@@ -11,4 +12,5 @@ interface CourseRepository {
     suspend fun addNewCourse(addNewCourseData: AddNewCourseData): Int?
     suspend fun editCourse(courseId: Int, editCourseData: EditCourseData): AddNewCourseResponseData
     suspend fun getCourseById(courseId: Int): CourseData
+    suspend fun deleteCourse(courseId: Int): DeleteResponseData
 }

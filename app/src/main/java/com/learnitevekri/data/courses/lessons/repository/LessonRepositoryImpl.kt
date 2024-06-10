@@ -5,6 +5,7 @@ import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
@@ -124,8 +125,8 @@ object LessonRepositoryImpl : LessonRepository {
     override suspend fun createLessonContent(lessonContentData: LessonContentData): Int? {
         try {
             val response = apiService.createLessonContent(lessonContentData)
-            if (response.isSuccessful && response.body() != null){
-                Log.d(TAG,"Lesson content id: ${response.body()?.contentId.toString()}")
+            if (response.isSuccessful && response.body() != null) {
+                Log.d(TAG, "Lesson content id: ${response.body()?.contentId.toString()}")
                 return response.body()?.contentId
             }
         } catch (e: Exception) {
@@ -150,6 +151,21 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error updating lesson: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun deleteLesson(lessonId: Int): DeleteResponseData {
+        try {
+            val response = apiService.deleteLesson(lessonId)
+            if (response.isSuccessful) {
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error deleting lesson: ${response.code()}")
+                throw RuntimeException("Failed to delete lesson")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting lesson: ${e.message}")
             throw e
         }
     }

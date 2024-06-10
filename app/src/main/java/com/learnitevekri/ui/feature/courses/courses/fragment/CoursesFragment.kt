@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.learnitevekri.R
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.databinding.FragmentCoursesBinding
@@ -78,11 +80,13 @@ class CoursesFragment : Fragment() {
                                         R.id.action_CoursesFragment_to_EditCourseFragment,
                                         bundle
                                     )
+                                },
+                                onDeleteClicked = { course ->
+                                    showDeleteConfirmationDialog(course.course_id)
                                 }
                             )
                             binding.coursesRecycleView.adapter = adapter
                         }
-
                         is CoursesViewModel.CoursesPageState.Failure -> {
                             Log.e(TAG, "Error loading courses: ${state.throwable}")
                             (activity as MainActivity?)?.errorHandling(state.throwable)
@@ -91,6 +95,18 @@ class CoursesFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun showDeleteConfirmationDialog(courseId: Int) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Course")
+        builder.setMessage("Are you sure you want to delete this course?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            viewModel.deleteCourse(courseId)
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     override fun onResume() {

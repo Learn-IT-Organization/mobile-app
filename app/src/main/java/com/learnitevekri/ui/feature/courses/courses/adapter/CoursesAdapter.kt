@@ -13,7 +13,8 @@ import com.learnitevekri.databinding.CourseListItemBinding
 class CoursesAdapter(
     private val courses: List<CourseData>,
     private val userId: String,
-    private val onEditClicked: (CourseData) -> Unit
+    private val onEditClicked: (CourseData) -> Unit,
+    private val onDeleteClicked: (CourseData) -> Unit
 ) :
     RecyclerView.Adapter<CoursesAdapter.CourseViewHolder>() {
 
@@ -31,6 +32,15 @@ class CoursesAdapter(
                     R.id.action_CoursesFragment_to_ChaptersFragment,
                     bundleOf(com.learnitevekri.data.ApiConstants.COURSE_ID to course.course_id)
                 )
+            }
+
+            if (course.course_user_id.toString() == userId) {
+                binding.btnDelete.visibility = View.VISIBLE
+                binding.btnDelete.setOnClickListener {
+                    onDeleteClicked(course)
+                }
+            } else {
+                binding.btnDelete.visibility = View.GONE
             }
 
             if (course.course_user_id.toString() == userId) {

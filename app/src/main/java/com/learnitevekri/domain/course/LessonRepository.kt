@@ -3,6 +3,7 @@ package com.learnitevekri.domain.course
 import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
@@ -23,4 +24,6 @@ interface LessonRepository {
         lessonContentId: Int,
         editLessonContentData: EditLessonContentData
     ): AddLessonContentResponseData
+
+    suspend fun deleteLesson(lessonId: Int): DeleteResponseData
 }
