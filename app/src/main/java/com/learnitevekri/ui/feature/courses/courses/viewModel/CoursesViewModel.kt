@@ -99,4 +99,22 @@ class CoursesViewModel : ViewModel() {
             }
         }
     }
+
+    fun deleteCourse(courseId: Int) {
+        viewModelScope.launch {
+            val isSuccess = try {
+                withContext(Dispatchers.IO) {
+                    repository.deleteCourse(courseId)
+                }
+                true
+            } catch (e: Exception) {
+                Log.e(TAG, "Error deleting course: ${e.message}")
+                false
+            }
+
+            if (isSuccess) {
+                loadCourses()
+            }
+        }
+    }
 }

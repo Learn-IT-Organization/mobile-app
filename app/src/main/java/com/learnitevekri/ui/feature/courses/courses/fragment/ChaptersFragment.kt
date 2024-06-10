@@ -94,6 +94,10 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                                     R.id.action_chaptersFragment_to_editChapterFragment,
                                     bundle
                                 )
+                            },
+                            onDeleteClicked = { chapter ->
+                                showDeleteConfirmationDialog(chapter.chapterId)
+                                viewModel.loadChapters(chapter.chapterCourseId)
                             }
                         )
                         binding.chaptersRecyclerView.adapter = adapter
@@ -190,6 +194,19 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         )
     }
 
+    override fun onDeleteClicked(lesson: LessonData) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Lesson")
+        builder.setMessage("Are you sure you want to delete this lesson?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            lessonViewModel.deleteLesson(lesson.lessonId)
+            refreshChapters()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.show()
+    }
+
+
     override fun onMoreLessonClick(chapterId: Int, lessonSize: Int) {
         Log.d(TAG, "Chapter ID: $chapterId")
         val bundle = Bundle().apply {
@@ -244,6 +261,20 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         val lastViewedPosition = layoutManager.findLastVisibleItemPosition()
         SharedPreferences.saveLastViewedPosition(lastViewedPosition)
         Log.d(TAG, "Last viewed position: $lastViewedPosition")
+    }
+
+
+    private fun showDeleteConfirmationDialog(chapterId: Int) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Chapter")
+        builder.setMessage("Are you sure you want to delete this chapter?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            viewModel.deleteChapter(chapterId)
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     override fun onResume() {

@@ -8,8 +8,6 @@ import com.learnitevekri.data.courses.chapters.model.AddNewChapterResponseData
 import com.learnitevekri.data.courses.chapters.model.ChapterData
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.chapters.model.EditChapterData
-import com.learnitevekri.data.courses.course.model.AddNewCourseResponseData
-import com.learnitevekri.data.courses.course.model.CourseData
 import com.learnitevekri.domain.course.ChaptersRepository
 import com.learnitevekri.ui.App
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -96,7 +94,8 @@ class ChaptersViewModel : ViewModel() {
             try {
                 val chaptersScreenState = mutableState.value
                 if (chaptersScreenState is ChaptersScreenState.Success) {
-                    val chapterExists = chaptersScreenState.chaptersData.any { it.chapter.chapterId == chapterId }
+                    val chapterExists =
+                        chaptersScreenState.chaptersData.any { it.chapter.chapterId == chapterId }
                     if (!chapterExists) {
                         throw IllegalArgumentException("Chapter not found")
                     }
@@ -111,4 +110,15 @@ class ChaptersViewModel : ViewModel() {
         }
     }
 
+    fun deleteChapter(chapterId: Int) {
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    repository.deleteChapter(chapterId)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error deleting chapter: ${e.message}")
+            }
+        }
+    }
 }

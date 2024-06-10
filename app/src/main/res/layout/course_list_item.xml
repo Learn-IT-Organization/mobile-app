@@ -22,16 +22,35 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
+        android:id="@+id/btnDelete"
+        android:layout_width="@dimen/dimen_25dp"
+        android:layout_height="@dimen/dimen_25dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/delete_white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />
+
+    <ImageView
         android:id="@+id/btnEdit"
         android:layout_width="@dimen/dimen_25dp"
         android:layout_height="@dimen/dimen_25dp"
         android:layout_marginStart="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/dimen_10dp"
         android:layout_marginEnd="@dimen/dimen_10dp"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/edit_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/btnDelete"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />
+
 
     <TextView
         android:id="@+id/nameTextView"

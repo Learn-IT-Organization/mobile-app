@@ -21,8 +21,10 @@ class ChaptersAdapter(
     private val lessonProgressList: List<LessonProgressData>,
     private val onChapterItemClickListener: OnItemClickListener,
     private val userId: String,
-    private val onEditClicked: (ChapterData) -> Unit
-) :
+    private val onEditClicked: (ChapterData) -> Unit,
+    private val onDeleteClicked: (ChapterData) -> Unit,
+
+    ) :
     RecyclerView.Adapter<ChaptersAdapter.ChaptersViewHolder>() {
 
     companion object {
@@ -78,6 +80,15 @@ class ChaptersAdapter(
             } else {
                 binding.btnEdit.visibility = View.GONE
             }
+
+            if (chapter.chapter.chapterUserId.toString() == userId) {
+                binding.btnDelete.visibility = View.VISIBLE
+                binding.btnDelete.setOnClickListener {
+                    onDeleteClicked(chapter.chapter)
+                }
+            } else {
+                binding.btnDelete.visibility = View.GONE
+            }
         }
     }
 
@@ -85,6 +96,7 @@ class ChaptersAdapter(
         fun onQuizClick(lesson: LessonData, lessonProgressData: List<LessonProgressData>)
         fun onTheoryClick(lesson: LessonData)
         fun onEditLessonClick(lesson: LessonData)
+        fun onDeleteClicked(lesson: LessonData)
         fun onMoreLessonClick(chapterId: Int, lessonSize: Int)
     }
 

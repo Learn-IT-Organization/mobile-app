@@ -72,6 +72,23 @@ class LessonsAdapter(
             } else {
                 binding.btnEdit.visibility = View.GONE
             }
+            if (lesson.lessonUserId.toString() == userId) {
+                binding.btnEdit.visibility = View.VISIBLE
+                binding.btnEdit.setOnClickListener{
+                    onLessonItemClickListener.onEditLessonClick(lesson)
+                }
+            } else {
+                binding.btnEdit.visibility = View.GONE
+            }
+
+            if (lesson.lessonUserId.toString() == userId) {
+                binding.btnDelete.visibility = View.VISIBLE
+                binding.btnDelete.setOnClickListener{
+                    onLessonItemClickListener.onDeleteClicked(lesson)
+                }
+            } else {
+                binding.btnDelete.visibility = View.GONE
+            }
         }
     }
 

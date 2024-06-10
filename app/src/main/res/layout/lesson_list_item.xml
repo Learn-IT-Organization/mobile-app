@@ -31,8 +31,18 @@
         android:layout_height="@dimen/dimen_30dp"
         android:layout_marginTop="@dimen/dimen_12dp"
         android:layout_marginEnd="@dimen/dimen_12dp"
-        android:visibility="gone"
         android:src="@drawable/edit_white"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete" />
+
+    <ImageView
+        android:id="@+id/btnDelete"
+        android:layout_width="@dimen/dimen_30dp"
+        android:layout_height="@dimen/dimen_30dp"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginEnd="@dimen/dimen_12dp"
+        android:src="@drawable/delete_white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

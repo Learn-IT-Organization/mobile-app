@@ -49,6 +49,7 @@ import com.learnitevekri.data.user.teacher.model.TeacherRequestInfo
 import com.learnitevekri.data.user.teacher.model.TeacherRequestResponseData
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -199,4 +200,10 @@ interface ApiService {
     @GET("/chapter/{chapterId}")
     suspend fun getChapterById(@Path("chapterId") chapterId: Int): Response<ChapterData>
 
+    @DELETE("/course/{courseId}")
+    suspend fun deleteCourse(@Path("courseId") courseId: Int): Response<DeleteResponseData>
+    @DELETE("/chapter/{chapterId}")
+    suspend fun deleteChapter(@Path("chapterId") chapterId: Int): Response<DeleteResponseData>
+    @DELETE("/lesson/{lessonId}")
+    suspend fun deleteLesson(@Path("lessonId") lessonId: Int): Response<DeleteResponseData>
 }
