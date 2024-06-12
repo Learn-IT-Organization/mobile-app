@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.quiz.model.AddMatchingAnswer
 import com.learnitevekri.data.courses.quiz.model.AddMatchingQuestionData
 import com.learnitevekri.databinding.FragmentAddQuestionMatchingBinding
@@ -22,6 +23,7 @@ class AddQuestionMatching : Fragment() {
     private lateinit var adapter: MatchingPairsAdapter
     private val pairsList = mutableListOf<Pair<String, String>>()
     private val viewModel: SharedQuizViewModel by activityViewModels()
+    private var userId = 1
     private val maxPairs = 4
     private var courseId: Int = -1
     private var chapterId: Int = -1
@@ -35,7 +37,7 @@ class AddQuestionMatching : Fragment() {
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
         courseId = arguments?.getInt("course_id", -1) ?: -1
-
+        userId = SharedPreferences.getUserId().toInt()
         return binding.root
     }
 
@@ -70,7 +72,8 @@ class AddQuestionMatching : Fragment() {
             questionType = "matching",
             answers = answers,
             chapterId,
-            courseId
+            courseId,
+            userId
         )
 
         Log.d(TAG, "saveData: $questionData")

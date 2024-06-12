@@ -113,7 +113,6 @@ class AddLessonContentAdapter(
 
             binding.ivSaveEditContent.setOnClickListener {
                 val editedContent = EditLessonContentData(
-                    contents[adapterPosition].contentType,
                     contents[adapterPosition].url,
                     contents[adapterPosition].contentTitle,
                     contents[adapterPosition].contentDescription,

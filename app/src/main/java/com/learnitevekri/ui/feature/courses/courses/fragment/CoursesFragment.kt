@@ -14,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.learnitevekri.R
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.databinding.FragmentCoursesBinding
@@ -87,6 +86,7 @@ class CoursesFragment : Fragment() {
                             )
                             binding.coursesRecycleView.adapter = adapter
                         }
+
                         is CoursesViewModel.CoursesPageState.Failure -> {
                             Log.e(TAG, "Error loading courses: ${state.throwable}")
                             (activity as MainActivity?)?.errorHandling(state.throwable)
@@ -96,6 +96,7 @@ class CoursesFragment : Fragment() {
             }
         }
     }
+
     private fun showDeleteConfirmationDialog(courseId: Int) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Course")

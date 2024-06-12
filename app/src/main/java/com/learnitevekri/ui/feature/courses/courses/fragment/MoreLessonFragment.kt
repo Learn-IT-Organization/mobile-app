@@ -28,9 +28,11 @@ class MoreLessonFragment : Fragment() {
     private val viewModel: LessonsViewModel by viewModels()
     private lateinit var binding: FragmentMoreLessonBinding
     private val userId = SharedPreferences.getUserId()
+    private var courseId = 1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMoreLessonBinding.inflate(inflater, container, false)
         return binding.root
@@ -38,10 +40,12 @@ class MoreLessonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val chapterId = arguments?.getInt("chapterId")
+        val chapterId = arguments?.getInt("chapter_id")
         val lessonSize = arguments?.getInt("lessonSize")
+        courseId = arguments?.getInt("course_id") ?: 1
         Log.d(TAG, "Chapter ID: $chapterId")
         Log.d(TAG, "Lesson Size: $lessonSize")
+        Log.d(TAG, "Course ID: $courseId")
         val nextLessonSequenceNumber = lessonSize?.plus(1)
         setupSpinner()
         setupCharacterCount()
@@ -62,9 +66,20 @@ class MoreLessonFragment : Fragment() {
                 if (lessonId != null) {
                     Snackbar.make(requireView(), "Lesson added successfully", Snackbar.LENGTH_SHORT)
                         .show()
-                    findNavController().popBackStack()
-                }
-                else{
+                    if (binding.spinnerLessonType.selectedItem.toString() == "exercise") {
+                        val bundle = Bundle().apply {
+                            putInt("course_id", courseId)
+                            putInt("chapter_id", chapterId)
+                            putInt("lesson_id", lessonId)
+                        }
+                        findNavController().navigate(
+                            com.learnitevekri.R.id.action_moreLessonFragment_to_addQuestionFragment,
+                            bundle
+                        )
+                    } else {
+                        findNavController().popBackStack()
+                    }
+                } else {
                     Snackbar.make(requireView(), "Failed to add lesson", Snackbar.LENGTH_SHORT)
                         .show()
                 }
@@ -78,7 +93,7 @@ class MoreLessonFragment : Fragment() {
     private fun setupSpinner() {
         val lessonTypes = listOf("theory", "exercise")
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, lessonTypes)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spinnerLessonType.adapter = adapter
     }
 
@@ -103,4 +118,3 @@ class MoreLessonFragment : Fragment() {
     }
 
 }
-

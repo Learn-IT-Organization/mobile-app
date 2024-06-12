@@ -92,20 +92,4 @@ object QuestionsAnswersRepositoryImpl : QuestionsAnswersRepository {
         }
         return null!!
     }
-
-    override suspend fun <T> editQuestionAnswer(
-        questionId: Int,
-        editQuestionAnswerData: EditQuestionAnswerData<T>,
-    ): AddQuestionAnswerResponseData {
-        try {
-            val response = apiService.editQuestionAnswer(questionId, editQuestionAnswerData)
-            if (response.isSuccessful) {
-                return response.body()!!
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error editing question and answer: ${e.message}")
-            throw e
-        }
-        return null!!
-    }
 }

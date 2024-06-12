@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class EditLessonContentData(
-    @SerializedName("content_type")
-    var contentType: String,
     @SerializedName("url")
     var url: String,
     @SerializedName("content_title")

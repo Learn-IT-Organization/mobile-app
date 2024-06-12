@@ -7,4 +7,7 @@ interface TheoryAdapterListener {
 
     fun onBackToQuizClick()
 
+    fun onDeleteContentClick(contentId: Int)
+
+    fun onEditContentClick(contentId: Int)
 }

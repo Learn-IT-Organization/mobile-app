@@ -13,6 +13,7 @@ import com.learnitevekri.data.courses.course.model.EditCourseData
 import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.lessons.model.DeleteContentResponse
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
@@ -202,8 +203,15 @@ interface ApiService {
 
     @DELETE("/course/{courseId}")
     suspend fun deleteCourse(@Path("courseId") courseId: Int): Response<DeleteResponseData>
+
     @DELETE("/chapter/{chapterId}")
     suspend fun deleteChapter(@Path("chapterId") chapterId: Int): Response<DeleteResponseData>
+
     @DELETE("/lesson/{lessonId}")
     suspend fun deleteLesson(@Path("lessonId") lessonId: Int): Response<DeleteResponseData>
+
+    @DELETE("/lessonContent/{contentId}")
+    suspend fun deleteLessonContent(@Path("contentId") contentId: Int): Response<DeleteContentResponse>
+
+
 }

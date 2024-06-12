@@ -9,5 +9,6 @@ data class LessonContentData(
     @SerializedName("url") var url: String,
     @SerializedName("content_lesson_id") val contentLessonId: Int,
     @SerializedName("content_title") var contentTitle: String,
-    @SerializedName("content_description") var contentDescription: String
+    @SerializedName("content_description") var contentDescription: String,
+    @SerializedName("content_user_id") var contentUserId: Int
 ) : Serializable

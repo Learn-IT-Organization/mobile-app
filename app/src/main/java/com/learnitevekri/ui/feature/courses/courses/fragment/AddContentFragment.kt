@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.learnitevekri.R
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.LessonContentData
 import com.learnitevekri.databinding.FragmentAddContentBinding
@@ -31,6 +32,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
     private var chapterId = -1
     private var courseId = -1
     private var lessonType: String? = null
+    private var userId = -1
 
     companion object {
         val TAG: String = AddContentFragment::class.java.simpleName
@@ -40,6 +42,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddContentBinding.inflate(inflater, container, false)
+        userId = SharedPreferences.getUserId().toInt()
         return binding.root
     }
 
@@ -83,7 +86,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
     }
 
     private fun setupEmptyContent() {
-        contents.add(LessonContentData(0, "", "", 0, "", ""))
+        contents.add(LessonContentData(0, "", "", 0, "", "", 0))
     }
 
     private fun setupRecyclerView() {
@@ -110,7 +113,7 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
             if (checkAllFieldsFilled()) {
                 lifecycleScope.launch {
                     performAddOperation()
-                    contents.add(LessonContentData(0, "", "", 0, "", ""))
+                    contents.add(LessonContentData(0, "", "", 0, "", "", 0))
                     adapter.notifyItemInserted(contents.size - 1)
                     binding.rvAddContent.scrollToPosition(contents.size - 1)
                     checkAllFieldsFilled()
@@ -154,7 +157,8 @@ class AddContentFragment : Fragment(), LessonContentClickListener {
             contentUrl,
             220,
             contentTitle,
-            contentDescription
+            contentDescription,
+            userId
         )
         val newContentIndex = contents.size - 1
         contents[newContentIndex] = newContentData
