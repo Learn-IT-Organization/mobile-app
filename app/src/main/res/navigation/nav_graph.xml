@@ -203,7 +203,11 @@
         android:id="@+id/moreLessonFragment"
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.MoreLessonFragment"
         android:label="MoreLessonFragment"
-        tools:layout="@layout/fragment_more_lesson" />
+        tools:layout="@layout/fragment_more_lesson">
+        <action
+            android:id="@+id/action_moreLessonFragment_to_addQuestionFragment"
+            app:destination="@id/addQuestionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/trueFalseQuizFragment"
@@ -235,7 +239,14 @@
         android:id="@+id/theoryFragment"
         android:name="com.learnitevekri.ui.feature.courses.courses.fragment.TheoryFragment"
         android:label="TheoryFragment"
-        tools:layout="@layout/fragment_theory" />
+        tools:layout="@layout/fragment_theory" >
+        <action
+            android:id="@+id/action_theoryFragment_to_simpleAddContentFragment"
+            app:destination="@id/simpleAddContentFragment" />
+        <action
+            android:id="@+id/action_theoryFragment_to_simpleEditContentFragment"
+            app:destination="@id/simpleEditContentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/userAnswerFragment"
@@ -297,10 +308,22 @@
         android:id="@+id/addQuestionFragment"
         android:name="com.learnitevekri.ui.feature.courses.quiz.fragment.AddQuestionFragment"
         android:label="AddQuestionFragment"
-        tools:layout="@layout/fragment_add_question" >
+        tools:layout="@layout/fragment_add_question">
         <action
             android:id="@+id/action_addQuestionFragment_to_coursesFragment"
             app:destination="@id/coursesFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/simpleAddContentFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.SimpleAddContentFragment"
+        android:label="SimpleAddContentFragment"
+        tools:layout="@layout/fragment_simple_add_content"/>
+
+    <fragment android:id="@+id/simpleEditContentFragment"
+        android:name="com.learnitevekri.ui.feature.courses.courses.fragment.SimpleEditContentFragment"
+        android:label="SimpleEditContentFragment"
+        tools:layout="@layout/fragment_simple_edit_content"/>
+
 
 </navigation>

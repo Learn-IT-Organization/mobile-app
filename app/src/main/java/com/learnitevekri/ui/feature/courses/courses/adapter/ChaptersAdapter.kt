@@ -23,8 +23,8 @@ class ChaptersAdapter(
     private val userId: String,
     private val onEditClicked: (ChapterData) -> Unit,
     private val onDeleteClicked: (ChapterData) -> Unit,
-
-    ) :
+    private val courseId: Int,
+) :
     RecyclerView.Adapter<ChaptersAdapter.ChaptersViewHolder>() {
 
     companion object {
@@ -34,7 +34,7 @@ class ChaptersAdapter(
     inner class ChaptersViewHolder(
         val binding: ChapterListItemBinding,
         private var lessonProgressList: List<LessonProgressData>,
-        private val listener: OnItemClickListener
+        private val listener: OnItemClickListener,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -72,7 +72,11 @@ class ChaptersAdapter(
                 binding.addLessonButton.visibility = View.VISIBLE
                 binding.addLessonButton.setOnClickListener {
                     Log.d(TAG, "Chapter lessons size: ${chapter.lessons.size}")
-                    onChapterItemClickListener.onMoreLessonClick(chapter.chapter.chapterId, chapter.lessons.size)
+                    onChapterItemClickListener.onMoreLessonClick(
+                        chapter.chapter.chapterId,
+                        chapter.lessons.size,
+                        chapter.chapter.chapterCourseId
+                    )
                 }
                 binding.btnEdit.setOnClickListener {
                     onEditClicked(chapter.chapter)
@@ -94,10 +98,10 @@ class ChaptersAdapter(
 
     interface OnItemClickListener {
         fun onQuizClick(lesson: LessonData, lessonProgressData: List<LessonProgressData>)
-        fun onTheoryClick(lesson: LessonData)
+        fun onTheoryClick(lesson: LessonData, chapterCourseId: Int)
         fun onEditLessonClick(lesson: LessonData)
         fun onDeleteClicked(lesson: LessonData)
-        fun onMoreLessonClick(chapterId: Int, lessonSize: Int)
+        fun onMoreLessonClick(chapterId: Int, lessonSize: Int, chapterCourseId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChaptersViewHolder {
@@ -118,7 +122,8 @@ class ChaptersAdapter(
             lessonProgressList,
             onChapterItemClickListener,
             isPreviousChapterCompleted,
-            userId
+            userId,
+            courseId
         )
         holder.binding.lessonsRecycleView.adapter = lessonsAdapter
     }

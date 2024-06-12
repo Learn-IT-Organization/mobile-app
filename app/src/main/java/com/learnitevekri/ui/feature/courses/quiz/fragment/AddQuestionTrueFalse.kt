@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.learnitevekri.R
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceAnswer
 import com.learnitevekri.data.courses.quiz.model.AddTrueFalseQuestionData
 import com.learnitevekri.databinding.FragmentAddQuestionTrueFalseBinding
@@ -23,7 +24,7 @@ class AddQuestionTrueFalse : Fragment() {
     private var lessonId: Int = -1
     private var chapterId: Int = -1
     private var courseId: Int = -1
-
+    private var userId = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +38,7 @@ class AddQuestionTrueFalse : Fragment() {
         Log.d(
             TAG, "Course ID, Chapter ID, Lesson ID: $courseId, $chapterId, $lessonId"
         )
+        userId = SharedPreferences.getUserId().toInt()
         return binding.root
     }
 
@@ -83,7 +85,8 @@ class AddQuestionTrueFalse : Fragment() {
                 AddMultipleChoiceAnswer(isCorrect = !userSelection, optionText = "False")
             ),
             qaChapterId = chapterId,
-            qaCourseId = courseId
+            qaCourseId = courseId,
+            userId
         )
 
         viewModel.addQuestionAnswerTrueFalse(trueFalseQuestionData)

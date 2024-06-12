@@ -5,6 +5,7 @@ import com.learnitevekri.data.RetrofitAdapter
 import com.learnitevekri.data.courses.lessons.model.AddLessonContentResponseData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonData
 import com.learnitevekri.data.courses.lessons.model.AddNewLessonResponseData
+import com.learnitevekri.data.courses.lessons.model.DeleteContentResponse
 import com.learnitevekri.data.courses.lessons.model.DeleteResponseData
 import com.learnitevekri.data.courses.lessons.model.EditLessonContentData
 import com.learnitevekri.data.courses.lessons.model.EditLessonData
@@ -166,6 +167,21 @@ object LessonRepositoryImpl : LessonRepository {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error deleting lesson: ${e.message}")
+            throw e
+        }
+    }
+
+    override suspend fun deleteLessonContent(lessonContentId: Int): DeleteContentResponse {
+        try {
+            val response = apiService.deleteLessonContent(lessonContentId)
+            if (response.isSuccessful) {
+                return response.body()!!
+            } else {
+                Log.e(TAG, "Error deleting lesson content: ${response.code()}")
+                throw RuntimeException("Failed to delete lesson content")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting lesson content: ${e.message}")
             throw e
         }
     }

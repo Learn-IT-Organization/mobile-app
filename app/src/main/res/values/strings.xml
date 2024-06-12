@@ -168,4 +168,8 @@
     <string name="content_number">Content number</string>
     <string name="save_and_add_another">Save and add another</string>
     <string name="save_and_back_to_lessons">Save and back to lessons</string>
+    <string name="edit_content">Edit Content</string>
+    <string name="enter_url">Enter URL</string>
+    <string name="enter_title">Enter Title</string>
+    <string name="enter_description">Enter Description</string>
 </resources>

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.lessons.model.LessonData
 import com.learnitevekri.databinding.FragmentTheoryBinding
 import com.learnitevekri.ui.activities.MainActivity
@@ -25,16 +25,17 @@ import kotlinx.coroutines.launch
 class TheoryFragment : Fragment(), TheoryAdapterListener {
     private val viewModel: TheoryViewModel by viewModels()
     private lateinit var binding: FragmentTheoryBinding
-    private var currentLesson: LessonData ?= null
+    private var currentLesson: LessonData? = null
+    private var courseId = 1
+    private var chapterId = 1
 
     companion object {
         val TAG: String = TheoryFragment::class.java.simpleName
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentTheoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,11 +46,23 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
         observeState()
         observeState2()
         val lessonId = arguments?.getInt(ARG_LESSON_ID, -1) ?: -1
-        Log.d(TAG, "lessonId: $lessonId")
+        courseId = arguments?.getInt("course_id", -1) ?: -1
+        chapterId = arguments?.getInt("chapter_id", -1) ?: -1
+        Log.d(TAG, "courseId: $courseId, chapterId: $chapterId, lessonId: $lessonId")
         viewModel.loadLessonContents(lessonId)
         viewModel.loadLessonById(lessonId)
+
         binding.imageViewBack.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        binding.addContentButton.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("course_id", courseId)
+                putInt("chapter_id", chapterId)
+                putInt("lesson_id", lessonId)
+            }
+            findNavController().navigate(R.id.action_theoryFragment_to_simpleAddContentFragment, bundle)
         }
     }
 
@@ -65,7 +78,11 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
                         is TheoryViewModel.TheoryPageState.Success -> {
                             Log.d(TAG, "Lesson contents loaded")
                             val adapter =
-                                TheoryAdapter(state.lessonContentData, this@TheoryFragment)
+                                TheoryAdapter(
+                                    state.lessonContentData,
+                                    this@TheoryFragment,
+                                    SharedPreferences.getUserId().toInt()
+                                )
                             binding.contentsRecyclerView.adapter = adapter
                         }
 
@@ -93,6 +110,18 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
                             Log.d(TAG, "Lesson by id loaded")
                             currentLesson = state2.lessonData!!
                             Log.d(TAG, "lesson: $currentLesson")
+                            Log.d(TAG, "lessonUserId: ${currentLesson?.lessonUserId}")
+                            Log.d(
+                                TAG,
+                                "SharedPreferences.getUserId(): ${SharedPreferences.getUserId()}"
+                            )
+                            if (currentLesson?.lessonUserId == SharedPreferences.getUserId()
+                                    .toInt()
+                            ) {
+                                binding.addContentButton.visibility = View.VISIBLE
+                            } else {
+                                binding.addContentButton.visibility = View.GONE
+                            }
                         }
 
                         is TheoryViewModel.TheoryPageStateForLesson.Failure -> {
@@ -114,5 +143,16 @@ class TheoryFragment : Fragment(), TheoryAdapterListener {
 
     override fun onBackToQuizClick() {
         parentFragmentManager.popBackStack()
+    }
+
+    override fun onDeleteContentClick(contentId: Int) {
+        viewModel.deleteContent(contentId)
+    }
+
+    override fun onEditContentClick(contentId: Int) {
+        val bundle = Bundle().apply {
+            putInt("content_id", contentId)
+        }
+        findNavController().navigate(R.id.action_theoryFragment_to_simpleEditContentFragment, bundle)
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceAnswer
 import com.learnitevekri.data.courses.quiz.model.AddMultipleChoiceQuestionData
 import com.learnitevekri.databinding.FragmentAddQuestionMultipleChoiceBinding
@@ -18,6 +19,7 @@ class AddQuestionMultipleChoice : Fragment() {
     private var courseId: Int = -1
     private lateinit var binding: FragmentAddQuestionMultipleChoiceBinding
     private val viewModel: SharedQuizViewModel by activityViewModels()
+    private var userId = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,7 @@ class AddQuestionMultipleChoice : Fragment() {
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
         courseId = arguments?.getInt("course_id", -1) ?: -1
+        userId = SharedPreferences.getUserId().toInt()
         return binding.root
     }
 
@@ -127,7 +130,8 @@ class AddQuestionMultipleChoice : Fragment() {
             questionType = "multiple_choice",
             answers = answers,
             qaChapterId = chapterId,
-            qaCourseId = courseId
+            qaCourseId = courseId,
+            userId
         )
 
         viewModel.addQuestionAnswerMultipleChoice(questionData)

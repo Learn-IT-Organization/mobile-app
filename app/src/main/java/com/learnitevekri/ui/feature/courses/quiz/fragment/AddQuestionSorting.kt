@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.quiz.model.AddSortingAnswer
 import com.learnitevekri.data.courses.quiz.model.AddSortingQuestionData
 import com.learnitevekri.databinding.FragmentAddQuestionSortingBinding
@@ -20,6 +21,7 @@ class AddQuestionSorting : Fragment() {
     private var lessonId: Int = -1
     private var chapterId: Int = -1
     private var courseId: Int = -1
+    private var userId = 1
 
     private lateinit var group1ItemsAdapter: SortingItemAdapter
     private lateinit var group2ItemsAdapter: SortingItemAdapter
@@ -33,6 +35,7 @@ class AddQuestionSorting : Fragment() {
         lessonId = arguments?.getInt("lesson_id", -1) ?: -1
         chapterId = arguments?.getInt("chapter_id", -1) ?: -1
         courseId = arguments?.getInt("course_id", -1) ?: -1
+        userId = SharedPreferences.getUserId().toInt()
         return binding.root
     }
 
@@ -104,7 +107,8 @@ class AddQuestionSorting : Fragment() {
             questionType = "sorting",
             answers = sortingAnswers,
             qaChapterId = chapterId,
-            qaCourseId = courseId
+            qaCourseId = courseId,
+            userId
         )
 
         viewModel.addQuestionAnswerSorting(sortingQuestionData)

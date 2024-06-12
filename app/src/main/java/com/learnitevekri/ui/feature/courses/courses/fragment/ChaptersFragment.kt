@@ -19,6 +19,7 @@ import com.learnitevekri.R
 import com.learnitevekri.data.ApiConstants.ARG_CHAPTER_ID
 import com.learnitevekri.data.ApiConstants.ARG_COURSE_ID
 import com.learnitevekri.data.ApiConstants.ARG_LESSON_ID
+import com.learnitevekri.data.ApiConstants.COURSE_ID
 import com.learnitevekri.data.SharedPreferences
 import com.learnitevekri.data.courses.chapters.model.ChapterWithLessonsData
 import com.learnitevekri.data.courses.lessons.model.LessonData
@@ -45,10 +46,12 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
     private lateinit var chaptersList: List<ChapterWithLessonsData>
     private lateinit var progressBar: ProgressBar
 
+    private var courseId: Int = -1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentChaptersBinding.inflate(inflater, container, false)
         binding.imageViewBack.setOnClickListener {
@@ -60,7 +63,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val courseId = arguments?.getInt(ARG_COURSE_ID, -1) ?: -1
+        courseId = arguments?.getInt(COURSE_ID, -1) ?: -1
         viewModel.loadChapters(courseId)
         lessonViewModel.loadLessonResult()
         observeLessonResult()
@@ -98,7 +101,8 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
                             onDeleteClicked = { chapter ->
                                 showDeleteConfirmationDialog(chapter.chapterId)
                                 viewModel.loadChapters(chapter.chapterCourseId)
-                            }
+                            },
+                            courseId
                         )
                         binding.chaptersRecyclerView.adapter = adapter
                     }
@@ -141,7 +145,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     override fun onQuizClick(
         lesson: LessonData,
-        lessonProgressData: List<LessonProgressData>
+        lessonProgressData: List<LessonProgressData>,
     ) {
         val progress = lessonProgressData.find { it.lessonId == lesson.lessonId }
 
@@ -163,6 +167,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
             } else {
                 val bundle = Bundle().apply {
                     putInt(ARG_LESSON_ID, lesson.lessonId)
+                    putInt("chapter_id", lesson.lessonChapterId)
                 }
                 findNavController().navigate(
                     R.id.action_chaptersFragment_to_theoryFragment,
@@ -172,10 +177,12 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
         }
     }
 
-    override fun onTheoryClick(lesson: LessonData) {
+    override fun onTheoryClick(lesson: LessonData, chapterCourseId: Int) {
 
         val bundle = Bundle().apply {
             putInt(ARG_LESSON_ID, lesson.lessonId)
+            putInt("chapter_id", lesson.lessonChapterId)
+            putInt("course_id", chapterCourseId)
         }
 
         findNavController().navigate(
@@ -207,11 +214,12 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
     }
 
 
-    override fun onMoreLessonClick(chapterId: Int, lessonSize: Int) {
+    override fun onMoreLessonClick(chapterId: Int, lessonSize: Int, chapterCourseId: Int) {
         Log.d(TAG, "Chapter ID: $chapterId")
         val bundle = Bundle().apply {
-            putInt("chapterId", chapterId)
+            putInt("chapter_id", chapterId)
             putInt("lessonSize", lessonSize)
+            putInt("course_id", chapterCourseId)
         }
         findNavController().navigate(
             R.id.action_chaptersFragment_to_MoreLessonFragment,
@@ -221,7 +229,7 @@ class ChaptersFragment : Fragment(), ChaptersAdapter.OnItemClickListener {
 
     private fun showDialogLessonCompleted(
         lesson: LessonData,
-        lessonProgressData: List<LessonProgressData>
+        lessonProgressData: List<LessonProgressData>,
     ) {
         val inflater = LayoutInflater.from(requireContext())
         val view = DialogLessonCompletedBinding.inflate(inflater).root
